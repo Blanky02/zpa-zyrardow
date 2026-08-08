@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>ŻPA Żyrardów - Rozkład Jazdy Live v2</title>
+<meta name="theme-color" content="#059669">
+<link rel="manifest" href="./manifest.json">
+<link rel="apple-touch-icon" href="./icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ŻPA Live">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>
+tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Geist','system-ui'],mono:['Geist Mono','monospace']}}}}
+</script>
+<style>
+*{-webkit-tap-highlight-color:transparent}
+::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:99px}
+.dark ::-webkit-scrollbar-thumb{background:#334155}
+.glass{backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+@keyframes slideDown{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}
+.toast{animation:slideDown 0.4s ease}
+</style>
+</head>
+<body class="bg-[#F6F7F9] dark:bg-[#0A0E14] text-zinc-900 dark:text-zinc-100 font-sans antialiased min-h-screen">
+<!-- NEW DATA BANNER -->
+<div id="newDataBanner" class="hidden sticky top-0 z-[100] bg-emerald-600 text-white text-sm px-4 py-2.5 flex items-center justify-between gap-3 toast">
+  <span class="flex items-center gap-2"><span class="w-2 h-2 bg-white rounded-full animate-pulse"></span><strong>Nowy rozkład!</strong> Wykryto zmianę na stronie ZPA/PKS. Dane zostały zaktualizowane.</span>
+  <button onclick="this.parentElement.classList.add('hidden')" class="px-3 py-1 rounded-full bg-white/20 hover:bg-white/30 text-xs font-semibold">Zamknij ✕</button>
+</div>
+
+<!-- PWA INSTALL BANNER - Android -->
+<div id="installBanner" class="hidden sticky top-0 z-[90] bg-zinc-900 dark:bg-black text-white text-sm px-4 py-3 flex items-center justify-between gap-3 border-b border-white/10">
+  <div class="flex items-center gap-3">
+    <img src="./icons/icon-192.png" class="w-9 h-9 rounded-xl bg-white p-1">
+    <div class="leading-tight">
+      <div class="font-bold text-[13px]">Zainstaluj ŻPA Żyrardów</div>
+      <div class="text-[11px] text-white/60">Działa offline • szybki dostęp z pulpitu • PWA</div>
+    </div>
+  </div>
+  <div class="flex items-center gap-2">
+    <button id="installBtn" class="px-4 py-1.5 rounded-full bg-emerald-500 text-white text-xs font-bold hover:bg-emerald-600">Zainstaluj</button>
+    <button onclick="this.closest('#installBanner').classList.add('hidden'); localStorage.setItem('zpa_install_dismissed','1')" class="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center">✕</button>
+  </div>
+</div>
+
+<header class="sticky top-0 z-50 border-b border-zinc-200/80 dark:border-zinc-800/80 bg-white/80 dark:bg-zinc-900/80 glass">
+  <div class="max-w-[1440px] mx-auto px-4 md:px-6 h-[64px] md:h-[70px] flex items-center justify-between gap-3">
+    <div class="flex items-center gap-3 md:gap-5">
+      <div class="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-white font-bold text-[17px] shadow-[0_4px_16px_rgba(16,185,129,0.3)]">Ż</div>
+      <div class="leading-[1.05]">
+        <div class="font-bold text-[15px] md:text-[17px] tracking-tight">ŻPA ŻYRARDÓW <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500 text-white font-bold align-middle ml-1">v2 AUTO</span></div>
+        <div class="text-[10px] font-semibold tracking-widest text-zinc-500 uppercase flex items-center gap-1.5"><span id="dataStatus" class="inline-flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-zinc-300 animate-pulse"></span>Ładowanie...</span></div>
+      </div>
+      <div class="hidden lg:flex items-center gap-2 ml-6 pl-6 border-l border-zinc-200 dark:border-zinc-800">
+        <span id="metaVersion" class="text-[10px] px-2 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border dark:border-zinc-700 font-mono">v2</span>
+        <button id="refreshBtn" class="text-xs px-3 py-1 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-semibold hover:opacity-90">⟳ Odśwież rozkład</button>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <div class="hidden md:flex items-center gap-3 px-3 py-1.5 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900">
+        <span id="liveClock" class="font-mono font-semibold text-[13px]">--:--:--</span>
+        <span id="liveDayBadge" class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-white/15 dark:bg-black/10">PN</span>
+      </div>
+      <div class="hidden md:block relative">
+        <input id="searchInputDesktop" placeholder="Szukaj przystanku..." class="w-[240px] h-9 pl-9 pr-3 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-transparent focus:border-emerald-500 focus:bg-white dark:focus:bg-zinc-900 outline-none text-sm" />
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-4.3-4.3m1.3-5.2a6 6 0 11-12 0 6 6 0 0112 0z"/></svg>
+        <div id="searchResultsDesktop" class="hidden absolute top-[44px] left-0 w-[360px] rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-2xl overflow-hidden"></div>
+      </div>
+      <button id="themeToggle" class="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center">🌙</button>
+    </div>
+  </div>
+  <div class="md:hidden px-4 pb-3">
+    <div class="relative">
+      <input id="searchInputMobile" placeholder="Szukaj przystanku, np. PKP, Zalew..." class="w-full h-[44px] pl-10 pr-4 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 outline-none text-[15px]" />
+      <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-4.3-4.3m1.3-5.2a6 6 0 11-12 0 6 6 0 0112 0z"/></svg>
+      <div id="searchResultsMobile" class="hidden absolute top-[52px] left-0 right-0 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-2xl z-40"></div>
+    </div>
+  </div>
+</header>
+
+<div id="loader" class="max-w-[1440px] mx-auto p-10 text-center">
+  <div class="inline-flex flex-col items-center gap-3">
+    <div class="w-10 h-10 rounded-full border-2 border-zinc-200 border-t-emerald-500 animate-spin"></div>
+    <div class="text-sm font-semibold">Pobieram aktualny rozkład z <code>timetables.json</code>...</div>
+    <div class="text-xs text-zinc-500">Jeśli plik nie istnieje, załaduje dane demo z pamięci</div>
+  </div>
+</div>
+
+<main id="appRoot" class="hidden max-w-[1440px] mx-auto px-4 md:px-6 py-4 md:py-6 grid grid-cols-1 lg:grid-cols-[320px_1fr_380px] gap-4 md:gap-6 items-start">
+  <aside class="lg:sticky lg:top-[94px] flex flex-col gap-4">
+    <div class="bg-white dark:bg-zinc-900 rounded-[20px] border border-zinc-200 dark:border-zinc-800 p-4">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="font-bold text-[13px] tracking-widest uppercase text-zinc-500">Wybierz linię</h2>
+        <span id="linesCountBadge" class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-mono">— linii</span>
+      </div>
+      <div id="lineGrid" class="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-3 gap-2"></div>
+      <div class="mt-4 p-2 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-dashed text-[11px] text-zinc-500">Źródło: <code>timetables.json</code> generowany przez scraper. Ostatnia aktualizacja: <span id="lastUpdate" class="font-mono">—</span></div>
+    </div>
+    <div class="bg-white dark:bg-zinc-900 rounded-[20px] border border-zinc-200 dark:border-zinc-800 p-4 hidden lg:block">
+      <h3 class="font-semibold text-sm mb-3">Ostatnio sprawdzane</h3>
+      <div id="recentStops" class="flex flex-col gap-2"></div>
+    </div>
+  </aside>
+
+  <section class="flex flex-col gap-4 min-w-0">
+    <div class="bg-white dark:bg-zinc-900 rounded-[20px] border border-zinc-200 dark:border-zinc-800 p-2 shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+        <div id="directionSwitcher" class="flex p-1 rounded-full bg-zinc-100 dark:bg-zinc-800 gap-1"></div>
+        <div class="flex items-center gap-1 p-1 rounded-full bg-zinc-100 dark:bg-zinc-800 self-start md:self-auto">
+          <button data-day="weekday" class="day-btn px-3 py-1.5 rounded-full text-xs font-semibold">PN-PT</button>
+          <button data-day="saturday" class="day-btn px-3 py-1.5 rounded-full text-xs font-semibold">SOBOTA</button>
+          <button data-day="sunday" class="day-btn px-3 py-1.5 rounded-full text-xs font-semibold">NIEDZIELA</button>
+        </div>
+      </div>
+      <div id="lineHeader" class="px-3 pt-4 pb-2 flex items-end justify-between gap-3"></div>
+    </div>
+    <div class="bg-white dark:bg-zinc-900 rounded-[20px] border border-zinc-200 dark:border-zinc-800 overflow-hidden">
+      <div class="px-5 py-3 border-b border-zinc-100 dark:border-zinc-800 flex items-center justify-between">
+        <h2 class="font-bold text-sm">Przystanki</h2>
+        <span id="stopsCount" class="text-xs text-zinc-500 font-mono">--</span>
+      </div>
+      <div id="stopsList" class="max-h-[520px] overflow-y-auto"></div>
+    </div>
+    <div class="bg-white dark:bg-zinc-900 rounded-[20px] border border-zinc-200 dark:border-zinc-800 overflow-hidden">
+      <div class="px-5 py-4 border-b border-zinc-100 dark:border-zinc-800 flex items-center justify-between">
+        <h2 class="font-bold text-sm">Rozkład dla przystanku</h2>
+        <span id="timetableStopName" class="text-xs font-semibold text-emerald-600 truncate max-w-[50%]"></span>
+      </div>
+      <div id="timetableGrid" class="p-4 md:p-5"></div>
+    </div>
+  </section>
+
+  <aside class="lg:sticky lg:top-[94px] flex flex-col gap-4">
+    <div class="relative overflow-hidden rounded-[24px] bg-zinc-900 dark:bg-black text-white p-5 md:p-6 shadow-[0_20px_40px_rgba(0,0,0,0.25)]">
+      <div class="absolute -top-24 -right-24 w-[300px] h-[300px] rounded-full bg-gradient-to-br from-emerald-500/30 to-sky-500/20 blur-[40px]"></div>
+      <div class="relative flex items-start justify-between">
+        <div><div class="text-[11px] tracking-[0.2em] uppercase text-white/50 font-semibold">Następny odjazd</div><div id="nextBusLine" class="mt-2 inline-flex px-3 py-1 rounded-full bg-white text-zinc-900 font-bold text-sm">—</div></div>
+        <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"><div class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></div></div>
+      </div>
+      <div class="relative mt-6"><div id="nextBusCountdown" class="font-mono font-bold text-[56px] leading-[0.9]">--:--</div><div id="nextBusSub" class="mt-2 text-[13px] text-white/60">—</div></div>
+      <div class="relative mt-6 grid grid-cols-3 gap-2">
+        <div class="rounded-2xl bg-white/5 border border-white/10 p-3"><div class="text-[10px] text-white/40 uppercase">Kierunek</div><div id="nextBusDirection" class="mt-1 text-xs">—</div></div>
+        <div class="rounded-2xl bg-white/5 border border-white/10 p-3"><div class="text-[10px] text-white/40 uppercase">Przystanek</div><div id="nextBusStop" class="mt-1 text-xs">—</div></div>
+        <div class="rounded-2xl bg-white/5 border border-white/10 p-3"><div class="text-[10px] text-white/40 uppercase">Dzień</div><div id="nextBusDay" class="mt-1 text-xs">—</div></div>
+      </div>
+      <div class="relative mt-4"><div class="text-[11px] uppercase text-white/40 mb-2">Kolejne odjazdy</div><div id="nextBusesList" class="flex flex-col gap-1.5"></div></div>
+      <div class="relative mt-5 flex gap-2"><button id="shareBtn" class="flex-1 h-10 rounded-full bg-white text-zinc-900 text-sm font-semibold">Udostępnij</button><button id="favBtn" class="w-10 h-10 rounded-full bg-white/10 border border-white/10">♡</button></div>
+    </div>
+    <div class="bg-white dark:bg-zinc-900 rounded-[20px] border border-zinc-200 dark:border-zinc-800 p-4"><h3 class="font-semibold text-[13px] mb-3">Symulacja przejazdu</h3><div id="tripProgress"></div></div>
+  </aside>
+</main>
+
+<footer class="max-w-[1440px] mx-auto px-6 py-8 text-[12px] text-zinc-500 space-y-3">
+  <div class="grid md:grid-cols-2 gap-3">
+    <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900">
+      <strong class="text-emerald-800 dark:text-emerald-300">v2 AUTO – jak to działa?</strong>
+      <p class="mt-1 leading-relaxed">Aplikacja przy starcie robi <code>fetch('./timetables.json?v=timestamp')</code>. Jeśli scraper (Python) w nocy wykryje nowy PDF na stronie PKS/ZPA, nadpisuje <code>timetables.json</code>. Użytkownik od razu widzi nową wersję + baner "Nowy rozkład". Fallback: localStorage cache + dane demo w pliku.</p>
+    </div>
+    <div class="p-4 rounded-2xl bg-zinc-900 dark:bg-black text-white border border-zinc-800">
+      <strong class="flex items-center gap-2">📲 PWA na Android - zainstalowana <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500">OFFLINE</span></strong>
+      <p class="mt-1 leading-relaxed text-white/70">Zainstaluj z banera u góry lub menu Chrome ⋮ > Zainstaluj aplikację. Działa offline dzięki Service Worker (<code>sw.js</code>). Cache'uje <code>index.html + timetables.json + ikony + Tailwind</code>. Tryb: <code>network-first</code> dla rozkładu, <code>cache-first</code> dla shella.</p>
+    </div>
+  </div>
+  <div class="text-[11px] flex flex-wrap gap-3">
+    <span>📦 Pliki PWA: manifest.json + sw.js + icons/</span>
+    <span>🔄 Scraper: GitHub Actions codziennie 04:00 UTC</span>
+    <span>📍 Źródło: pksgostynin.pl + zpa.powiat-zyrardowski.pl</span>
+  </div>
+</footer>
+
+<script>
+/* ========== FALLBACK DATA (embedded) ========== */
+const BUS_DATA_FALLBACK = {
+  "meta": {"version":"demo-fallback","generatedAt": new Date().toISOString()},
+  "lines": [
+    {
+      "id": "0","number": "0","name": "Zalew - Żeromskiego / Spółdzielcza","type": "miejska","color": "bg-teal-600",
+      "directions": [
+        {"id":"0a","label":"Żeromskiego → Zalew (przez PKP)","short":"Żeromskiego → Zalew","baseTimes":{"weekday":["05:20","06:05","06:45","07:25","08:05","08:45","09:25","10:10","11:00","11:55","13:00","13:45","14:35","15:20","16:05","16:50","17:35","18:25","19:20","20:30","21:40"],"saturday":["06:10","07:20","08:30","09:40","10:50","12:00","13:10","14:20","15:30","16:40","17:50","19:00","20:20"],"sunday":["07:30","09:00","10:30","12:00","13:30","15:00","16:30","18:00","19:30","20:50"]},"stops":["Żeromskiego / Legionów","Żeromskiego / Mickiewicza","1 Maja / Limanowskiego","1 Maja / Chopina","PKP Dworzec / Odljazdowy","Okrzei / Limanowskiego","Olszowa / Roosevelta","Zalew / Plaża","Zalew / Pętla"]},
+        {"id":"0b","label":"Spółdzielcza → Zalew (przez PKP)","short":"Spółdzielcza → Zalew","baseTimes":{"weekday":["05:00","05:50","06:30","07:10","07:50","08:30","09:10","10:00","10:50","11:40","12:40","13:30","14:20","15:05","15:50","16:35","17:20","18:10","19:05","20:15","21:25"],"saturday":["06:00","07:10","08:20","09:30","10:40","11:50","13:00","14:10","15:20","16:30","17:40","18:50","20:10"],"sunday":["07:15","08:45","10:15","11:45","13:15","14:45","16:15","17:45","19:15","20:35"]},"stops":["Spółdzielcza / Parkingowa","Spółdzielcza / Waryńskiego","1 Maja / Szpitalna","1 Maja / Limanowskiego","Kościuszki / Dekerta","PKP Dworzec / Przyjazdowy","Okrzei / Laskowa","Olszowa / Brzozowa","Zalew / Pętla"]}
+      ]
+    },
+    {"id":"1","number":"1","name":"Spółdzielcza - PKP","type":"miejska","color":"bg-emerald-600","directions":[{"id":"1a","label":"Spółdzielcza → PKP Dworzec","short":"Spółdzielcza → PKP","baseTimes":{"weekday":["05:15","05:45","06:15","06:35","07:00","07:20","07:45","08:10","08:40","09:15","09:50","10:20","11:00","11:40","12:20","13:00","13:30","14:00","14:30","15:00","15:25","15:50","16:15","16:40","17:10","17:40","18:10","19:00","20:00","21:15","22:10"],"saturday":["05:40","06:30","07:20","08:10","09:00","09:50","10:40","11:30","12:20","13:10","14:00","15:00","16:00","17:00","18:00","19:15","20:30","21:45"],"sunday":["06:30","08:00","09:30","11:00","12:30","14:00","15:30","17:00","18:30","20:00","21:30"]},"stops":["Spółdzielcza / Pętla","Spółdzielcza / Ossowskiego","Parkingowa / Spółdzielcza","1 Maja / Szpitalna","1 Maja / Limanowskiego","1 Maja / Chopina","Kościuszki / MOPS","Żeromskiego / Mickiewicza","Żeromskiego / Piłsudskiego","PKP Dworzec / Końcowy"]},{"id":"1b","label":"PKP → Spółdzielcza","short":"PKP → Spółdzielcza","baseTimes":{"weekday":["05:30","06:00","06:30","06:55","07:15","07:40","08:05","08:30","09:00","09:35","10:10","10:45","11:20","12:00","12:40","13:20","13:50","14:20","14:50","15:20","15:45","16:10","16:35","17:00","17:30","18:00","18:35","19:20","20:20","21:35","22:30"],"saturday":["06:00","06:50","07:40","08:30","09:20","10:10","11:00","11:50","12:40","13:30","14:20","15:20","16:20","17:20","18:20","19:35","20:50","22:05"],"sunday":["06:50","08:20","09:50","11:20","12:50","14:20","15:50","17:20","18:50","20:20","21:50"]},"stops":["PKP Dworzec / Końcowy","Żeromskiego / Piłsudskiego","Żeromskiego / Mickiewicza","Kościuszki / MOPS","1 Maja / Chopina","1 Maja / Limanowskiego","1 Maja / Szpitalna","Parkingowa / Spółdzielcza","Spółdzielcza / Ossowskiego","Spółdzielcza / Pętla"]}]},
+    {"id":"2","number":"2","name":"Żeromskiego - Nowe Kozłowice","type":"podmiejska","color":"bg-sky-600","directions":[{"id":"2a","label":"Żeromskiego → Nowe Kozłowice (okrężna)","short":"Żeromskiego → Kozłowice","baseTimes":{"weekday":["05:40","06:20","07:05","08:00","09:30","11:00","12:30","14:00","15:10","16:20","17:30","18:40","20:00"],"saturday":["06:30","08:00","09:30","11:00","13:00","15:00","17:00","19:00"],"sunday":["08:30","11:30","14:30","17:30","19:30"]},"stops":["Żeromskiego / Legionów","Żeromskiego / Farbiarska","Poznańska / Spacerowa","Parkingowa / Południowa","Nowe Kozłowice / Szkolna","Stare Kozłowice / Kościół","Żyrardów / Łączna","Żeromskiego / Legionów"]},{"id":"2b","label":"Kozłowice → Żeromskiego (powrót)","short":"Kozłowice → Żeromskiego","baseTimes":{"weekday":["06:00","06:40","07:25","08:20","09:50","11:20","12:50","14:20","15:30","16:40","17:50","19:00","20:20"],"saturday":["06:50","08:20","09:50","11:20","13:20","15:20","17:20","19:20"],"sunday":["08:50","11:50","14:50","17:50","19:50"]},"stops":["Nowe Kozłowice / Szkolna","Parkingowa / Południowa","Poznańska / Spacerowa","Żeromskiego / Farbiarska","Żeromskiego / Legionów"]}]},
+    {"id":"3","number":"3","name":"Działki OSP - Jaktorowska","type":"miejska","color":"bg-violet-600","directions":[{"id":"3a","label":"Działki OSP → Jaktorowska","short":"Działki → Jaktorowska","baseTimes":{"weekday":["05:10","05:55","06:30","07:10","07:45","08:20","09:00","10:00","11:10","12:20","13:15","14:05","14:55","15:40","16:25","17:15","18:05","19:15","20:30"],"saturday":["06:15","07:30","08:45","10:00","11:15","12:30","13:45","15:00","16:15","17:30","18:45","20:00"],"sunday":["07:30","09:30","11:30","13:30","15:30","17:30","19:30"]},"stops":["Działki / OSP","Działki / Różana","Spółdzielcza / Waryńskiego","1 Maja / Moniuszki","Żeromskiego / Mickiewicza","Poznańska / Słoneczna","Jaktorowska / Leśna","Jaktorowska / Końcowa"]},{"id":"3b","label":"Jaktorowska → Działki OSP","short":"Jaktorowska → Działki","baseTimes":{"weekday":["05:30","06:15","06:50","07:30","08:05","08:40","09:20","10:20","11:30","12:40","13:35","14:25","15:15","16:00","16:45","17:35","18:25","19:35","20:50"],"saturday":["06:35","07:50","09:05","10:20","11:35","12:50","14:05","15:20","16:35","17:50","19:05","20:20"],"sunday":["07:50","09:50","11:50","13:50","15:50","17:50","19:50"]},"stops":["Jaktorowska / Końcowa","Jaktorowska / Leśna","Poznańska / Słoneczna","Żeromskiego / Mickiewicza","1 Maja / Moniuszki","Spółdzielcza / Waryńskiego","Działki / Różana","Działki / OSP"]}]},
+    {"id":"9","number":"9","name":"Żeromskiego - PKP","type":"miejska","color":"bg-rose-600","directions":[{"id":"9a","label":"Żeromskiego → PKP (express)","short":"Żeromskiego → PKP","baseTimes":{"weekday":["04:55","05:30","06:00","06:30","07:00","07:30","08:00","08:30","09:00","09:40","10:20","11:00","11:40","12:20","13:00","13:40","14:20","15:00","15:35","16:10","16:45","17:20","18:00","19:00","20:10","21:20","22:20"],"saturday":["05:30","06:20","07:10","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:10","20:20","21:30"],"sunday":["06:20","07:50","09:20","10:50","12:20","13:50","15:20","16:50","18:20","19:50","21:10"]},"stops":["Żeromskiego / Pętla","Żeromskiego / Mickiewicza","1 Maja / Chopina","PKP Dworzec / Końcowy"]},{"id":"9b","label":"PKP → Żeromskiego (express)","short":"PKP → Żeromskiego","baseTimes":{"weekday":["05:10","05:45","06:15","06:45","07:15","07:45","08:15","08:45","09:15","10:00","10:40","11:20","12:00","12:40","13:20","14:00","14:40","15:20","15:55","16:30","17:05","17:40","18:20","19:20","20:30","21:40","22:40"],"saturday":["05:50","06:40","07:30","08:20","09:20","10:20","11:20","12:20","13:20","14:20","15:20","16:20","17:20","18:20","19:30","20:40","21:50"],"sunday":["06:40","08:10","09:40","11:10","12:40","14:10","15:40","17:10","18:40","20:10","21:30"]},"stops":["PKP Dworzec / Końcowy","1 Maja / Chopina","Żeromskiego / Mickiewicza","Żeromskiego / Pętla"]}]}
+  ]
+};
+
+/* ========== STATE & HELPERS ========== */
+let BUS_DATA = null;
+let allStops = [];
+let state = { lineId:"1", dirIdx:0, stopIdx:0, dayType: (new Date().getDay()===0?'sunday':new Date().getDay()===6?'saturday':'weekday') };
+const LS_KEY="zpa_state_v2";
+function loadState(){ try{ const s=JSON.parse(localStorage.getItem(LS_KEY)); if(s) state={...state,...s}; }catch{} }
+function saveState(){ localStorage.setItem(LS_KEY, JSON.stringify(state)); }
+function parseMinutes(t){ const [h,m]=t.split(':').map(Number); return h*60+m; }
+function minutesToTime(min){ const h=Math.floor(min/60)%24, m=min%60; return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0'); }
+function addMinutes(t,delta){ return minutesToTime(parseMinutes(t)+delta); }
+function dayLabel(t){ return t==='weekday'?'Dzień powszedni':t==='saturday'?'Sobota':'Niedziela'; }
+function getCurrentLine(){ return BUS_DATA.lines.find(l=>l.id===state.lineId) || BUS_DATA.lines[0]; }
+function getCurrentDirection(){ return getCurrentLine().directions[state.dirIdx]; }
+function getScheduleForStop(dir, idx, day){ return (dir.baseTimes[day]||[]).map(t=>addMinutes(t, idx*2)); }
+
+/* ========== FETCH LOGIC v2 ========== */
+async function loadTimetables(){
+  const statusEl=document.getElementById('dataStatus');
+  const metaEl=document.getElementById('metaVersion');
+  const lastUpdateEl=document.getElementById('lastUpdate');
+  const loader=document.getElementById('loader');
+  const root=document.getElementById('appRoot');
+  loadState();
+  try{
+    statusEl.innerHTML='<span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>Pobieram...';
+    const res = await fetch('./timetables.json?v='+Date.now(), {cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const json = await res.json();
+    if(!json.lines) throw new Error('Invalid JSON structure');
+    // hash detection for new data banner
+    const newHash = JSON.stringify(json).length + (json.meta?.version||'');
+    const oldHash = localStorage.getItem('zpa_data_hash');
+    if(oldHash && oldHash!==String(newHash) && localStorage.getItem('zpa_data')) {
+      document.getElementById('newDataBanner').classList.remove('hidden');
+    }
+    localStorage.setItem('zpa_data_hash', String(newHash));
+    localStorage.setItem('zpa_data', JSON.stringify(json));
+    localStorage.setItem('zpa_data_updated', new Date().toISOString());
+    BUS_DATA = json;
+    statusEl.innerHTML='<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>Live z timetables.json';
+    metaEl.textContent='v'+(json.meta?.version||'2.0');
+    if(lastUpdateEl) lastUpdateEl.textContent = json.meta?.generatedAt ? new Date(json.meta.generatedAt).toLocaleString('pl-PL') : new Date().toLocaleString('pl-PL');
+  }catch(e){
+    console.warn('Fetch timetables.json failed, fallback:', e);
+    const cached = localStorage.getItem('zpa_data');
+    if(cached){
+      try{ BUS_DATA = JSON.parse(cached); statusEl.innerHTML='<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>Offline • cache'; metaEl.textContent='cache'; }
+      catch{ BUS_DATA = BUS_DATA_FALLBACK; statusEl.innerHTML='<span class="w-1.5 h-1.5 rounded-full bg-zinc-400"></span>Demo fallback'; }
+    } else {
+      BUS_DATA = BUS_DATA_FALLBACK;
+      statusEl.innerHTML='<span class="w-1.5 h-1.5 rounded-full bg-zinc-400"></span>Demo • brak JSON';
+    }
+    if(lastUpdateEl) lastUpdateEl.textContent = localStorage.getItem('zpa_data_updated') ? new Date(localStorage.getItem('zpa_data_updated')).toLocaleString('pl-PL') : 'nigdy';
+  } finally {
+    // sanity for state
+    if(!BUS_DATA.lines.find(l=>l.id===state.lineId)) state.lineId=BUS_DATA.lines[0].id;
+    if(state.dirIdx >= getCurrentLine().directions.length) state.dirIdx=0;
+    if(state.stopIdx >= getCurrentDirection().stops.length) state.stopIdx=0;
+    allStops = [];
+    BUS_DATA.lines.forEach(line=>line.directions.forEach((dir,dirIdx)=>dir.stops.forEach((stop,stopIdx)=>allStops.push({lineId:line.id,lineNumber:line.number,lineName:line.name,lineColor:line.color,dirIdx,dirLabel:dir.short,stop,stopIdx}))));
+    loader.classList.add('hidden');
+    root.classList.remove('hidden');
+    renderAll();
+    startClocks();
+    setupSearch();
+  }
+}
+
+/* ========== RENDERS (same as v1) ========== */
+function renderLines(){
+  const grid=document.getElementById('lineGrid');
+  grid.innerHTML = BUS_DATA.lines.map(line=>{
+    const active=line.id===state.lineId;
+    return `<button data-line="${line.id}" class="group flex flex-col items-start p-3 rounded-2xl border text-left ${active?'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 border-zinc-900 shadow-lg':'bg-zinc-50 dark:bg-zinc-800/50 border-zinc-200 dark:border-zinc-700 hover:bg-white'}">
+      <div class="flex justify-between w-full"><span class="w-8 h-8 rounded-xl ${active?'bg-white/15 dark:bg-black/10':' '+line.color} text-white flex items-center justify-center font-bold text-sm">${line.number}</span><span class="w-2 h-2 rounded-full ${line.type==='miejska'?'bg-emerald-500':'bg-sky-500'}"></span></div>
+      <span class="mt-2 font-semibold text-[12px] leading-tight line-clamp-2">${line.name}</span><span class="mt-1 text-[10px] opacity-60 uppercase">${line.directions.length} kier. • ${line.type}</span>
+    </button>`;
+  }).join('');
+  grid.querySelectorAll('[data-line]').forEach(btn=>btn.addEventListener('click',()=>{ state.lineId=btn.dataset.line; state.dirIdx=0; state.stopIdx=0; saveState(); renderAll(); }));
+}
+function renderDirectionSwitcher(){
+  const line=getCurrentLine();
+  const c=document.getElementById('directionSwitcher');
+  c.innerHTML=line.directions.map((d,i)=>`<button data-dir="${i}" class="px-3 md:px-4 py-2 rounded-full text-xs md:text-[13px] font-semibold ${i===state.dirIdx?'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow':'text-zinc-600 dark:text-zinc-400'}">${d.short}</button>`).join('');
+  c.querySelectorAll('[data-dir]').forEach(b=>b.addEventListener('click',()=>{ state.dirIdx=Number(b.dataset.dir); state.stopIdx=0; saveState(); renderAll(); }));
+  document.querySelectorAll('.day-btn').forEach(btn=>{
+    const active=state.dayType===btn.dataset.day;
+    btn.className=`day-btn px-3 py-1.5 rounded-full text-xs font-semibold ${active?'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900':'text-zinc-500'}`;
+    btn.onclick=()=>{ state.dayType=btn.dataset.day; saveState(); renderDirectionSwitcher(); renderStops(); renderTimetable(); renderNextBus(); };
+  });
+}
+function renderHeader(){
+  const line=getCurrentLine(); const dir=getCurrentDirection();
+  document.getElementById('lineHeader').innerHTML=`<div class="flex items-center gap-2"><div class="w-9 h-9 rounded-xl ${line.color} text-white flex items-center justify-center font-bold">${line.number}</div><div><div class="font-bold text-[15px] leading-tight truncate">${line.name}</div><div class="text-xs text-zinc-500 truncate">${dir.label} • ${dayLabel(state.dayType)}</div></div></div><span class="text-[11px] px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border">${dir.stops.length} przyst.</span>`;
+  document.getElementById('stopsCount').textContent=`${dir.stops.length} przystanków`;
+  document.getElementById('nextBusLine').textContent=`Linia ${line.number}`;
+  document.getElementById('nextBusDirection').textContent=dir.short;
+  document.getElementById('nextBusDay').textContent=dayLabel(state.dayType);
+  document.getElementById('linesCountBadge').textContent=`${BUS_DATA.lines.length} linii`;
+}
+function renderStops(){
+  const dir=getCurrentDirection(); const day=state.dayType;
+  const list=document.getElementById('stopsList');
+  list.innerHTML=dir.stops.map((stop,i)=>{
+    const schedule=getScheduleForStop(dir,i,day); const active=i===state.stopIdx; const now=new Date(); const nowMin=now.getHours()*60+now.getMinutes(); const nextIdx=schedule.findIndex(t=>parseMinutes(t)>=nowMin);
+    return `<button data-stop="${i}" class="w-full flex items-center gap-4 px-5 py-3.5 text-left border-b last:border-0 border-zinc-50 dark:border-zinc-800/50 ${active?'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900':'hover:bg-zinc-50 dark:hover:bg-zinc-800/50'}">
+      <div class="w-7 h-7 rounded-full border-2 flex items-center justify-center text-[11px] font-bold ${active?'bg-white text-zinc-900 border-white dark:bg-zinc-900 dark:text-white':'bg-white dark:bg-zinc-900 border-zinc-200'}">${i+1}</div>
+      <div class="flex-1 min-w-0"><div class="font-semibold text-[14px] truncate">${stop}</div><div class="flex gap-2 mt-0.5"><span class="text-[11px] ${active?'text-white/60':'text-zinc-500'} font-mono">${schedule.length} kursów</span>${nextIdx!==-1?`<span class="text-[10px] px-1.5 py-0.5 rounded-full ${active?'bg-white/15':'bg-emerald-50 text-emerald-700'}">nast. ${schedule[nextIdx]}</span>`:''}</div></div><div>›</div>
+    </button>`;
+  }).join('');
+  list.querySelectorAll('[data-stop]').forEach(btn=>btn.addEventListener('click',()=>{ state.stopIdx=Number(btn.dataset.stop); saveState(); addRecent(getCurrentLine(), getCurrentDirection(), getCurrentDirection().stops[state.stopIdx]); renderStops(); renderTimetable(); renderNextBus(); renderTrip(); }));
+}
+function renderTimetable(){
+  const dir=getCurrentDirection(); const stopName=dir.stops[state.stopIdx];
+  document.getElementById('timetableStopName').textContent=stopName;
+  document.getElementById('nextBusStop').textContent=stopName;
+  const schedule=getScheduleForStop(dir,state.stopIdx,state.dayType); const nowMin=new Date().getHours()*60+new Date().getMinutes();
+  const grouped={}; schedule.forEach(t=>{ const h=t.split(':')[0]; (grouped[h]=grouped[h]||[]).push(t); });
+  const hours=Object.keys(grouped).sort((a,b)=>Number(a)-Number(b));
+  document.getElementById('timetableGrid').innerHTML = hours.length?`<div class="grid sm:grid-cols-2 gap-3">${hours.map(h=>`<div class="rounded-xl border bg-zinc-50/50 dark:bg-zinc-800/30 p-3"><div class="flex items-center gap-2 mb-2"><div class="w-7 h-7 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center font-mono text-xs font-bold">${h}</div><div class="h-px flex-1 bg-zinc-200"></div></div><div class="flex flex-wrap gap-1.5">${grouped[h].map(t=>{ const isNext=parseMinutes(t)>=nowMin && schedule.findIndex(x=>parseMinutes(x)>=nowMin)===schedule.indexOf(t); const isPast=parseMinutes(t)<nowMin; return `<span class="px-2.5 py-1 rounded-full text-xs font-mono border ${isNext?'bg-emerald-600 border-emerald-600 text-white':'bg-white dark:bg-zinc-900 border-zinc-200 text-zinc-700 dark:text-zinc-300'} ${isPast?'line-through opacity-50':''}">${t}</span>`; }).join('')}</div></div>`).join('')}</div>`:`<div class="py-10 text-center text-sm text-zinc-500">Brak kursów</div>`;
+}
+function renderNextBus(){
+  const dir=getCurrentDirection(); const schedule=getScheduleForStop(dir,state.stopIdx,state.dayType); const now=new Date(); const nowMin=now.getHours()*60+now.getMinutes()+now.getSeconds()/60;
+  const upcoming=schedule.map(t=>({time:t, mins:parseMinutes(t)})).filter(o=>o.mins>=nowMin).slice(0,4);
+  const countdownEl=document.getElementById('nextBusCountdown'); const subEl=document.getElementById('nextBusSub'); const listEl=document.getElementById('nextBusesList');
+  if(upcoming.length===0){ countdownEl.textContent="--:--"; subEl.textContent="Koniec kursów na dziś"; listEl.innerHTML=`<div class="text-xs text-white/50">Brak odjazdów</div>`; return; }
+  const next=upcoming[0]; const diffMin=Math.max(0, Math.floor(next.mins-nowMin)); const diffSec=Math.max(0, Math.floor((next.mins-nowMin-diffMin)*60));
+  if(diffMin<60){ countdownEl.textContent=`${String(diffMin).padStart(2,'0')}:${String(diffSec).padStart(2,'0')}`; subEl.innerHTML=`odjazd o <b class="text-white">${next.time}</b> • za ${diffMin} min`; }
+  else{ countdownEl.textContent=next.time; subEl.textContent=`za ${diffMin} min`; }
+  listEl.innerHTML=upcoming.map((o,idx)=>`<div class="flex justify-between px-3 py-2 rounded-xl ${idx===0?'bg-white text-zinc-900':'bg-white/5 border border-white/10 text-white/70'}"><span class="font-mono font-semibold">${o.time}</span><span class="text-xs">${idx===0?'TERAZ':'za '+Math.floor(o.mins-nowMin)+' min'}</span></div>`).join('');
+}
+function renderTrip(){
+  const dir=getCurrentDirection(); const total=dir.stops.length; const cur=state.stopIdx; const progress=total>1?(cur/(total-1))*100:100;
+  document.getElementById('tripProgress').innerHTML=`<div class="flex justify-between text-[11px] text-zinc-500 mb-1"><span>Start</span><span>${Math.round(progress)}%</span><span>Koniec</span></div><div class="h-2 rounded-full bg-zinc-100 dark:bg-zinc-800 overflow-hidden"><div class="h-full bg-emerald-500" style="width:${progress}%"></div></div><div class="mt-3 space-y-1 max-h-[200px] overflow-y-auto">${dir.stops.map((s,i)=>`<div class="flex gap-2 items-center text-[13px] ${i===cur?'font-bold text-emerald-600':i<cur?'text-zinc-400 line-through':' '}"><span class="w-2 h-2 rounded-full ${i===cur?'bg-emerald-500':i<cur?'bg-zinc-900':'bg-zinc-300'}"></span>${s}</div>`).join('')}</div>`;
+}
+function renderSearchResults(query, container){
+  if(!query || query.length<2){ container.classList.add('hidden'); return; }
+  const q=query.toLowerCase(); const matches=allStops.filter(s=>s.stop.toLowerCase().includes(q)).slice(0,8);
+  if(!matches.length){ container.innerHTML=`<div class="p-4 text-sm text-zinc-500">Brak</div>`; container.classList.remove('hidden'); return; }
+  container.innerHTML=matches.map(m=>`<button data-res="${m.lineId}|${m.dirIdx}|${m.stopIdx}" class="w-full flex items-center gap-3 p-3 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-left border-b"><span class="w-8 h-8 rounded-xl ${m.lineColor} text-white flex items-center justify-center font-bold text-xs">${m.lineNumber}</span><span class="flex-1"><span class="block text-[13px] font-semibold truncate">${m.stop}</span><span class="block text-[11px] text-zinc-500">${m.lineName}</span></span></button>`).join('');
+  container.classList.remove('hidden');
+  container.querySelectorAll('[data-res]').forEach(btn=>btn.addEventListener('click',()=>{ const [lineId,dirIdx,stopIdx]=btn.dataset.res.split('|'); state.lineId=lineId; state.dirIdx=Number(dirIdx); state.stopIdx=Number(stopIdx); saveState(); container.classList.add('hidden'); document.getElementById('searchInputDesktop').value=''; document.getElementById('searchInputMobile').value=''; renderAll(); }));
+}
+function setupSearch(){
+  const dInput=document.getElementById('searchInputDesktop'), dRes=document.getElementById('searchResultsDesktop'), mInput=document.getElementById('searchInputMobile'), mRes=document.getElementById('searchResultsMobile');
+  dInput.addEventListener('input', e=>renderSearchResults(e.target.value.trim(), dRes)); mInput.addEventListener('input', e=>renderSearchResults(e.target.value.trim(), mRes));
+  document.addEventListener('click', e=>{ if(!e.target.closest('#searchInputDesktop') && !e.target.closest('#searchResultsDesktop')) dRes.classList.add('hidden'); if(!e.target.closest('#searchInputMobile') && !e.target.closest('#searchResultsMobile')) mRes.classList.add('hidden'); });
+}
+function addRecent(line, dir, stop){ const recents=JSON.parse(localStorage.getItem('zpa_recents')||'[]'); const entry={lineId:line.id, dirIdx:state.dirIdx, stopIdx:state.stopIdx, stop, lineNumber:line.number, lineColor:line.color}; const filtered=recents.filter(r=>!(r.lineId===entry.lineId && r.stop===stop)); filtered.unshift(entry); localStorage.setItem('zpa_recents', JSON.stringify(filtered.slice(0,5))); renderRecents(); }
+function renderRecents(){ const cont=document.getElementById('recentStops'); if(!cont) return; const recents=JSON.parse(localStorage.getItem('zpa_recents')||'[]'); if(!recents.length){ cont.innerHTML=`<div class="text-xs text-zinc-500">Brak historii</div>`; return; } cont.innerHTML=recents.map(r=>`<button data-recent="${r.lineId}|${r.dirIdx}|${r.stopIdx}" class="flex items-center gap-2 p-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 w-full text-left"><span class="w-7 h-7 rounded-lg ${r.lineColor} text-white flex items-center justify-center font-bold text-[11px]">${r.lineNumber}</span><span class="text-[12px] truncate">${r.stop}</span></button>`).join(''); cont.querySelectorAll('[data-recent]').forEach(btn=>btn.addEventListener('click',()=>{ const [lineId,dirIdx,stopIdx]=btn.dataset.recent.split('|'); state.lineId=lineId; state.dirIdx=Number(dirIdx); state.stopIdx=Number(stopIdx); saveState(); renderAll(); })); }
+function renderAll(){ renderLines(); renderDirectionSwitcher(); renderHeader(); renderStops(); renderTimetable(); renderNextBus(); renderTrip(); renderRecents(); }
+function startClocks(){ function tick(){ const now=new Date(); const h=String(now.getHours()).padStart(2,'0'), m=String(now.getMinutes()).padStart(2,'0'), s=String(now.getSeconds()).padStart(2,'0'); document.getElementById('liveClock').textContent=`${h}:${m}:${s}`; document.getElementById('liveDayBadge').textContent=['ND','PN','WT','ŚR','CZ','PT','SB'][now.getDay()]; renderNextBus(); if(s==='00') renderTimetable(); } tick(); setInterval(tick,1000); }
+document.getElementById('themeToggle').addEventListener('click',()=>{ document.documentElement.classList.toggle('dark'); localStorage.setItem('zpa_theme', document.documentElement.classList.contains('dark')?'dark':'light'); });
+if(localStorage.getItem('zpa_theme')==='dark' || (!localStorage.getItem('zpa_theme') && matchMedia('(prefers-color-scheme:dark)').matches)) document.documentElement.classList.add('dark');
+document.getElementById('refreshBtn')?.addEventListener('click',()=>{ localStorage.removeItem('zpa_data'); location.reload(); });
+document.getElementById('shareBtn')?.addEventListener('click', async()=>{ const line=getCurrentLine(); const dir=getCurrentDirection(); const stop=dir.stops[state.stopIdx]; const text=`ŻPA Linia ${line.number} ${stop}`; if(navigator.share){ try{ await navigator.share({title:text, text, url: location.href}); }catch{} } else { navigator.clipboard.writeText(location.href); alert('Skopiowano link'); } });
+document.getElementById('favBtn')?.addEventListener('click', e=>{ e.currentTarget.textContent=e.currentTarget.textContent==='♡'?'♥':'♡'; });
+
+// START
+loadTimetables();
+
+/* ========== PWA: Service Worker + Install Prompt ========== */
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  // pokaż banner tylko jeśli użytkownik nie zamknął wcześniej i nie jest w trybie standalone
+  const dismissed = localStorage.getItem('zpa_install_dismissed');
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+  if (!dismissed && !isStandalone) {
+    document.getElementById('installBanner')?.classList.remove('hidden');
+  }
+  console.log('[PWA] beforeinstallprompt ready');
+});
+
+document.getElementById('installBtn')?.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  console.log('[PWA] install outcome:', outcome);
+  deferredPrompt = null;
+  document.getElementById('installBanner')?.classList.add('hidden');
+});
+
+window.addEventListener('appinstalled', () => {
+  console.log('[PWA] installed');
+  document.getElementById('installBanner')?.classList.add('hidden');
+  deferredPrompt = null;
+});
+
+// Service Worker registration
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').then(reg => {
+      console.log('[SW] registered', reg.scope);
+      // check for update
+      reg.addEventListener('updatefound', () => {
+        const newWorker = reg.installing;
+        newWorker?.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            console.log('[SW] new version available');
+            // opcjonalnie pokaż toast "Dostępna aktualizacja - odśwież"
+            const statusEl = document.getElementById('dataStatus');
+            if (statusEl) statusEl.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse"></span>Aktualizacja dostępna - odśwież';
+          }
+        });
+      });
+    }).catch(err => console.warn('[SW] registration failed', err));
+  });
+
+  // Offline/Online indicators
+  window.addEventListener('online', () => {
+    document.getElementById('dataStatus').innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Online';
+  });
+  window.addEventListener('offline', () => {
+    document.getElementById('dataStatus').innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>Offline • cache';
+  });
+}
+
+</script>
+</body>
+</html>
