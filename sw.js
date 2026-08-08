@@ -1,14 +1,17 @@
-/* ŻPA Żyrardów PWA Service Worker - v2 AUTO + OFFLINE */
-const CACHE_NAME = 'zpa-v2-2026-05-14';
+/* ŻPA Żyrardów PWA Service Worker - v3 FIX OFFLINE */
+const CACHE_NAME = 'zpa-v3-2026-05-14-fix';
 const SHELL_ASSETS = [
   './',
+  '/',
   './index.html',
+  '/index.html',
   './manifest.json',
   './timetables.json',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/icon-192-maskable.png',
-  './icons/icon-512-maskable.png'
+  './icons/icon-512-maskable.png',
+  './icons/icon-180.png'
 ];
 
 // Install - precache shell
@@ -94,9 +97,12 @@ self.addEventListener('fetch', (event) => {
         }
         return res;
       }).catch(() => {
-        // offline fallback for navigation
+        // offline fallback for navigation - try multiple cache keys
         if (req.mode === 'navigate') {
-          return caches.match('./index.html');
+          return caches.match('./index.html')
+            .then(r => r || caches.match('/index.html'))
+            .then(r => r || caches.match('./'))
+            .then(r => r || caches.match('/'));
         }
       });
     })
