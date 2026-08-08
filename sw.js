@@ -1,5 +1,5 @@
-/* ŻPA Żyrardów PWA Service Worker - v3 FIX OFFLINE */
-const CACHE_NAME = 'zpa-v3-2026-05-14-fix';
+/* ŻPA Żyrardów PWA Service Worker - v4 MAPA + PKS ONLY */
+const CACHE_NAME = 'zpa-v4-2026-08-08-map';
 const SHELL_ASSETS = [
   './',
   '/',
@@ -65,7 +65,7 @@ self.addEventListener('fetch', (event) => {
   }
 
   // For CDN tailwind and fonts: STALE-WHILE-REVALIDATE
-  if (url.hostname.includes('cdn.tailwindcss.com') || url.hostname.includes('fonts.googleapis.com') || url.hostname.includes('fonts.gstatic.com')) {
+  if (url.hostname.includes('cdn.tailwindcss.com') || url.hostname.includes('fonts.googleapis.com') || url.hostname.includes('fonts.gstatic.com') || url.hostname.includes('unpkg.com')) {
     event.respondWith(
       caches.open(CACHE_NAME).then(cache =>
         cache.match(req).then(cached => {
