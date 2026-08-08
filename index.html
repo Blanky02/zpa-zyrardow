@@ -82,6 +82,13 @@ tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Geist','syst
   </div>
 </header>
 
+<!-- VIEW SWITCHER TABS -->
+<div class="max-w-[1440px] mx-auto px-4 md:px-6 pt-3 flex gap-2">
+  <button data-view="lines" class="view-tab active px-4 py-2.5 rounded-full text-sm font-semibold bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow">🚍 Linie</button>
+  <button data-view="stops" class="view-tab px-4 py-2.5 rounded-full text-sm font-semibold bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50">📍 Przystanki</button>
+  <button data-view="route" class="view-tab px-4 py-2.5 rounded-full text-sm font-semibold bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50">🔀 Od → Do</button>
+</div>
+
 <div id="loader" class="max-w-[1440px] mx-auto p-10 text-center">
   <div class="inline-flex flex-col items-center gap-3">
     <div class="w-10 h-10 rounded-full border-2 border-zinc-200 border-t-emerald-500 animate-spin"></div>
@@ -154,6 +161,77 @@ tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Geist','syst
   </aside>
 </main>
 
+<!-- STOPS VIEW - lista autobusów przez przystanek -->
+<div id="stopsView" class="hidden max-w-[1440px] mx-auto px-4 md:px-6 py-4 md:py-6">
+  <div class="grid lg:grid-cols-[380px_1fr] gap-4 md:gap-6 items-start">
+    <aside class="bg-white dark:bg-zinc-900 rounded-[20px] border border-zinc-200 dark:border-zinc-800 p-4 lg:sticky lg:top-[140px]">
+      <h2 class="font-bold text-sm mb-1">Wybierz przystanek</h2>
+      <p class="text-[11px] text-zinc-500 mb-3">Zobaczysz wszystkie linie i godziny które przez niego przejeżdżają</p>
+      <div class="relative">
+        <input id="allStopsSearch" placeholder="Filtruj np. Girarda, PKP, D.A..." class="w-full h-11 pl-10 pr-4 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 outline-none focus:border-emerald-500 text-[14px]" />
+        <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-4.3-4.3m1.3-5.2a6 6 0 11-12 0 6 6 0 0112 0z"/></svg>
+      </div>
+      <div id="uniqueStopsCount" class="mt-2 text-[11px] text-zinc-500 font-mono"></div>
+      <div id="uniqueStopsList" class="mt-3 max-h-[60vh] overflow-y-auto flex flex-col gap-1 pr-1"></div>
+    </aside>
+    <section class="flex flex-col gap-4 min-w-0">
+      <div class="bg-white dark:bg-zinc-900 rounded-[20px] border border-zinc-200 dark:border-zinc-800 p-5">
+        <div id="stopDetailHeader" class="flex items-start justify-between gap-3">
+          <div class="text-zinc-500 text-sm">Wybierz przystanek z lewej listy aby zobaczyć odjazdy</div>
+        </div>
+      </div>
+      <div class="bg-zinc-900 dark:bg-black text-white rounded-[24px] p-5 md:p-6 shadow-xl">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-bold text-sm tracking-wide uppercase text-white/60">Najbliższe odjazdy z przystanku</h3>
+          <span id="stopLiveClock" class="font-mono text-xs bg-white/10 px-2 py-1 rounded-full">--:--</span>
+        </div>
+        <div id="stopDeparturesList" class="flex flex-col gap-2"></div>
+      </div>
+      <div class="bg-white dark:bg-zinc-900 rounded-[20px] border border-zinc-200 dark:border-zinc-800 p-4">
+        <h3 class="font-semibold text-sm mb-3">Wszystkie kursy dziś</h3>
+        <div id="stopAllDayList" class="flex flex-wrap gap-1.5"></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ROUTE VIEW Od -> Do -->
+<div id="routeView" class="hidden max-w-[1440px] mx-auto px-4 md:px-6 py-4 md:py-6">
+  <div class="max-w-[900px] mx-auto flex flex-col gap-4">
+    <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-zinc-200 dark:border-zinc-800 p-5 md:p-6 shadow-sm">
+      <h2 class="font-bold text-[18px] mb-1">Gdzie chcesz jechać?</h2>
+      <p class="text-[13px] text-zinc-500 mb-5">Wybierz przystanek początkowy i końcowy - pokażemy Ci bezpośrednie linie, tak jak z Girarda do Wittenberga</p>
+      <div class="grid md:grid-cols-[1fr_auto_1fr] gap-3 items-end">
+        <div class="relative">
+          <label class="text-[11px] font-bold tracking-widest uppercase text-zinc-500">Skąd (Od)</label>
+          <div class="relative mt-1.5">
+            <input id="routeFromInput" placeholder="Np. F. de Girarda" class="w-full h-[48px] pl-11 pr-4 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 focus:border-emerald-500 outline-none text-[15px] font-medium" />
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs font-bold">A</span>
+          </div>
+          <div id="routeFromResults" class="hidden absolute z-30 top-[56px] left-0 right-0 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-2xl overflow-hidden max-h-[280px] overflow-y-auto"></div>
+          <div id="routeFromSelected" class="mt-2 min-h-[20px]"></div>
+        </div>
+        <button id="swapRouteBtn" class="w-10 h-10 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center mx-auto md:mb-6 hover:scale-105 transition" title="Zamień miejscami">⇄</button>
+        <div class="relative">
+          <label class="text-[11px] font-bold tracking-widest uppercase text-zinc-500">Dokąd (Do)</label>
+          <div class="relative mt-1.5">
+            <input id="routeToInput" placeholder="Np. Wittenberga" class="w-full h-[48px] pl-11 pr-4 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 focus:border-emerald-500 outline-none text-[15px] font-medium" />
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center text-xs font-bold">B</span>
+          </div>
+          <div id="routeToResults" class="hidden absolute z-30 top-[56px] left-0 right-0 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-2xl overflow-hidden max-h-[280px] overflow-y-auto"></div>
+          <div id="routeToSelected" class="mt-2 min-h-[20px]"></div>
+        </div>
+      </div>
+      <button id="searchRouteBtn" class="mt-6 w-full h-[52px] rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[15px] shadow-[0_8px_20px_rgba(16,185,129,0.3)] transition">🔍 Znajdź bezpośrednie połączenia</button>
+      <div class="mt-3 text-[11px] text-zinc-500 text-center">Pokazujemy tylko połączenia bezpośrednie bez przesiadek • Czas przejazdu liczony +2 min na przystanek</div>
+    </div>
+    <div id="routeResults" class="flex flex-col gap-3"></div>
+    <div id="routeEmpty" class="hidden bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900 rounded-2xl p-4 text-sm text-amber-800 dark:text-amber-200">
+      Brak bezpośrednich połączeń między tymi przystankami. Spróbuj innych przystanków lub sprawdź widok "Przystanki" dla każdego z osobna.
+    </div>
+  </div>
+</div>
+
 <footer class="max-w-[1440px] mx-auto px-6 py-8 text-[12px] text-zinc-500 space-y-3">
   <div class="grid md:grid-cols-2 gap-3">
     <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900">
@@ -174,7 +252,7 @@ tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Geist','syst
 
 <script>
 /* ========== FALLBACK DATA (embedded) ========== */
-const BUS_DATA_FALLBACK = {"meta": {"version": "2026-08-08-REAL+mock", "generatedAt": "2026-08-08T22:48:17Z", "source": "ZPA real PDFs for lines 1-5 + mock rest", "parsedReal": 14}, "lines": [{"id": "0", "number": "0", "name": "1 ŻYR. SPÓŁDZIELCZA - ŻYR. PKP", "type": "miejska", "color": "bg-teal-600", "directions": [{"id": "0a", "label": "Żyrardów Spółdzielcza → Żyrardów D.A.", "short": "Żyrardów Spółdzielcza → Żyrardów D.", "baseTimes": {"weekday": ["04:44", "05:15", "05:50", "06:36", "08:30", "09:33", "11:35", "12:40", "14:30", "19:20"], "saturday": ["04:44", "05:50", "08:30", "11:35", "14:30"], "sunday": ["04:44", "06:36", "11:35", "19:20"]}, "stops": ["Żyrardów Spółdzielcza", "Żyrardów Skrowaczewsko/Ineiegt", "Żyrardów Kpt.Palaca", "Żyrardów F.De Girarda", "Żyrardów Środkowa/Spokojna", "Żyrardów Środkowa/Limanowskie", "Żyrardów Środkowa/Mireckiego", "Żyrardów Środkowa/Bohaterów", "Żyrardów D.A."]}, {"id": "0b", "label": "Żyrardów D.A. → Żyrardów Spółdzielcza", "short": "Żyrardów D.A. → Żyrardów Spółdzielc", "baseTimes": {"weekday": ["05:14", "06:18", "06:32", "08:06", "09:18", "11:20", "12:30", "13:26", "14:06", "14:42", "19:10"], "saturday": ["05:14", "06:32", "09:18", "12:30", "14:06", "19:10"], "sunday": ["05:14", "08:06", "12:30", "14:42"]}, "stops": ["Żyrardów D.A.", "Żyrardów Środkowa/Bohaterów", "Ż Yrardów Środkowa/Mireckiego", "Żyrardów Środkowa/Limanowskie", "Żyrardów Środkowa/Spokojna", "Żyrardów Fde Girarda", "Żyrardów Kpt.Pałaca", "Żyrardów Skrowa Czewskieg O/Niet", "Żyrardów Spółdzielcza"]}]}, {"id": "1", "number": "1", "name": "2 ŻYR. ŻEROMSKIEGO PO ZNAŃSKA - PARKINGOWA - NOWE KO ZŁOWICE - STARE KO ZŁOWICE ", "type": "miejska", "color": "bg-emerald-600", "directions": [{"id": "1a", "label": "Żyrardów Żeromksiego Pętla → Nowe Kozłowice Zakręt", "short": "Żyrardów Żeromksiego Pętla → Nowe K", "baseTimes": {"weekday": ["03:03", "03:33", "04:02", "04:32", "04:56", "05:26", "06:36", "06:59", "07:32", "08:00", "08:28", "08:40", "08:53", "09:10", "09:40", "10:35", "11:19", "12:04", "12:34", "13:23"], "saturday": ["03:03", "04:02", "04:56", "06:36", "07:32", "08:28", "08:53", "09:40"], "sunday": ["03:03", "04:32", "06:36", "08:00", "08:53", "10:35"]}, "stops": ["Żyrardów Żeromksiego Pętla", "Żyrardów Żeromskieg O/Poznańska", "Żyrardów Zeromskieg O/Krzywa", "Żyrardów Żeromskieg O/Piastowsk", "Żyrardów Wittenberg A", "Żyrardów Szarych Szeregow", "Żyrardów Sikorskieg O/Mostowa", "Żyrardów Sikorskieg O/Maczka", "Żyrardów Radziwiłłowska", "Żyrardów Zus", "Żyrardów D.A.", "Żyrardów Środkowa/Bohaterów", "Żyrardów Środkowa/Mireckieg", "Żyrardów Środkowa/Limanowskie", "Żyrardów Środkowa/Spokojn A", "Żyrardów F.De Girarda", "Żyrardów Ka Cperskiej", "Żyrardów Parking Owa/Kpt. Palac", "Nowe Kozłowice 53", "Nowe Kozłowice Zakręt"]}, {"id": "1b", "label": "Żyrardów Skrowa Czewskieg O/Niet → Żyrardów Zeromskieg O/Poznańska", "short": "Żyrardów Skrowa Czewskieg O/Niet → ", "baseTimes": {"weekday": ["00:16", "03:35", "04:05", "04:34", "05:04", "05:28", "05:58", "07:08", "07:31", "08:08", "08:36", "09:04", "09:16", "09:29", "09:46", "10:16", "11:07", "11:51", "12:36", "13:06"], "saturday": ["00:16", "04:05", "05:04", "05:58", "07:31", "08:36", "09:16", "09:46"], "sunday": ["00:16", "04:34", "05:58", "08:08", "09:16", "10:16"]}, "stops": ["Żyrardów Skrowa Czewskieg O/Niet", "Żyrardów Kpt.Palaca", "Żyrardów F.De Girarda", "Żyrardów Środkowa/Spokojna", "Żyrardów Środkowa/Limanowskie", "Żyrardów Środkowa/Mireckiego", "Żyrardów Środkowa/Bohaterów", "Żyrardów Da.", "Żyrardów Zus", "Żyrardów Radziwillowska", "Żyrardów Sikorskieg O/Maczka", "Żyrardów Sikorskieg O/Mostowa", "Żyrardów Sikorskieg O/Roosevel", "Żyrardów Szarych Szeregów", "Żyrardów Wittenberg A", "Żyrardów Żeromskieg O/Piastowsk", "Żyrardów Zeromskieg O/Krzywa", "Żyrardów Zeromskieg O/Poznańska"]}]}, {"id": "2", "number": "2", "name": "3 ŻYR. DZIAŁKI OSP - ŻYR. MIĘDZYBORÓW", "type": "podmiejska", "color": "bg-sky-600", "directions": [{"id": "2a", "label": "Działki Osp → Żyrardów Jaktorowska/Sade Budy", "short": "Działki Osp → Żyrardów Jaktorowska/", "baseTimes": {"weekday": ["05:50", "06:20", "07:00", "07:37", "08:48", "09:08", "11:35", "12:30"], "saturday": ["05:50", "07:00", "08:48", "11:35"], "sunday": ["05:50", "07:37", "11:35"]}, "stops": ["Działki Osp", "Dzaalki- Młyńska", "Żyrardów Zeromskieg O/Poznanska", "Żyrardów Zeromskieg O/Krzywa", "Żyrardów Zeromskieg O/Piastowsk", "Żyrardów Wittenberg A", "Żyrardów Szarych Szereg Ow", "Żyrardów Limanowskieg O/Legion.", "Żyrardów Limanowskieg O/Dittri.", "Żyrardów Piekna", "Żyrardów Pileckieg", "Z Yrpaarkinrg Owda/Kpot.Pawlac", "Ż Yrardózuws", "Żyrardów Okrzei", "Żyrardów Jaktorowska /1 Maja", "Żyrardów Lelewela", "Żyrardów Wawelska", "Żyrardów Południowa", "Żyrardów Jaktorowska/Rownoleg", "Żyrardów Jaktorowska/Sade Budy", "Dzialki Osp", "D Ziałki - Młyńska", "Ż Yrardów Zeromskieg O/Poznańska", "Żyrardów Zeromskieg O/Krzywa", "Żyrardów Zeromskieg O/Piastowsk", "Żyrardów Wittenberga", "Żyrardów Szarych Szeregów", "Żyrardów Limanowskieg O/Legion.", "Żyrardów Limanowskieg O/Dittri.", "Ż Yrardów Limanowskieg O-Szpital", "Z Yrardow Ossowskiego", "Z Yrardow Warynskiego", "Ż Yrardów Jasna", "Żyrardów Piękna", "Ż Yrardów Fieldorfa Nila", "Ż Yrardów Pileckiego", "Ż Yrardów Parkingowa/Kpt. Pałac", "Ż Yrardów Parking Owa", "Ż Yrardów Nietrzebki", "Ż Yrardów Spółdzielcza", "Ż Yrardów Skrowa Czewskieg O/Niet", "Ż Yrardów Kpt. Pałaca", "Z Yrardow Fde Girarda", "Ż Yrardów Środkowa/Spokojna", "Ż Yrardów Środkowa/Limanowskie", "Ż Yrardów Mireckieg O/Ossowskie", "Ż Yrardów Partyzantow Pdt", "Żyrardów Da.", "Z Yrardow Zus", "Ż Yrardów Radziwiłłowska", "Żyrardów Okrzei", "Żyrardów Jaktorowska/1 Maja", "Ż Yrardów Lelewela", "Ż Yrardów Wa Welska", "Żyrardów Poludniowa", "Żyrardów Jaktorowska/Sade Budy"]}, {"id": "2b", "label": "Ż Yrardów Jaktorowska/Sade Budy → Ż Yrardów Żeromskieg O/Poznańska", "short": "Ż Yrardów Jaktorowska/Sade Budy → Ż", "baseTimes": {"weekday": ["05:29", "06:43", "07:18", "07:56", "08:46", "09:41", "10:31", "11:31", "12:01", "13:31"], "saturday": ["05:29", "07:18", "08:46", "10:31", "12:01"], "sunday": ["05:29", "07:56", "10:31", "13:31"]}, "stops": ["Ż Yrardów Jaktorowska/Sade Budy", "Ż Yrardów Jaktorowska/Rownoleg", "Ż Yrardów Chmielna", "Żyrardów Wawelska", "Ż Yrardów Lelewela", "Ż Yrardów Jaktorowska/1 Maja", "Ż Yrardów Okrzei", "Żyrardów Wyspianskiego", "Z Yrardow Zus", "Ż Yrardów Da.", "Ż Yrardów Partyzantów Pdt", "Ż Yrardów Mireckieg O/Ossowskie", "Ż Yrardów Środkowa/Limanowskie", "Ż Yrardów Środkowa/Spokojna", "Z Yrardow F.De Girarda", "Ż Yrardów Kpt.Palaca", "Ż Yrardów Skrowa Czewskieg O/Niet", "Ż Yrardów Spółdzielcza", "Ż Yrardów Nietrzebki", "Z Yrardow Parking Owa", "Z Yrardow Pileckiego", "Ż Yrardów Fieldorfa Nila", "Z Yrardow Piekna", "Żyrardów Jasna", "Z Yrardow Warynskiego", "Z Yrardow Ossowskiego", "Ż Yrardów Limanowskieg O-Szpital", "Z Yrardow Limanowskieo/Ga Kraj.", "Żyrardów Limanowskieg O/Legion.", "Żyrardów Szarych Szereogw", "Żyrardów Wittenberga", "Żyrardów Zeromskieg O/Piastowsk", "Żyrardów Zeromskieg O/Krzywa", "Ż Yrardów Żeromskieg O/Poznańska"]}]}, {"id": "3", "number": "3", "name": "4 ŻYR. WISKITKI P WOLNOŚCI - ŻYR. SPÓŁDZIELCZA P. DZIAŁKI", "type": "miejska", "color": "bg-violet-600", "directions": [{"id": "3a", "label": "Wiskitki Szkoła → Ż Yrardów Skrowa Czewskieg O/Niet", "short": "Wiskitki Szkoła → Ż Yrardów Skrowa ", "baseTimes": {"weekday": ["04:09", "05:33", "06:35", "07:17", "08:02", "08:12", "09:56", "10:35", "11:41", "12:35", "12:57", "13:53", "14:19", "15:07", "16:08", "17:36", "19:04", "20:08"], "saturday": ["04:09", "06:35", "08:02", "09:56", "11:41", "12:57", "14:19", "16:08"], "sunday": ["04:09", "07:17", "09:56", "12:35", "14:19", "17:36"]}, "stops": ["Wiskitki Szkoła", "Działki Małe", "Działki Osp", "Dzalki- Mlynska", "Żyrardów Zeromskieg O/Poznanska", "Żyrardów Zeromskieg O/Krzywa", "Żyrardów Żeromskieg O/Piastowsk", "Żyrardów Wittenberga", "Ż Yrardów Szarych Szeregów", "Ż Yrardów Limanowskieg O/Legion.", "Ż Yrardów Liman Owskieg O/Dittri.", "Ż Yrardów Limanowskiego-Szpital", "Ż Yrardów Partyzantów Pdt", "Żyrardów D.A.", "Ż Yrardów Środkowa/Bohaterów", "Ż Yrardów Środkowa/Mireckiego", "Z Yrardow Środkowa/Limanowskie", "Ż Yrardów Środkowa/Spokojna", "Ż Yrardów F.De Girarda", "Żyrardów Kpt.Palaca", "Ż Yrardów Skrowa Czewskieg O/Niet"]}, {"id": "3b", "label": "Ż Yrardów Spółdzielcza 0 → Działki Małe", "short": "Ż Yrardów Spółdzielcza 0 → Działki ", "baseTimes": {"weekday": ["05:00", "06:02", "06:44", "07:21", "08:00", "08:40", "08:50", "10:35", "11:20", "12:15", "13:20", "13:36", "14:30", "15:20", "15:52", "16:41", "18:30", "19:35"], "saturday": ["05:00", "06:44", "08:00", "08:50", "11:20", "13:20", "14:30", "15:52"], "sunday": ["05:00", "07:21", "08:50", "12:15", "14:30", "16:41"]}, "stops": ["Ż Yrardów Spółdzielcza 0", "Ż Yrardów Skrowa Czewskieg O/Niet", "Żyrardów Kpt.Palaca", "Ż Yrardóf.Wde Girarda", "Ż Yrardów Środkowa/Spokojna", "Ż Yrardów Środkowa/Limanowskie", "Ż Yrardów Środkowa/Mireckiego", "Z Yrardow Środkowa/Bohaterów", "Żyrardów D.A.", "Ż Yrardów Partyzantów Pdt", "Ż Yrardów Limanowskieg O-Szpital", "Żyrardów Limanowskieg O/A Kraj.", "Żyrardów Limanowskieg O/Legion.", "Ż Yrardów Szarych Szereogw", "15 Żyrardów Wittenberg A", "Z Yrardow Zeromskieg O/Piastowsk", "Z Yrardow Zeromskieg O/Krzywa", "Żyrardów Żeromskiego/Poznańska", "D Zia- Młłykńsika", "Działki Osp", "Działki Małe"]}]}, {"id": "4", "number": "4", "name": "Wiskitki - Działki", "type": "podmiejska", "color": "bg-blue-600", "directions": [{"id": "4a", "label": "Wiskitki Pl. Wolności → Działki", "short": "Wiskitki → Działki", "baseTimes": {"weekday": ["05:00", "06:15", "07:30", "09:00", "11:00", "13:00", "14:30", "15:45", "17:00", "18:30", "20:00"], "saturday": ["06:00", "08:00", "10:00", "12:00", "14:00", "16:00", "18:00"], "sunday": ["08:00", "12:00", "16:00", "19:00"]}, "stops": ["Wiskitki / Pl. Wolności", "Wiskitki / Szkolna", "Żyrardów / Mireckiego", "Spółdzielcza / Waryńskiego", "Działki / OSP", "Działki / Lawendowa"]}, {"id": "4b", "label": "Działki → Wiskitki", "short": "Działki → Wiskitki", "baseTimes": {"weekday": ["05:40", "06:55", "08:10", "09:40", "11:40", "13:40", "15:10", "16:25", "17:40", "19:10", "20:40"], "saturday": ["06:40", "08:40", "10:40", "12:40", "14:40", "16:40", "18:40"], "sunday": ["08:40", "12:40", "16:40", "19:40"]}, "stops": ["Działki / Lawendowa", "Działki / OSP", "Spółdzielcza / Waryńskiego", "Żyrardów / Mireckiego", "Wiskitki / Szkolna", "Wiskitki / Pl. Wolności"]}]}, {"id": "5", "number": "5", "name": "7 ŻYR. ZEROMSKIEGO PO ZNAŃSKA - ŻYR. SPÓŁDZIELCZA", "type": "miejska", "color": "bg-orange-600", "directions": [{"id": "5a", "label": "Żyrardów Żeromksiego Pętla → Żyrardów Nietrzekbi", "short": "Żyrardów Żeromksiego Pętla → Żyrard", "baseTimes": {"weekday": ["05:47", "06:44", "07:40", "09:14", "10:10", "11:50", "13:10", "14:35", "15:44", "16:40"], "saturday": ["05:47", "07:40", "10:10", "13:10", "15:44"], "sunday": ["05:47", "09:14", "13:10", "16:40"]}, "stops": ["Żyrardów Żeromksiego Pętla", "Żyrardów Zeromos/Pkozni Aensgka", "Żyrardów Zeromskieg O/Krzywa", "Żyrardów Zeromskieg O/Piastowsk", "Żyrardów Wittenberga", "Żyrardów Szarych Szeregów", "Żyrardów Limanowskieg O/Legion.", "Żyrardów Legionów Polskich", "Żyrardów Okrzei", "Z Yrardow Mireckieog/1 Maja", "Żyrardów Limanowskieg O-Szpital", "Z Yrardow Partyzantow Pdt", "Żyrardów D.A.", "Żyrardów Środkowa/Bohaterow", "Żyrardów Środkowa/Mireckiego", "Z Yrardow Środkowa/Limanowskie", "Z Yrardow Środkowa/Spokojna", "Żyrardów F.De Girarda", "Ż Yrardów Ka Cperskiej", "Żyrardów Parking Owa", "Żyrardów Nietrzekbi"]}, {"id": "5b", "label": "Ż Yrardów Spółdzielcza 0 → Ż Yrardów Żeromskieg O/Poznańska", "short": "Ż Yrardów Spółdzielcza 0 → Ż Yrardó", "baseTimes": {"weekday": ["06:17", "07:14", "08:10", "09:44", "10:40", "12:20", "13:40", "15:05", "16:14", "17:12"], "saturday": ["06:17", "08:10", "10:40", "13:40", "16:14"], "sunday": ["06:17", "09:44", "13:40", "17:12"]}, "stops": ["Ż Yrardów Spółdzielcza 0", "Ż Yrardów Skrowaczewskoi/Neiegt", "Ż Yrardów Kpt. Pałaca", "Ż Yrardów F.De Girarda", "Żyrardów Środkowa/Spokojna", "Żyrardów Środkowa/Limanowskie", "Ż Yrardów Środkowa/Mireckiego", "Ż Yrardów Środkowa/Bohaterów", "Żyrardów D.A.", "Ż Yrardów Limanowskieg O-Szpital", "Z Yrard1 Moajwa Carrefour", "Ż Yrardów Okrzei", "Żyrardów Legionów Polskich", "Żyrardów Szarych Szereg Ow", "Ż Yrardów Wittenberga", "Ż Yrardów Żeromskieg O/Piastowsk", "Ż Yrardów Zeromskieg O/Krzywa", "Ż Yrardów Żeromskieg O/Poznańska"]}]}, {"id": "7", "number": "7", "name": "9 ŻYR. PO ZNAŃSKA-ŻYRARDWÓ PKP", "type": "miejska", "color": "bg-emerald-500", "directions": [{"id": "7a", "label": "1[Żyrardów Żeromksiego Petla 0 → Ż Yrardózuws", "short": "1[Żyrardów Żeromksiego Petla 0 → Ż ", "baseTimes": {"weekday": ["05:04", "06:08", "06:22", "07:09", "07:56", "09:08", "09:53", "11:06", "11:35", "13:16", "13:56", "19:00", "19:50"], "saturday": ["05:04", "06:22", "07:56", "09:53", "11:35", "13:56", "19:50"], "sunday": ["05:04", "07:09", "09:53", "13:16", "19:50"]}, "stops": ["1[Żyrardów Żeromksiego Petla 0", "Żyrardów Zeromskieg O/Poznanska", "Żyrardów Zeromskieg O/Krzywa", "Żyrardów Zeromskieg O/Piastowsk", "Żyrardów Wittenberga", "Żyrardów Szarych Szereg Ow", "Żyrardów Sikorskieg O/Mostowa", "Żyrardów Sikorskieg O/Maczka", "Żyrardów Radziwillowska", "Ż Yrardózuws"]}, {"id": "7b", "label": "Ż Yrardódaw. → Żyrardów Zeromskieg O/Poznańska", "short": "Ż Yrardódaw. → Żyrardów Zeromskieg ", "baseTimes": {"weekday": ["04:54", "05:25", "06:00", "06:46", "08:40", "09:43", "10:03", "11:45", "12:55", "13:26", "13:44", "19:30"], "saturday": ["04:54", "06:00", "08:40", "10:03", "12:55", "13:44"], "sunday": ["04:54", "06:46", "10:03", "13:26"]}, "stops": ["Ż Yrardódaw.", "Ż Yrardów Zus", "Ż Yrardów Radziwillowska", "Żyrardów Sikorskieg O/Maczka", "Żyrardów Sikorskieg O/Mostowa", "Ż Yrardów Sikorskieg O/Roosevel", "Żyrardów Szarych Szereogw", "Żyrardów Wittenberga", "Żyrardów Zeromskieg O/Piastowsk", "Żyrardów Zeromskieg O/Krzywa", "Żyrardów Zeromskieg O/Poznańska"]}]}, {"id": "8", "number": "8", "name": "10 ŻYRARDÓW MOSTOWA - KORYTÓW LAS P. OSSOWSKIEGO, PARKINGOWA", "type": "podmiejska", "color": "bg-sky-500", "directions": [{"id": "8a", "label": "Żyrardów Mostowa Pętla → Korytów Polna", "short": "Żyrardów Mostowa Pętla → Korytów Po", "baseTimes": {"weekday": ["07:00", "07:30", "09:45", "12:30", "15:05", "15:05", "16:32", "17:18"], "saturday": ["07:00", "09:45", "15:05", "16:32"], "sunday": ["07:00", "12:30", "16:32"]}, "stops": ["Żyrardów Mostowa Pętla", "Żyrardów Mostowa", "Żyrardów Sikorskieg O/Roosevel", "Żyrardów Limanowskiego/Legion.", "Żyrardów Legionów Polskich", "Żyrardów Okrzei", "Żyrardów Mireckiego/1 Maja", "Żyrardów Limanowskieg O-Szpital", "Żyrardów Ossowskiego", "Ż Yrardów Peszkowskiego", "Ż Yrardów Fieldorfa Nila", "Żyrardów Pileckiego", "Żyrardów Parkingowa/Kpt. Pałac", "Żyrardów Nietrzebki", "Ż Yrardów Spółdzielcza", "Ż Yrardów Skrowa Czewskieg O/Niet", "Ż Yrardów Kpt.Pałaca", "Ż Yrardów Fde Girarda", "Ż Yrardów Środkowa/Spokojna", "Ż Yrardów Środkowa/Mireckiego", "Żyrardów Środkowa/Boha Terów", "Ż Yrardów D.A.", "Z Yrardow Partyzantow Pdt", "Ż Yrardów Mireckiego/1 Maja", "Ż Yrardów Reymonta", "Z Yrardow Piotra Skargi/Reymont", "Ż Yrardów Piotra Skargi/Rolna", "Ż Yrardów Rolna", "Ż Yrardów Opolska", "Ż Yrardów Mickiewicza/Skiernie", "Ż Yrardów Mickiewicza/Wrocwłsak", "Ż Yrardów Zalew Żyrardowski", "Ż Yrardów Mickiewicza/Roszarni", "Ż Yrardów Mickizea /Wdziialcki", "K Orytów(A)-Szkoła", "K Orytów Straz", "Korytów Polna"]}, {"id": "8b", "label": "K Orytów Las → Z Yrardow Mostowa Petla", "short": "K Orytów Las → Z Yrardow Mostowa Pe", "baseTimes": {"weekday": ["06:07", "08:00", "08:25", "11:00", "14:10", "16:00", "16:10", "17:33"], "saturday": ["06:07", "08:25", "14:10", "16:10"], "sunday": ["06:07", "11:00", "16:10"]}, "stops": ["K Orytów Las", "K Orytow Polna", "K Orytów Straz", "K Orytów(A)-Szkoła", "Żyrardów Korytów", "Ż Yrardów Mickiewicza/Działki", "Ż Yrardów Mickiewicza/Roszarni", "Ż Yrardów Zalew Żyrardowski", "Ż Yrardów Mickiewicza/Wrocławsk", "Ż Yrardów Mickiewicza/Kanalowa", "Ż Yrardów Reymonta", "Ż Yrardów Piotra Skargi/Reymont", "Ż Yrardów Piotra Skargi/Rolna", "Ż Yrardów Rolna", "Ż Yrardów Opolska", "Ż Yrardów Reymonta", "Ż Yrardów Mireckiego/1 Maja", "Ż Yrardów Partyzantów Pdt", "Ż Yrardów D.A.", "Ż Yrardów Środkowa/Boha Terów", "Ż Yrardów Środkowa/Mireckiego", "Ż Yrardów Środkowa/Limanowskie", "Z Yrardow Środkowa/Spokojna", "Ż Yrardów F.De Girarda", "Ż Yrardów Kpt.Pałaca", "Ż Yrardów Skrowa Czewskieg O/Niet", "Ż Yrardów Spółdzielcza", "Ż Yrardów Nietrzebki", "Z Yrardow Parkingowa", "Ż Yrardów Pileckiego", "Żyrardów Fieldorfa Nila", "Ż Yrardów Ossowskiego", "Ż Yrardów Limanowskieg O-Szpital", "Ż Yrardów 1 Maja Carrefour", "Ż Yrardów Okrzei", "Ż Yrardów Legionów Polskich", "Ż Yrardów Konarskiego", "Ż Yrardów Sosabowskiego", "Z Yrardow Mostowa Petla"]}]}, {"id": "9", "number": "9", "name": "Linia 9", "type": "miejska", "color": "bg-rose-600", "directions": [{"id": "9a", "label": "Wiskitki Fl. Wolności 5//6 I → Stare Kozłowice 1/2 /1", "short": "Wiskitki Fl. Wolności 5//6 I → Star", "baseTimes": {"weekday": ["14:21"], "saturday": ["14:21"], "sunday": ["14:21"]}, "stops": ["Wiskitki Fl. Wolności 5//6 I", "Wiskitki/ Zagródź 7/8", "Stare Kozlowice 3/4/11", "Stare Kozłowice 1/2 /1"]}, {"id": "9b", "label": "Stare Kozlowice 3/4/11 Ui → Wiskitki Pl. Wolności 5/6/1", "short": "Stare Kozlowice 3/4/11 Ui → Wiskitk", "baseTimes": {"weekday": ["08:06"], "saturday": ["08:06"], "sunday": ["08:06"]}, "stops": ["Stare Kozlowice 3/4/11 Ui", "Wiskitki/ Zagródź 7/8", "Wiskitki Pl. Wolności 5/6/1"]}]}, {"id": "10", "number": "10", "name": "Linia 10", "type": "podmiejska", "color": "bg-amber-600", "directions": [{"id": "10a", "label": "Wiskitki Szkola → Wiskitki Szkola", "short": "Wiskitki Szkola → Wiskitki Szkola", "baseTimes": {"weekday": ["09:45", "10:45"], "saturday": ["09:45", "10:45"], "sunday": ["09:45", "10:45"]}, "stops": ["Wiskitki Szkola", "Sokule I/Mleczarnia", "Sokuletiii", "Łubnoi Ul. Główna/Kapliczka", "Łubnoii Ul. Główna/Krzyż", "Łubno I Ul. Główna/ Kapliczka", "Tomaszew 1", "Sokule Iii", "Działki Osp", "Daalki Male", "Wiskitki Szkola"]}]}]};
+const BUS_DATA_FALLBACK = {"meta": {"version": "2026-08-08-REAL+mock", "generatedAt": "2026-08-08T22:48:17Z", "source": "ZPA real PDFs for lines 1-5 + mock rest", "parsedReal": 14}, "lines": [{"id": "0", "number": "0", "name": "1 ŻYR. SPÓŁDZIELCZA - ŻYR. PKP", "type": "miejska", "color": "bg-teal-600", "directions": [{"id": "0a", "label": "Żyrardów Spółdzielcza → Żyrardów D.A.", "short": "Żyrardów Spółdzielcza → Żyrardów D.", "baseTimes": {"weekday": ["04:44", "05:15", "05:50", "06:36", "08:30", "09:33", "11:35", "12:40", "14:30", "19:20"], "saturday": ["04:44", "05:50", "08:30", "11:35", "14:30"], "sunday": ["04:44", "06:36", "11:35", "19:20"]}, "stops": ["Żyrardów Spółdzielcza", "Skrowaczewskiego", "kpt. Pałaca", "F. de Girarda", "Środkowa / Spokojna", "Środkowa / Limanowskiego", "Środkowa / Mireckiego", "Środkowa / Bohaterów", "Żyrardów D.A."]}, {"id": "0b", "label": "Żyrardów D.A. → Żyrardów Spółdzielcza", "short": "Żyrardów D.A. → Żyrardów Spółdzielc", "baseTimes": {"weekday": ["05:14", "06:18", "06:32", "08:06", "09:18", "11:20", "12:30", "13:26", "14:06", "14:42", "19:10"], "saturday": ["05:14", "06:32", "09:18", "12:30", "14:06", "19:10"], "sunday": ["05:14", "08:06", "12:30", "14:42"]}, "stops": ["Żyrardów D.A.", "Środkowa / Bohaterów", "Ż Yrardów Środkowa / Mireckiego", "Środkowa / Limanowskiego", "Środkowa / Spokojna", "F. de Girarda", "Żyrardów Kpt.Pałaca", "Skrowaczewskiego / Niet", "Żyrardów Spółdzielcza"]}]}, {"id": "1", "number": "1", "name": "2 ŻYR. ŻEROMSKIEGO PO ZNAŃSKA - PARKINGOWA - NOWE KO ZŁOWICE - STARE KO ZŁOWICE ", "type": "miejska", "color": "bg-emerald-600", "directions": [{"id": "1a", "label": "Żeromskiego Pętla → Nowe Kozłowice Zakręt", "short": "Żeromskiego Pętla → Nowe Kozłowice ", "baseTimes": {"weekday": ["03:03", "03:33", "04:02", "04:32", "04:56", "05:26", "06:36", "06:59", "07:32", "08:00", "08:28", "08:40", "08:53", "09:10", "09:40", "10:35", "11:19", "12:04", "12:34", "13:23"], "saturday": ["03:03", "04:02", "04:56", "06:36", "07:32", "08:28", "08:53", "09:40"], "sunday": ["03:03", "04:32", "06:36", "08:00", "08:53", "10:35"]}, "stops": ["Żeromskiego Pętla", "Żeromskiego / Poznańska", "Żeromskiego / Krzywa", "Żeromskiego / Piastowska", "Żyrardów Wittenberga", "Żyrardów Szarych Szeregów", "Sikorskiego / Mostowa", "Sikorskiego / Maczka", "Żyrardów Radziwiłłowska", "Żyrardów Zus", "Żyrardów D.A.", "Środkowa / Bohaterów", "Środkowa / Mireckieg", "Środkowa / Limanowskiego", "Środkowa / Spokojna", "F. de Girarda", "Żyrardów Kacperskiej", "Żyrardów Parkingowa / Kpt. Palac", "Nowe Kozłowice", "Nowe Kozłowice Zakręt"]}, {"id": "1b", "label": "Skrowaczewskiego / Niet → Żeromskiego / Poznańska", "short": "Skrowaczewskiego / Niet → Żeromskie", "baseTimes": {"weekday": ["00:16", "03:35", "04:05", "04:34", "05:04", "05:28", "05:58", "07:08", "07:31", "08:08", "08:36", "09:04", "09:16", "09:29", "09:46", "10:16", "11:07", "11:51", "12:36", "13:06"], "saturday": ["00:16", "04:05", "05:04", "05:58", "07:31", "08:36", "09:16", "09:46"], "sunday": ["00:16", "04:34", "05:58", "08:08", "09:16", "10:16"]}, "stops": ["Skrowaczewskiego / Niet", "kpt. Pałaca", "F. de Girarda", "Środkowa / Spokojna", "Środkowa / Limanowskiego", "Środkowa / Mireckiego", "Środkowa / Bohaterów", "Żyrardów Da.", "Żyrardów Zus", "Żyrardów Radziwiłłowska", "Sikorskiego / Maczka", "Sikorskiego / Mostowa", "Sikorskiego / Roosevelta", "Żyrardów Szarych Szeregówów", "Żyrardów Wittenberga", "Żeromskiego / Piastowska", "Żeromskiego / Krzywa", "Żeromskiego / Poznańska"]}]}, {"id": "2", "number": "2", "name": "3 ŻYR. DZIAŁKI OSP - ŻYR. MIĘDZYBORÓW", "type": "podmiejska", "color": "bg-sky-600", "directions": [{"id": "2a", "label": "Działki OSP → Żyrardów Jaktorowska / Sade Budy", "short": "Działki OSP → Żyrardów Jaktorowska ", "baseTimes": {"weekday": ["05:50", "06:20", "07:00", "07:37", "08:48", "09:08", "11:35", "12:30"], "saturday": ["05:50", "07:00", "08:48", "11:35"], "sunday": ["05:50", "07:37", "11:35"]}, "stops": ["Działki OSP", "Działki - Młyńska", "Żeromskiego / Poznańska", "Żeromskiego / Krzywa", "Żeromskiego / Piastowska", "Żyrardów Wittenberga", "Żyrardów Szarych Szeregów", "Limanowskiego / Legionów", "Limanowskiego / Dittricha", "Żyrardów Piękna", "Żyrardów Pileckieg", "Z Yrpaarkinrg Owda / Kpot.Pawlac", "Ż Yrardózuws", "Okrzei", "Żyrardów Jaktorowska / 1 Maja", "Żyrardów Lelewela", "Żyrardów Wawelska", "Żyrardów Południowa", "Żyrardów Jaktorowska / Równoległa", "Żyrardów Jaktorowska / Sade Budy", "Dzialki OSP", "D Ziałki - Młyńska", "Ż Yrardów Żeromskiego / Poznańska", "Żeromskiego / Krzywa", "Żeromskiego / Piastowska", "Żyrardów Wittenberga", "Żyrardów Szarych Szeregówów", "Limanowskiego / Legionów", "Limanowskiego / Dittricha", "Ż Yrardów Limanowskiego / Szpital", "Z Yrardow Ossowskiego", "Z Yrardow Warynskiego", "Ż Yrardów Jasna", "Żyrardów Piękna", "Ż Yrardów Fieldorfa Nila", "Ż Yrardów Pileckiego", "Ż Yrardów Parkingowa / Kpt. Pałac", "Ż Yrardów Parkingowa", "Ż Yrardów Nietrzebki", "Ż Yrardów Spółdzielcza", "Ż Yrardów Skrowaczewskiego / Niet", "Ż Yrardów kpt. Pałaca", "Z Yrardow F. de Girarda", "Ż Yrardów Środkowa / Spokojna", "Ż Yrardów Środkowa / Limanowskiego", "Ż Yrardów Mireckieg / Ossowskie", "Ż Yrardów Partyzantow Pdt", "Żyrardów Da.", "Z Yrardow Zus", "Ż Yrardów Radziwiłłowska", "Okrzei", "Żyrardów Jaktorowska / 1 Maja", "Ż Yrardów Lelewela", "Ż Yrardów Wa Welska", "Żyrardów Południowa", "Żyrardów Jaktorowska / Sade Budy"]}, {"id": "2b", "label": "Ż Yrardów Jaktorowska / Sade Budy → Ż Yrardów Żeromskiego / Poznańska", "short": "Ż Yrardów Jaktorowska / Sade Budy →", "baseTimes": {"weekday": ["05:29", "06:43", "07:18", "07:56", "08:46", "09:41", "10:31", "11:31", "12:01", "13:31"], "saturday": ["05:29", "07:18", "08:46", "10:31", "12:01"], "sunday": ["05:29", "07:56", "10:31", "13:31"]}, "stops": ["Ż Yrardów Jaktorowska / Sade Budy", "Ż Yrardów Jaktorowska / Równoległa", "Ż Yrardów Chmielna", "Żyrardów Wawelska", "Ż Yrardów Lelewela", "Ż Yrardów Jaktorowska / 1 Maja", "Ż Yrardów Okrzei", "Żyrardów Wyspianskiego", "Z Yrardow Zus", "Ż Yrardów Da.", "Ż Yrardów Partyzantów Pdt", "Ż Yrardów Mireckieg / Ossowskie", "Ż Yrardów Środkowa / Limanowskiego", "Ż Yrardów Środkowa / Spokojna", "Z Yrardow F. de Girarda", "Ż Yrardów kpt. Pałaca", "Ż Yrardów Skrowaczewskiego / Niet", "Ż Yrardów Spółdzielcza", "Ż Yrardów Nietrzebki", "Z Yrardow Parkingowa", "Z Yrardow Pileckiego", "Ż Yrardów Fieldorfa Nila", "Z Yrardow Piękna", "Żyrardów Jasna", "Z Yrardow Warynskiego", "Z Yrardow Ossowskiego", "Ż Yrardów Limanowskiego / Szpital", "Z Yrardow Limanowskiego / Ga Kraj.", "Limanowskiego / Legionów", "Żyrardów Szarych Szereogw", "Żyrardów Wittenberga", "Żeromskiego / Piastowska", "Żeromskiego / Krzywa", "Ż Yrardów Żeromskiego / Poznańska"]}]}, {"id": "3", "number": "3", "name": "4 ŻYR. WISKITKI P WOLNOŚCI - ŻYR. SPÓŁDZIELCZA P. DZIAŁKI", "type": "miejska", "color": "bg-violet-600", "directions": [{"id": "3a", "label": "Wiskitki Szkoła → Ż Yrardów Skrowaczewskiego / Niet", "short": "Wiskitki Szkoła → Ż Yrardów Skrowac", "baseTimes": {"weekday": ["04:09", "05:33", "06:35", "07:17", "08:02", "08:12", "09:56", "10:35", "11:41", "12:35", "12:57", "13:53", "14:19", "15:07", "16:08", "17:36", "19:04", "20:08"], "saturday": ["04:09", "06:35", "08:02", "09:56", "11:41", "12:57", "14:19", "16:08"], "sunday": ["04:09", "07:17", "09:56", "12:35", "14:19", "17:36"]}, "stops": ["Wiskitki Szkoła", "Działki Małe", "Działki OSP", "Działki - Młyńska", "Żeromskiego / Poznańska", "Żeromskiego / Krzywa", "Żeromskiego / Piastowska", "Żyrardów Wittenberga", "Ż Yrardów Szarych Szeregówów", "Ż Yrardów Limanowskiego / Legionów", "Ż Yrardów Liman Owskieg / Dittricha", "Ż Yrardów Limanowskiegogoo-Szpital", "Ż Yrardów Partyzantów Pdt", "Żyrardów D.A.", "Ż Yrardów Środkowa / Bohaterów", "Ż Yrardów Środkowa / Mireckiego", "Z Yrardow Środkowa / Limanowskiego", "Ż Yrardów Środkowa / Spokojna", "Ż Yrardów F. de Girarda", "kpt. Pałaca", "Ż Yrardów Skrowaczewskiego / Niet"]}, {"id": "3b", "label": "Ż Yrardów Spółdzielcza → Działki Małe", "short": "Ż Yrardów Spółdzielcza → Działki Ma", "baseTimes": {"weekday": ["05:00", "06:02", "06:44", "07:21", "08:00", "08:40", "08:50", "10:35", "11:20", "12:15", "13:20", "13:36", "14:30", "15:20", "15:52", "16:41", "18:30", "19:35"], "saturday": ["05:00", "06:44", "08:00", "08:50", "11:20", "13:20", "14:30", "15:52"], "sunday": ["05:00", "07:21", "08:50", "12:15", "14:30", "16:41"]}, "stops": ["Ż Yrardów Spółdzielcza", "Ż Yrardów Skrowaczewskiego / Niet", "kpt. Pałaca", "Ż Yrardóf.Wde Girarda", "Ż Yrardów Środkowa / Spokojna", "Ż Yrardów Środkowa / Limanowskiego", "Ż Yrardów Środkowa / Mireckiego", "Z Yrardow Środkowa / Bohaterów", "Żyrardów D.A.", "Ż Yrardów Partyzantów Pdt", "Ż Yrardów Limanowskiego / Szpital", "Limanowskiegogo / A Kraj.", "Limanowskiego / Legionów", "Ż Yrardów Szarych Szereogw", "Żyrardów Wittenberga", "Z Yrardow Żeromskiego / Piastowska", "Z Yrardow Żeromskiego / Krzywa", "Żeromskiego / Poznańska", "D Zia- Młłykńsika", "Działki OSP", "Działki Małe"]}]}, {"id": "4", "number": "4", "name": "Wiskitki - Działki", "type": "podmiejska", "color": "bg-blue-600", "directions": [{"id": "4a", "label": "Wiskitki / Pl. Wolności → Działki / Lawendowa", "short": "Wiskitki / Pl. Wolności → Działki /", "baseTimes": {"weekday": ["05:00", "06:15", "07:30", "09:00", "11:00", "13:00", "14:30", "15:45", "17:00", "18:30", "20:00"], "saturday": ["06:00", "08:00", "10:00", "12:00", "14:00", "16:00", "18:00"], "sunday": ["08:00", "12:00", "16:00", "19:00"]}, "stops": ["Wiskitki / Pl. Wolności", "Wiskitki / Szkolna", "Żyrardów / Mireckiego", "Spółdzielcza / Waryńskiego", "Działki / OSP", "Działki / Lawendowa"]}, {"id": "4b", "label": "Działki / Lawendowa → Wiskitki / Pl. Wolności", "short": "Działki / Lawendowa → Wiskitki / Pl", "baseTimes": {"weekday": ["05:40", "06:55", "08:10", "09:40", "11:40", "13:40", "15:10", "16:25", "17:40", "19:10", "20:40"], "saturday": ["06:40", "08:40", "10:40", "12:40", "14:40", "16:40", "18:40"], "sunday": ["08:40", "12:40", "16:40", "19:40"]}, "stops": ["Działki / Lawendowa", "Działki / OSP", "Spółdzielcza / Waryńskiego", "Żyrardów / Mireckiego", "Wiskitki / Szkolna", "Wiskitki / Pl. Wolności"]}]}, {"id": "5", "number": "5", "name": "7 ŻYR. ZEROMSKIEGO PO ZNAŃSKA - ŻYR. SPÓŁDZIELCZA", "type": "miejska", "color": "bg-orange-600", "directions": [{"id": "5a", "label": "Żeromskiego Pętla → Żyrardów Nietrzebki", "short": "Żeromskiego Pętla → Żyrardów Nietrz", "baseTimes": {"weekday": ["05:47", "06:44", "07:40", "09:14", "10:10", "11:50", "13:10", "14:35", "15:44", "16:40"], "saturday": ["05:47", "07:40", "10:10", "13:10", "15:44"], "sunday": ["05:47", "09:14", "13:10", "16:40"]}, "stops": ["Żeromskiego Pętla", "Żyrardów Zeromos / Pkozni Aensgka", "Żeromskiego / Krzywa", "Żeromskiego / Piastowska", "Żyrardów Wittenberga", "Żyrardów Szarych Szeregówów", "Limanowskiego / Legionów", "Legionów Polskich", "Okrzei", "Z Yrardow Mireckiego / 1 Maja", "Limanowskiego / Szpital", "Z Yrardow Partyzantow Pdt", "Żyrardów D.A.", "Środkowa / Bohaterów", "Środkowa / Mireckiego", "Z Yrardow Środkowa / Limanowskiego", "Z Yrardow Środkowa / Spokojna", "F. de Girarda", "Ż Yrardów Kacperskiej", "Żyrardów Parkingowa", "Żyrardów Nietrzebki"]}, {"id": "5b", "label": "Ż Yrardów Spółdzielcza → Ż Yrardów Żeromskiego / Poznańska", "short": "Ż Yrardów Spółdzielcza → Ż Yrardów ", "baseTimes": {"weekday": ["06:17", "07:14", "08:10", "09:44", "10:40", "12:20", "13:40", "15:05", "16:14", "17:12"], "saturday": ["06:17", "08:10", "10:40", "13:40", "16:14"], "sunday": ["06:17", "09:44", "13:40", "17:12"]}, "stops": ["Ż Yrardów Spółdzielcza", "Ż Yrardów Skrowaczewskiegoi / Neiegt", "Ż Yrardów kpt. Pałaca", "Ż Yrardów F. de Girarda", "Środkowa / Spokojna", "Środkowa / Limanowskiego", "Ż Yrardów Środkowa / Mireckiego", "Ż Yrardów Środkowa / Bohaterów", "Żyrardów D.A.", "Ż Yrardów Limanowskiego / Szpital", "Z Yrard1 Moajwa Carrefour", "Ż Yrardów Okrzei", "Legionów Polskich", "Żyrardów Szarych Szeregów", "Ż Yrardów Wittenberga", "Ż Yrardów Żeromskiego / Piastowska", "Ż Yrardów Żeromskiego / Krzywa", "Ż Yrardów Żeromskiego / Poznańska"]}]}, {"id": "7", "number": "7", "name": "9 ŻYR. PO ZNAŃSKA-ŻYRARDWÓ PKP", "type": "miejska", "color": "bg-emerald-500", "directions": [{"id": "7a", "label": "Żeromskiego Pętla → Ż Yrardózuws", "short": "Żeromskiego Pętla → Ż Yrardózuws", "baseTimes": {"weekday": ["05:04", "06:08", "06:22", "07:09", "07:56", "09:08", "09:53", "11:06", "11:35", "13:16", "13:56", "19:00", "19:50"], "saturday": ["05:04", "06:22", "07:56", "09:53", "11:35", "13:56", "19:50"], "sunday": ["05:04", "07:09", "09:53", "13:16", "19:50"]}, "stops": ["Żeromskiego Pętla", "Żeromskiego / Poznańska", "Żeromskiego / Krzywa", "Żeromskiego / Piastowska", "Żyrardów Wittenberga", "Żyrardów Szarych Szeregów", "Sikorskiego / Mostowa", "Sikorskiego / Maczka", "Żyrardów Radziwiłłowska", "Ż Yrardózuws"]}, {"id": "7b", "label": "Ż Yrardódaw. → Żeromskiego / Poznańska", "short": "Ż Yrardódaw. → Żeromskiego / Poznań", "baseTimes": {"weekday": ["04:54", "05:25", "06:00", "06:46", "08:40", "09:43", "10:03", "11:45", "12:55", "13:26", "13:44", "19:30"], "saturday": ["04:54", "06:00", "08:40", "10:03", "12:55", "13:44"], "sunday": ["04:54", "06:46", "10:03", "13:26"]}, "stops": ["Ż Yrardódaw.", "Ż Yrardów Zus", "Ż Yrardów Radziwiłłowska", "Sikorskiego / Maczka", "Sikorskiego / Mostowa", "Ż Yrardów Sikorskiego / Roosevelta", "Żyrardów Szarych Szereogw", "Żyrardów Wittenberga", "Żeromskiego / Piastowska", "Żeromskiego / Krzywa", "Żeromskiego / Poznańska"]}]}, {"id": "8", "number": "8", "name": "10 ŻYRARDÓW MOSTOWA - KORYTÓW LAS P. OSSOWSKIEGO, PARKINGOWA", "type": "podmiejska", "color": "bg-sky-500", "directions": [{"id": "8a", "label": "Mostowa Pętla → Korytów Polna", "short": "Mostowa Pętla → Korytów Polna", "baseTimes": {"weekday": ["07:00", "07:30", "09:45", "12:30", "15:05", "15:05", "16:32", "17:18"], "saturday": ["07:00", "09:45", "15:05", "16:32"], "sunday": ["07:00", "12:30", "16:32"]}, "stops": ["Mostowa Pętla", "Mostowa", "Sikorskiego / Roosevelta", "Limanowskiegogoo / Legionów", "Legionów Polskich", "Okrzei", "Żyrardów Mireckiego / 1 Maja", "Limanowskiego / Szpital", "Żyrardów Ossowskiego", "Ż Yrardów Peszkowskiego", "Ż Yrardów Fieldorfa Nila", "Żyrardów Pileckiego", "Żyrardów Parkingowa / Kpt. Pałac", "Żyrardów Nietrzebki", "Ż Yrardów Spółdzielcza", "Ż Yrardów Skrowaczewskiego / Niet", "Ż Yrardów Kpt.Pałaca", "Ż Yrardów F. de Girarda", "Ż Yrardów Środkowa / Spokojna", "Ż Yrardów Środkowa / Mireckiego", "Środkowa / Boha Terów", "Ż Yrardów D.A.", "Z Yrardow Partyzantow Pdt", "Ż Yrardów Mireckiego / 1 Maja", "Ż Yrardów Reymonta", "Z Yrardow Piotra Skargi / Reymont", "Ż Yrardów Piotra Skargi / Rolna", "Ż Yrardów Rolna", "Ż Yrardów Opolska", "Ż Yrardów Mickiewicza / Skiernie", "Ż Yrardów Mickiewicza / Wrocwłsak", "Ż Yrardów Zalew Żyrardówski", "Ż Yrardów Mickiewicza / Roszarni", "Ż Yrardów Mickizea / Wdziialcki", "K Orytów(A)-Szkoła", "K Orytów Straz", "Korytów Polna"]}, {"id": "8b", "label": "K Orytów Las → Z Yrardow Mostowa Pętla", "short": "K Orytów Las → Z Yrardow Mostowa Pę", "baseTimes": {"weekday": ["06:07", "08:00", "08:25", "11:00", "14:10", "16:00", "16:10", "17:33"], "saturday": ["06:07", "08:25", "14:10", "16:10"], "sunday": ["06:07", "11:00", "16:10"]}, "stops": ["K Orytów Las", "K Orytow Polna", "K Orytów Straz", "K Orytów(A)-Szkoła", "Żyrardów Korytów", "Ż Yrardów Mickiewicza / Działki", "Ż Yrardów Mickiewicza / Roszarni", "Ż Yrardów Zalew Żyrardówski", "Ż Yrardów Mickiewicza / Wrocławsk", "Ż Yrardów Mickiewicza / Kanalowa", "Ż Yrardów Reymonta", "Ż Yrardów Piotra Skargi / Reymont", "Ż Yrardów Piotra Skargi / Rolna", "Ż Yrardów Rolna", "Ż Yrardów Opolska", "Ż Yrardów Reymonta", "Ż Yrardów Mireckiego / 1 Maja", "Ż Yrardów Partyzantów Pdt", "Ż Yrardów D.A.", "Ż Yrardów Środkowa / Boha Terów", "Ż Yrardów Środkowa / Mireckiego", "Ż Yrardów Środkowa / Limanowskiego", "Z Yrardow Środkowa / Spokojna", "Ż Yrardów F. de Girarda", "Ż Yrardów Kpt.Pałaca", "Ż Yrardów Skrowaczewskiego / Niet", "Ż Yrardów Spółdzielcza", "Ż Yrardów Nietrzebki", "Z Yrardow Parkingowa", "Ż Yrardów Pileckiego", "Żyrardów Fieldorfa Nila", "Ż Yrardów Ossowskiego", "Ż Yrardów Limanowskiego / Szpital", "Ż Yrardów 1 Maja Carrefour", "Ż Yrardów Okrzei", "Ż Yrardów Legionów Polskich", "Ż Yrardów Konarskiego", "Ż Yrardów Sosabowskiego", "Z Yrardow Mostowa Pętla"]}]}, {"id": "9", "number": "9", "name": "Linia 9", "type": "miejska", "color": "bg-rose-600", "directions": [{"id": "9a", "label": "Wiskitki Pl. Wolności → Stare Kozłowice", "short": "Wiskitki Pl. Wolności → Stare Kozło", "baseTimes": {"weekday": ["14:21"], "saturday": ["14:21"], "sunday": ["14:21"]}, "stops": ["Wiskitki Pl. Wolności", "Wiskitki / Zagródź", "Stare Kozlowice", "Stare Kozłowice"]}, {"id": "9b", "label": "Stare Kozlowice → Wiskitki Pl. Wolności", "short": "Stare Kozlowice → Wiskitki Pl. Woln", "baseTimes": {"weekday": ["08:06"], "saturday": ["08:06"], "sunday": ["08:06"]}, "stops": ["Stare Kozlowice", "Wiskitki / Zagródź", "Wiskitki Pl. Wolności"]}]}, {"id": "10", "number": "10", "name": "Linia 10", "type": "podmiejska", "color": "bg-amber-600", "directions": [{"id": "10a", "label": "Wiskitki Szkola → Wiskitki Szkola", "short": "Wiskitki Szkola → Wiskitki Szkola", "baseTimes": {"weekday": ["09:45", "10:45"], "saturday": ["09:45", "10:45"], "sunday": ["09:45", "10:45"]}, "stops": ["Wiskitki Szkola", "Sokule I / Mleczarnia", "Sokuletiii", "Łubnoi Ul. Główna / Kapliczka", "Łubnoii Ul. Główna / Krzyż", "Łubno I Ul. Główna / Kapliczka", "Tomaszew", "Sokule Iii", "Działki OSP", "Daalki Male", "Wiskitki Szkola"]}]}]};
 
 /* ========== STATE & HELPERS ========== */
 let BUS_DATA = null;
@@ -326,7 +404,296 @@ function setupSearch(){
 }
 function addRecent(line, dir, stop){ const recents=JSON.parse(localStorage.getItem('zpa_recents')||'[]'); const entry={lineId:line.id, dirIdx:state.dirIdx, stopIdx:state.stopIdx, stop, lineNumber:line.number, lineColor:line.color}; const filtered=recents.filter(r=>!(r.lineId===entry.lineId && r.stop===stop)); filtered.unshift(entry); localStorage.setItem('zpa_recents', JSON.stringify(filtered.slice(0,5))); renderRecents(); }
 function renderRecents(){ const cont=document.getElementById('recentStops'); if(!cont) return; const recents=JSON.parse(localStorage.getItem('zpa_recents')||'[]'); if(!recents.length){ cont.innerHTML=`<div class="text-xs text-zinc-500">Brak historii</div>`; return; } cont.innerHTML=recents.map(r=>`<button data-recent="${r.lineId}|${r.dirIdx}|${r.stopIdx}" class="flex items-center gap-2 p-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 w-full text-left"><span class="w-7 h-7 rounded-lg ${r.lineColor} text-white flex items-center justify-center font-bold text-[11px]">${r.lineNumber}</span><span class="text-[12px] truncate">${r.stop}</span></button>`).join(''); cont.querySelectorAll('[data-recent]').forEach(btn=>btn.addEventListener('click',()=>{ const [lineId,dirIdx,stopIdx]=btn.dataset.recent.split('|'); state.lineId=lineId; state.dirIdx=Number(dirIdx); state.stopIdx=Number(stopIdx); saveState(); renderAll(); })); }
-function renderAll(){ renderLines(); renderDirectionSwitcher(); renderHeader(); renderStops(); renderTimetable(); renderNextBus(); renderTrip(); renderRecents(); }
+function renderAll(){ renderLines(); renderDirectionSwitcher(); renderHeader(); renderStops(); renderTimetable(); renderNextBus(); renderTrip(); renderRecents(); renderStopsViewList(); }
+
+/* ========== VIEW SWITCHER ========== */
+let currentView = 'lines';
+function switchView(view){
+  currentView = view;
+  document.querySelectorAll('.view-tab').forEach(btn=>{
+    const active = btn.dataset.view===view;
+    btn.className = `view-tab px-4 py-2.5 rounded-full text-sm font-semibold ${active?'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow':'bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50'}`;
+  });
+  document.getElementById('appRoot').classList.toggle('hidden', view!=='lines');
+  document.getElementById('appRoot').classList.toggle('grid', view==='lines');
+  document.getElementById('stopsView').classList.toggle('hidden', view!=='stops');
+  document.getElementById('routeView').classList.toggle('hidden', view!=='route');
+  if(view==='stops'){ renderStopsViewList(); }
+}
+document.querySelectorAll('.view-tab').forEach(btn=> btn.addEventListener('click', ()=> switchView(btn.dataset.view)));
+
+/* ========== STOPS VIEW - lista autobusów przez przystanek ========== */
+let selectedUniqueStop = null;
+function getUniqueStops(){
+  const map = new Map();
+  if(!BUS_DATA) return [];
+  BUS_DATA.lines.forEach(line=>{
+    line.directions.forEach(dir=>{
+      dir.stops.forEach(stopName=>{
+        const key = stopName.toLowerCase().replace(/[^a-z0-9ąćęłńóśżź ]/g,'').trim();
+        if(!map.has(key)){
+          map.set(key, {name: stopName, count: 0, lines: new Set()});
+        }
+        const e = map.get(key);
+        e.count++;
+        e.lines.add(line.number);
+      });
+    });
+  });
+  return Array.from(map.values()).sort((a,b)=> a.name.localeCompare(b.name)).map(v=> ({name: v.name, count: v.count, linesCount: v.lines.size, lines: Array.from(v.lines).join(', ')}));
+}
+function renderStopsViewList(filter=''){
+  if(!BUS_DATA) return;
+  const unique = getUniqueStops();
+  const listEl = document.getElementById('uniqueStopsList');
+  const countEl = document.getElementById('uniqueStopsCount');
+  if(!listEl) return;
+  const q = filter.toLowerCase();
+  const filtered = q ? unique.filter(u=> u.name.toLowerCase().includes(q)) : unique;
+  countEl.textContent = `${filtered.length} przystanków • ${BUS_DATA.lines.length} linii`;
+  listEl.innerHTML = filtered.slice(0,100).map(u=>{
+    const active = selectedUniqueStop && selectedUniqueStop.toLowerCase()===u.name.toLowerCase();
+    return `<button data-ustop="${u.name.replace(/"/g,'&quot;')}" class="w-full text-left px-3 py-2.5 rounded-xl border flex items-center justify-between gap-2 ${active?'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 border-zinc-900':'bg-zinc-50 dark:bg-zinc-800/50 border-zinc-100 dark:border-zinc-800 hover:bg-white dark:hover:bg-zinc-800'}">
+      <span class="min-w-0 flex-1"><span class="block text-[13px] font-semibold truncate">${u.name}</span><span class="block text-[11px] ${active?'text-white/60':'text-zinc-500'}">${u.linesCount} linii: ${u.lines}</span></span>
+      <span class="text-[11px] ${active?'text-white/60':'text-zinc-400'}">${u.count} kursów</span>
+    </button>`;
+  }).join('');
+  listEl.querySelectorAll('[data-ustop]').forEach(btn=> btn.addEventListener('click', ()=>{
+    selectedUniqueStop = btn.dataset.ustop;
+    renderStopsViewList(document.getElementById('allStopsSearch').value);
+    renderStopDetail(selectedUniqueStop);
+  }));
+}
+function findOccurrencesForStop(stopName){
+  const results=[];
+  const q = stopName.toLowerCase();
+  BUS_DATA.lines.forEach(line=>{
+    line.directions.forEach((dir, dirIdx)=>{
+      dir.stops.forEach((sName, stopIdx)=>{
+        if(sName.toLowerCase()===q || sName.toLowerCase().includes(q) || q.includes(sName.toLowerCase())){
+          results.push({line, dir, dirIdx, stopIdx, stopName: sName});
+        }
+      });
+    });
+  });
+  return results;
+}
+function renderStopDetail(stopName){
+  const header = document.getElementById('stopDetailHeader');
+  const list = document.getElementById('stopDeparturesList');
+  const allDay = document.getElementById('stopAllDayList');
+  const occurrences = findOccurrencesForStop(stopName);
+  if(!occurrences.length){
+    header.innerHTML = `<div>Nie znaleziono przystanku ${stopName}</div>`;
+    list.innerHTML=''; allDay.innerHTML='';
+    return;
+  }
+  // Header
+  const uniqLines = [...new Set(occurrences.map(o=>o.line.number))].join(', ');
+  header.innerHTML = `
+    <div>
+      <div class="flex items-center gap-2">
+        <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold">P</div>
+        <div>
+          <div class="font-bold text-[16px]">${stopName}</div>
+          <div class="text-xs text-zinc-500">${occurrences.length} połączeń • Linie: ${uniqLines}</div>
+        </div>
+      </div>
+      <div class="mt-3 flex gap-1.5 flex-wrap">
+        ${[...new Set(occurrences.map(o=>o.line.number))].map(num=> `<span class="px-2.5 py-1 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-xs font-bold">${num}</span>`).join('')}
+      </div>
+    </div>
+    <button onclick="switchView('route'); document.getElementById('routeFromInput').value='${stopName.replace(/'/g,"\\'")}'; document.getElementById('routeFromSelected').innerHTML='<span class=&quot;text-xs px-2 py-1 rounded-full bg-emerald-100 text-emerald-700&quot;>Od: ${stopName}</span>'; window._routeFrom='${stopName.replace(/'/g,"\\'")}';" class="text-xs px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-700 border">Użyj jako OD →</button>
+  `;
+
+  // Collect all departures today
+  const now = new Date();
+  const nowMin = now.getHours()*60+now.getMinutes()+now.getSeconds()/60;
+  const dayType = state.dayType;
+  let allDeps=[];
+  occurrences.forEach(occ=>{
+    const schedule = getScheduleForStop(occ.dir, occ.stopIdx, dayType);
+    schedule.forEach(t=>{
+      const mins = parseMinutes(t);
+      allDeps.push({time: t, mins, line: occ.line, dir: occ.dir, dirIdx: occ.dirIdx, stopIdx: occ.stopIdx});
+    });
+  });
+  // Sort by time
+  allDeps.sort((a,b)=> a.mins - b.mins);
+  const upcoming = allDeps.filter(d=> d.mins >= nowMin).slice(0,12);
+  const toShow = upcoming.length ? upcoming : allDeps.slice(0,12);
+
+  document.getElementById('stopLiveClock').textContent = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+
+  list.innerHTML = toShow.map(dep=>{
+    const diff = Math.max(0, Math.floor(dep.mins - nowMin));
+    const isSoon = diff<30;
+    const diffLabel = diff<1 ? 'teraz' : `za ${diff} min`;
+    return `<div class="flex items-center justify-between p-3 rounded-2xl ${isSoon?'bg-white text-zinc-900':'bg-white/5 border border-white/10'}">
+      <div class="flex items-center gap-3 min-w-0">
+        <span class="w-9 h-9 rounded-xl ${dep.line.color} text-white flex items-center justify-center font-bold text-sm shrink-0">${dep.line.number}</span>
+        <div class="min-w-0">
+          <div class="font-mono font-bold text-[15px]">${dep.time} <span class="text-[11px] opacity-60 font-sans">${diffLabel}</span></div>
+          <div class="text-xs ${isSoon?'text-zinc-600':'text-white/60'} truncate">${dep.dir.label}</div>
+        </div>
+      </div>
+      <div class="text-right shrink-0">
+        <div class="text-[11px] px-2 py-0.5 rounded-full ${isSoon?'bg-zinc-900 text-white':'bg-white/10'}">${dayLabel(dayType)}</div>
+        <div class="text-[10px] mt-1 ${isSoon?'text-zinc-500':'text-white/40'}">${dep.dir.stops.length - dep.stopIdx} przyst. do końca</div>
+      </div>
+    </div>`;
+  }).join('') || `<div class="text-white/60 text-sm">Brak kursów dziś</div>`;
+
+  // All day list as chips by hour
+  const byHour={};
+  allDeps.forEach(d=>{ const h=d.time.split(':')[0]; (byHour[h]=byHour[h]||[]).push(d); });
+  allDay.innerHTML = Object.keys(byHour).sort().map(h=> `
+    <div class="w-full">
+      <div class="flex items-center gap-2 mt-3 mb-1.5">
+        <span class="w-6 h-6 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center text-[11px] font-bold">${h}</span>
+        <span class="h-px flex-1 bg-zinc-200 dark:bg-zinc-700"></span>
+      </div>
+      <div class="flex flex-wrap gap-1.5">
+        ${byHour[h].map(d=> `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border text-xs font-mono ${d.mins>=nowMin?'bg-white dark:bg-zinc-900 border-zinc-200':'bg-zinc-50 dark:bg-zinc-800 border-zinc-100 opacity-60'}"><span class="w-5 h-5 rounded-full ${d.line.color} text-white flex items-center justify-center text-[10px] font-bold">${d.line.number}</span>${d.time}</span>`).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+// All stops search input
+document.getElementById('allStopsSearch')?.addEventListener('input', (e)=> renderStopsViewList(e.target.value));
+
+/* ========== ROUTE VIEW Od -> Do ========== */
+window._routeFrom = null;
+window._routeTo = null;
+
+function searchUniqueStops(q){
+  if(!q || q.length<2) return [];
+  const qq=q.toLowerCase();
+  return getUniqueStops().filter(u=> u.name.toLowerCase().includes(qq)).slice(0,8);
+}
+function renderRouteDropdown(inputId, resultsId, selectedId, type){
+  const input = document.getElementById(inputId);
+  const resBox = document.getElementById(resultsId);
+  const selBox = document.getElementById(selectedId);
+  input.addEventListener('input', ()=>{
+    const q=input.value.trim();
+    const matches=searchUniqueStops(q);
+    if(!matches.length || q.length<2){ resBox.classList.add('hidden'); return; }
+    resBox.innerHTML = matches.map(m=> `<button data-rstop="${m.name.replace(/"/g,'&quot;')}" class="w-full text-left px-4 py-2.5 hover:bg-zinc-50 dark:hover:bg-zinc-800 border-b last:border-0"><div class="font-semibold text-[13px]">${m.name}</div><div class="text-[11px] text-zinc-500">${m.linesCount} linii</div></button>`).join('');
+    resBox.classList.remove('hidden');
+    resBox.querySelectorAll('[data-rstop]').forEach(btn=> btn.addEventListener('click', ()=>{
+      const name=btn.dataset.rstop;
+      if(type==='from'){ window._routeFrom=name; } else { window._routeTo=name; }
+      input.value=name;
+      selBox.innerHTML=`<span class="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full ${type==='from'?'bg-emerald-100 text-emerald-700':'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900'}">${type==='from'?'Od':'Do'}: ${name}</span>`;
+      resBox.classList.add('hidden');
+    }));
+  });
+  document.addEventListener('click', (e)=>{
+    if(!e.target.closest('#'+inputId) && !e.target.closest('#'+resultsId)) resBox.classList.add('hidden');
+  });
+}
+renderRouteDropdown('routeFromInput','routeFromResults','routeFromSelected','from');
+renderRouteDropdown('routeToInput','routeToResults','routeToSelected','to');
+
+document.getElementById('swapRouteBtn')?.addEventListener('click', ()=>{
+  const a=window._routeFrom, b=window._routeTo;
+  window._routeFrom=b; window._routeTo=a;
+  document.getElementById('routeFromInput').value=b||'';
+  document.getElementById('routeToInput').value=a||'';
+  document.getElementById('routeFromSelected').innerHTML = b ? `<span class="text-xs px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700">Od: ${b}</span>` : '';
+  document.getElementById('routeToSelected').innerHTML = a ? `<span class="text-xs px-2.5 py-1 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900">Do: ${a}</span>` : '';
+});
+
+function findDirectRoutes(fromName, toName){
+  const fromQ = fromName.toLowerCase();
+  const toQ = toName.toLowerCase();
+  const results=[];
+  BUS_DATA.lines.forEach(line=>{
+    line.directions.forEach(dir=>{
+      // find indices where stop includes query (fuzzy for Girarda -> F. de Girarda)
+      const fromIdx = dir.stops.findIndex(s=> s.toLowerCase().includes(fromQ) || fromQ.includes(s.toLowerCase().split('/')[0].trim().toLowerCase()));
+      const toIdx = dir.stops.findIndex(s=> s.toLowerCase().includes(toQ) || toQ.includes(s.toLowerCase().split('/')[0].trim().toLowerCase()));
+      if(fromIdx!==-1 && toIdx!==-1 && fromIdx < toIdx){
+        const baseTimes = dir.baseTimes[state.dayType] || dir.baseTimes['weekday'] || [];
+        baseTimes.forEach(t=>{
+          const dep = addMinutes(t, fromIdx*2);
+          const arr = addMinutes(t, toIdx*2);
+          const depMins = parseMinutes(dep);
+          results.push({
+            line, dir, fromIdx, toIdx,
+            depTime: dep, arrTime: arr, depMins,
+            duration: (toIdx-fromIdx)*2,
+            stopsCount: toIdx-fromIdx
+          });
+        });
+      }
+    });
+  });
+  // Sort by departure
+  results.sort((a,b)=> a.depMins - b.depMins);
+  return results;
+}
+
+document.getElementById('searchRouteBtn')?.addEventListener('click', ()=>{
+  const from = window._routeFrom || document.getElementById('routeFromInput').value.trim();
+  const to = window._routeTo || document.getElementById('routeToInput').value.trim();
+  if(!from || !to){
+    alert('Wybierz przystanek OD i DO');
+    return;
+  }
+  window._routeFrom=from; window._routeTo=to;
+  const now = new Date();
+  const nowMin = now.getHours()*60+now.getMinutes();
+  const allRoutes = findDirectRoutes(from,to);
+  const upcoming = allRoutes.filter(r=> r.depMins >= nowMin).slice(0,20);
+  const toShow = upcoming.length ? upcoming : allRoutes.slice(0,20);
+  const container = document.getElementById('routeResults');
+  const empty = document.getElementById('routeEmpty');
+  if(!toShow.length){
+    container.innerHTML='';
+    empty.classList.remove('hidden');
+    return;
+  }
+  empty.classList.add('hidden');
+  container.innerHTML = toShow.map(r=>{
+    const diff = Math.max(0, r.depMins - nowMin);
+    const diffLabel = diff<1 ? 'teraz' : `za ${diff} min`;
+    const isSoon = diff<30;
+    return `<div class="bg-white dark:bg-zinc-900 rounded-[20px] border ${isSoon?'border-emerald-300 dark:border-emerald-800 shadow-[0_4px_20px_rgba(16,185,129,0.15)]':'border-zinc-200 dark:border-zinc-800'} p-4">
+      <div class="flex items-start justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <span class="w-10 h-10 rounded-xl ${r.line.color} text-white flex items-center justify-center font-bold">${r.line.number}</span>
+          <div>
+            <div class="font-bold text-[15px]">${r.depTime} → ${r.arrTime} <span class="text-xs font-normal text-zinc-500">${diffLabel}</span></div>
+            <div class="text-xs text-zinc-500">${r.line.name} • ${r.dir.short}</div>
+          </div>
+        </div>
+        <span class="text-[11px] px-2.5 py-1 rounded-full ${isSoon?'bg-emerald-500 text-white':'bg-zinc-100 dark:bg-zinc-800'}">${r.duration} min • ${r.stopsCount} przyst.</span>
+      </div>
+      <div class="mt-3 flex items-center gap-2 text-[11px] text-zinc-500">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span> ${from} <span class="mx-1">—</span> ${to}
+      </div>
+      <div class="mt-2 h-1.5 rounded-full bg-zinc-100 dark:bg-zinc-800 overflow-hidden flex">
+        <div class="h-full bg-zinc-300 dark:bg-zinc-600" style="width:${(r.fromIdx / r.dir.stops.length)*100}%"></div>
+        <div class="h-full bg-emerald-500" style="width:${(r.stopsCount / r.dir.stops.length)*100}%"></div>
+      </div>
+      <div class="mt-2 flex justify-between text-[10px] text-zinc-400">
+        <span>${r.dir.stops[r.fromIdx]}</span><span>${r.dir.stops[r.toIdx]}</span>
+      </div>
+    </div>`;
+  }).join('');
+});
+
+// Auto-fill from URL ?from= & to=
+(function(){
+  const params=new URLSearchParams(location.search);
+  const f=params.get('from'), t=params.get('to');
+  if(f){ window._routeFrom=f; const el=document.getElementById('routeFromInput'); if(el) el.value=f; document.getElementById('routeFromSelected').innerHTML=`<span class="text-xs px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700">Od: ${f}</span>`; }
+  if(t){ window._routeTo=t; const el=document.getElementById('routeToInput'); if(el) el.value=t; document.getElementById('routeToSelected').innerHTML=`<span class="text-xs px-2.5 py-1 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900">Do: ${t}</span>`; }
+})();
+
 function startClocks(){ function tick(){ const now=new Date(); const h=String(now.getHours()).padStart(2,'0'), m=String(now.getMinutes()).padStart(2,'0'), s=String(now.getSeconds()).padStart(2,'0'); document.getElementById('liveClock').textContent=`${h}:${m}:${s}`; document.getElementById('liveDayBadge').textContent=['ND','PN','WT','ŚR','CZ','PT','SB'][now.getDay()]; renderNextBus(); if(s==='00') renderTimetable(); } tick(); setInterval(tick,1000); }
 document.getElementById('themeToggle').addEventListener('click',()=>{ document.documentElement.classList.toggle('dark'); localStorage.setItem('zpa_theme', document.documentElement.classList.contains('dark')?'dark':'light'); });
 if(localStorage.getItem('zpa_theme')==='dark' || (!localStorage.getItem('zpa_theme') && matchMedia('(prefers-color-scheme:dark)').matches)) document.documentElement.classList.add('dark');
