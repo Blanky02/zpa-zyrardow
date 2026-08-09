@@ -1,5 +1,5 @@
-/* ŻPA Żyrardów PWA Service Worker - v6 CLEAN - outdated pins removed */
-const CACHE_NAME = 'zpa-v6-2026-08-08-clean';
+/* ŻPA Żyrardów PWA Service Worker - v7 ZALEW FIX */
+const CACHE_NAME = 'zpa-v7-2026-08-09-zalew';
 const SHELL_ASSETS = [
   './',
   '/',
@@ -48,8 +48,8 @@ self.addEventListener('fetch', (event) => {
   if (req.method !== 'GET') return;
   if (url.protocol.startsWith('chrome-extension')) return;
 
-  // Strategy for timetables.json: NETWORK FIRST with cache fallback + update cache
-  if (url.pathname.endsWith('timetables.json')) {
+  // Strategy for timetables and GPS: NETWORK FIRST
+  if (url.pathname.endsWith('timetables.json') || url.pathname.endsWith('stops_gps.json') || url.pathname.endsWith('stops_gps.js')) {
     event.respondWith(
       fetch(req, { cache: 'no-store' })
         .then((res) => {

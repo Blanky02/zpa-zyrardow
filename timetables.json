@@ -59,6 +59,192 @@
             "Żyrardów Mickiewicza/Skiernie",
             "Żyrardów Mickiewicza/Wrocławsk",
             "Żyrardów Zalew Żyrardowski"
+          ],
+          "stops_full": [
+            {
+              "name": "Żeromskiego Pętla",
+              "official_name": "ŻYRARDÓW ŻEROMKSIEGO PĘTLA",
+              "id": "2387119:2483709",
+              "designator": 6431,
+              "lat": 52.05934,
+              "lon": 20.41432
+            },
+            {
+              "name": "Żeromskiego/Poznańska",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
+              "id": "2029844:2102889",
+              "designator": 2089,
+              "lat": 52.05878,
+              "lon": 20.417711
+            },
+            {
+              "name": "Żeromskiego/Krzywa",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
+              "id": "2029828:2102864",
+              "designator": 2064,
+              "lat": 52.058067,
+              "lon": 20.421515
+            },
+            {
+              "name": "Żeromskiego/Piastowsk",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
+              "id": "2029827:2102862",
+              "designator": 2062,
+              "lat": 52.057266,
+              "lon": 20.425613
+            },
+            {
+              "name": "Żyrardów Wittenberga",
+              "official_name": "ŻYRARDÓW WITTENBERGA",
+              "id": "2029820:2102849",
+              "designator": 2049,
+              "lat": 52.055848,
+              "lon": 20.428021
+            },
+            {
+              "name": "Żyrardów Szarych Szeregów",
+              "official_name": "ŻYRARDÓW SZARYCH SZEREGÓW",
+              "id": "2030104:2103351",
+              "designator": 2551,
+              "lat": 52.054163,
+              "lon": 20.426978
+            },
+            {
+              "name": "Limanowskiego/Legion.",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO/LEGION.",
+              "id": "2029826:2102860",
+              "designator": 2060,
+              "lat": 52.054963,
+              "lon": 20.431573
+            },
+            {
+              "name": "Limanowskiego/Dittri.",
+              "official_name": "ŻYR. LIMANOWSKIEGO/DITTRICHA",
+              "id": "2029829:2102866",
+              "designator": 2066,
+              "lat": 52.05587,
+              "lon": 20.434092
+            },
+            {
+              "name": "Limanowskiego-Szpital",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO-SZPITAL",
+              "id": "2029848:2102896",
+              "designator": 2096,
+              "lat": 52.058581,
+              "lon": 20.440291
+            },
+            {
+              "name": "Partyzantów Pdt",
+              "official_name": "ŻYRARDÓW PARTYZANTÓW PDT",
+              "id": "2029798:2102813",
+              "designator": 2013,
+              "lat": 52.056008,
+              "lon": 20.445045
+            },
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            },
+            {
+              "name": "Żyrardów Zus",
+              "official_name": "ŻYRARDÓW ZUS",
+              "id": "2029854:2102907",
+              "designator": 2107,
+              "lat": 52.050956,
+              "lon": 20.442755
+            },
+            {
+              "name": "Żyrardów Radziwiłłowska",
+              "official_name": "ŻYRARDÓW RADZIWIŁŁOWSKA",
+              "id": "2029855:2102909",
+              "designator": 2109,
+              "lat": 52.049544,
+              "lon": 20.439488
+            },
+            {
+              "name": "Żyrardów Okrzei",
+              "official_name": "ŻYRARDÓW OKRZEI",
+              "id": "2030107:2103357",
+              "designator": 2557,
+              "lat": 52.052352,
+              "lon": 20.437013
+            },
+            {
+              "name": "Żyrardów Reymonta",
+              "official_name": "ŻYRARDÓW REYMONTA",
+              "id": "2029838:2102877",
+              "designator": 2077,
+              "lat": 52.047421,
+              "lon": 20.44239
+            },
+            {
+              "name": "Żyrardów Piotra Skargi/Reymont",
+              "official_name": "ŻYRARDÓW PIOTRA SKARGI/REYMONT",
+              "id": "2029834:2102873",
+              "designator": 2073,
+              "lat": 52.045313,
+              "lon": 20.438614
+            },
+            {
+              "name": "Żyrardów Piotra Skargi/Rolna",
+              "official_name": "ŻYRARDÓW PIOTRA SKARGI/ROLNA",
+              "id": "2029835:2102874",
+              "designator": 2074,
+              "lat": 52.04161,
+              "lon": 20.442354
+            },
+            {
+              "name": "Żyrardów Rolna",
+              "official_name": "ŻYRARDÓW ROLNA",
+              "id": "2029837:2102876",
+              "designator": 2076,
+              "lat": 52.041852,
+              "lon": 20.443472
+            },
+            {
+              "name": "Żyrardów Opolska",
+              "official_name": "ŻYRARDÓW OPOLSKA",
+              "id": "2029836:2102875",
+              "designator": 2075,
+              "lat": 52.043313,
+              "lon": 20.445395
+            },
+            {
+              "name": "Żyrardów Reymonta",
+              "official_name": "ŻYRARDÓW REYMONTA",
+              "id": "2029838:2102877",
+              "designator": 2077,
+              "lat": 52.047421,
+              "lon": 20.44239
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Skiernie",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/SKIERNIE",
+              "id": "2029175:2101863",
+              "designator": 1063,
+              "lat": 52.047686,
+              "lon": 20.447112
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Wrocławsk",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/WROCŁAWSK",
+              "id": "2029840:2102881",
+              "designator": 2081,
+              "lat": 52.042091,
+              "lon": 20.453199
+            },
+            {
+              "name": "Żyrardów Zalew Żyrardowski",
+              "official_name": "ŻYRARDÓW ZALEW ŻYRARDOWSKI",
+              "id": "2029811:2102833",
+              "designator": 2033,
+              "lat": 52.03675,
+              "lon": 20.45089
+            }
           ]
         },
         {
@@ -106,6 +292,192 @@
             "Żeromskiego/Krzywa",
             "Żeromskiego/Poznańska",
             "Żeromskiego Pętla"
+          ],
+          "stops_full": [
+            {
+              "name": "Żyrardów Zalew Żyrardowski",
+              "official_name": "ŻYRARDÓW ZALEW ŻYRARDOWSKI",
+              "id": "2029811:2102833",
+              "designator": 2033,
+              "lat": 52.03675,
+              "lon": 20.45089
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Wrocławsk",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/WROCŁAWSK",
+              "id": "2029840:2102881",
+              "designator": 2081,
+              "lat": 52.042091,
+              "lon": 20.453199
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Kanałowa",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/KANAŁOWA",
+              "id": "2029839:2102879",
+              "designator": 2079,
+              "lat": 52.047532,
+              "lon": 20.447353
+            },
+            {
+              "name": "Żyrardów Reymonta",
+              "official_name": "ŻYRARDÓW REYMONTA",
+              "id": "2029838:2102877",
+              "designator": 2077,
+              "lat": 52.047421,
+              "lon": 20.44239
+            },
+            {
+              "name": "Żyrardów Piotra Skargi/Reymont",
+              "official_name": "ŻYRARDÓW PIOTRA SKARGI/REYMONT",
+              "id": "2029834:2102873",
+              "designator": 2073,
+              "lat": 52.045313,
+              "lon": 20.438614
+            },
+            {
+              "name": "Żyrardów Piotra Skargi/Rolna",
+              "official_name": "ŻYRARDÓW PIOTRA SKARGI/ROLNA",
+              "id": "2029835:2102874",
+              "designator": 2074,
+              "lat": 52.04161,
+              "lon": 20.442354
+            },
+            {
+              "name": "Żyrardów Rolna",
+              "official_name": "ŻYRARDÓW ROLNA",
+              "id": "2029837:2102876",
+              "designator": 2076,
+              "lat": 52.041852,
+              "lon": 20.443472
+            },
+            {
+              "name": "Żyrardów Opolska",
+              "official_name": "ŻYRARDÓW OPOLSKA",
+              "id": "2029836:2102875",
+              "designator": 2075,
+              "lat": 52.043313,
+              "lon": 20.445395
+            },
+            {
+              "name": "Żyrardów Reymonta",
+              "official_name": "ŻYRARDÓW REYMONTA",
+              "id": "2029838:2102877",
+              "designator": 2077,
+              "lat": 52.047421,
+              "lon": 20.44239
+            },
+            {
+              "name": "Żyrardów Okrzei",
+              "official_name": "ŻYRARDÓW OKRZEI",
+              "id": "2030107:2103357",
+              "designator": 2557,
+              "lat": 52.052352,
+              "lon": 20.437013
+            },
+            {
+              "name": "Żyrardów Wyspiańskiego",
+              "official_name": "ŻYRARDÓW WYSPIAŃSKIEGO",
+              "id": "2029860:2102915",
+              "designator": 2115,
+              "lat": 52.049482,
+              "lon": 20.438555
+            },
+            {
+              "name": "Żyrardów Zus",
+              "official_name": "ŻYRARDÓW ZUS",
+              "id": "2029854:2102907",
+              "designator": 2107,
+              "lat": 52.050956,
+              "lon": 20.442755
+            },
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            },
+            {
+              "name": "Partyzantów Pdt",
+              "official_name": "ŻYRARDÓW PARTYZANTÓW PDT",
+              "id": "2029798:2102813",
+              "designator": 2013,
+              "lat": 52.056008,
+              "lon": 20.445045
+            },
+            {
+              "name": "Limanowskiego-Szpital",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO-SZPITAL",
+              "id": "2029848:2102896",
+              "designator": 2096,
+              "lat": 52.058581,
+              "lon": 20.440291
+            },
+            {
+              "name": "Limanowskiego/A Kraj.",
+              "official_name": "ŻYR. LIMANOWSKIEGO/A KRAJOWEJ",
+              "id": "2029825:2102859",
+              "designator": 2059,
+              "lat": 52.05676,
+              "lon": 20.43586
+            },
+            {
+              "name": "Limanowskiego/Legion.",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO/LEGION.",
+              "id": "2029826:2102860",
+              "designator": 2060,
+              "lat": 52.054963,
+              "lon": 20.431573
+            },
+            {
+              "name": "Żyrardów Szarych Szeregów",
+              "official_name": "ŻYRARDÓW SZARYCH SZEREGÓW",
+              "id": "2030104:2103351",
+              "designator": 2551,
+              "lat": 52.054163,
+              "lon": 20.426978
+            },
+            {
+              "name": "Żyrardów Wittenberga",
+              "official_name": "ŻYRARDÓW WITTENBERGA",
+              "id": "2029820:2102849",
+              "designator": 2049,
+              "lat": 52.055848,
+              "lon": 20.428021
+            },
+            {
+              "name": "Żeromskiego/Piastowsk",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
+              "id": "2029827:2102862",
+              "designator": 2062,
+              "lat": 52.057266,
+              "lon": 20.425613
+            },
+            {
+              "name": "Żeromskiego/Krzywa",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
+              "id": "2029828:2102864",
+              "designator": 2064,
+              "lat": 52.058067,
+              "lon": 20.421515
+            },
+            {
+              "name": "Żeromskiego/Poznańska",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
+              "id": "2029844:2102889",
+              "designator": 2089,
+              "lat": 52.05878,
+              "lon": 20.417711
+            },
+            {
+              "name": "Żeromskiego Pętla",
+              "official_name": "ŻYRARDÓW ŻEROMKSIEGO PĘTLA",
+              "id": "2387119:2483709",
+              "designator": 6431,
+              "lat": 52.05934,
+              "lon": 20.41432
+            }
           ]
         }
       ]
@@ -162,6 +534,168 @@
             "Żyrardów Mickiewicza/Skiernie",
             "Żyrardów Mickiewicza/Wrocławsk",
             "Żyrardów Zalew Żyrardowski"
+          ],
+          "stops_full": [
+            {
+              "name": "Spółdzielcza",
+              "official_name": "ŻYRARDÓW SPÓŁDZIELCZA",
+              "id": "2029862:2102918",
+              "designator": 2118,
+              "lat": 52.068762,
+              "lon": 20.429532
+            },
+            {
+              "name": "Skrowaczewskiego/Niet",
+              "official_name": "ŻYRARDÓW SKROWACZEWSKIEGO/NIET",
+              "id": "2029821:2102851",
+              "designator": 2051,
+              "lat": 52.067966,
+              "lon": 20.434787
+            },
+            {
+              "name": "Żyrardów Kpt. Pałaca",
+              "official_name": "ŻYRARDÓW KPT. PAŁACA",
+              "id": "2029819:2102847",
+              "designator": 2047,
+              "lat": 52.06801,
+              "lon": 20.440686
+            },
+            {
+              "name": "F.De Girarda",
+              "official_name": "ŻYRARDÓW F.DE GIRARDA",
+              "id": "2030027:2103229",
+              "designator": 2429,
+              "lat": 52.065838,
+              "lon": 20.443929
+            },
+            {
+              "name": "Środkowa/Spokojna",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+              "id": "2029822:2102853",
+              "designator": 2053,
+              "lat": 52.06342,
+              "lon": 20.446371
+            },
+            {
+              "name": "Środkowa/Limanowskie",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+              "id": "2029823:2102855",
+              "designator": 2055,
+              "lat": 52.061693,
+              "lon": 20.448332
+            },
+            {
+              "name": "Środkowa/Mireckiego",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO",
+              "id": "2029824:2102857",
+              "designator": 2057,
+              "lat": 52.059016,
+              "lon": 20.451329
+            },
+            {
+              "name": "Środkowa/Bohaterów",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/BOHATERÓW",
+              "id": "2029830:2102867",
+              "designator": 2067,
+              "lat": 52.056282,
+              "lon": 20.454402
+            },
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            },
+            {
+              "name": "Partyzantów Pdt",
+              "official_name": "ŻYRARDÓW PARTYZANTÓW PDT",
+              "id": "2029798:2102813",
+              "designator": 2013,
+              "lat": 52.056008,
+              "lon": 20.445045
+            },
+            {
+              "name": "Żyrardów Mireckiego/1 Maja",
+              "official_name": "ŻYRARDÓW MIRECKIEGO/1 MAJA",
+              "id": "2029846:2102893",
+              "designator": 2093,
+              "lat": 52.055241,
+              "lon": 20.440988
+            },
+            {
+              "name": "Żyrardów Reymonta",
+              "official_name": "ŻYRARDÓW REYMONTA",
+              "id": "2029838:2102877",
+              "designator": 2077,
+              "lat": 52.047421,
+              "lon": 20.44239
+            },
+            {
+              "name": "Żyrardów Piotra Skargi/Reymont",
+              "official_name": "ŻYRARDÓW PIOTRA SKARGI/REYMONT",
+              "id": "2029834:2102873",
+              "designator": 2073,
+              "lat": 52.045313,
+              "lon": 20.438614
+            },
+            {
+              "name": "Żyrardów Piotra Skargi/Rolna",
+              "official_name": "ŻYRARDÓW PIOTRA SKARGI/ROLNA",
+              "id": "2029835:2102874",
+              "designator": 2074,
+              "lat": 52.04161,
+              "lon": 20.442354
+            },
+            {
+              "name": "Żyrardów Rolna",
+              "official_name": "ŻYRARDÓW ROLNA",
+              "id": "2029837:2102876",
+              "designator": 2076,
+              "lat": 52.041852,
+              "lon": 20.443472
+            },
+            {
+              "name": "Żyrardów Opolska",
+              "official_name": "ŻYRARDÓW OPOLSKA",
+              "id": "2029836:2102875",
+              "designator": 2075,
+              "lat": 52.043313,
+              "lon": 20.445395
+            },
+            {
+              "name": "Żyrardów Reymonta",
+              "official_name": "ŻYRARDÓW REYMONTA",
+              "id": "2029838:2102877",
+              "designator": 2077,
+              "lat": 52.047421,
+              "lon": 20.44239
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Skiernie",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/SKIERNIE",
+              "id": "2029175:2101863",
+              "designator": 1063,
+              "lat": 52.047686,
+              "lon": 20.447112
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Wrocławsk",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/WROCŁAWSK",
+              "id": "2029840:2102881",
+              "designator": 2081,
+              "lat": 52.042091,
+              "lon": 20.453199
+            },
+            {
+              "name": "Żyrardów Zalew Żyrardowski",
+              "official_name": "ŻYRARDÓW ZALEW ŻYRARDOWSKI",
+              "id": "2029811:2102833",
+              "designator": 2033,
+              "lat": 52.03675,
+              "lon": 20.45089
+            }
           ]
         },
         {
@@ -209,6 +743,168 @@
             "Żyrardów Kpt. Pałaca",
             "Skrowaczewskiego/Niet",
             "Spółdzielcza"
+          ],
+          "stops_full": [
+            {
+              "name": "Żyrardów Zalew Żyrardowski",
+              "official_name": "ŻYRARDÓW ZALEW ŻYRARDOWSKI",
+              "id": "2029811:2102833",
+              "designator": 2033,
+              "lat": 52.03675,
+              "lon": 20.45089
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Wrocławsk",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/WROCŁAWSK",
+              "id": "2029840:2102881",
+              "designator": 2081,
+              "lat": 52.042091,
+              "lon": 20.453199
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Kanałowa",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/KANAŁOWA",
+              "id": "2029839:2102879",
+              "designator": 2079,
+              "lat": 52.047532,
+              "lon": 20.447353
+            },
+            {
+              "name": "Żyrardów Reymonta",
+              "official_name": "ŻYRARDÓW REYMONTA",
+              "id": "2029838:2102877",
+              "designator": 2077,
+              "lat": 52.047421,
+              "lon": 20.44239
+            },
+            {
+              "name": "Żyrardów Piotra Skargi/Reymont",
+              "official_name": "ŻYRARDÓW PIOTRA SKARGI/REYMONT",
+              "id": "2029834:2102873",
+              "designator": 2073,
+              "lat": 52.045313,
+              "lon": 20.438614
+            },
+            {
+              "name": "Żyrardów Piotra Skargi/Rolna",
+              "official_name": "ŻYRARDÓW PIOTRA SKARGI/ROLNA",
+              "id": "2029835:2102874",
+              "designator": 2074,
+              "lat": 52.04161,
+              "lon": 20.442354
+            },
+            {
+              "name": "Żyrardów Rolna",
+              "official_name": "ŻYRARDÓW ROLNA",
+              "id": "2029837:2102876",
+              "designator": 2076,
+              "lat": 52.041852,
+              "lon": 20.443472
+            },
+            {
+              "name": "Żyrardów Opolska",
+              "official_name": "ŻYRARDÓW OPOLSKA",
+              "id": "2029836:2102875",
+              "designator": 2075,
+              "lat": 52.043313,
+              "lon": 20.445395
+            },
+            {
+              "name": "Żyrardów Reymonta",
+              "official_name": "ŻYRARDÓW REYMONTA",
+              "id": "2029838:2102877",
+              "designator": 2077,
+              "lat": 52.047421,
+              "lon": 20.44239
+            },
+            {
+              "name": "Żyrardów Mireckiego/1 Maja",
+              "official_name": "ŻYRARDÓW MIRECKIEGO/1 MAJA",
+              "id": "2029846:2102893",
+              "designator": 2093,
+              "lat": 52.055241,
+              "lon": 20.440988
+            },
+            {
+              "name": "Partyzantów Pdt",
+              "official_name": "ŻYRARDÓW PARTYZANTÓW PDT",
+              "id": "2029798:2102813",
+              "designator": 2013,
+              "lat": 52.056008,
+              "lon": 20.445045
+            },
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            },
+            {
+              "name": "Środkowa/Bohaterów",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/BOHATERÓW",
+              "id": "2029830:2102867",
+              "designator": 2067,
+              "lat": 52.056282,
+              "lon": 20.454402
+            },
+            {
+              "name": "Środkowa/Mireckiego",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO",
+              "id": "2029824:2102857",
+              "designator": 2057,
+              "lat": 52.059016,
+              "lon": 20.451329
+            },
+            {
+              "name": "Środkowa/Limanowskie",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+              "id": "2029823:2102855",
+              "designator": 2055,
+              "lat": 52.061693,
+              "lon": 20.448332
+            },
+            {
+              "name": "Środkowa/Spokojna",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+              "id": "2029822:2102853",
+              "designator": 2053,
+              "lat": 52.06342,
+              "lon": 20.446371
+            },
+            {
+              "name": "F.De Girarda",
+              "official_name": "ŻYRARDÓW F.DE GIRARDA",
+              "id": "2030027:2103229",
+              "designator": 2429,
+              "lat": 52.065838,
+              "lon": 20.443929
+            },
+            {
+              "name": "Żyrardów Kpt. Pałaca",
+              "official_name": "ŻYRARDÓW KPT. PAŁACA",
+              "id": "2029819:2102847",
+              "designator": 2047,
+              "lat": 52.06801,
+              "lon": 20.440686
+            },
+            {
+              "name": "Skrowaczewskiego/Niet",
+              "official_name": "ŻYRARDÓW SKROWACZEWSKIEGO/NIET",
+              "id": "2029821:2102851",
+              "designator": 2051,
+              "lat": 52.067966,
+              "lon": 20.434787
+            },
+            {
+              "name": "Spółdzielcza",
+              "official_name": "ŻYRARDÓW SPÓŁDZIELCZA",
+              "id": "2029862:2102918",
+              "designator": 2118,
+              "lat": 52.068762,
+              "lon": 20.429532
+            }
           ]
         }
       ]
@@ -263,6 +959,80 @@
             "Żyrardów Kpt. Pałaca",
             "Skrowaczewskiego/Niet",
             "Spółdzielcza"
+          ],
+          "stops_full": [
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            },
+            {
+              "name": "Środkowa/Bohaterów",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/BOHATERÓW",
+              "id": "2029830:2102867",
+              "designator": 2067,
+              "lat": 52.056282,
+              "lon": 20.454402
+            },
+            {
+              "name": "Środkowa/Mireckiego",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO",
+              "id": "2029824:2102857",
+              "designator": 2057,
+              "lat": 52.059016,
+              "lon": 20.451329
+            },
+            {
+              "name": "Środkowa/Limanowskie",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+              "id": "2029823:2102855",
+              "designator": 2055,
+              "lat": 52.061693,
+              "lon": 20.448332
+            },
+            {
+              "name": "Środkowa/Spokojna",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+              "id": "2029822:2102853",
+              "designator": 2053,
+              "lat": 52.06342,
+              "lon": 20.446371
+            },
+            {
+              "name": "F.De Girarda",
+              "official_name": "ŻYRARDÓW F.DE GIRARDA",
+              "id": "2030027:2103229",
+              "designator": 2429,
+              "lat": 52.065838,
+              "lon": 20.443929
+            },
+            {
+              "name": "Żyrardów Kpt. Pałaca",
+              "official_name": "ŻYRARDÓW KPT. PAŁACA",
+              "id": "2029819:2102847",
+              "designator": 2047,
+              "lat": 52.06801,
+              "lon": 20.440686
+            },
+            {
+              "name": "Skrowaczewskiego/Niet",
+              "official_name": "ŻYRARDÓW SKROWACZEWSKIEGO/NIET",
+              "id": "2029821:2102851",
+              "designator": 2051,
+              "lat": 52.067966,
+              "lon": 20.434787
+            },
+            {
+              "name": "Spółdzielcza",
+              "official_name": "ŻYRARDÓW SPÓŁDZIELCZA",
+              "id": "2029862:2102918",
+              "designator": 2118,
+              "lat": 52.068762,
+              "lon": 20.429532
+            }
           ]
         },
         {
@@ -306,6 +1076,80 @@
             "Środkowa/Mireckiego",
             "Środkowa/Bohaterów",
             "D.A."
+          ],
+          "stops_full": [
+            {
+              "name": "Spółdzielcza",
+              "official_name": "ŻYRARDÓW SPÓŁDZIELCZA",
+              "id": "2029862:2102918",
+              "designator": 2118,
+              "lat": 52.068762,
+              "lon": 20.429532
+            },
+            {
+              "name": "Skrowaczewskiego/Niet",
+              "official_name": "ŻYRARDÓW SKROWACZEWSKIEGO/NIET",
+              "id": "2029821:2102851",
+              "designator": 2051,
+              "lat": 52.067966,
+              "lon": 20.434787
+            },
+            {
+              "name": "Żyrardów Kpt. Pałaca",
+              "official_name": "ŻYRARDÓW KPT. PAŁACA",
+              "id": "2029819:2102847",
+              "designator": 2047,
+              "lat": 52.06801,
+              "lon": 20.440686
+            },
+            {
+              "name": "F.De Girarda",
+              "official_name": "ŻYRARDÓW F.DE GIRARDA",
+              "id": "2030027:2103229",
+              "designator": 2429,
+              "lat": 52.065838,
+              "lon": 20.443929
+            },
+            {
+              "name": "Środkowa/Spokojna",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+              "id": "2029822:2102853",
+              "designator": 2053,
+              "lat": 52.06342,
+              "lon": 20.446371
+            },
+            {
+              "name": "Środkowa/Limanowskie",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+              "id": "2029823:2102855",
+              "designator": 2055,
+              "lat": 52.061693,
+              "lon": 20.448332
+            },
+            {
+              "name": "Środkowa/Mireckiego",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO",
+              "id": "2029824:2102857",
+              "designator": 2057,
+              "lat": 52.059016,
+              "lon": 20.451329
+            },
+            {
+              "name": "Środkowa/Bohaterów",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/BOHATERÓW",
+              "id": "2029830:2102867",
+              "designator": 2067,
+              "lat": 52.056282,
+              "lon": 20.454402
+            },
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            }
           ]
         }
       ]
@@ -413,6 +1257,192 @@
             "Nowe Kozłowice Zakręt",
             "Stare Kozłowice 1/2 /I",
             "Spółdzielcza"
+          ],
+          "stops_full": [
+            {
+              "name": "Żeromskiego Pętla",
+              "official_name": "ŻYRARDÓW ŻEROMKSIEGO PĘTLA",
+              "id": "2387119:2483709",
+              "designator": 6431,
+              "lat": 52.05934,
+              "lon": 20.41432
+            },
+            {
+              "name": "Żeromskiego/Poznańska",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
+              "id": "2029844:2102889",
+              "designator": 2089,
+              "lat": 52.05878,
+              "lon": 20.417711
+            },
+            {
+              "name": "Żeromskiego/Krzywa",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
+              "id": "2029828:2102864",
+              "designator": 2064,
+              "lat": 52.058067,
+              "lon": 20.421515
+            },
+            {
+              "name": "Żeromskiego/Piastowsk",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
+              "id": "2029827:2102862",
+              "designator": 2062,
+              "lat": 52.057266,
+              "lon": 20.425613
+            },
+            {
+              "name": "Żyrardów Wittenberga",
+              "official_name": "ŻYRARDÓW WITTENBERGA",
+              "id": "2029820:2102849",
+              "designator": 2049,
+              "lat": 52.055848,
+              "lon": 20.428021
+            },
+            {
+              "name": "Żyrardów Szarych Szeregów",
+              "official_name": "ŻYRARDÓW SZARYCH SZEREGÓW",
+              "id": "2030104:2103351",
+              "designator": 2551,
+              "lat": 52.054163,
+              "lon": 20.426978
+            },
+            {
+              "name": "Sikorskiego/Mostowa",
+              "official_name": "ŻYRARDÓW SIKORSKIEGO/MOSTOWA",
+              "id": "2029864:2102921",
+              "designator": 2121,
+              "lat": 52.051065,
+              "lon": 20.429993
+            },
+            {
+              "name": "Sikorskiego/Maczka",
+              "official_name": "ŻYRARDÓW SIKORSKIEGO/MACZKA",
+              "id": "2030232:2103530",
+              "designator": 2730,
+              "lat": 52.049648,
+              "lon": 20.43131
+            },
+            {
+              "name": "Żyrardów Radziwiłłowska",
+              "official_name": "ŻYRARDÓW RADZIWIŁŁOWSKA",
+              "id": "2029855:2102909",
+              "designator": 2109,
+              "lat": 52.049544,
+              "lon": 20.439488
+            },
+            {
+              "name": "Żyrardów Zus",
+              "official_name": "ŻYRARDÓW ZUS",
+              "id": "2029854:2102907",
+              "designator": 2107,
+              "lat": 52.050956,
+              "lon": 20.442755
+            },
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            },
+            {
+              "name": "Środkowa/Bohaterów",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/BOHATERÓW",
+              "id": "2029830:2102867",
+              "designator": 2067,
+              "lat": 52.056282,
+              "lon": 20.454402
+            },
+            {
+              "name": "Środkowa/Mireckiego",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO",
+              "id": "2029824:2102857",
+              "designator": 2057,
+              "lat": 52.059016,
+              "lon": 20.451329
+            },
+            {
+              "name": "Środkowa/Limanowskie",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+              "id": "2029823:2102855",
+              "designator": 2055,
+              "lat": 52.061693,
+              "lon": 20.448332
+            },
+            {
+              "name": "Środkowa/Spokojna",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+              "id": "2029822:2102853",
+              "designator": 2053,
+              "lat": 52.06342,
+              "lon": 20.446371
+            },
+            {
+              "name": "F.De Girarda",
+              "official_name": "ŻYRARDÓW F.DE GIRARDA",
+              "id": "2030027:2103229",
+              "designator": 2429,
+              "lat": 52.065838,
+              "lon": 20.443929
+            },
+            {
+              "name": "Żyrardów Kacperskiej",
+              "official_name": "ŻYRARDÓW KACPERSKIEJ",
+              "id": "2451528:2548446",
+              "designator": 6548,
+              "lat": 52.06857,
+              "lon": 20.44251
+            },
+            {
+              "name": "Żyrardów Parkingowa/Kpt. Pałac",
+              "official_name": "ŻYRARDÓW PARKINGOWA/KPT. PAŁAC",
+              "id": "2387117:2483707",
+              "designator": 6429,
+              "lat": 52.070064,
+              "lon": 20.444806
+            },
+            {
+              "name": "Żyrardów Parkingowa",
+              "official_name": "ŻYRARDÓW PARKINGOWA",
+              "id": "2029849:2102898",
+              "designator": 2098,
+              "lat": 52.072274,
+              "lon": 20.438619
+            },
+            {
+              "name": "Nowe Kozłowice 53",
+              "official_name": "NOWE KOZŁOWICE 53",
+              "id": "2030210:2103505",
+              "designator": 2705,
+              "lat": 52.082772,
+              "lon": 20.433107
+            },
+            {
+              "name": "Nowe Kozłowice Zakręt",
+              "official_name": "NOWE KOZŁOWICE ZAKRĘT",
+              "id": "2030383:2103773",
+              "designator": 2973,
+              "lat": 52.08711,
+              "lon": 20.42478
+            },
+            {
+              "name": "Stare Kozłowice 1/2 /I",
+              "official_name": "STARE KOZŁOWICE  1/2  /I",
+              "id": "2029978:2103137",
+              "designator": 2337,
+              "lat": 52.071841,
+              "lon": 20.420523
+            },
+            {
+              "name": "Spółdzielcza",
+              "official_name": "ŻYRARDÓW SPÓŁDZIELCZA",
+              "id": "2029862:2102918",
+              "designator": 2118,
+              "lat": 52.068762,
+              "lon": 20.429532
+            }
           ]
         },
         {
@@ -508,6 +1538,168 @@
             "Żeromskiego/Krzywa",
             "Żeromskiego/Poznańska",
             "Żeromskiego Pętla"
+          ],
+          "stops_full": [
+            {
+              "name": "Spółdzielcza",
+              "official_name": "ŻYRARDÓW SPÓŁDZIELCZA",
+              "id": "2029862:2102918",
+              "designator": 2118,
+              "lat": 52.068762,
+              "lon": 20.429532
+            },
+            {
+              "name": "Skrowaczewskiego/Niet",
+              "official_name": "ŻYRARDÓW SKROWACZEWSKIEGO/NIET",
+              "id": "2029821:2102851",
+              "designator": 2051,
+              "lat": 52.067966,
+              "lon": 20.434787
+            },
+            {
+              "name": "Żyrardów Kpt. Pałaca",
+              "official_name": "ŻYRARDÓW KPT. PAŁACA",
+              "id": "2029819:2102847",
+              "designator": 2047,
+              "lat": 52.06801,
+              "lon": 20.440686
+            },
+            {
+              "name": "F.De Girarda",
+              "official_name": "ŻYRARDÓW F.DE GIRARDA",
+              "id": "2030027:2103229",
+              "designator": 2429,
+              "lat": 52.065838,
+              "lon": 20.443929
+            },
+            {
+              "name": "Środkowa/Spokojna",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+              "id": "2029822:2102853",
+              "designator": 2053,
+              "lat": 52.06342,
+              "lon": 20.446371
+            },
+            {
+              "name": "Środkowa/Limanowskie",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+              "id": "2029823:2102855",
+              "designator": 2055,
+              "lat": 52.061693,
+              "lon": 20.448332
+            },
+            {
+              "name": "Środkowa/Mireckiego",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO",
+              "id": "2029824:2102857",
+              "designator": 2057,
+              "lat": 52.059016,
+              "lon": 20.451329
+            },
+            {
+              "name": "Środkowa/Bohaterów",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/BOHATERÓW",
+              "id": "2029830:2102867",
+              "designator": 2067,
+              "lat": 52.056282,
+              "lon": 20.454402
+            },
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            },
+            {
+              "name": "Żyrardów Zus",
+              "official_name": "ŻYRARDÓW ZUS",
+              "id": "2029854:2102907",
+              "designator": 2107,
+              "lat": 52.050956,
+              "lon": 20.442755
+            },
+            {
+              "name": "Żyrardów Radziwiłłowska",
+              "official_name": "ŻYRARDÓW RADZIWIŁŁOWSKA",
+              "id": "2029855:2102909",
+              "designator": 2109,
+              "lat": 52.049544,
+              "lon": 20.439488
+            },
+            {
+              "name": "Sikorskiego/Maczka",
+              "official_name": "ŻYRARDÓW SIKORSKIEGO/MACZKA",
+              "id": "2030232:2103530",
+              "designator": 2730,
+              "lat": 52.049648,
+              "lon": 20.43131
+            },
+            {
+              "name": "Sikorskiego/Mostowa",
+              "official_name": "ŻYRARDÓW SIKORSKIEGO/MOSTOWA",
+              "id": "2029864:2102921",
+              "designator": 2121,
+              "lat": 52.051065,
+              "lon": 20.429993
+            },
+            {
+              "name": "Sikorskiego/Roosevel",
+              "official_name": "ŻYRARDÓW SIKORSKIEGO/ROOSEVEL",
+              "id": "2387118:2483708",
+              "designator": 6430,
+              "lat": 52.05256,
+              "lon": 20.42863
+            },
+            {
+              "name": "Żyrardów Szarych Szeregów",
+              "official_name": "ŻYRARDÓW SZARYCH SZEREGÓW",
+              "id": "2030104:2103351",
+              "designator": 2551,
+              "lat": 52.054163,
+              "lon": 20.426978
+            },
+            {
+              "name": "Żyrardów Wittenberga",
+              "official_name": "ŻYRARDÓW WITTENBERGA",
+              "id": "2029820:2102849",
+              "designator": 2049,
+              "lat": 52.055848,
+              "lon": 20.428021
+            },
+            {
+              "name": "Żeromskiego/Piastowsk",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
+              "id": "2029827:2102862",
+              "designator": 2062,
+              "lat": 52.057266,
+              "lon": 20.425613
+            },
+            {
+              "name": "Żeromskiego/Krzywa",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
+              "id": "2029828:2102864",
+              "designator": 2064,
+              "lat": 52.058067,
+              "lon": 20.421515
+            },
+            {
+              "name": "Żeromskiego/Poznańska",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
+              "id": "2029844:2102889",
+              "designator": 2089,
+              "lat": 52.05878,
+              "lon": 20.417711
+            },
+            {
+              "name": "Żeromskiego Pętla",
+              "official_name": "ŻYRARDÓW ŻEROMKSIEGO PĘTLA",
+              "id": "2387119:2483709",
+              "designator": 6431,
+              "lat": 52.05934,
+              "lon": 20.41432
+            }
           ]
         }
       ]
@@ -591,6 +1783,312 @@
             "Żyrardów Jaktorowska/Równoleg",
             "Żyrardów Jaktorowska/Sade Budy",
             "Międzyborów"
+          ],
+          "stops_full": [
+            {
+              "name": "Działki Osp",
+              "official_name": "DZIAŁKI OSP",
+              "id": "2030033:2103239",
+              "designator": 2439,
+              "lat": 52.067063,
+              "lon": 20.395722
+            },
+            {
+              "name": "Działki - Młyńska",
+              "official_name": "DZIAŁKI - MŁYŃSKA",
+              "id": "2030190:2103478",
+              "designator": 2678,
+              "lat": 52.065029,
+              "lon": 20.406735
+            },
+            {
+              "name": "Żeromskiego/Poznańska",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
+              "id": "2029844:2102889",
+              "designator": 2089,
+              "lat": 52.05878,
+              "lon": 20.417711
+            },
+            {
+              "name": "Żeromskiego/Krzywa",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
+              "id": "2029828:2102864",
+              "designator": 2064,
+              "lat": 52.058067,
+              "lon": 20.421515
+            },
+            {
+              "name": "Żeromskiego/Piastowsk",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
+              "id": "2029827:2102862",
+              "designator": 2062,
+              "lat": 52.057266,
+              "lon": 20.425613
+            },
+            {
+              "name": "Żyrardów Wittenberga",
+              "official_name": "ŻYRARDÓW WITTENBERGA",
+              "id": "2029820:2102849",
+              "designator": 2049,
+              "lat": 52.055848,
+              "lon": 20.428021
+            },
+            {
+              "name": "Żyrardów Szarych Szeregów",
+              "official_name": "ŻYRARDÓW SZARYCH SZEREGÓW",
+              "id": "2030104:2103351",
+              "designator": 2551,
+              "lat": 52.054163,
+              "lon": 20.426978
+            },
+            {
+              "name": "Limanowskiego/Legion.",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO/LEGION.",
+              "id": "2029826:2102860",
+              "designator": 2060,
+              "lat": 52.054963,
+              "lon": 20.431573
+            },
+            {
+              "name": "Limanowskiego/Dittri.",
+              "official_name": "ŻYR. LIMANOWSKIEGO/DITTRICHA",
+              "id": "2029829:2102866",
+              "designator": 2066,
+              "lat": 52.05587,
+              "lon": 20.434092
+            },
+            {
+              "name": "Limanowskiego-Szpital",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO-SZPITAL",
+              "id": "2029848:2102896",
+              "designator": 2096,
+              "lat": 52.058581,
+              "lon": 20.440291
+            },
+            {
+              "name": "Żyrardów Ossowskiego",
+              "official_name": "ŻYRARDÓW OSSOWSKIEGO",
+              "id": "2030106:2103355",
+              "designator": 2555,
+              "lat": 52.061037,
+              "lon": 20.445118
+            },
+            {
+              "name": "Żyrardów Waryńskiego",
+              "official_name": "ŻYRARDÓW WARYŃSKIEGO",
+              "id": "2030209:2103504",
+              "designator": 2704,
+              "lat": 52.059931,
+              "lon": 20.439561
+            },
+            {
+              "name": "Żyrardów Jasna",
+              "official_name": "ŻYRARDÓW JASNA",
+              "id": "2030208:2103503",
+              "designator": 2703,
+              "lat": 52.060372,
+              "lon": 20.436106
+            },
+            {
+              "name": "Żyrardów Piękna",
+              "official_name": "ŻYRARDÓW PIĘKNA",
+              "id": "2030206:2103501",
+              "designator": 2701,
+              "lat": 52.064375,
+              "lon": 20.438681
+            },
+            {
+              "name": "Żyrardów Fieldorfa Nila",
+              "official_name": "ŻYRARDÓW FIELDORFA NILA",
+              "id": "2029851:2102902",
+              "designator": 2102,
+              "lat": 52.066344,
+              "lon": 20.447141
+            },
+            {
+              "name": "Żyrardów Pileckiego",
+              "official_name": "ŻYRARDÓW PILECKIEGO",
+              "id": "2029850:2102900",
+              "designator": 2100,
+              "lat": 52.067936,
+              "lon": 20.448474
+            },
+            {
+              "name": "Żyrardów Parkingowa/Kpt. Pałac",
+              "official_name": "ŻYRARDÓW PARKINGOWA/KPT. PAŁAC",
+              "id": "2387117:2483707",
+              "designator": 6429,
+              "lat": 52.070064,
+              "lon": 20.444806
+            },
+            {
+              "name": "Żyrardów Parkingowa",
+              "official_name": "ŻYRARDÓW PARKINGOWA",
+              "id": "2029849:2102898",
+              "designator": 2098,
+              "lat": 52.072274,
+              "lon": 20.438619
+            },
+            {
+              "name": "Żyrardów Nietrzebki",
+              "official_name": "ŻYRARDÓW NIETRZEBKI",
+              "id": "2029852:2102904",
+              "designator": 2104,
+              "lat": 52.071928,
+              "lon": 20.435889
+            },
+            {
+              "name": "Spółdzielcza",
+              "official_name": "ŻYRARDÓW SPÓŁDZIELCZA",
+              "id": "2029862:2102918",
+              "designator": 2118,
+              "lat": 52.068762,
+              "lon": 20.429532
+            },
+            {
+              "name": "Skrowaczewskiego/Niet",
+              "official_name": "ŻYRARDÓW SKROWACZEWSKIEGO/NIET",
+              "id": "2029821:2102851",
+              "designator": 2051,
+              "lat": 52.067966,
+              "lon": 20.434787
+            },
+            {
+              "name": "Żyrardów Kpt. Pałaca",
+              "official_name": "ŻYRARDÓW KPT. PAŁACA",
+              "id": "2029819:2102847",
+              "designator": 2047,
+              "lat": 52.06801,
+              "lon": 20.440686
+            },
+            {
+              "name": "F.De Girarda",
+              "official_name": "ŻYRARDÓW F.DE GIRARDA",
+              "id": "2030027:2103229",
+              "designator": 2429,
+              "lat": 52.065838,
+              "lon": 20.443929
+            },
+            {
+              "name": "Środkowa/Spokojna",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+              "id": "2029822:2102853",
+              "designator": 2053,
+              "lat": 52.06342,
+              "lon": 20.446371
+            },
+            {
+              "name": "Środkowa/Limanowskie",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+              "id": "2029823:2102855",
+              "designator": 2055,
+              "lat": 52.061693,
+              "lon": 20.448332
+            },
+            {
+              "name": "Żyrardów Mireckiego/Ossowskie",
+              "official_name": "ŻYRARDÓW MIRECKIEGO/OSSOWSKIE",
+              "id": "2029853:2102905",
+              "designator": 2105,
+              "lat": 52.057971,
+              "lon": 20.447881
+            },
+            {
+              "name": "Partyzantów Pdt",
+              "official_name": "ŻYRARDÓW PARTYZANTÓW PDT",
+              "id": "2029798:2102813",
+              "designator": 2013,
+              "lat": 52.056008,
+              "lon": 20.445045
+            },
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            },
+            {
+              "name": "Żyrardów Zus",
+              "official_name": "ŻYRARDÓW ZUS",
+              "id": "2029854:2102907",
+              "designator": 2107,
+              "lat": 52.050956,
+              "lon": 20.442755
+            },
+            {
+              "name": "Żyrardów Radziwiłłowska",
+              "official_name": "ŻYRARDÓW RADZIWIŁŁOWSKA",
+              "id": "2029855:2102909",
+              "designator": 2109,
+              "lat": 52.049544,
+              "lon": 20.439488
+            },
+            {
+              "name": "Żyrardów Okrzei",
+              "official_name": "ŻYRARDÓW OKRZEI",
+              "id": "2030107:2103357",
+              "designator": 2557,
+              "lat": 52.052352,
+              "lon": 20.437013
+            },
+            {
+              "name": "Żyrardów Jaktorowska/1 Maja",
+              "official_name": "ŻYRARDÓW JAKTOROWSKA/1 MAJA",
+              "id": "2029856:2102911",
+              "designator": 2111,
+              "lat": 52.049399,
+              "lon": 20.448479
+            },
+            {
+              "name": "Żyrardów Lelewela",
+              "official_name": "ŻYRARDÓW LELEWELA",
+              "id": "2029861:2102916",
+              "designator": 2116,
+              "lat": 52.050395,
+              "lon": 20.454252
+            },
+            {
+              "name": "Żyrardów Wawelska",
+              "official_name": "ŻYRARDÓW WAWELSKA",
+              "id": "2030105:2103353",
+              "designator": 2553,
+              "lat": 52.051384,
+              "lon": 20.458806
+            },
+            {
+              "name": "Żyrardów Południowa",
+              "official_name": "ŻYRARDÓW POŁUDNIOWA",
+              "id": "2030454:2103852",
+              "designator": 3052,
+              "lat": 52.053325,
+              "lon": 20.463864
+            },
+            {
+              "name": "Żyrardów Jaktorowska/Równoleg",
+              "official_name": "ŻYRARDÓW JAKTOROWSKA/RÓWNOLEG",
+              "id": "2029857:2102912",
+              "designator": 2112,
+              "lat": 52.056802,
+              "lon": 20.467789
+            },
+            {
+              "name": "Żyrardów Jaktorowska/Sade Budy",
+              "official_name": "ŻYRARDÓW JAKTOROWSKA/SADE BUDY",
+              "id": "2029858:2102913",
+              "designator": 2113,
+              "lat": 52.059187,
+              "lon": 20.47949
+            },
+            {
+              "name": "Międzyborów",
+              "official_name": "MIĘDZYBORÓW",
+              "id": "2029859:2102914",
+              "designator": 2114,
+              "lat": 52.058387,
+              "lon": 20.485516
+            }
           ]
         },
         {
@@ -664,6 +2162,304 @@
             "Żeromskiego/Poznańska",
             "Działki - Młyńska",
             "Działki Osp"
+          ],
+          "stops_full": [
+            {
+              "name": "Międzyborów",
+              "official_name": "MIĘDZYBORÓW",
+              "id": "2029859:2102914",
+              "designator": 2114,
+              "lat": 52.058387,
+              "lon": 20.485516
+            },
+            {
+              "name": "Żyrardów Jaktorowska/Sade Budy",
+              "official_name": "ŻYRARDÓW JAKTOROWSKA/SADE BUDY",
+              "id": "2029858:2102913",
+              "designator": 2113,
+              "lat": 52.059187,
+              "lon": 20.47949
+            },
+            {
+              "name": "Żyrardów Jaktorowska/Równoleg",
+              "official_name": "ŻYRARDÓW JAKTOROWSKA/RÓWNOLEG",
+              "id": "2029857:2102912",
+              "designator": 2112,
+              "lat": 52.056802,
+              "lon": 20.467789
+            },
+            {
+              "name": "Żyrardów Chmielna",
+              "official_name": "ŻYRARDÓW CHMIELNA",
+              "id": "2387116:2483706",
+              "designator": 6428,
+              "lat": 52.054462,
+              "lon": 20.464713
+            },
+            {
+              "name": "Żyrardów Wawelska",
+              "official_name": "ŻYRARDÓW WAWELSKA",
+              "id": "2030105:2103353",
+              "designator": 2553,
+              "lat": 52.051384,
+              "lon": 20.458806
+            },
+            {
+              "name": "Żyrardów Lelewela",
+              "official_name": "ŻYRARDÓW LELEWELA",
+              "id": "2029861:2102916",
+              "designator": 2116,
+              "lat": 52.050395,
+              "lon": 20.454252
+            },
+            {
+              "name": "Żyrardów Jaktorowska/1 Maja",
+              "official_name": "ŻYRARDÓW JAKTOROWSKA/1 MAJA",
+              "id": "2029856:2102911",
+              "designator": 2111,
+              "lat": 52.049399,
+              "lon": 20.448479
+            },
+            {
+              "name": "Żyrardów Okrzei",
+              "official_name": "ŻYRARDÓW OKRZEI",
+              "id": "2030107:2103357",
+              "designator": 2557,
+              "lat": 52.052352,
+              "lon": 20.437013
+            },
+            {
+              "name": "Żyrardów Wyspiańskiego",
+              "official_name": "ŻYRARDÓW WYSPIAŃSKIEGO",
+              "id": "2029860:2102915",
+              "designator": 2115,
+              "lat": 52.049482,
+              "lon": 20.438555
+            },
+            {
+              "name": "Żyrardów Zus",
+              "official_name": "ŻYRARDÓW ZUS",
+              "id": "2029854:2102907",
+              "designator": 2107,
+              "lat": 52.050956,
+              "lon": 20.442755
+            },
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            },
+            {
+              "name": "Partyzantów Pdt",
+              "official_name": "ŻYRARDÓW PARTYZANTÓW PDT",
+              "id": "2029798:2102813",
+              "designator": 2013,
+              "lat": 52.056008,
+              "lon": 20.445045
+            },
+            {
+              "name": "Żyrardów Mireckiego/Ossowskie",
+              "official_name": "ŻYRARDÓW MIRECKIEGO/OSSOWSKIE",
+              "id": "2029853:2102905",
+              "designator": 2105,
+              "lat": 52.057971,
+              "lon": 20.447881
+            },
+            {
+              "name": "Środkowa/Limanowskie",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+              "id": "2029823:2102855",
+              "designator": 2055,
+              "lat": 52.061693,
+              "lon": 20.448332
+            },
+            {
+              "name": "Środkowa/Spokojna",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+              "id": "2029822:2102853",
+              "designator": 2053,
+              "lat": 52.06342,
+              "lon": 20.446371
+            },
+            {
+              "name": "F.De Girarda",
+              "official_name": "ŻYRARDÓW F.DE GIRARDA",
+              "id": "2030027:2103229",
+              "designator": 2429,
+              "lat": 52.065838,
+              "lon": 20.443929
+            },
+            {
+              "name": "Żyrardów Kpt. Pałaca",
+              "official_name": "ŻYRARDÓW KPT. PAŁACA",
+              "id": "2029819:2102847",
+              "designator": 2047,
+              "lat": 52.06801,
+              "lon": 20.440686
+            },
+            {
+              "name": "Skrowaczewskiego/Niet",
+              "official_name": "ŻYRARDÓW SKROWACZEWSKIEGO/NIET",
+              "id": "2029821:2102851",
+              "designator": 2051,
+              "lat": 52.067966,
+              "lon": 20.434787
+            },
+            {
+              "name": "Spółdzielcza",
+              "official_name": "ŻYRARDÓW SPÓŁDZIELCZA",
+              "id": "2029862:2102918",
+              "designator": 2118,
+              "lat": 52.068762,
+              "lon": 20.429532
+            },
+            {
+              "name": "Żyrardów Nietrzebki",
+              "official_name": "ŻYRARDÓW NIETRZEBKI",
+              "id": "2029852:2102904",
+              "designator": 2104,
+              "lat": 52.071928,
+              "lon": 20.435889
+            },
+            {
+              "name": "Żyrardów Parkingowa",
+              "official_name": "ŻYRARDÓW PARKINGOWA",
+              "id": "2029849:2102898",
+              "designator": 2098,
+              "lat": 52.072274,
+              "lon": 20.438619
+            },
+            {
+              "name": "Żyrardów Pileckiego",
+              "official_name": "ŻYRARDÓW PILECKIEGO",
+              "id": "2029850:2102900",
+              "designator": 2100,
+              "lat": 52.067936,
+              "lon": 20.448474
+            },
+            {
+              "name": "Żyrardów Fieldorfa Nila",
+              "official_name": "ŻYRARDÓW FIELDORFA NILA",
+              "id": "2029851:2102902",
+              "designator": 2102,
+              "lat": 52.066344,
+              "lon": 20.447141
+            },
+            {
+              "name": "Żyrardów Piękna",
+              "official_name": "ŻYRARDÓW PIĘKNA",
+              "id": "2030206:2103501",
+              "designator": 2701,
+              "lat": 52.064375,
+              "lon": 20.438681
+            },
+            {
+              "name": "Żyrardów Jasna",
+              "official_name": "ŻYRARDÓW JASNA",
+              "id": "2030208:2103503",
+              "designator": 2703,
+              "lat": 52.060372,
+              "lon": 20.436106
+            },
+            {
+              "name": "Żyrardów Waryńskiego",
+              "official_name": "ŻYRARDÓW WARYŃSKIEGO",
+              "id": "2030209:2103504",
+              "designator": 2704,
+              "lat": 52.059931,
+              "lon": 20.439561
+            },
+            {
+              "name": "Żyrardów Ossowskiego",
+              "official_name": "ŻYRARDÓW OSSOWSKIEGO",
+              "id": "2030106:2103355",
+              "designator": 2555,
+              "lat": 52.061037,
+              "lon": 20.445118
+            },
+            {
+              "name": "Limanowskiego-Szpital",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO-SZPITAL",
+              "id": "2029848:2102896",
+              "designator": 2096,
+              "lat": 52.058581,
+              "lon": 20.440291
+            },
+            {
+              "name": "Limanowskiego/A Kraj.",
+              "official_name": "ŻYR. LIMANOWSKIEGO/A KRAJOWEJ",
+              "id": "2029825:2102859",
+              "designator": 2059,
+              "lat": 52.05676,
+              "lon": 20.43586
+            },
+            {
+              "name": "Limanowskiego/Legion.",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO/LEGION.",
+              "id": "2029826:2102860",
+              "designator": 2060,
+              "lat": 52.054963,
+              "lon": 20.431573
+            },
+            {
+              "name": "Żyrardów Szarych Szeregów",
+              "official_name": "ŻYRARDÓW SZARYCH SZEREGÓW",
+              "id": "2030104:2103351",
+              "designator": 2551,
+              "lat": 52.054163,
+              "lon": 20.426978
+            },
+            {
+              "name": "Żyrardów Wittenberga",
+              "official_name": "ŻYRARDÓW WITTENBERGA",
+              "id": "2029820:2102849",
+              "designator": 2049,
+              "lat": 52.055848,
+              "lon": 20.428021
+            },
+            {
+              "name": "Żeromskiego/Piastowsk",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
+              "id": "2029827:2102862",
+              "designator": 2062,
+              "lat": 52.057266,
+              "lon": 20.425613
+            },
+            {
+              "name": "Żeromskiego/Krzywa",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
+              "id": "2029828:2102864",
+              "designator": 2064,
+              "lat": 52.058067,
+              "lon": 20.421515
+            },
+            {
+              "name": "Żeromskiego/Poznańska",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
+              "id": "2029844:2102889",
+              "designator": 2089,
+              "lat": 52.05878,
+              "lon": 20.417711
+            },
+            {
+              "name": "Działki - Młyńska",
+              "official_name": "DZIAŁKI - MŁYŃSKA",
+              "id": "2030190:2103478",
+              "designator": 2678,
+              "lat": 52.065029,
+              "lon": 20.406735
+            },
+            {
+              "name": "Działki Osp",
+              "official_name": "DZIAŁKI OSP",
+              "id": "2030033:2103239",
+              "designator": 2439,
+              "lat": 52.067063,
+              "lon": 20.395722
+            }
           ]
         }
       ]
@@ -734,6 +2530,192 @@
             "Żyrardów Kpt. Pałaca",
             "Skrowaczewskiego/Niet",
             "Spółdzielcza"
+          ],
+          "stops_full": [
+            {
+              "name": "Wiskitki Pl. Wolności 5/6 / I",
+              "official_name": "WISKITKI  PL. Wolności 5/6 / I",
+              "id": "2029980:2103141",
+              "designator": 2341,
+              "lat": 52.086983,
+              "lon": 20.383143
+            },
+            {
+              "name": "Wiskitki Szkoła",
+              "official_name": "Wiskitki Szkoła",
+              "id": "2030362:2103738",
+              "designator": 2938,
+              "lat": 52.082353,
+              "lon": 20.385157
+            },
+            {
+              "name": "Działki Małe",
+              "official_name": "DZIAŁKI MAŁE",
+              "id": "2030032:2103237",
+              "designator": 2437,
+              "lat": 52.071512,
+              "lon": 20.393871
+            },
+            {
+              "name": "Działki Osp",
+              "official_name": "DZIAŁKI OSP",
+              "id": "2030033:2103239",
+              "designator": 2439,
+              "lat": 52.067063,
+              "lon": 20.395722
+            },
+            {
+              "name": "Działki - Młyńska",
+              "official_name": "DZIAŁKI - MŁYŃSKA",
+              "id": "2030190:2103478",
+              "designator": 2678,
+              "lat": 52.065029,
+              "lon": 20.406735
+            },
+            {
+              "name": "Żeromskiego/Poznańska",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
+              "id": "2029844:2102889",
+              "designator": 2089,
+              "lat": 52.05878,
+              "lon": 20.417711
+            },
+            {
+              "name": "Żeromskiego/Krzywa",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
+              "id": "2029828:2102864",
+              "designator": 2064,
+              "lat": 52.058067,
+              "lon": 20.421515
+            },
+            {
+              "name": "Żeromskiego/Piastowsk",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
+              "id": "2029827:2102862",
+              "designator": 2062,
+              "lat": 52.057266,
+              "lon": 20.425613
+            },
+            {
+              "name": "Żyrardów Wittenberga",
+              "official_name": "ŻYRARDÓW WITTENBERGA",
+              "id": "2029820:2102849",
+              "designator": 2049,
+              "lat": 52.055848,
+              "lon": 20.428021
+            },
+            {
+              "name": "Żyrardów Szarych Szeregów",
+              "official_name": "ŻYRARDÓW SZARYCH SZEREGÓW",
+              "id": "2030104:2103351",
+              "designator": 2551,
+              "lat": 52.054163,
+              "lon": 20.426978
+            },
+            {
+              "name": "Limanowskiego/Legion.",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO/LEGION.",
+              "id": "2029826:2102860",
+              "designator": 2060,
+              "lat": 52.054963,
+              "lon": 20.431573
+            },
+            {
+              "name": "Limanowskiego/Dittri.",
+              "official_name": "ŻYR. LIMANOWSKIEGO/DITTRICHA",
+              "id": "2029829:2102866",
+              "designator": 2066,
+              "lat": 52.05587,
+              "lon": 20.434092
+            },
+            {
+              "name": "Limanowskiego-Szpital",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO-SZPITAL",
+              "id": "2029848:2102896",
+              "designator": 2096,
+              "lat": 52.058581,
+              "lon": 20.440291
+            },
+            {
+              "name": "Partyzantów Pdt",
+              "official_name": "ŻYRARDÓW PARTYZANTÓW PDT",
+              "id": "2029798:2102813",
+              "designator": 2013,
+              "lat": 52.056008,
+              "lon": 20.445045
+            },
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            },
+            {
+              "name": "Środkowa/Bohaterów",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/BOHATERÓW",
+              "id": "2029830:2102867",
+              "designator": 2067,
+              "lat": 52.056282,
+              "lon": 20.454402
+            },
+            {
+              "name": "Środkowa/Mireckiego",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO",
+              "id": "2029824:2102857",
+              "designator": 2057,
+              "lat": 52.059016,
+              "lon": 20.451329
+            },
+            {
+              "name": "Środkowa/Limanowskie",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+              "id": "2029823:2102855",
+              "designator": 2055,
+              "lat": 52.061693,
+              "lon": 20.448332
+            },
+            {
+              "name": "Środkowa/Spokojna",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+              "id": "2029822:2102853",
+              "designator": 2053,
+              "lat": 52.06342,
+              "lon": 20.446371
+            },
+            {
+              "name": "F.De Girarda",
+              "official_name": "ŻYRARDÓW F.DE GIRARDA",
+              "id": "2030027:2103229",
+              "designator": 2429,
+              "lat": 52.065838,
+              "lon": 20.443929
+            },
+            {
+              "name": "Żyrardów Kpt. Pałaca",
+              "official_name": "ŻYRARDÓW KPT. PAŁACA",
+              "id": "2029819:2102847",
+              "designator": 2047,
+              "lat": 52.06801,
+              "lon": 20.440686
+            },
+            {
+              "name": "Skrowaczewskiego/Niet",
+              "official_name": "ŻYRARDÓW SKROWACZEWSKIEGO/NIET",
+              "id": "2029821:2102851",
+              "designator": 2051,
+              "lat": 52.067966,
+              "lon": 20.434787
+            },
+            {
+              "name": "Spółdzielcza",
+              "official_name": "ŻYRARDÓW SPÓŁDZIELCZA",
+              "id": "2029862:2102918",
+              "designator": 2118,
+              "lat": 52.068762,
+              "lon": 20.429532
+            }
           ]
         },
         {
@@ -795,6 +2777,192 @@
             "Działki Małe",
             "Wiskitki Szkoła",
             "Wiskitki Pl. Wolności 5/6 / I"
+          ],
+          "stops_full": [
+            {
+              "name": "Spółdzielcza",
+              "official_name": "ŻYRARDÓW SPÓŁDZIELCZA",
+              "id": "2029862:2102918",
+              "designator": 2118,
+              "lat": 52.068762,
+              "lon": 20.429532
+            },
+            {
+              "name": "Skrowaczewskiego/Niet",
+              "official_name": "ŻYRARDÓW SKROWACZEWSKIEGO/NIET",
+              "id": "2029821:2102851",
+              "designator": 2051,
+              "lat": 52.067966,
+              "lon": 20.434787
+            },
+            {
+              "name": "Żyrardów Kpt. Pałaca",
+              "official_name": "ŻYRARDÓW KPT. PAŁACA",
+              "id": "2029819:2102847",
+              "designator": 2047,
+              "lat": 52.06801,
+              "lon": 20.440686
+            },
+            {
+              "name": "F.De Girarda",
+              "official_name": "ŻYRARDÓW F.DE GIRARDA",
+              "id": "2030027:2103229",
+              "designator": 2429,
+              "lat": 52.065838,
+              "lon": 20.443929
+            },
+            {
+              "name": "Środkowa/Spokojna",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+              "id": "2029822:2102853",
+              "designator": 2053,
+              "lat": 52.06342,
+              "lon": 20.446371
+            },
+            {
+              "name": "Środkowa/Limanowskie",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+              "id": "2029823:2102855",
+              "designator": 2055,
+              "lat": 52.061693,
+              "lon": 20.448332
+            },
+            {
+              "name": "Środkowa/Mireckiego",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO",
+              "id": "2029824:2102857",
+              "designator": 2057,
+              "lat": 52.059016,
+              "lon": 20.451329
+            },
+            {
+              "name": "Środkowa/Bohaterów",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/BOHATERÓW",
+              "id": "2029830:2102867",
+              "designator": 2067,
+              "lat": 52.056282,
+              "lon": 20.454402
+            },
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            },
+            {
+              "name": "Partyzantów Pdt",
+              "official_name": "ŻYRARDÓW PARTYZANTÓW PDT",
+              "id": "2029798:2102813",
+              "designator": 2013,
+              "lat": 52.056008,
+              "lon": 20.445045
+            },
+            {
+              "name": "Limanowskiego-Szpital",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO-SZPITAL",
+              "id": "2029848:2102896",
+              "designator": 2096,
+              "lat": 52.058581,
+              "lon": 20.440291
+            },
+            {
+              "name": "Limanowskiego/A Kraj.",
+              "official_name": "ŻYR. LIMANOWSKIEGO/A KRAJOWEJ",
+              "id": "2029825:2102859",
+              "designator": 2059,
+              "lat": 52.05676,
+              "lon": 20.43586
+            },
+            {
+              "name": "Limanowskiego/Legion.",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO/LEGION.",
+              "id": "2029826:2102860",
+              "designator": 2060,
+              "lat": 52.054963,
+              "lon": 20.431573
+            },
+            {
+              "name": "Żyrardów Szarych Szeregów",
+              "official_name": "ŻYRARDÓW SZARYCH SZEREGÓW",
+              "id": "2030104:2103351",
+              "designator": 2551,
+              "lat": 52.054163,
+              "lon": 20.426978
+            },
+            {
+              "name": "Żyrardów Wittenberga",
+              "official_name": "ŻYRARDÓW WITTENBERGA",
+              "id": "2029820:2102849",
+              "designator": 2049,
+              "lat": 52.055848,
+              "lon": 20.428021
+            },
+            {
+              "name": "Żeromskiego/Piastowsk",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
+              "id": "2029827:2102862",
+              "designator": 2062,
+              "lat": 52.057266,
+              "lon": 20.425613
+            },
+            {
+              "name": "Żeromskiego/Krzywa",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
+              "id": "2029828:2102864",
+              "designator": 2064,
+              "lat": 52.058067,
+              "lon": 20.421515
+            },
+            {
+              "name": "Żeromskiego/Poznańska",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
+              "id": "2029844:2102889",
+              "designator": 2089,
+              "lat": 52.05878,
+              "lon": 20.417711
+            },
+            {
+              "name": "Działki - Młyńska",
+              "official_name": "DZIAŁKI - MŁYŃSKA",
+              "id": "2030190:2103478",
+              "designator": 2678,
+              "lat": 52.065029,
+              "lon": 20.406735
+            },
+            {
+              "name": "Działki Osp",
+              "official_name": "DZIAŁKI OSP",
+              "id": "2030033:2103239",
+              "designator": 2439,
+              "lat": 52.067063,
+              "lon": 20.395722
+            },
+            {
+              "name": "Działki Małe",
+              "official_name": "DZIAŁKI MAŁE",
+              "id": "2030032:2103237",
+              "designator": 2437,
+              "lat": 52.071512,
+              "lon": 20.393871
+            },
+            {
+              "name": "Wiskitki Szkoła",
+              "official_name": "Wiskitki Szkoła",
+              "id": "2030362:2103738",
+              "designator": 2938,
+              "lat": 52.082353,
+              "lon": 20.385157
+            },
+            {
+              "name": "Wiskitki Pl. Wolności 5/6 / I",
+              "official_name": "WISKITKI  PL. Wolności 5/6 / I",
+              "id": "2029980:2103141",
+              "designator": 2341,
+              "lat": 52.086983,
+              "lon": 20.383143
+            }
           ]
         }
       ]
@@ -872,6 +3040,312 @@
             "Żyrardów Mickiewicza/Roszarni",
             "Żyrardów Mickiewicza/Działki",
             "Żyrardów Korytów"
+          ],
+          "stops_full": [
+            {
+              "name": "Mostowa Pętla",
+              "official_name": "ŻYRARDÓW MOSTOWA PĘTLA",
+              "id": "2029832:2102870",
+              "designator": 2070,
+              "lat": 52.048738,
+              "lon": 20.422953
+            },
+            {
+              "name": "Mostowa",
+              "official_name": "ŻYRARDÓW MOSTOWA",
+              "id": "2029831:2102869",
+              "designator": 2069,
+              "lat": 52.051088,
+              "lon": 20.429517
+            },
+            {
+              "name": "Sikorskiego/Roosevel",
+              "official_name": "ŻYRARDÓW SIKORSKIEGO/ROOSEVEL",
+              "id": "2387118:2483708",
+              "designator": 6430,
+              "lat": 52.05256,
+              "lon": 20.42863
+            },
+            {
+              "name": "Limanowskiego/Legion.",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO/LEGION.",
+              "id": "2029826:2102860",
+              "designator": 2060,
+              "lat": 52.054963,
+              "lon": 20.431573
+            },
+            {
+              "name": "Żyrardów Legionów Polskich",
+              "official_name": "ŻYRARDÓW LEGIONÓW POLSKICH",
+              "id": "2387115:2483705",
+              "designator": 6427,
+              "lat": 52.053983,
+              "lon": 20.430688
+            },
+            {
+              "name": "Żyrardów Okrzei",
+              "official_name": "ŻYRARDÓW OKRZEI",
+              "id": "2030107:2103357",
+              "designator": 2557,
+              "lat": 52.052352,
+              "lon": 20.437013
+            },
+            {
+              "name": "Żyrardów Mireckiego/1 Maja",
+              "official_name": "ŻYRARDÓW MIRECKIEGO/1 MAJA",
+              "id": "2029846:2102893",
+              "designator": 2093,
+              "lat": 52.055241,
+              "lon": 20.440988
+            },
+            {
+              "name": "Limanowskiego-Szpital",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO-SZPITAL",
+              "id": "2029848:2102896",
+              "designator": 2096,
+              "lat": 52.058581,
+              "lon": 20.440291
+            },
+            {
+              "name": "Żyrardów Ossowskiego",
+              "official_name": "ŻYRARDÓW OSSOWSKIEGO",
+              "id": "2030106:2103355",
+              "designator": 2555,
+              "lat": 52.061037,
+              "lon": 20.445118
+            },
+            {
+              "name": "Żyrardów Peszkowskiego",
+              "official_name": "ŻYRARDÓW PESZKOWSKIEGO",
+              "id": "2387120:2483710",
+              "designator": 6432,
+              "lat": 52.063658,
+              "lon": 20.442338
+            },
+            {
+              "name": "Żyrardów Fieldorfa Nila",
+              "official_name": "ŻYRARDÓW FIELDORFA NILA",
+              "id": "2029851:2102902",
+              "designator": 2102,
+              "lat": 52.066344,
+              "lon": 20.447141
+            },
+            {
+              "name": "Żyrardów Pileckiego",
+              "official_name": "ŻYRARDÓW PILECKIEGO",
+              "id": "2029850:2102900",
+              "designator": 2100,
+              "lat": 52.067936,
+              "lon": 20.448474
+            },
+            {
+              "name": "Żyrardów Parkingowa/Kpt. Pałac",
+              "official_name": "ŻYRARDÓW PARKINGOWA/KPT. PAŁAC",
+              "id": "2387117:2483707",
+              "designator": 6429,
+              "lat": 52.070064,
+              "lon": 20.444806
+            },
+            {
+              "name": "Żyrardów Parkingowa",
+              "official_name": "ŻYRARDÓW PARKINGOWA",
+              "id": "2029849:2102898",
+              "designator": 2098,
+              "lat": 52.072274,
+              "lon": 20.438619
+            },
+            {
+              "name": "Żyrardów Nietrzebki",
+              "official_name": "ŻYRARDÓW NIETRZEBKI",
+              "id": "2029852:2102904",
+              "designator": 2104,
+              "lat": 52.071928,
+              "lon": 20.435889
+            },
+            {
+              "name": "Spółdzielcza",
+              "official_name": "ŻYRARDÓW SPÓŁDZIELCZA",
+              "id": "2029862:2102918",
+              "designator": 2118,
+              "lat": 52.068762,
+              "lon": 20.429532
+            },
+            {
+              "name": "Skrowaczewskiego/Niet",
+              "official_name": "ŻYRARDÓW SKROWACZEWSKIEGO/NIET",
+              "id": "2029821:2102851",
+              "designator": 2051,
+              "lat": 52.067966,
+              "lon": 20.434787
+            },
+            {
+              "name": "Żyrardów Kpt. Pałaca",
+              "official_name": "ŻYRARDÓW KPT. PAŁACA",
+              "id": "2029819:2102847",
+              "designator": 2047,
+              "lat": 52.06801,
+              "lon": 20.440686
+            },
+            {
+              "name": "F.De Girarda",
+              "official_name": "ŻYRARDÓW F.DE GIRARDA",
+              "id": "2030027:2103229",
+              "designator": 2429,
+              "lat": 52.065838,
+              "lon": 20.443929
+            },
+            {
+              "name": "Środkowa/Spokojna",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+              "id": "2029822:2102853",
+              "designator": 2053,
+              "lat": 52.06342,
+              "lon": 20.446371
+            },
+            {
+              "name": "Środkowa/Limanowskie",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+              "id": "2029823:2102855",
+              "designator": 2055,
+              "lat": 52.061693,
+              "lon": 20.448332
+            },
+            {
+              "name": "Środkowa/Mireckiego",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO",
+              "id": "2029824:2102857",
+              "designator": 2057,
+              "lat": 52.059016,
+              "lon": 20.451329
+            },
+            {
+              "name": "Środkowa/Bohaterów",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/BOHATERÓW",
+              "id": "2029830:2102867",
+              "designator": 2067,
+              "lat": 52.056282,
+              "lon": 20.454402
+            },
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            },
+            {
+              "name": "Partyzantów Pdt",
+              "official_name": "ŻYRARDÓW PARTYZANTÓW PDT",
+              "id": "2029798:2102813",
+              "designator": 2013,
+              "lat": 52.056008,
+              "lon": 20.445045
+            },
+            {
+              "name": "Żyrardów Mireckiego/1 Maja",
+              "official_name": "ŻYRARDÓW MIRECKIEGO/1 MAJA",
+              "id": "2029846:2102893",
+              "designator": 2093,
+              "lat": 52.055241,
+              "lon": 20.440988
+            },
+            {
+              "name": "Żyrardów Reymonta",
+              "official_name": "ŻYRARDÓW REYMONTA",
+              "id": "2029838:2102877",
+              "designator": 2077,
+              "lat": 52.047421,
+              "lon": 20.44239
+            },
+            {
+              "name": "Żyrardów Piotra Skargi/Reymont",
+              "official_name": "ŻYRARDÓW PIOTRA SKARGI/REYMONT",
+              "id": "2029834:2102873",
+              "designator": 2073,
+              "lat": 52.045313,
+              "lon": 20.438614
+            },
+            {
+              "name": "Żyrardów Piotra Skargi/Rolna",
+              "official_name": "ŻYRARDÓW PIOTRA SKARGI/ROLNA",
+              "id": "2029835:2102874",
+              "designator": 2074,
+              "lat": 52.04161,
+              "lon": 20.442354
+            },
+            {
+              "name": "Żyrardów Rolna",
+              "official_name": "ŻYRARDÓW ROLNA",
+              "id": "2029837:2102876",
+              "designator": 2076,
+              "lat": 52.041852,
+              "lon": 20.443472
+            },
+            {
+              "name": "Żyrardów Opolska",
+              "official_name": "ŻYRARDÓW OPOLSKA",
+              "id": "2029836:2102875",
+              "designator": 2075,
+              "lat": 52.043313,
+              "lon": 20.445395
+            },
+            {
+              "name": "Żyrardów Reymonta",
+              "official_name": "ŻYRARDÓW REYMONTA",
+              "id": "2029838:2102877",
+              "designator": 2077,
+              "lat": 52.047421,
+              "lon": 20.44239
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Skiernie",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/SKIERNIE",
+              "id": "2029175:2101863",
+              "designator": 1063,
+              "lat": 52.047686,
+              "lon": 20.447112
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Wrocławsk",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/WROCŁAWSK",
+              "id": "2029840:2102881",
+              "designator": 2081,
+              "lat": 52.042091,
+              "lon": 20.453199
+            },
+            {
+              "name": "Żyrardów Zalew Żyrardowski",
+              "official_name": "ŻYRARDÓW ZALEW ŻYRARDOWSKI",
+              "id": "2029811:2102833",
+              "designator": 2033,
+              "lat": 52.03675,
+              "lon": 20.45089
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Roszarni",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/ROSZARNI",
+              "id": "2029841:2102883",
+              "designator": 2083,
+              "lat": 52.039409,
+              "lon": 20.456161
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Działki",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/DZIAŁKI",
+              "id": "2029842:2102885",
+              "designator": 2085,
+              "lat": 52.036645,
+              "lon": 20.45895
+            },
+            {
+              "name": "Żyrardów Korytów",
+              "official_name": "ŻYRARDÓW KORYTÓW",
+              "id": "2029843:2102887",
+              "designator": 2087,
+              "lat": 52.030783,
+              "lon": 20.464964
+            }
           ]
         },
         {
@@ -937,6 +3411,288 @@
             "Żyrardów Konarskiego",
             "Żyrardów Sosabowskiego",
             "Mostowa Pętla"
+          ],
+          "stops_full": [
+            {
+              "name": "Żyrardów Korytów",
+              "official_name": "ŻYRARDÓW KORYTÓW",
+              "id": "2029843:2102887",
+              "designator": 2087,
+              "lat": 52.030783,
+              "lon": 20.464964
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Działki",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/DZIAŁKI",
+              "id": "2029842:2102885",
+              "designator": 2085,
+              "lat": 52.036645,
+              "lon": 20.45895
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Roszarni",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/ROSZARNI",
+              "id": "2029841:2102883",
+              "designator": 2083,
+              "lat": 52.039409,
+              "lon": 20.456161
+            },
+            {
+              "name": "Żyrardów Zalew Żyrardowski",
+              "official_name": "ŻYRARDÓW ZALEW ŻYRARDOWSKI",
+              "id": "2029811:2102833",
+              "designator": 2033,
+              "lat": 52.03675,
+              "lon": 20.45089
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Wrocławsk",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/WROCŁAWSK",
+              "id": "2029840:2102881",
+              "designator": 2081,
+              "lat": 52.042091,
+              "lon": 20.453199
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Kanałowa",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/KANAŁOWA",
+              "id": "2029839:2102879",
+              "designator": 2079,
+              "lat": 52.047532,
+              "lon": 20.447353
+            },
+            {
+              "name": "Żyrardów Reymonta",
+              "official_name": "ŻYRARDÓW REYMONTA",
+              "id": "2029838:2102877",
+              "designator": 2077,
+              "lat": 52.047421,
+              "lon": 20.44239
+            },
+            {
+              "name": "Żyrardów Piotra Skargi/Reymont",
+              "official_name": "ŻYRARDÓW PIOTRA SKARGI/REYMONT",
+              "id": "2029834:2102873",
+              "designator": 2073,
+              "lat": 52.045313,
+              "lon": 20.438614
+            },
+            {
+              "name": "Żyrardów Piotra Skargi/Rolna",
+              "official_name": "ŻYRARDÓW PIOTRA SKARGI/ROLNA",
+              "id": "2029835:2102874",
+              "designator": 2074,
+              "lat": 52.04161,
+              "lon": 20.442354
+            },
+            {
+              "name": "Żyrardów Rolna",
+              "official_name": "ŻYRARDÓW ROLNA",
+              "id": "2029837:2102876",
+              "designator": 2076,
+              "lat": 52.041852,
+              "lon": 20.443472
+            },
+            {
+              "name": "Żyrardów Opolska",
+              "official_name": "ŻYRARDÓW OPOLSKA",
+              "id": "2029836:2102875",
+              "designator": 2075,
+              "lat": 52.043313,
+              "lon": 20.445395
+            },
+            {
+              "name": "Żyrardów Reymonta",
+              "official_name": "ŻYRARDÓW REYMONTA",
+              "id": "2029838:2102877",
+              "designator": 2077,
+              "lat": 52.047421,
+              "lon": 20.44239
+            },
+            {
+              "name": "Żyrardów Mireckiego/1 Maja",
+              "official_name": "ŻYRARDÓW MIRECKIEGO/1 MAJA",
+              "id": "2029846:2102893",
+              "designator": 2093,
+              "lat": 52.055241,
+              "lon": 20.440988
+            },
+            {
+              "name": "Partyzantów Pdt",
+              "official_name": "ŻYRARDÓW PARTYZANTÓW PDT",
+              "id": "2029798:2102813",
+              "designator": 2013,
+              "lat": 52.056008,
+              "lon": 20.445045
+            },
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            },
+            {
+              "name": "Środkowa/Bohaterów",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/BOHATERÓW",
+              "id": "2029830:2102867",
+              "designator": 2067,
+              "lat": 52.056282,
+              "lon": 20.454402
+            },
+            {
+              "name": "Środkowa/Mireckiego",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO",
+              "id": "2029824:2102857",
+              "designator": 2057,
+              "lat": 52.059016,
+              "lon": 20.451329
+            },
+            {
+              "name": "Środkowa/Limanowskie",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+              "id": "2029823:2102855",
+              "designator": 2055,
+              "lat": 52.061693,
+              "lon": 20.448332
+            },
+            {
+              "name": "Środkowa/Spokojna",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+              "id": "2029822:2102853",
+              "designator": 2053,
+              "lat": 52.06342,
+              "lon": 20.446371
+            },
+            {
+              "name": "F.De Girarda",
+              "official_name": "ŻYRARDÓW F.DE GIRARDA",
+              "id": "2030027:2103229",
+              "designator": 2429,
+              "lat": 52.065838,
+              "lon": 20.443929
+            },
+            {
+              "name": "Żyrardów Kpt. Pałaca",
+              "official_name": "ŻYRARDÓW KPT. PAŁACA",
+              "id": "2029819:2102847",
+              "designator": 2047,
+              "lat": 52.06801,
+              "lon": 20.440686
+            },
+            {
+              "name": "Skrowaczewskiego/Niet",
+              "official_name": "ŻYRARDÓW SKROWACZEWSKIEGO/NIET",
+              "id": "2029821:2102851",
+              "designator": 2051,
+              "lat": 52.067966,
+              "lon": 20.434787
+            },
+            {
+              "name": "Spółdzielcza",
+              "official_name": "ŻYRARDÓW SPÓŁDZIELCZA",
+              "id": "2029862:2102918",
+              "designator": 2118,
+              "lat": 52.068762,
+              "lon": 20.429532
+            },
+            {
+              "name": "Żyrardów Nietrzebki",
+              "official_name": "ŻYRARDÓW NIETRZEBKI",
+              "id": "2029852:2102904",
+              "designator": 2104,
+              "lat": 52.071928,
+              "lon": 20.435889
+            },
+            {
+              "name": "Żyrardów Parkingowa",
+              "official_name": "ŻYRARDÓW PARKINGOWA",
+              "id": "2029849:2102898",
+              "designator": 2098,
+              "lat": 52.072274,
+              "lon": 20.438619
+            },
+            {
+              "name": "Żyrardów Pileckiego",
+              "official_name": "ŻYRARDÓW PILECKIEGO",
+              "id": "2029850:2102900",
+              "designator": 2100,
+              "lat": 52.067936,
+              "lon": 20.448474
+            },
+            {
+              "name": "Żyrardów Fieldorfa Nila",
+              "official_name": "ŻYRARDÓW FIELDORFA NILA",
+              "id": "2029851:2102902",
+              "designator": 2102,
+              "lat": 52.066344,
+              "lon": 20.447141
+            },
+            {
+              "name": "Żyrardów Ossowskiego",
+              "official_name": "ŻYRARDÓW OSSOWSKIEGO",
+              "id": "2030106:2103355",
+              "designator": 2555,
+              "lat": 52.061037,
+              "lon": 20.445118
+            },
+            {
+              "name": "Limanowskiego-Szpital",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO-SZPITAL",
+              "id": "2029848:2102896",
+              "designator": 2096,
+              "lat": 52.058581,
+              "lon": 20.440291
+            },
+            {
+              "name": "Żyrardów 1 Maja Carrefour",
+              "official_name": "ŻYRARDÓW 1 MAJA CARREFOUR",
+              "id": "2029845:2102891",
+              "designator": 2091,
+              "lat": 52.056299,
+              "lon": 20.437519
+            },
+            {
+              "name": "Żyrardów Okrzei",
+              "official_name": "ŻYRARDÓW OKRZEI",
+              "id": "2030107:2103357",
+              "designator": 2557,
+              "lat": 52.052352,
+              "lon": 20.437013
+            },
+            {
+              "name": "Żyrardów Legionów Polskich",
+              "official_name": "ŻYRARDÓW LEGIONÓW POLSKICH",
+              "id": "2387115:2483705",
+              "designator": 6427,
+              "lat": 52.053983,
+              "lon": 20.430688
+            },
+            {
+              "name": "Żyrardów Konarskiego",
+              "official_name": "ŻYRARDÓW KONARSKIEGO",
+              "id": "2029863:2102920",
+              "designator": 2120,
+              "lat": 52.052512,
+              "lon": 20.428803
+            },
+            {
+              "name": "Żyrardów Sosabowskiego",
+              "official_name": "ŻYRARDÓW SOSABOWSKIEGO",
+              "id": "2029847:2102895",
+              "designator": 2095,
+              "lat": 52.050419,
+              "lon": 20.427006
+            },
+            {
+              "name": "Mostowa Pętla",
+              "official_name": "ŻYRARDÓW MOSTOWA PĘTLA",
+              "id": "2029832:2102870",
+              "designator": 2070,
+              "lat": 52.048738,
+              "lon": 20.422953
+            }
           ]
         }
       ]
@@ -1003,6 +3759,192 @@
             "Żyrardów Parkingowa",
             "Żyrardów Nietrzebki",
             "Spółdzielcza"
+          ],
+          "stops_full": [
+            {
+              "name": "Żeromskiego Pętla",
+              "official_name": "ŻYRARDÓW ŻEROMKSIEGO PĘTLA",
+              "id": "2387119:2483709",
+              "designator": 6431,
+              "lat": 52.05934,
+              "lon": 20.41432
+            },
+            {
+              "name": "Żeromskiego/Poznańska",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
+              "id": "2029844:2102889",
+              "designator": 2089,
+              "lat": 52.05878,
+              "lon": 20.417711
+            },
+            {
+              "name": "Żeromskiego/Krzywa",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
+              "id": "2029828:2102864",
+              "designator": 2064,
+              "lat": 52.058067,
+              "lon": 20.421515
+            },
+            {
+              "name": "Żeromskiego/Piastowsk",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
+              "id": "2029827:2102862",
+              "designator": 2062,
+              "lat": 52.057266,
+              "lon": 20.425613
+            },
+            {
+              "name": "Żyrardów Wittenberga",
+              "official_name": "ŻYRARDÓW WITTENBERGA",
+              "id": "2029820:2102849",
+              "designator": 2049,
+              "lat": 52.055848,
+              "lon": 20.428021
+            },
+            {
+              "name": "Żyrardów Szarych Szeregów",
+              "official_name": "ŻYRARDÓW SZARYCH SZEREGÓW",
+              "id": "2030104:2103351",
+              "designator": 2551,
+              "lat": 52.054163,
+              "lon": 20.426978
+            },
+            {
+              "name": "Limanowskiego/Legion.",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO/LEGION.",
+              "id": "2029826:2102860",
+              "designator": 2060,
+              "lat": 52.054963,
+              "lon": 20.431573
+            },
+            {
+              "name": "Żyrardów Legionów Polskich",
+              "official_name": "ŻYRARDÓW LEGIONÓW POLSKICH",
+              "id": "2387115:2483705",
+              "designator": 6427,
+              "lat": 52.053983,
+              "lon": 20.430688
+            },
+            {
+              "name": "Żyrardów Okrzei",
+              "official_name": "ŻYRARDÓW OKRZEI",
+              "id": "2030107:2103357",
+              "designator": 2557,
+              "lat": 52.052352,
+              "lon": 20.437013
+            },
+            {
+              "name": "Żyrardów Mireckiego/1 Maja",
+              "official_name": "ŻYRARDÓW MIRECKIEGO/1 MAJA",
+              "id": "2029846:2102893",
+              "designator": 2093,
+              "lat": 52.055241,
+              "lon": 20.440988
+            },
+            {
+              "name": "Limanowskiego-Szpital",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO-SZPITAL",
+              "id": "2029848:2102896",
+              "designator": 2096,
+              "lat": 52.058581,
+              "lon": 20.440291
+            },
+            {
+              "name": "Partyzantów Pdt",
+              "official_name": "ŻYRARDÓW PARTYZANTÓW PDT",
+              "id": "2029798:2102813",
+              "designator": 2013,
+              "lat": 52.056008,
+              "lon": 20.445045
+            },
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            },
+            {
+              "name": "Środkowa/Bohaterów",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/BOHATERÓW",
+              "id": "2029830:2102867",
+              "designator": 2067,
+              "lat": 52.056282,
+              "lon": 20.454402
+            },
+            {
+              "name": "Środkowa/Mireckiego",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO",
+              "id": "2029824:2102857",
+              "designator": 2057,
+              "lat": 52.059016,
+              "lon": 20.451329
+            },
+            {
+              "name": "Środkowa/Limanowskie",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+              "id": "2029823:2102855",
+              "designator": 2055,
+              "lat": 52.061693,
+              "lon": 20.448332
+            },
+            {
+              "name": "Środkowa/Spokojna",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+              "id": "2029822:2102853",
+              "designator": 2053,
+              "lat": 52.06342,
+              "lon": 20.446371
+            },
+            {
+              "name": "F.De Girarda",
+              "official_name": "ŻYRARDÓW F.DE GIRARDA",
+              "id": "2030027:2103229",
+              "designator": 2429,
+              "lat": 52.065838,
+              "lon": 20.443929
+            },
+            {
+              "name": "Żyrardów Kacperskiej",
+              "official_name": "ŻYRARDÓW KACPERSKIEJ",
+              "id": "2451528:2548446",
+              "designator": 6548,
+              "lat": 52.06857,
+              "lon": 20.44251
+            },
+            {
+              "name": "Żyrardów Parkingowa/Kpt. Pałac",
+              "official_name": "ŻYRARDÓW PARKINGOWA/KPT. PAŁAC",
+              "id": "2387117:2483707",
+              "designator": 6429,
+              "lat": 52.070064,
+              "lon": 20.444806
+            },
+            {
+              "name": "Żyrardów Parkingowa",
+              "official_name": "ŻYRARDÓW PARKINGOWA",
+              "id": "2029849:2102898",
+              "designator": 2098,
+              "lat": 52.072274,
+              "lon": 20.438619
+            },
+            {
+              "name": "Żyrardów Nietrzebki",
+              "official_name": "ŻYRARDÓW NIETRZEBKI",
+              "id": "2029852:2102904",
+              "designator": 2104,
+              "lat": 52.071928,
+              "lon": 20.435889
+            },
+            {
+              "name": "Spółdzielcza",
+              "official_name": "ŻYRARDÓW SPÓŁDZIELCZA",
+              "id": "2029862:2102918",
+              "designator": 2118,
+              "lat": 52.068762,
+              "lon": 20.429532
+            }
           ]
         },
         {
@@ -1057,6 +3999,168 @@
             "Żeromskiego/Krzywa",
             "Żeromskiego/Poznańska",
             "Żeromskiego Pętla"
+          ],
+          "stops_full": [
+            {
+              "name": "Spółdzielcza",
+              "official_name": "ŻYRARDÓW SPÓŁDZIELCZA",
+              "id": "2029862:2102918",
+              "designator": 2118,
+              "lat": 52.068762,
+              "lon": 20.429532
+            },
+            {
+              "name": "Skrowaczewskiego/Niet",
+              "official_name": "ŻYRARDÓW SKROWACZEWSKIEGO/NIET",
+              "id": "2029821:2102851",
+              "designator": 2051,
+              "lat": 52.067966,
+              "lon": 20.434787
+            },
+            {
+              "name": "Żyrardów Kpt. Pałaca",
+              "official_name": "ŻYRARDÓW KPT. PAŁACA",
+              "id": "2029819:2102847",
+              "designator": 2047,
+              "lat": 52.06801,
+              "lon": 20.440686
+            },
+            {
+              "name": "F.De Girarda",
+              "official_name": "ŻYRARDÓW F.DE GIRARDA",
+              "id": "2030027:2103229",
+              "designator": 2429,
+              "lat": 52.065838,
+              "lon": 20.443929
+            },
+            {
+              "name": "Środkowa/Spokojna",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+              "id": "2029822:2102853",
+              "designator": 2053,
+              "lat": 52.06342,
+              "lon": 20.446371
+            },
+            {
+              "name": "Środkowa/Limanowskie",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+              "id": "2029823:2102855",
+              "designator": 2055,
+              "lat": 52.061693,
+              "lon": 20.448332
+            },
+            {
+              "name": "Środkowa/Mireckiego",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO",
+              "id": "2029824:2102857",
+              "designator": 2057,
+              "lat": 52.059016,
+              "lon": 20.451329
+            },
+            {
+              "name": "Środkowa/Bohaterów",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/BOHATERÓW",
+              "id": "2029830:2102867",
+              "designator": 2067,
+              "lat": 52.056282,
+              "lon": 20.454402
+            },
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            },
+            {
+              "name": "Partyzantów Pdt",
+              "official_name": "ŻYRARDÓW PARTYZANTÓW PDT",
+              "id": "2029798:2102813",
+              "designator": 2013,
+              "lat": 52.056008,
+              "lon": 20.445045
+            },
+            {
+              "name": "Limanowskiego-Szpital",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO-SZPITAL",
+              "id": "2029848:2102896",
+              "designator": 2096,
+              "lat": 52.058581,
+              "lon": 20.440291
+            },
+            {
+              "name": "Żyrardów 1 Maja Carrefour",
+              "official_name": "ŻYRARDÓW 1 MAJA CARREFOUR",
+              "id": "2029845:2102891",
+              "designator": 2091,
+              "lat": 52.056299,
+              "lon": 20.437519
+            },
+            {
+              "name": "Żyrardów Okrzei",
+              "official_name": "ŻYRARDÓW OKRZEI",
+              "id": "2030107:2103357",
+              "designator": 2557,
+              "lat": 52.052352,
+              "lon": 20.437013
+            },
+            {
+              "name": "Żyrardów Legionów Polskich",
+              "official_name": "ŻYRARDÓW LEGIONÓW POLSKICH",
+              "id": "2387115:2483705",
+              "designator": 6427,
+              "lat": 52.053983,
+              "lon": 20.430688
+            },
+            {
+              "name": "Żyrardów Szarych Szeregów",
+              "official_name": "ŻYRARDÓW SZARYCH SZEREGÓW",
+              "id": "2030104:2103351",
+              "designator": 2551,
+              "lat": 52.054163,
+              "lon": 20.426978
+            },
+            {
+              "name": "Żyrardów Wittenberga",
+              "official_name": "ŻYRARDÓW WITTENBERGA",
+              "id": "2029820:2102849",
+              "designator": 2049,
+              "lat": 52.055848,
+              "lon": 20.428021
+            },
+            {
+              "name": "Żeromskiego/Piastowsk",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
+              "id": "2029827:2102862",
+              "designator": 2062,
+              "lat": 52.057266,
+              "lon": 20.425613
+            },
+            {
+              "name": "Żeromskiego/Krzywa",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
+              "id": "2029828:2102864",
+              "designator": 2064,
+              "lat": 52.058067,
+              "lon": 20.421515
+            },
+            {
+              "name": "Żeromskiego/Poznańska",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
+              "id": "2029844:2102889",
+              "designator": 2089,
+              "lat": 52.05878,
+              "lon": 20.417711
+            },
+            {
+              "name": "Żeromskiego Pętla",
+              "official_name": "ŻYRARDÓW ŻEROMKSIEGO PĘTLA",
+              "id": "2387119:2483709",
+              "designator": 6431,
+              "lat": 52.05934,
+              "lon": 20.41432
+            }
           ]
         }
       ]
@@ -1132,6 +4236,216 @@
             "Żyrardów Parkingowa",
             "Żyrardów Nietrzebki",
             "Spółdzielcza"
+          ],
+          "stops_full": [
+            {
+              "name": "Wiskitki Pl. Wolności 5/6 / I",
+              "official_name": "WISKITKI  PL. Wolności 5/6 / I",
+              "id": "2029980:2103141",
+              "designator": 2341,
+              "lat": 52.086983,
+              "lon": 20.383143
+            },
+            {
+              "name": "Wiskitki Szkoła",
+              "official_name": "Wiskitki Szkoła",
+              "id": "2030362:2103738",
+              "designator": 2938,
+              "lat": 52.082353,
+              "lon": 20.385157
+            },
+            {
+              "name": "Działki Małe",
+              "official_name": "DZIAŁKI MAŁE",
+              "id": "2030032:2103237",
+              "designator": 2437,
+              "lat": 52.071512,
+              "lon": 20.393871
+            },
+            {
+              "name": "Działki - Młyńska",
+              "official_name": "DZIAŁKI - MŁYŃSKA",
+              "id": "2030190:2103478",
+              "designator": 2678,
+              "lat": 52.065029,
+              "lon": 20.406735
+            },
+            {
+              "name": "Żeromskiego/Poznańska",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
+              "id": "2029844:2102889",
+              "designator": 2089,
+              "lat": 52.05878,
+              "lon": 20.417711
+            },
+            {
+              "name": "Żeromskiego/Krzywa",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
+              "id": "2029828:2102864",
+              "designator": 2064,
+              "lat": 52.058067,
+              "lon": 20.421515
+            },
+            {
+              "name": "Żeromskiego/Piastowsk",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
+              "id": "2029827:2102862",
+              "designator": 2062,
+              "lat": 52.057266,
+              "lon": 20.425613
+            },
+            {
+              "name": "Żyrardów Wittenberga",
+              "official_name": "ŻYRARDÓW WITTENBERGA",
+              "id": "2029820:2102849",
+              "designator": 2049,
+              "lat": 52.055848,
+              "lon": 20.428021
+            },
+            {
+              "name": "Żyrardów Szarych Szeregów",
+              "official_name": "ŻYRARDÓW SZARYCH SZEREGÓW",
+              "id": "2030104:2103351",
+              "designator": 2551,
+              "lat": 52.054163,
+              "lon": 20.426978
+            },
+            {
+              "name": "Limanowskiego/Legion.",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO/LEGION.",
+              "id": "2029826:2102860",
+              "designator": 2060,
+              "lat": 52.054963,
+              "lon": 20.431573
+            },
+            {
+              "name": "Żyrardów Legionów Polskich",
+              "official_name": "ŻYRARDÓW LEGIONÓW POLSKICH",
+              "id": "2387115:2483705",
+              "designator": 6427,
+              "lat": 52.053983,
+              "lon": 20.430688
+            },
+            {
+              "name": "Żyrardów Okrzei",
+              "official_name": "ŻYRARDÓW OKRZEI",
+              "id": "2030107:2103357",
+              "designator": 2557,
+              "lat": 52.052352,
+              "lon": 20.437013
+            },
+            {
+              "name": "Żyrardów Mireckiego/1 Maja",
+              "official_name": "ŻYRARDÓW MIRECKIEGO/1 MAJA",
+              "id": "2029846:2102893",
+              "designator": 2093,
+              "lat": 52.055241,
+              "lon": 20.440988
+            },
+            {
+              "name": "Limanowskiego-Szpital",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO-SZPITAL",
+              "id": "2029848:2102896",
+              "designator": 2096,
+              "lat": 52.058581,
+              "lon": 20.440291
+            },
+            {
+              "name": "Partyzantów Pdt",
+              "official_name": "ŻYRARDÓW PARTYZANTÓW PDT",
+              "id": "2029798:2102813",
+              "designator": 2013,
+              "lat": 52.056008,
+              "lon": 20.445045
+            },
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            },
+            {
+              "name": "Środkowa/Bohaterów",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/BOHATERÓW",
+              "id": "2029830:2102867",
+              "designator": 2067,
+              "lat": 52.056282,
+              "lon": 20.454402
+            },
+            {
+              "name": "Środkowa/Mireckiego",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO",
+              "id": "2029824:2102857",
+              "designator": 2057,
+              "lat": 52.059016,
+              "lon": 20.451329
+            },
+            {
+              "name": "Środkowa/Limanowskie",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+              "id": "2029823:2102855",
+              "designator": 2055,
+              "lat": 52.061693,
+              "lon": 20.448332
+            },
+            {
+              "name": "Środkowa/Spokojna",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+              "id": "2029822:2102853",
+              "designator": 2053,
+              "lat": 52.06342,
+              "lon": 20.446371
+            },
+            {
+              "name": "F.De Girarda",
+              "official_name": "ŻYRARDÓW F.DE GIRARDA",
+              "id": "2030027:2103229",
+              "designator": 2429,
+              "lat": 52.065838,
+              "lon": 20.443929
+            },
+            {
+              "name": "Żyrardów Kacperskiej",
+              "official_name": "ŻYRARDÓW KACPERSKIEJ",
+              "id": "2451528:2548446",
+              "designator": 6548,
+              "lat": 52.06857,
+              "lon": 20.44251
+            },
+            {
+              "name": "Żyrardów Parkingowa/Kpt. Pałac",
+              "official_name": "ŻYRARDÓW PARKINGOWA/KPT. PAŁAC",
+              "id": "2387117:2483707",
+              "designator": 6429,
+              "lat": 52.070064,
+              "lon": 20.444806
+            },
+            {
+              "name": "Żyrardów Parkingowa",
+              "official_name": "ŻYRARDÓW PARKINGOWA",
+              "id": "2029849:2102898",
+              "designator": 2098,
+              "lat": 52.072274,
+              "lon": 20.438619
+            },
+            {
+              "name": "Żyrardów Nietrzebki",
+              "official_name": "ŻYRARDÓW NIETRZEBKI",
+              "id": "2029852:2102904",
+              "designator": 2104,
+              "lat": 52.071928,
+              "lon": 20.435889
+            },
+            {
+              "name": "Spółdzielcza",
+              "official_name": "ŻYRARDÓW SPÓŁDZIELCZA",
+              "id": "2029862:2102918",
+              "designator": 2118,
+              "lat": 52.068762,
+              "lon": 20.429532
+            }
           ]
         },
         {
@@ -1195,6 +4509,192 @@
             "Działki Małe",
             "Wiskitki Szkoła",
             "Wiskitki Pl. Wolności 5/6 / I"
+          ],
+          "stops_full": [
+            {
+              "name": "Spółdzielcza",
+              "official_name": "ŻYRARDÓW SPÓŁDZIELCZA",
+              "id": "2029862:2102918",
+              "designator": 2118,
+              "lat": 52.068762,
+              "lon": 20.429532
+            },
+            {
+              "name": "Skrowaczewskiego/Niet",
+              "official_name": "ŻYRARDÓW SKROWACZEWSKIEGO/NIET",
+              "id": "2029821:2102851",
+              "designator": 2051,
+              "lat": 52.067966,
+              "lon": 20.434787
+            },
+            {
+              "name": "Żyrardów Kpt. Pałaca",
+              "official_name": "ŻYRARDÓW KPT. PAŁACA",
+              "id": "2029819:2102847",
+              "designator": 2047,
+              "lat": 52.06801,
+              "lon": 20.440686
+            },
+            {
+              "name": "F.De Girarda",
+              "official_name": "ŻYRARDÓW F.DE GIRARDA",
+              "id": "2030027:2103229",
+              "designator": 2429,
+              "lat": 52.065838,
+              "lon": 20.443929
+            },
+            {
+              "name": "Środkowa/Spokojna",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+              "id": "2029822:2102853",
+              "designator": 2053,
+              "lat": 52.06342,
+              "lon": 20.446371
+            },
+            {
+              "name": "Środkowa/Limanowskie",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+              "id": "2029823:2102855",
+              "designator": 2055,
+              "lat": 52.061693,
+              "lon": 20.448332
+            },
+            {
+              "name": "Środkowa/Mireckiego",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO",
+              "id": "2029824:2102857",
+              "designator": 2057,
+              "lat": 52.059016,
+              "lon": 20.451329
+            },
+            {
+              "name": "Środkowa/Bohaterów",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/BOHATERÓW",
+              "id": "2029830:2102867",
+              "designator": 2067,
+              "lat": 52.056282,
+              "lon": 20.454402
+            },
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            },
+            {
+              "name": "Partyzantów Pdt",
+              "official_name": "ŻYRARDÓW PARTYZANTÓW PDT",
+              "id": "2029798:2102813",
+              "designator": 2013,
+              "lat": 52.056008,
+              "lon": 20.445045
+            },
+            {
+              "name": "Limanowskiego-Szpital",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO-SZPITAL",
+              "id": "2029848:2102896",
+              "designator": 2096,
+              "lat": 52.058581,
+              "lon": 20.440291
+            },
+            {
+              "name": "Żyrardów 1 Maja Carrefour",
+              "official_name": "ŻYRARDÓW 1 MAJA CARREFOUR",
+              "id": "2029845:2102891",
+              "designator": 2091,
+              "lat": 52.056299,
+              "lon": 20.437519
+            },
+            {
+              "name": "Żyrardów Okrzei",
+              "official_name": "ŻYRARDÓW OKRZEI",
+              "id": "2030107:2103357",
+              "designator": 2557,
+              "lat": 52.052352,
+              "lon": 20.437013
+            },
+            {
+              "name": "Żyrardów Legionów Polskich",
+              "official_name": "ŻYRARDÓW LEGIONÓW POLSKICH",
+              "id": "2387115:2483705",
+              "designator": 6427,
+              "lat": 52.053983,
+              "lon": 20.430688
+            },
+            {
+              "name": "Żyrardów Szarych Szeregów",
+              "official_name": "ŻYRARDÓW SZARYCH SZEREGÓW",
+              "id": "2030104:2103351",
+              "designator": 2551,
+              "lat": 52.054163,
+              "lon": 20.426978
+            },
+            {
+              "name": "Żyrardów Wittenberga",
+              "official_name": "ŻYRARDÓW WITTENBERGA",
+              "id": "2029820:2102849",
+              "designator": 2049,
+              "lat": 52.055848,
+              "lon": 20.428021
+            },
+            {
+              "name": "Żeromskiego/Piastowsk",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
+              "id": "2029827:2102862",
+              "designator": 2062,
+              "lat": 52.057266,
+              "lon": 20.425613
+            },
+            {
+              "name": "Żeromskiego/Krzywa",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
+              "id": "2029828:2102864",
+              "designator": 2064,
+              "lat": 52.058067,
+              "lon": 20.421515
+            },
+            {
+              "name": "Żeromskiego/Poznańska",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
+              "id": "2029844:2102889",
+              "designator": 2089,
+              "lat": 52.05878,
+              "lon": 20.417711
+            },
+            {
+              "name": "Działki - Młyńska",
+              "official_name": "DZIAŁKI - MŁYŃSKA",
+              "id": "2030190:2103478",
+              "designator": 2678,
+              "lat": 52.065029,
+              "lon": 20.406735
+            },
+            {
+              "name": "Działki Małe",
+              "official_name": "DZIAŁKI MAŁE",
+              "id": "2030032:2103237",
+              "designator": 2437,
+              "lat": 52.071512,
+              "lon": 20.393871
+            },
+            {
+              "name": "Wiskitki Szkoła",
+              "official_name": "Wiskitki Szkoła",
+              "id": "2030362:2103738",
+              "designator": 2938,
+              "lat": 52.082353,
+              "lon": 20.385157
+            },
+            {
+              "name": "Wiskitki Pl. Wolności 5/6 / I",
+              "official_name": "WISKITKI  PL. Wolności 5/6 / I",
+              "id": "2029980:2103141",
+              "designator": 2341,
+              "lat": 52.086983,
+              "lon": 20.383143
+            }
           ]
         }
       ]
@@ -1244,6 +4744,96 @@
             "Żyrardów Radziwiłłowska",
             "Żyrardów Zus",
             "D.A."
+          ],
+          "stops_full": [
+            {
+              "name": "Żeromskiego Pętla",
+              "official_name": "ŻYRARDÓW ŻEROMKSIEGO PĘTLA",
+              "id": "2387119:2483709",
+              "designator": 6431,
+              "lat": 52.05934,
+              "lon": 20.41432
+            },
+            {
+              "name": "Żeromskiego/Poznańska",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
+              "id": "2029844:2102889",
+              "designator": 2089,
+              "lat": 52.05878,
+              "lon": 20.417711
+            },
+            {
+              "name": "Żeromskiego/Krzywa",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
+              "id": "2029828:2102864",
+              "designator": 2064,
+              "lat": 52.058067,
+              "lon": 20.421515
+            },
+            {
+              "name": "Żeromskiego/Piastowsk",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
+              "id": "2029827:2102862",
+              "designator": 2062,
+              "lat": 52.057266,
+              "lon": 20.425613
+            },
+            {
+              "name": "Żyrardów Wittenberga",
+              "official_name": "ŻYRARDÓW WITTENBERGA",
+              "id": "2029820:2102849",
+              "designator": 2049,
+              "lat": 52.055848,
+              "lon": 20.428021
+            },
+            {
+              "name": "Żyrardów Szarych Szeregów",
+              "official_name": "ŻYRARDÓW SZARYCH SZEREGÓW",
+              "id": "2030104:2103351",
+              "designator": 2551,
+              "lat": 52.054163,
+              "lon": 20.426978
+            },
+            {
+              "name": "Sikorskiego/Mostowa",
+              "official_name": "ŻYRARDÓW SIKORSKIEGO/MOSTOWA",
+              "id": "2029864:2102921",
+              "designator": 2121,
+              "lat": 52.051065,
+              "lon": 20.429993
+            },
+            {
+              "name": "Sikorskiego/Maczka",
+              "official_name": "ŻYRARDÓW SIKORSKIEGO/MACZKA",
+              "id": "2030232:2103530",
+              "designator": 2730,
+              "lat": 52.049648,
+              "lon": 20.43131
+            },
+            {
+              "name": "Żyrardów Radziwiłłowska",
+              "official_name": "ŻYRARDÓW RADZIWIŁŁOWSKA",
+              "id": "2029855:2102909",
+              "designator": 2109,
+              "lat": 52.049544,
+              "lon": 20.439488
+            },
+            {
+              "name": "Żyrardów Zus",
+              "official_name": "ŻYRARDÓW ZUS",
+              "id": "2029854:2102907",
+              "designator": 2107,
+              "lat": 52.050956,
+              "lon": 20.442755
+            },
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            }
           ]
         },
         {
@@ -1293,6 +4883,104 @@
             "Żeromskiego/Krzywa",
             "Żeromskiego/Poznańska",
             "Żeromskiego Pętla"
+          ],
+          "stops_full": [
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            },
+            {
+              "name": "Żyrardów Zus",
+              "official_name": "ŻYRARDÓW ZUS",
+              "id": "2029854:2102907",
+              "designator": 2107,
+              "lat": 52.050956,
+              "lon": 20.442755
+            },
+            {
+              "name": "Żyrardów Radziwiłłowska",
+              "official_name": "ŻYRARDÓW RADZIWIŁŁOWSKA",
+              "id": "2029855:2102909",
+              "designator": 2109,
+              "lat": 52.049544,
+              "lon": 20.439488
+            },
+            {
+              "name": "Sikorskiego/Maczka",
+              "official_name": "ŻYRARDÓW SIKORSKIEGO/MACZKA",
+              "id": "2030232:2103530",
+              "designator": 2730,
+              "lat": 52.049648,
+              "lon": 20.43131
+            },
+            {
+              "name": "Sikorskiego/Mostowa",
+              "official_name": "ŻYRARDÓW SIKORSKIEGO/MOSTOWA",
+              "id": "2029864:2102921",
+              "designator": 2121,
+              "lat": 52.051065,
+              "lon": 20.429993
+            },
+            {
+              "name": "Sikorskiego/Roosevel",
+              "official_name": "ŻYRARDÓW SIKORSKIEGO/ROOSEVEL",
+              "id": "2387118:2483708",
+              "designator": 6430,
+              "lat": 52.05256,
+              "lon": 20.42863
+            },
+            {
+              "name": "Żyrardów Szarych Szeregów",
+              "official_name": "ŻYRARDÓW SZARYCH SZEREGÓW",
+              "id": "2030104:2103351",
+              "designator": 2551,
+              "lat": 52.054163,
+              "lon": 20.426978
+            },
+            {
+              "name": "Żyrardów Wittenberga",
+              "official_name": "ŻYRARDÓW WITTENBERGA",
+              "id": "2029820:2102849",
+              "designator": 2049,
+              "lat": 52.055848,
+              "lon": 20.428021
+            },
+            {
+              "name": "Żeromskiego/Piastowsk",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
+              "id": "2029827:2102862",
+              "designator": 2062,
+              "lat": 52.057266,
+              "lon": 20.425613
+            },
+            {
+              "name": "Żeromskiego/Krzywa",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
+              "id": "2029828:2102864",
+              "designator": 2064,
+              "lat": 52.058067,
+              "lon": 20.421515
+            },
+            {
+              "name": "Żeromskiego/Poznańska",
+              "official_name": "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
+              "id": "2029844:2102889",
+              "designator": 2089,
+              "lat": 52.05878,
+              "lon": 20.417711
+            },
+            {
+              "name": "Żeromskiego Pętla",
+              "official_name": "ŻYRARDÓW ŻEROMKSIEGO PĘTLA",
+              "id": "2387119:2483709",
+              "designator": 6431,
+              "lat": 52.05934,
+              "lon": 20.41432
+            }
           ]
         }
       ]
@@ -1369,6 +5057,344 @@
             "Korytów Straż",
             "Korytów Polna",
             "Korytów Las"
+          ],
+          "stops_full": [
+            {
+              "name": "Mostowa Pętla",
+              "official_name": "ŻYRARDÓW MOSTOWA PĘTLA",
+              "id": "2029832:2102870",
+              "designator": 2070,
+              "lat": 52.048738,
+              "lon": 20.422953
+            },
+            {
+              "name": "Mostowa",
+              "official_name": "ŻYRARDÓW MOSTOWA",
+              "id": "2029831:2102869",
+              "designator": 2069,
+              "lat": 52.051088,
+              "lon": 20.429517
+            },
+            {
+              "name": "Sikorskiego/Roosevel",
+              "official_name": "ŻYRARDÓW SIKORSKIEGO/ROOSEVEL",
+              "id": "2387118:2483708",
+              "designator": 6430,
+              "lat": 52.05256,
+              "lon": 20.42863
+            },
+            {
+              "name": "Limanowskiego/Legion.",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO/LEGION.",
+              "id": "2029826:2102860",
+              "designator": 2060,
+              "lat": 52.054963,
+              "lon": 20.431573
+            },
+            {
+              "name": "Żyrardów Legionów Polskich",
+              "official_name": "ŻYRARDÓW LEGIONÓW POLSKICH",
+              "id": "2387115:2483705",
+              "designator": 6427,
+              "lat": 52.053983,
+              "lon": 20.430688
+            },
+            {
+              "name": "Żyrardów Okrzei",
+              "official_name": "ŻYRARDÓW OKRZEI",
+              "id": "2030107:2103357",
+              "designator": 2557,
+              "lat": 52.052352,
+              "lon": 20.437013
+            },
+            {
+              "name": "Żyrardów Mireckiego/1 Maja",
+              "official_name": "ŻYRARDÓW MIRECKIEGO/1 MAJA",
+              "id": "2029846:2102893",
+              "designator": 2093,
+              "lat": 52.055241,
+              "lon": 20.440988
+            },
+            {
+              "name": "Limanowskiego-Szpital",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO-SZPITAL",
+              "id": "2029848:2102896",
+              "designator": 2096,
+              "lat": 52.058581,
+              "lon": 20.440291
+            },
+            {
+              "name": "Żyrardów Ossowskiego",
+              "official_name": "ŻYRARDÓW OSSOWSKIEGO",
+              "id": "2030106:2103355",
+              "designator": 2555,
+              "lat": 52.061037,
+              "lon": 20.445118
+            },
+            {
+              "name": "Żyrardów Peszkowskiego",
+              "official_name": "ŻYRARDÓW PESZKOWSKIEGO",
+              "id": "2387120:2483710",
+              "designator": 6432,
+              "lat": 52.063658,
+              "lon": 20.442338
+            },
+            {
+              "name": "Żyrardów Fieldorfa Nila",
+              "official_name": "ŻYRARDÓW FIELDORFA NILA",
+              "id": "2029851:2102902",
+              "designator": 2102,
+              "lat": 52.066344,
+              "lon": 20.447141
+            },
+            {
+              "name": "Żyrardów Pileckiego",
+              "official_name": "ŻYRARDÓW PILECKIEGO",
+              "id": "2029850:2102900",
+              "designator": 2100,
+              "lat": 52.067936,
+              "lon": 20.448474
+            },
+            {
+              "name": "Żyrardów Parkingowa/Kpt. Pałac",
+              "official_name": "ŻYRARDÓW PARKINGOWA/KPT. PAŁAC",
+              "id": "2387117:2483707",
+              "designator": 6429,
+              "lat": 52.070064,
+              "lon": 20.444806
+            },
+            {
+              "name": "Żyrardów Parkingowa",
+              "official_name": "ŻYRARDÓW PARKINGOWA",
+              "id": "2029849:2102898",
+              "designator": 2098,
+              "lat": 52.072274,
+              "lon": 20.438619
+            },
+            {
+              "name": "Żyrardów Nietrzebki",
+              "official_name": "ŻYRARDÓW NIETRZEBKI",
+              "id": "2029852:2102904",
+              "designator": 2104,
+              "lat": 52.071928,
+              "lon": 20.435889
+            },
+            {
+              "name": "Spółdzielcza",
+              "official_name": "ŻYRARDÓW SPÓŁDZIELCZA",
+              "id": "2029862:2102918",
+              "designator": 2118,
+              "lat": 52.068762,
+              "lon": 20.429532
+            },
+            {
+              "name": "Skrowaczewskiego/Niet",
+              "official_name": "ŻYRARDÓW SKROWACZEWSKIEGO/NIET",
+              "id": "2029821:2102851",
+              "designator": 2051,
+              "lat": 52.067966,
+              "lon": 20.434787
+            },
+            {
+              "name": "Żyrardów Kpt. Pałaca",
+              "official_name": "ŻYRARDÓW KPT. PAŁACA",
+              "id": "2029819:2102847",
+              "designator": 2047,
+              "lat": 52.06801,
+              "lon": 20.440686
+            },
+            {
+              "name": "F.De Girarda",
+              "official_name": "ŻYRARDÓW F.DE GIRARDA",
+              "id": "2030027:2103229",
+              "designator": 2429,
+              "lat": 52.065838,
+              "lon": 20.443929
+            },
+            {
+              "name": "Środkowa/Spokojna",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+              "id": "2029822:2102853",
+              "designator": 2053,
+              "lat": 52.06342,
+              "lon": 20.446371
+            },
+            {
+              "name": "Środkowa/Limanowskie",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+              "id": "2029823:2102855",
+              "designator": 2055,
+              "lat": 52.061693,
+              "lon": 20.448332
+            },
+            {
+              "name": "Środkowa/Mireckiego",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO",
+              "id": "2029824:2102857",
+              "designator": 2057,
+              "lat": 52.059016,
+              "lon": 20.451329
+            },
+            {
+              "name": "Środkowa/Bohaterów",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/BOHATERÓW",
+              "id": "2029830:2102867",
+              "designator": 2067,
+              "lat": 52.056282,
+              "lon": 20.454402
+            },
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            },
+            {
+              "name": "Partyzantów Pdt",
+              "official_name": "ŻYRARDÓW PARTYZANTÓW PDT",
+              "id": "2029798:2102813",
+              "designator": 2013,
+              "lat": 52.056008,
+              "lon": 20.445045
+            },
+            {
+              "name": "Żyrardów Mireckiego/1 Maja",
+              "official_name": "ŻYRARDÓW MIRECKIEGO/1 MAJA",
+              "id": "2029846:2102893",
+              "designator": 2093,
+              "lat": 52.055241,
+              "lon": 20.440988
+            },
+            {
+              "name": "Żyrardów Reymonta",
+              "official_name": "ŻYRARDÓW REYMONTA",
+              "id": "2029838:2102877",
+              "designator": 2077,
+              "lat": 52.047421,
+              "lon": 20.44239
+            },
+            {
+              "name": "Żyrardów Piotra Skargi/Reymont",
+              "official_name": "ŻYRARDÓW PIOTRA SKARGI/REYMONT",
+              "id": "2029834:2102873",
+              "designator": 2073,
+              "lat": 52.045313,
+              "lon": 20.438614
+            },
+            {
+              "name": "Żyrardów Piotra Skargi/Rolna",
+              "official_name": "ŻYRARDÓW PIOTRA SKARGI/ROLNA",
+              "id": "2029835:2102874",
+              "designator": 2074,
+              "lat": 52.04161,
+              "lon": 20.442354
+            },
+            {
+              "name": "Żyrardów Rolna",
+              "official_name": "ŻYRARDÓW ROLNA",
+              "id": "2029837:2102876",
+              "designator": 2076,
+              "lat": 52.041852,
+              "lon": 20.443472
+            },
+            {
+              "name": "Żyrardów Opolska",
+              "official_name": "ŻYRARDÓW OPOLSKA",
+              "id": "2029836:2102875",
+              "designator": 2075,
+              "lat": 52.043313,
+              "lon": 20.445395
+            },
+            {
+              "name": "Żyrardów Reymonta",
+              "official_name": "ŻYRARDÓW REYMONTA",
+              "id": "2029838:2102877",
+              "designator": 2077,
+              "lat": 52.047421,
+              "lon": 20.44239
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Skiernie",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/SKIERNIE",
+              "id": "2029175:2101863",
+              "designator": 1063,
+              "lat": 52.047686,
+              "lon": 20.447112
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Wrocławsk",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/WROCŁAWSK",
+              "id": "2029840:2102881",
+              "designator": 2081,
+              "lat": 52.042091,
+              "lon": 20.453199
+            },
+            {
+              "name": "Żyrardów Zalew Żyrardowski",
+              "official_name": "ŻYRARDÓW ZALEW ŻYRARDOWSKI",
+              "id": "2029811:2102833",
+              "designator": 2033,
+              "lat": 52.03675,
+              "lon": 20.45089
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Roszarni",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/ROSZARNI",
+              "id": "2029841:2102883",
+              "designator": 2083,
+              "lat": 52.039409,
+              "lon": 20.456161
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Działki",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/DZIAŁKI",
+              "id": "2029842:2102885",
+              "designator": 2085,
+              "lat": 52.036645,
+              "lon": 20.45895
+            },
+            {
+              "name": "Żyrardów Korytów",
+              "official_name": "ŻYRARDÓW KORYTÓW",
+              "id": "2029843:2102887",
+              "designator": 2087,
+              "lat": 52.030783,
+              "lon": 20.464964
+            },
+            {
+              "name": "Korytów(A)-Szkoła",
+              "official_name": "KORYTÓW(A)-SZKOŁA",
+              "id": "2029987:2103155",
+              "designator": 2355,
+              "lat": 52.029543,
+              "lon": 20.467277
+            },
+            {
+              "name": "Korytów Straż",
+              "official_name": "KORYTÓW Straż",
+              "id": "2029988:2103157",
+              "designator": 2357,
+              "lat": 52.024764,
+              "lon": 20.474937
+            },
+            {
+              "name": "Korytów Polna",
+              "official_name": "KORYTÓW Polna",
+              "id": "2029989:2103159",
+              "designator": 2359,
+              "lat": 52.020817,
+              "lon": 20.480616
+            },
+            {
+              "name": "Korytów Las",
+              "official_name": "KORYTÓW Las",
+              "id": "2030233:2103532",
+              "designator": 2732,
+              "lat": 52.01765,
+              "lon": 20.487241
+            }
           ]
         },
         {
@@ -1433,6 +5459,320 @@
             "Żyrardów Konarskiego",
             "Żyrardów Sosabowskiego",
             "Mostowa Pętla"
+          ],
+          "stops_full": [
+            {
+              "name": "Korytów Las",
+              "official_name": "KORYTÓW Las",
+              "id": "2030233:2103532",
+              "designator": 2732,
+              "lat": 52.01765,
+              "lon": 20.487241
+            },
+            {
+              "name": "Korytów Polna",
+              "official_name": "KORYTÓW Polna",
+              "id": "2029989:2103159",
+              "designator": 2359,
+              "lat": 52.020817,
+              "lon": 20.480616
+            },
+            {
+              "name": "Korytów Straż",
+              "official_name": "KORYTÓW Straż",
+              "id": "2029988:2103157",
+              "designator": 2357,
+              "lat": 52.024764,
+              "lon": 20.474937
+            },
+            {
+              "name": "Korytów(A)-Szkoła",
+              "official_name": "KORYTÓW(A)-SZKOŁA",
+              "id": "2029987:2103155",
+              "designator": 2355,
+              "lat": 52.029543,
+              "lon": 20.467277
+            },
+            {
+              "name": "Żyrardów Korytów",
+              "official_name": "ŻYRARDÓW KORYTÓW",
+              "id": "2029843:2102887",
+              "designator": 2087,
+              "lat": 52.030783,
+              "lon": 20.464964
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Działki",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/DZIAŁKI",
+              "id": "2029842:2102885",
+              "designator": 2085,
+              "lat": 52.036645,
+              "lon": 20.45895
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Roszarni",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/ROSZARNI",
+              "id": "2029841:2102883",
+              "designator": 2083,
+              "lat": 52.039409,
+              "lon": 20.456161
+            },
+            {
+              "name": "Żyrardów Zalew Żyrardowski",
+              "official_name": "ŻYRARDÓW ZALEW ŻYRARDOWSKI",
+              "id": "2029811:2102833",
+              "designator": 2033,
+              "lat": 52.03675,
+              "lon": 20.45089
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Wrocławsk",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/WROCŁAWSK",
+              "id": "2029840:2102881",
+              "designator": 2081,
+              "lat": 52.042091,
+              "lon": 20.453199
+            },
+            {
+              "name": "Żyrardów Mickiewicza/Kanałowa",
+              "official_name": "ŻYRARDÓW MICKIEWICZA/KANAŁOWA",
+              "id": "2029839:2102879",
+              "designator": 2079,
+              "lat": 52.047532,
+              "lon": 20.447353
+            },
+            {
+              "name": "Żyrardów Reymonta",
+              "official_name": "ŻYRARDÓW REYMONTA",
+              "id": "2029838:2102877",
+              "designator": 2077,
+              "lat": 52.047421,
+              "lon": 20.44239
+            },
+            {
+              "name": "Żyrardów Piotra Skargi/Reymont",
+              "official_name": "ŻYRARDÓW PIOTRA SKARGI/REYMONT",
+              "id": "2029834:2102873",
+              "designator": 2073,
+              "lat": 52.045313,
+              "lon": 20.438614
+            },
+            {
+              "name": "Żyrardów Piotra Skargi/Rolna",
+              "official_name": "ŻYRARDÓW PIOTRA SKARGI/ROLNA",
+              "id": "2029835:2102874",
+              "designator": 2074,
+              "lat": 52.04161,
+              "lon": 20.442354
+            },
+            {
+              "name": "Żyrardów Rolna",
+              "official_name": "ŻYRARDÓW ROLNA",
+              "id": "2029837:2102876",
+              "designator": 2076,
+              "lat": 52.041852,
+              "lon": 20.443472
+            },
+            {
+              "name": "Żyrardów Opolska",
+              "official_name": "ŻYRARDÓW OPOLSKA",
+              "id": "2029836:2102875",
+              "designator": 2075,
+              "lat": 52.043313,
+              "lon": 20.445395
+            },
+            {
+              "name": "Żyrardów Reymonta",
+              "official_name": "ŻYRARDÓW REYMONTA",
+              "id": "2029838:2102877",
+              "designator": 2077,
+              "lat": 52.047421,
+              "lon": 20.44239
+            },
+            {
+              "name": "Żyrardów Mireckiego/1 Maja",
+              "official_name": "ŻYRARDÓW MIRECKIEGO/1 MAJA",
+              "id": "2029846:2102893",
+              "designator": 2093,
+              "lat": 52.055241,
+              "lon": 20.440988
+            },
+            {
+              "name": "Partyzantów Pdt",
+              "official_name": "ŻYRARDÓW PARTYZANTÓW PDT",
+              "id": "2029798:2102813",
+              "designator": 2013,
+              "lat": 52.056008,
+              "lon": 20.445045
+            },
+            {
+              "name": "D.A.",
+              "official_name": "ŻYRARDÓW D.A.",
+              "id": "2029960:2103102",
+              "designator": 2302,
+              "lat": 52.052403,
+              "lon": 20.447342
+            },
+            {
+              "name": "Środkowa/Bohaterów",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/BOHATERÓW",
+              "id": "2029830:2102867",
+              "designator": 2067,
+              "lat": 52.056282,
+              "lon": 20.454402
+            },
+            {
+              "name": "Środkowa/Mireckiego",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO",
+              "id": "2029824:2102857",
+              "designator": 2057,
+              "lat": 52.059016,
+              "lon": 20.451329
+            },
+            {
+              "name": "Środkowa/Limanowskie",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+              "id": "2029823:2102855",
+              "designator": 2055,
+              "lat": 52.061693,
+              "lon": 20.448332
+            },
+            {
+              "name": "Środkowa/Spokojna",
+              "official_name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+              "id": "2029822:2102853",
+              "designator": 2053,
+              "lat": 52.06342,
+              "lon": 20.446371
+            },
+            {
+              "name": "F.De Girarda",
+              "official_name": "ŻYRARDÓW F.DE GIRARDA",
+              "id": "2030027:2103229",
+              "designator": 2429,
+              "lat": 52.065838,
+              "lon": 20.443929
+            },
+            {
+              "name": "Żyrardów Kpt. Pałaca",
+              "official_name": "ŻYRARDÓW KPT. PAŁACA",
+              "id": "2029819:2102847",
+              "designator": 2047,
+              "lat": 52.06801,
+              "lon": 20.440686
+            },
+            {
+              "name": "Skrowaczewskiego/Niet",
+              "official_name": "ŻYRARDÓW SKROWACZEWSKIEGO/NIET",
+              "id": "2029821:2102851",
+              "designator": 2051,
+              "lat": 52.067966,
+              "lon": 20.434787
+            },
+            {
+              "name": "Spółdzielcza",
+              "official_name": "ŻYRARDÓW SPÓŁDZIELCZA",
+              "id": "2029862:2102918",
+              "designator": 2118,
+              "lat": 52.068762,
+              "lon": 20.429532
+            },
+            {
+              "name": "Żyrardów Nietrzebki",
+              "official_name": "ŻYRARDÓW NIETRZEBKI",
+              "id": "2029852:2102904",
+              "designator": 2104,
+              "lat": 52.071928,
+              "lon": 20.435889
+            },
+            {
+              "name": "Żyrardów Parkingowa",
+              "official_name": "ŻYRARDÓW PARKINGOWA",
+              "id": "2029849:2102898",
+              "designator": 2098,
+              "lat": 52.072274,
+              "lon": 20.438619
+            },
+            {
+              "name": "Żyrardów Pileckiego",
+              "official_name": "ŻYRARDÓW PILECKIEGO",
+              "id": "2029850:2102900",
+              "designator": 2100,
+              "lat": 52.067936,
+              "lon": 20.448474
+            },
+            {
+              "name": "Żyrardów Fieldorfa Nila",
+              "official_name": "ŻYRARDÓW FIELDORFA NILA",
+              "id": "2029851:2102902",
+              "designator": 2102,
+              "lat": 52.066344,
+              "lon": 20.447141
+            },
+            {
+              "name": "Żyrardów Ossowskiego",
+              "official_name": "ŻYRARDÓW OSSOWSKIEGO",
+              "id": "2030106:2103355",
+              "designator": 2555,
+              "lat": 52.061037,
+              "lon": 20.445118
+            },
+            {
+              "name": "Limanowskiego-Szpital",
+              "official_name": "ŻYRARDÓW LIMANOWSKIEGO-SZPITAL",
+              "id": "2029848:2102896",
+              "designator": 2096,
+              "lat": 52.058581,
+              "lon": 20.440291
+            },
+            {
+              "name": "Żyrardów 1 Maja Carrefour",
+              "official_name": "ŻYRARDÓW 1 MAJA CARREFOUR",
+              "id": "2029845:2102891",
+              "designator": 2091,
+              "lat": 52.056299,
+              "lon": 20.437519
+            },
+            {
+              "name": "Żyrardów Okrzei",
+              "official_name": "ŻYRARDÓW OKRZEI",
+              "id": "2030107:2103357",
+              "designator": 2557,
+              "lat": 52.052352,
+              "lon": 20.437013
+            },
+            {
+              "name": "Żyrardów Legionów Polskich",
+              "official_name": "ŻYRARDÓW LEGIONÓW POLSKICH",
+              "id": "2387115:2483705",
+              "designator": 6427,
+              "lat": 52.053983,
+              "lon": 20.430688
+            },
+            {
+              "name": "Żyrardów Konarskiego",
+              "official_name": "ŻYRARDÓW KONARSKIEGO",
+              "id": "2029863:2102920",
+              "designator": 2120,
+              "lat": 52.052512,
+              "lon": 20.428803
+            },
+            {
+              "name": "Żyrardów Sosabowskiego",
+              "official_name": "ŻYRARDÓW SOSABOWSKIEGO",
+              "id": "2029847:2102895",
+              "designator": 2095,
+              "lat": 52.050419,
+              "lon": 20.427006
+            },
+            {
+              "name": "Mostowa Pętla",
+              "official_name": "ŻYRARDÓW MOSTOWA PĘTLA",
+              "id": "2029832:2102870",
+              "designator": 2070,
+              "lat": 52.048738,
+              "lon": 20.422953
+            }
           ]
         }
       ]

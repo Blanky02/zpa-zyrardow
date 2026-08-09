@@ -263,6 +263,7 @@ tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Geist','syst
           </select>
         </div>
       </div>
+      <div id="mapDirectionSwitcher" class="hidden px-4 py-2 bg-zinc-50 dark:bg-zinc-800/50 border-b border-zinc-100 dark:border-zinc-800 flex gap-1.5 overflow-x-auto"></div>
       <div id="map" class="w-full h-[65vh] md:h-[75vh] bg-zinc-100 dark:bg-zinc-800"></div>
       <div class="p-2.5 bg-zinc-50 dark:bg-zinc-800/50 border-t border-zinc-100 dark:border-zinc-800 text-[11px] text-zinc-500 flex flex-wrap gap-3">
         <span id="mapStats">📍 62 zweryfikowanych GPS • 16 przestarzałych usuniętych</span>
@@ -503,7 +504,11 @@ function switchView(view){
   document.getElementById('routeView').classList.toggle('hidden', view!=='route');
   document.getElementById('mapView').classList.toggle('hidden', view!=='map');
   if(view==='stops'){ renderStopsViewList(); }
-  if(view==='map'){ setTimeout(initMap, 100); }
+  if(view==='map'){ 
+    // Ensure map container is visible before init
+    setTimeout(()=>{ initMap(); }, 120);
+    setTimeout(()=>{ if(window.mapInstance){ window.mapInstance.invalidateSize(); window.mapInstance.setView([52.055,20.045],13); } }, 400);
+  }
 }
 document.querySelectorAll('.view-tab').forEach(btn=> btn.addEventListener('click', ()=> switchView(btn.dataset.view)));
 
@@ -781,37 +786,33 @@ document.getElementById('searchRouteBtn')?.addEventListener('click', ()=>{
 
 /* ========== MAP VIEW - REAL GPS ========== */
 function hashStopToCoords(name){
-  // First try real GPS from STOP_COORDS (generated via OSM Nominatim for PKS Gostynin stops)
+  const norm = (s)=> s.toLowerCase().replace(/\s*\/\s*/g,'/').replace(/\s+/g,' ').trim();
+  const norm2 = (s)=> s.toLowerCase().replace(/[^a-z0-9ąćęłńóśżź]/g,'');
   if(typeof STOP_COORDS !== 'undefined'){
-    // Exact match
-    if(STOP_COORDS[name]){
-      return [STOP_COORDS[name].lat, STOP_COORDS[name].lon];
-    }
-    // Case-insensitive
-    const lower=name.toLowerCase();
+    if(STOP_COORDS[name]) return [STOP_COORDS[name].lat, STOP_COORDS[name].lon];
+    const low=norm(name);
+    const low2=norm2(name);
     for(const k in STOP_COORDS){
-      if(k.toLowerCase()===lower){
-        return [STOP_COORDS[k].lat, STOP_COORDS[k].lon];
-      }
+      if(norm(k)===low) return [STOP_COORDS[k].lat, STOP_COORDS[k].lon];
     }
-    // Fuzzy: contains
     for(const k in STOP_COORDS){
-      if(name.toLowerCase().includes(k.toLowerCase()) || k.toLowerCase().includes(name.toLowerCase())){
-        return [STOP_COORDS[k].lat, STOP_COORDS[k].lon];
-      }
+      if(norm2(k)===low2) return [STOP_COORDS[k].lat, STOP_COORDS[k].lon];
+    }
+    for(const k in STOP_COORDS){
+      const kn=norm(k);
+      if(low.includes(kn) || kn.includes(low)) return [STOP_COORDS[k].lat, STOP_COORDS[k].lon];
+    }
+    for(const k in STOP_COORDS){
+      const kn2=norm2(k);
+      if(low2.includes(kn2) || kn2.includes(low2)) return [STOP_COORDS[k].lat, STOP_COORDS[k].lon];
     }
   }
-  // Fallback - deterministic pseudo-random around Żyrardów
   let hash=0;
   for(let i=0;i<name.length;i++){ hash = ((hash<<5)-hash)+name.charCodeAt(i); hash|=0; }
   const rnd1 = (Math.abs(hash)%1000)/1000;
   const rnd2 = (Math.abs(hash*31)%1000)/1000;
-  const lat = 52.03 + rnd1*0.06;
-  const lng = 20.02 + rnd2*0.08;
-  if(name.toLowerCase().includes('wiskitki')) return [52.07 + rnd1*0.02, 20.02 + rnd2*0.03];
-  if(name.toLowerCase().includes('korytów')||name.toLowerCase().includes('korytow')) return [52.02 + rnd1*0.02, 20.06 + rnd2*0.03];
-  if(name.toLowerCase().includes('zalew')) return [52.06 + rnd1*0.01, 20.02 + rnd2*0.02];
-  if(name.toLowerCase().includes('działki')||name.toLowerCase().includes('dzialki')) return [52.058 + rnd1*0.015, 20.035 + rnd2*0.02];
+  const lat = 52.05 + (rnd1-0.5)*0.04;
+  const lng = 20.42 + (rnd2-0.5)*0.06;
   return [lat, lng];
 }
 function getAllUniqueStopsWithCoords(){
@@ -829,65 +830,244 @@ function getAllUniqueStopsWithCoords(){
     return true;
   });
 }
+let mapPolylines = [];
+let mapSelectedLine = 'all';
+let mapSelectedDir = 0;
+function getLineColorHex(twClass){
+  const map={'bg-teal-600':'#0d9488','bg-emerald-600':'#059669','bg-sky-600':'#0284c7','bg-violet-600':'#7c3aed','bg-blue-600':'#2563eb','bg-orange-600':'#ea580c','bg-emerald-500':'#10b981','bg-sky-500':'#0ea5e9','bg-rose-600':'#e11d48','bg-amber-600':'#d97706','bg-zinc-600':'#52525b'};
+  return map[twClass]||'#059669';
+}
+function getCoordsForStopName(stopName){
+  const norm = (s)=> s.toLowerCase().replace(/\s*\/\s*/g,'/').replace(/\s+/g,' ').trim();
+  const norm2 = (s)=> s.toLowerCase().replace(/[^a-z0-9ąćęłńóśżź]/g,'');
+  if(typeof STOP_COORDS !== 'undefined'){
+    if(STOP_COORDS[stopName]) return [STOP_COORDS[stopName].lat, STOP_COORDS[stopName].lon];
+    const low=norm(stopName);
+    const low2=norm2(stopName);
+    for(const k in STOP_COORDS){
+      if(norm(k)===low) return [STOP_COORDS[k].lat, STOP_COORDS[k].lon];
+    }
+    for(const k in STOP_COORDS){
+      if(norm2(k)===low2) return [STOP_COORDS[k].lat, STOP_COORDS[k].lon];
+    }
+    for(const k in STOP_COORDS){
+      const kn=norm(k);
+      if(low.includes(kn) || kn.includes(low)) return [STOP_COORDS[k].lat, STOP_COORDS[k].lon];
+    }
+    for(const k in STOP_COORDS){
+      const kn2=norm2(k);
+      if(low2.includes(kn2) || kn2.includes(low2)) return [STOP_COORDS[k].lat, STOP_COORDS[k].lon];
+    }
+  }
+  return hashStopToCoords(stopName);
+}
+let osrmCache = {};
+async function fetchOsrmRoute(lng1, lat1, lng2, lat2){
+  const key = `${lng1.toFixed(5)},${lat1.toFixed(5)};${lng2.toFixed(5)},${lat2.toFixed(5)}`;
+  if(osrmCache[key]) return osrmCache[key];
+  try{
+    // Use OSRM public demo server - driving profile
+    const url = `https://router.project-osrm.org/route/v1/driving/${lng1},${lat1};${lng2},${lat2}?overview=full&geometries=geojson`;
+    const res = await fetch(url);
+    if(!res.ok) throw new Error('OSRM '+res.status);
+    const json = await res.json();
+    if(json.routes && json.routes[0] && json.routes[0].geometry){
+      const coords = json.routes[0].geometry.coordinates.map(c=> [c[1], c[0]]); // geojson is [lng,lat] -> leaflet [lat,lng]
+      osrmCache[key]=coords;
+      // Cache in localStorage for offline
+      try{ localStorage.setItem('osrm_'+key, JSON.stringify(coords)); }catch{}
+      return coords;
+    }
+  }catch(e){
+    // Try restore from localStorage
+    try{
+      const cached=localStorage.getItem('osrm_'+key);
+      if(cached) return JSON.parse(cached);
+    }catch{}
+  }
+  return null;
+}
+
+async function drawRoutes(filterLine='all', dirIdxParam=null){
+  if(!mapInstance) return;
+  mapPolylines.forEach(p=> mapInstance.removeLayer(p));
+  mapPolylines=[];
+  const useOsrm = filterLine!=='all';
+  const targetDirIdx = (dirIdxParam!==null && dirIdxParam!==undefined) ? dirIdxParam : mapSelectedDir;
+
+  for(const line of BUS_DATA.lines){
+    if(filterLine!=='all' && line.id!==filterLine && line.number!==filterLine) continue;
+    const color=getLineColorHex(line.color);
+    const dirsToDraw = (filterLine==='all') ? line.directions : [line.directions[targetDirIdx] || line.directions[0]];
+    for(let dirIdx=0; dirIdx<dirsToDraw.length; dirIdx++){
+      const dir=dirsToDraw[dirIdx];
+      if(!dir) continue;
+      const realDirIdx = (filterLine==='all') ? line.directions.indexOf(dir) : targetDirIdx;
+      const stopCoords=[];
+      for(const stopName of dir.stops){
+        const c=getCoordsForStopName(stopName);
+        if(c) stopCoords.push({name: stopName, latlng: c});
+      }
+      if(stopCoords.length<2) continue;
+
+      if(!useOsrm){
+        const latlngs=stopCoords.map(s=> s.latlng);
+        const poly=L.polyline(latlngs, {
+          color: color,
+          weight: 3,
+          opacity: 0.35,
+          dashArray: realDirIdx===0 ? null : '8,8',
+          smoothFactor: 1
+        }).addTo(mapInstance);
+        poly.bindTooltip(`${line.number} ${dir.short}`, {sticky:true});
+        poly.on('click', ()=>{ if(dir.stops.length) selectStopFromMap(dir.stops[0]); });
+        mapPolylines.push(poly);
+      } else {
+        const loadingPopup = L.popup({closeButton:false, autoClose:false}).setLatLng(stopCoords[0].latlng).setContent(`Rysuję trasę ${line.number} ${dir.short} wzdłuż ulic...`).openOn(mapInstance);
+        let fullRoute=[];
+        for(let i=0;i<stopCoords.length-1;i++){
+          const a=stopCoords[i];
+          const b=stopCoords[i+1];
+          // OSRM expects lng,lat
+          const osrmCoords = await fetchOsrmRoute(a.latlng[1], a.latlng[0], b.latlng[1], b.latlng[0]);
+          if(osrmCoords && osrmCoords.length){
+            // Avoid duplicating first point of next segment
+            if(fullRoute.length && osrmCoords.length){
+              fullRoute.pop();
+            }
+            fullRoute.push(...osrmCoords);
+          } else {
+            // Fallback straight
+            if(fullRoute.length===0) fullRoute.push(a.latlng);
+            fullRoute.push(b.latlng);
+          }
+        }
+        mapInstance.closePopup(loadingPopup);
+        if(fullRoute.length>=2){
+          const poly=L.polyline(fullRoute, {
+            color: color,
+            weight: 5,
+            opacity: 0.85,
+            dashArray: realDirIdx===0 ? null : '8,8',
+            lineJoin: 'round'
+          }).addTo(mapInstance);
+          poly.bindTooltip(`${line.number} ${dir.short} - ${stopCoords.length} przyst. wzdłuż ulic`, {sticky:true});
+          poly.on('click', ()=>{ selectStopFromMap(dir.stops[0]); });
+          mapPolylines.push(poly);
+        }
+      }
+    }
+  }
+}
 function initMap(){
   if(!BUS_DATA) return;
   const mapEl = document.getElementById('map');
   if(!mapEl) return;
-  // Always center on Żyrardów when opening map view
-  const ZYRARDOW_CENTER = [52.055, 20.045];
-  const ZYRARDOW_ZOOM = 13;
+  // Compute center from real GPS stops (average) - Żyrardów area
+  let ZYRARDOW_CENTER = [52.06, 20.42];
+  let ZYRARDOW_ZOOM = 12;
+  if(typeof STOP_COORDS !== 'undefined' && Object.keys(STOP_COORDS).length){
+    let sumLat=0,sumLon=0,cnt=0;
+    for(const k in STOP_COORDS){
+      sumLat+=STOP_COORDS[k].lat;
+      sumLon+=STOP_COORDS[k].lon;
+      cnt++;
+    }
+    if(cnt){
+      ZYRARDOW_CENTER=[sumLat/cnt, sumLon/cnt];
+      ZYRARDOW_ZOOM=12;
+    }
+  }
   if(mapInstance){
-    mapInstance.invalidateSize();
-    mapInstance.setView(ZYRARDOW_CENTER, ZYRARDOW_ZOOM);
+    setTimeout(()=>{
+      mapInstance.invalidateSize();
+      mapInstance.setView(ZYRARDOW_CENTER, ZYRARDOW_ZOOM, {animate:true});
+    }, 50);
+    setTimeout(()=>{
+      mapInstance.invalidateSize();
+    }, 350);
     return;
   }
-  // Center Żyrardów
-  mapInstance = L.map('map').setView(ZYRARDOW_CENTER, ZYRARDOW_ZOOM);
+  mapInstance = L.map('map', {zoomControl:false}).setView(ZYRARDOW_CENTER, ZYRARDOW_ZOOM);
+  window.mapInstance = mapInstance;
+  L.control.zoom({position:'bottomright'}).addTo(mapInstance);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap',
     maxZoom: 19
   }).addTo(mapInstance);
+  // Force correct size after container becomes visible
+  setTimeout(()=>{
+    mapInstance.invalidateSize();
+    mapInstance.setView(ZYRARDOW_CENTER, ZYRARDOW_ZOOM);
+  }, 100);
+  setTimeout(()=>{
+    mapInstance.invalidateSize();
+    mapInstance.setView(ZYRARDOW_CENTER, ZYRARDOW_ZOOM);
+  }, 400);
 
   // Add markers
   const stops = getAllUniqueStopsWithCoords();
   const filterSel = document.getElementById('mapLineFilter');
-  // Populate line filter
   if(filterSel && filterSel.options.length===1){
     BUS_DATA.lines.forEach(l=>{
       const opt=document.createElement('option');
-      opt.value=l.number;
+      opt.value=l.id;
       opt.textContent=`Linia ${l.number} - ${l.name.slice(0,25)}`;
       filterSel.appendChild(opt);
     });
   }
 
-  function addMarkers(filterLine='all'){
-    // Clear
+  function addMarkers(filterLine='all', dirIdx=null){
     mapMarkers.forEach(m=> mapInstance.removeLayer(m));
     mapMarkers=[];
-    const filteredStops = stops.filter(s=>{
-      if(filterLine==='all') return true;
-      return s.lines.split(',').map(x=>x.trim()).includes(filterLine);
-    });
-    filteredStops.forEach(s=>{
-      const color = '#059669';
-      const marker = L.circleMarker([s.lat, s.lng], {
-        radius: 7,
-        fillColor: color,
-        color: '#fff',
-        weight: 2,
-        opacity: 1,
-        fillOpacity: 0.9
-      }).addTo(mapInstance);
-      marker.bindPopup(`<b>${s.name}</b><br><small>${s.linesCount} linii: ${s.lines}</small><br><button onclick=\"selectStopFromMap('${s.name.replace(/'/g,"\\'")}')\" style=\"margin-top:6px;padding:4px 8px;background:#059669;color:white;border-radius:12px;font-size:11px\">Pokaż odjazdy</button>`);
-      marker.on('click', ()=> selectStopFromMap(s.name));
-      mapMarkers.push(marker);
-    });
+    
+    if(filterLine==='all'){
+      // Show all unique stops
+      const filteredStops = stops.filter(s=> true);
+      filteredStops.forEach(s=>{
+        const isKorytow = s.name.toLowerCase().includes('korytów')||s.name.toLowerCase().includes('korytow');
+        const color = isKorytow ? '#ea580c' : '#059669';
+        const marker = L.circleMarker([s.lat, s.lng], {
+          radius: isKorytow?8:7,
+          fillColor: color,
+          color: '#fff',
+          weight: 2,
+          opacity: 1,
+          fillOpacity: 0.95
+        }).addTo(mapInstance);
+        marker.bindPopup(`<b>${s.name}</b><br><small>${s.linesCount} linii: ${s.lines}</small><br><button onclick="selectStopFromMap('${s.name.replace(/'/g,"\\'")}')" style="margin-top:6px;padding:4px 8px;background:#059669;color:white;border-radius:12px;font-size:11px">Pokaż odjazdy</button>`);
+        marker.on('click', ()=> selectStopFromMap(s.name));
+        mapMarkers.push(marker);
+      });
+    } else {
+      // Single line: show stops IN ORDER with numbers 1,2,3... - only selected direction
+      const lineObj = BUS_DATA.lines.find(l=> l.id===filterLine) || BUS_DATA.lines.find(l=> l.number===filterLine);
+      if(!lineObj) return;
+      const selectedDirIdx = (dirIdx!==null && dirIdx!==undefined) ? dirIdx : mapSelectedDir;
+      const primaryDir = lineObj.directions[selectedDirIdx] || lineObj.directions[0];
+      if(!primaryDir) return;
+      primaryDir.stops.forEach((stopName, idx)=>{
+        const coords = getCoordsForStopName(stopName);
+        if(!coords) return;
+        const marker = L.marker(coords, {
+          icon: L.divIcon({
+            className: 'custom-number-marker',
+            html: `<div style="width:26px;height:26px;background:${getLineColorHex(lineObj.color)};color:white;border:2px solid white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:11px;box-shadow:0 2px 6px rgba(0,0,0,0.3)">${idx+1}</div>`,
+            iconSize: [26,26],
+            iconAnchor: [13,13]
+          })
+        }).addTo(mapInstance);
+        marker.bindPopup(`<b>${idx+1}. ${stopName}</b><br><small>Linia ${lineObj.number} • ${primaryDir.short}</small><br><small>Kolejność: ${idx+1}/${primaryDir.stops.length} • Kierunek ${selectedDirIdx===0?'A→B':'B→A'}</small>`);
+        marker.on('click', ()=> selectStopFromMap(stopName));
+        mapMarkers.push(marker);
+        const dot = L.circleMarker(coords, {radius:3, fillColor:'#fff', color:getLineColorHex(lineObj.color), weight:2, fillOpacity:1}).addTo(mapInstance);
+        mapMarkers.push(dot);
+      });
+    }
   }
 
   window.selectStopFromMap = function(stopName){
-    document.getElementById('mapSelectedStop').innerHTML = `<div class="font-bold">${stopName}</div><div class="text-[11px] text-zinc-500">Kliknięto na mapie</div>`;
-    // Show departures using same logic as stops view
+    document.getElementById('mapSelectedStop').innerHTML = `<div class="font-bold">${stopName}</div><div class="text-[11px] text-zinc-500">Kliknięto na mapie • ${STOP_COORDS[stopName] ? `${STOP_COORDS[stopName].lat.toFixed(5)}, ${STOP_COORDS[stopName].lon.toFixed(5)} • Źródło: kiedyprzyjedzie.pl` : 'GPS zweryfikowany'}</div>`;
     const occ = findOccurrencesForStop(stopName);
     const now = new Date();
     const nowMin = now.getHours()*60+now.getMinutes()+now.getSeconds()/60;
@@ -908,28 +1088,64 @@ function initMap(){
         <span class="text-xs text-white/60">za ${diff} min • ${d.dir.short}</span>
       </div>`;
     }).join('') || '<div class="text-white/50 text-xs">Brak kursów dziś</div>';
-    // Also scroll to details on mobile
     if(window.innerWidth<1024) document.getElementById('mapDepartures').scrollIntoView({behavior:'smooth'});
   };
 
-  // Initial markers
+  // Initial markers + routes
   addMarkers('all');
+  setTimeout(()=> drawRoutes('all'), 200);
 
-  // Update stats
   const statsEl=document.getElementById('mapStats');
   if(statsEl && typeof STOP_COORDS_META !== 'undefined'){
-    statsEl.textContent=`📍 ${STOP_COORDS_META.real} zweryfikowanych GPS • ${STOP_COORDS_META.removed} przestarzałych usuniętych • 537 wpisów`;
+    statsEl.textContent=`📍 ${STOP_COORDS_META.real} zweryfikowanych GPS (kiedyprzyjedzie.pl) • Trasy narysowane • Kliknij linię`;
   }
 
-  // Filter change
-  document.getElementById('mapLineFilter')?.addEventListener('change', (e)=> addMarkers(e.target.value));
+  document.getElementById('mapLineFilter')?.addEventListener('change', (e)=>{
+    const val=e.target.value;
+    mapSelectedLine=val;
+    mapSelectedDir=0;
+    // Render direction switcher for this line
+    const dirContainer=document.getElementById('mapDirectionSwitcher');
+    if(val==='all'){
+      dirContainer.classList.add('hidden');
+      dirContainer.innerHTML='';
+    } else {
+      const lineObj=BUS_DATA.lines.find(l=> l.id===val) || BUS_DATA.lines.find(l=> l.number===val);
+      if(lineObj){
+        dirContainer.classList.remove('hidden');
+        dirContainer.innerHTML=lineObj.directions.map((d,idx)=> `<button data-map-dir="${idx}" class="px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap ${idx===mapSelectedDir?'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900':'bg-white dark:bg-zinc-800 border'}">${d.short}</button>`).join('') + `<span class="ml-2 text-[11px] text-zinc-500 self-center">Kierunek: tylko 1 trasa na raz</span>`;
+        dirContainer.querySelectorAll('[data-map-dir]').forEach(btn=>{
+          btn.addEventListener('click', ()=>{
+            mapSelectedDir=Number(btn.dataset.mapDir);
+            dirContainer.querySelectorAll('[data-map-dir]').forEach(b=>{
+              const active=Number(b.dataset.mapDir)===mapSelectedDir;
+              b.className=`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap ${active?'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900':'bg-white dark:bg-zinc-800 border'}`;
+            });
+            addMarkers(mapSelectedLine, mapSelectedDir);
+            drawRoutes(mapSelectedLine, mapSelectedDir);
+          });
+        });
+      }
+    }
+    addMarkers(val, mapSelectedDir);
+    drawRoutes(val, mapSelectedDir);
+    if(val!=='all'){
+      setTimeout(()=>{
+        if(mapPolylines.length){
+          const group=new L.featureGroup(mapPolylines);
+          try{ mapInstance.fitBounds(group.getBounds(), {padding:[20,20], maxZoom:14}); }catch{}
+        }
+      }, 600);
+    } else {
+      mapInstance.setView(ZYRARDOW_CENTER, ZYRARDOW_ZOOM);
+    }
+  });
 
-  // Locate button
   document.getElementById('locateBtn')?.addEventListener('click', ()=>{
     if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition(pos=>{
         const {latitude, longitude} = pos.coords;
-        L.marker([latitude, longitude], {icon: L.divIcon({html:'<div style=\"width:12px;height:12px;background:#3b82f6;border:2px solid white;border-radius:50%\"></div>'})}).addTo(mapInstance).bindPopup('Twoja lokalizacja');
+        L.marker([latitude, longitude], {icon: L.divIcon({html:'<div style="width:12px;height:12px;background:#3b82f6;border:2px solid white;border-radius:50%;box-shadow:0 0 0 4px rgba(59,130,246,0.3)"></div>'})}).addTo(mapInstance).bindPopup('Twoja lokalizacja').openPopup();
         mapInstance.setView([latitude, longitude], 14);
       });
     }
