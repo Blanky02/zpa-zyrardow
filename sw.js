@@ -1,5 +1,5 @@
-/* ŻPA Żyrardów PWA Service Worker - v4 MAPA + PKS ONLY */
-const CACHE_NAME = 'zpa-v4-2026-08-08-map';
+/* ŻPA Żyrardów PWA Service Worker - v6 CLEAN - outdated pins removed */
+const CACHE_NAME = 'zpa-v6-2026-08-08-clean';
 const SHELL_ASSETS = [
   './',
   '/',
@@ -7,6 +7,8 @@ const SHELL_ASSETS = [
   '/index.html',
   './manifest.json',
   './timetables.json',
+  './stops_gps.json',
+  './stops_gps.js',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/icon-192-maskable.png',
