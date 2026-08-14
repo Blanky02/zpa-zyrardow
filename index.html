@@ -312,7 +312,53 @@ function getCurrentDirection(){ return getCurrentLine().directions[state.dirIdx]
 function getScheduleForStop(dir, idx, day){ return (dir.baseTimes[day]||[]).map(t=>addMinutes(t, idx*2)); }
 
 /* ========== FETCH LOGIC v2 ========== */
+async function loadKiedyLiveStops(){
+  // Pobierz live przystanki z oficjalnego API KiedyPrzyjedzie - to na którym bazuje mapa https://pksgostynin.kiedyprzyjedzie.pl/#/stops/
+  try{
+    const res = await fetch('https://pksgostynin.kiedyprzyjedzie.pl/stops?v='+Date.now(), {cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const json = await res.json();
+    if(!json.stops) throw new Error('No stops');
+    let count=0;
+    // Tymczasowy obiekt na live coords
+    const liveCoords={};
+    json.stops.forEach(entry=>{
+      const name=entry[2];
+      const lat=entry[4]/1e6;
+      const lng=entry[3]/1e6;
+      if(!(52.0 <= lat && lat <= 52.15 && 20.0 <= lng && lng <= 20.6)) return;
+      if(!name.toLowerCase().includes('żyrardów')) return;
+      // Dodaj dwa klucze: pełna nazwa i nazwa z designatorem żeby zachować obie strony ulicy (np. Limanowskiego/ Legion. [2060] i [2061] 120m od siebie)
+      liveCoords[name] = {lat, lon: lng, id: entry[0], designator: entry[1], official_name: name};
+      liveCoords[`${name} [${entry[1]}]`] = {lat, lon: lng, id: entry[0], designator: entry[1], official_name: name};
+      count++;
+    });
+    // Merge do globalnego STOP_COORDS - nadpisuje statyczne, ale zachowuje resztę
+    if(typeof STOP_COORDS !== 'undefined'){
+      Object.assign(STOP_COORDS, liveCoords);
+      console.log(`[Kiedy LIVE] Załadowano ${count} przystanków Żyrardowa z API pksgostynin.kiedyprzyjedzie.pl/stops`);
+      if(typeof STOP_COORDS_META !== 'undefined'){
+        STOP_COORDS_META.real = Object.keys(STOP_COORDS).length;
+        STOP_COORDS_META.source = 'LIVE pksgostynin.kiedyprzyjedzie.pl/stops';
+      }
+      // Zapisz do localStorage jako cache na offline
+      try{ localStorage.setItem('kiedy_stops_cache', JSON.stringify({ts:Date.now(), data:liveCoords})); }catch{}
+    }
+  }catch(e){
+    console.warn('[Kiedy LIVE] Fetch failed, używam cache stops_gps.json', e);
+    // Spróbuj z localStorage cache
+    try{
+      const cached=JSON.parse(localStorage.getItem('kiedy_stops_cache')||'{}');
+      if(cached.data && typeof STOP_COORDS !== 'undefined'){
+        Object.assign(STOP_COORDS, cached.data);
+        console.log(`[Kiedy LIVE] Przywrócono ${Object.keys(cached.data).length} z cache`);
+      }
+    }catch{}
+  }
+}
 async function loadTimetables(){
+  // Najpierw pobierz live przystanki z KiedyPrzyjedzie API - mapa będzie bazować na tym samym źródle co https://pksgostynin.kiedyprzyjedzie.pl/#/stops/
+  await loadKiedyLiveStops();
   const statusEl=document.getElementById('dataStatus');
   const metaEl=document.getElementById('metaVersion');
   const lastUpdateEl=document.getElementById('lastUpdate');

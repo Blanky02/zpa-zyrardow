@@ -1,5 +1,5 @@
-/* ŻPA Żyrardów PWA Service Worker - v7 ZALEW FIX */
-const CACHE_NAME = 'zpa-v7-2026-08-09-zalew';
+/* ŻPA Żyrardów PWA Service Worker - v8 LIVE KIEDY API */
+const CACHE_NAME = 'zpa-v8-2026-08-09-live-kiedy';
 const SHELL_ASSETS = [
   './',
   '/',
@@ -49,7 +49,7 @@ self.addEventListener('fetch', (event) => {
   if (url.protocol.startsWith('chrome-extension')) return;
 
   // Strategy for timetables and GPS: NETWORK FIRST
-  if (url.pathname.endsWith('timetables.json') || url.pathname.endsWith('stops_gps.json') || url.pathname.endsWith('stops_gps.js')) {
+  if (url.pathname.endsWith('timetables.json') || url.pathname.endsWith('stops_gps.json') || url.pathname.endsWith('stops_gps.js') || url.hostname.includes('kiedyprzyjedzie.pl')) {
     event.respondWith(
       fetch(req, { cache: 'no-store' })
         .then((res) => {
