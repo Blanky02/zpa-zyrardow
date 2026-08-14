@@ -1,6 +1,5 @@
-/* ŻPA Żyrardów PWA Service Worker - v8 API */
-
-const CACHE_NAME = 'zpa-v8-2026-08-15-api';
+/* ŻPA Żyrardów PWA Service Worker - v7 ZALEW FIX */
+const CACHE_NAME = 'zpa-v7-2026-08-09-zalew';
 const SHELL_ASSETS = [
   './',
   '/',
@@ -8,29 +7,30 @@ const SHELL_ASSETS = [
   '/index.html',
   './manifest.json',
   './timetables.json',
+  './stops_gps.json',
   './stops_gps.js',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/icon-192-maskable.png',
   './icons/icon-512-maskable.png',
   './icons/icon-180.png'
-  // UWAGA: usunąłem './stops_gps.json' – dane są teraz pobierane z API
 ];
 
-// Instalacja – pre-cache
+// Install - precache shell
 self.addEventListener('install', (event) => {
   console.log('[SW] Install', CACHE_NAME);
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(SHELL_ASSETS).catch(err => {
         console.warn('[SW] Precache failed, continuing', err);
+        // fallback: cache at least index + json
         return cache.addAll(['./index.html', './timetables.json', './manifest.json']);
       });
     }).then(() => self.skipWaiting())
   );
 });
 
-// Aktywacja – czyszczenie starych cache
+// Activate - clean old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then(keys => Promise.all(
@@ -39,16 +39,17 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Strategie fetch
+// Fetch strategies
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   const url = new URL(req.url);
 
+  // Skip non-GET and chrome extensions
   if (req.method !== 'GET') return;
   if (url.protocol.startsWith('chrome-extension')) return;
 
-  // Dla timetables: NETWORK FIRST (z cache jako fallback)
-  if (url.pathname.endsWith('timetables.json')) {
+  // Strategy for timetables and GPS: NETWORK FIRST
+  if (url.pathname.endsWith('timetables.json') || url.pathname.endsWith('stops_gps.json') || url.pathname.endsWith('stops_gps.js')) {
     event.respondWith(
       fetch(req, { cache: 'no-store' })
         .then((res) => {
@@ -65,31 +66,30 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Dla CDN: STALE-WHILE-REVALIDATE
-  if (url.hostname.includes('cdn.tailwindcss.com') ||
-      url.hostname.includes('fonts.googleapis.com') ||
-      url.hostname.includes('fonts.gstatic.com') ||
-      url.hostname.includes('unpkg.com') ||
-      url.hostname.includes('leaflet')) {
+  // For CDN tailwind and fonts: STALE-WHILE-REVALIDATE
+  if (url.hostname.includes('cdn.tailwindcss.com') || url.hostname.includes('fonts.googleapis.com') || url.hostname.includes('fonts.gstatic.com') || url.hostname.includes('unpkg.com')) {
     event.respondWith(
-      caches.open(CACHE_NAME).then(cache => cache.match(req).then(cached => {
-        const network = fetch(req).then(res => {
-          if (res.ok) cache.put(req, res.clone());
-          return res;
-        }).catch(() => cached);
-        return cached || network;
-      }))
+      caches.open(CACHE_NAME).then(cache =>
+        cache.match(req).then(cached => {
+          const network = fetch(req).then(res => {
+            if (res.ok) cache.put(req, res.clone());
+            return res;
+          }).catch(() => cached);
+          return cached || network;
+        })
+      )
     );
     return;
   }
 
-  // Dla shell: CACHE FIRST, potem network
+  // For shell (index, manifest, icons): CACHE FIRST, then network
   event.respondWith(
     caches.match(req).then(cached => {
       if (cached) {
+        // update in background
         fetch(req).then(res => {
           if (res.ok) caches.open(CACHE_NAME).then(c => c.put(req, res));
-        }).catch(() => {});
+        }).catch(()=>{});
         return cached;
       }
       return fetch(req).then(res => {
@@ -99,6 +99,7 @@ self.addEventListener('fetch', (event) => {
         }
         return res;
       }).catch(() => {
+        // offline fallback for navigation - try multiple cache keys
         if (req.mode === 'navigate') {
           return caches.match('./index.html')
             .then(r => r || caches.match('/index.html'))
@@ -110,7 +111,7 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
-// Komunikaty
+// Optional: background sync for future
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
