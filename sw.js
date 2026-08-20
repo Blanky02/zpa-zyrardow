@@ -1,5 +1,5 @@
-/* ŻPA Żyrardów PWA Service Worker - v8 LIVE KIEDY API */
-const CACHE_NAME = 'zpa-v8-2026-08-09-live-kiedy';
+/* ŻPA Żyrardów PWA Service Worker - v9 LIVE KIEDY API */
+const CACHE_NAME = 'zpa-v9-2026-08-20-live-kiedy';
 const SHELL_ASSETS = [
   './',
   '/',
