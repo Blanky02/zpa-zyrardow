@@ -1,0 +1,76 @@
+{
+  "version": "2026-08-20-corrected",
+  "note": "Recznie skorygowane wspolrzedne przystankow w Zyrardowie. Priorytet nad API.",
+  "stops": [
+    {
+      "id": "DWORZEC_PKP",
+      "name": "Dworzec PKP",
+      "lat": 52.0495,
+      "lon": 20.4465,
+      "lines": ["A", "B", "C", "D", "E", "F", "G", "H", "N"]
+    },
+    {
+      "id": "SZPITAL",
+      "name": "Szpital",
+      "lat": 52.0530,
+      "lon": 20.4510,
+      "lines": ["A", "B", "C"]
+    },
+    {
+      "id": "LIMANOWSKIEGO",
+      "name": "Limanowskiego",
+      "lat": 52.0480,
+      "lon": 20.4420,
+      "lines": ["A", "D", "E"]
+    },
+    {
+      "id": "KOSCIELNA",
+      "name": "Kościelna",
+      "lat": 52.0460,
+      "lon": 20.4480,
+      "lines": ["B", "C", "F"]
+    },
+    {
+      "id": "SRODMIESCIE",
+      "name": "Śródmieście",
+      "lat": 52.0475,
+      "lon": 20.4490,
+      "lines": ["A", "B", "C", "D", "E", "F", "G", "H", "N"]
+    },
+    {
+      "id": "WYSZYNSKIEGO",
+      "name": "Wyszyńskiego",
+      "lat": 52.0510,
+      "lon": 20.4430,
+      "lines": ["D", "E", "G"]
+    },
+    {
+      "id": "REYMONTA",
+      "name": "Reymonta",
+      "lat": 52.0440,
+      "lon": 20.4550,
+      "lines": ["F", "H"]
+    },
+    {
+      "id": "ZEROMSKIEGO",
+      "name": "Żeromskiego",
+      "lat": 52.0550,
+      "lon": 20.4400,
+      "lines": ["A", "B", "N"]
+    },
+    {
+      "id": "MARII KONOPNICKIEJ",
+      "name": "Marii Konopnickiej",
+      "lat": 52.0420,
+      "lon": 20.4600,
+      "lines": ["C", "F", "H"]
+    },
+    {
+      "id": "GENERALNA",
+      "name": "Generalna",
+      "lat": 52.0390,
+      "lon": 20.4350,
+      "lines": ["D", "E", "G"]
+    }
+  ]
+}

@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="./stops_gps.js"></script>
+<script src="./stops_corrected.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet">
 <script>
 tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Geist','system-ui'],mono:['Geist Mono','monospace']}}}}
@@ -114,6 +115,10 @@ tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Geist','syst
     <div class="bg-white dark:bg-zinc-900 rounded-[20px] border border-zinc-200 dark:border-zinc-800 p-4 hidden lg:block">
       <h3 class="font-semibold text-sm mb-3">Ostatnio sprawdzane</h3>
       <div id="recentStops" class="flex flex-col gap-2"></div>
+    </div>
+    <div class="bg-white dark:bg-zinc-900 rounded-[20px] border border-zinc-200 dark:border-zinc-800 p-4 hidden lg:block">
+      <h3 class="font-semibold text-sm mb-3">❤️ Ulubione przystanki</h3>
+      <div id="favoritesList" class="flex flex-col gap-2"></div>
     </div>
   </aside>
 
@@ -301,8 +306,32 @@ let BUS_DATA = null;
 let allStops = [];
 let state = { lineId:"1", dirIdx:0, stopIdx:0, dayType: (new Date().getDay()===0?'sunday':new Date().getDay()===6?'saturday':'weekday') };
 const LS_KEY="zpa_state_v2";
+const FAVORITES_KEY="zpa_favorites_v1";
 function loadState(){ try{ const s=JSON.parse(localStorage.getItem(LS_KEY)); if(s) state={...state,...s}; }catch{} }
 function saveState(){ localStorage.setItem(LS_KEY, JSON.stringify(state)); }
+function getFavorites(){ try{ return JSON.parse(localStorage.getItem(FAVORITES_KEY)||'[]'); }catch{return [];} }
+function saveFavorites(favs){ localStorage.setItem(FAVORITES_KEY, JSON.stringify(favs)); }
+function toggleFavorite(stopName, lines){ 
+  const favs = getFavorites();
+  const idx = favs.findIndex(f => f.stop === stopName);
+  if(idx >= 0) {
+    favs.splice(idx, 1);
+    showToast('Usunięto z ulubionych', 'info');
+  } else {
+    favs.push({stop: stopName, lines: lines, added: new Date().toISOString()});
+    showToast('Dodano do ulubionych ❤️', 'success');
+  }
+  saveFavorites(favs);
+  renderFavorites();
+  return idx < 0; // true if added
+}
+function showToast(msg, type='info'){
+  const toast = document.createElement('div');
+  toast.className = `fixed bottom-6 left-1/2 -translate-x-1/2 px-5 py-3 rounded-full text-sm font-semibold shadow-lg z-[200] toast ${type==='success'?'bg-emerald-600 text-white':type==='error'?'bg-red-600 text-white':'bg-zinc-800 text-white'}`;
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(()=>toast.remove(), 3000);
+}
 function parseMinutes(t){ const [h,m]=t.split(':').map(Number); return h*60+m; }
 function minutesToTime(min){ const h=Math.floor(min/60)%24, m=min%60; return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0'); }
 function addMinutes(t,delta){ return minutesToTime(parseMinutes(t)+delta); }
@@ -485,14 +514,28 @@ function renderHeader(){
 function renderStops(){
   const dir=getCurrentDirection(); const day=state.dayType;
   const list=document.getElementById('stopsList');
+  const favs = getFavorites();
   list.innerHTML=dir.stops.map((stop,i)=>{
     const schedule=getScheduleForStop(dir,i,day); const active=i===state.stopIdx; const now=new Date(); const nowMin=now.getHours()*60+now.getMinutes(); const nextIdx=schedule.findIndex(t=>parseMinutes(t)>=nowMin);
-    return `<button data-stop="${i}" class="w-full flex items-center gap-4 px-5 py-3.5 text-left border-b last:border-0 border-zinc-50 dark:border-zinc-800/50 ${active?'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900':'hover:bg-zinc-50 dark:hover:bg-zinc-800/50'}">
+    const isFav = favs.some(f => f.stop === stop);
+    return `<button data-stop="${i}" data-stop-name="${stop.replace(/"/g, '&quot;')}" class="w-full flex items-center gap-4 px-5 py-3.5 text-left border-b last:border-0 border-zinc-50 dark:border-zinc-800/50 ${active?'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900':'hover:bg-zinc-50 dark:hover:bg-zinc-800/50'}">
       <div class="w-7 h-7 rounded-full border-2 flex items-center justify-center text-[11px] font-bold ${active?'bg-white text-zinc-900 border-white dark:bg-zinc-900 dark:text-white':'bg-white dark:bg-zinc-900 border-zinc-200'}">${i+1}</div>
-      <div class="flex-1 min-w-0"><div class="font-semibold text-[14px] truncate">${stop}</div><div class="flex gap-2 mt-0.5"><span class="text-[11px] ${active?'text-white/60':'text-zinc-500'} font-mono">${schedule.length} kursów</span>${nextIdx!==-1?`<span class="text-[10px] px-1.5 py-0.5 rounded-full ${active?'bg-white/15':'bg-emerald-50 text-emerald-700'}">nast. ${schedule[nextIdx]}</span>`:''}</div></div><div>›</div>
+      <div class="flex-1 min-w-0"><div class="font-semibold text-[14px] truncate">${stop}</div><div class="flex gap-2 mt-0.5"><span class="text-[11px] ${active?'text-white/60':'text-zinc-500'} font-mono">${schedule.length} kursów</span>${nextIdx!==-1?`<span class="text-[10px] px-1.5 py-0.5 rounded-full ${active?'bg-white/15':'bg-emerald-50 text-emerald-700'}">nast. ${schedule[nextIdx]}</span>`:''}</div></div>
+      <button data-fav-toggle="${stop.replace(/"/g, '&quot;')}" class="w-8 h-8 rounded-full flex items-center justify-center transition ${isFav?'bg-red-100 dark:bg-red-900/30 text-red-500':'bg-zinc-100 dark:bg-zinc-800 text-zinc-400 hover:bg-red-50 dark:hover:bg-red-900/20'}" title="${isFav?'Usuń z ulubionych':'Dodaj do ulubionych'}">${isFav?'❤️':'🤍'}</button>
     </button>`;
   }).join('');
-  list.querySelectorAll('[data-stop]').forEach(btn=>btn.addEventListener('click',()=>{ state.stopIdx=Number(btn.dataset.stop); saveState(); addRecent(getCurrentLine(), getCurrentDirection(), getCurrentDirection().stops[state.stopIdx]); renderStops(); renderTimetable(); renderNextBus(); renderTrip(); }));
+  list.querySelectorAll('[data-stop]').forEach(btn=>btn.addEventListener('click', (e)=>{ 
+    if(e.target.closest('[data-fav-toggle]')) return;
+    state.stopIdx=Number(btn.dataset.stop); saveState(); addRecent(getCurrentLine(), getCurrentDirection(), getCurrentDirection().stops[state.stopIdx]); renderStops(); renderTimetable(); renderNextBus(); renderTrip(); 
+  }));
+  list.querySelectorAll('[data-fav-toggle]').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      const stopName = btn.dataset.favToggle;
+      const line = getCurrentLine();
+      toggleFavorite(stopName, [line.number]);
+    });
+  });
 }
 function renderTimetable(){
   const dir=getCurrentDirection(); const stopName=dir.stops[state.stopIdx];
@@ -532,7 +575,46 @@ function setupSearch(){
 }
 function addRecent(line, dir, stop){ const recents=JSON.parse(localStorage.getItem('zpa_recents')||'[]'); const entry={lineId:line.id, dirIdx:state.dirIdx, stopIdx:state.stopIdx, stop, lineNumber:line.number, lineColor:line.color}; const filtered=recents.filter(r=>!(r.lineId===entry.lineId && r.stop===stop)); filtered.unshift(entry); localStorage.setItem('zpa_recents', JSON.stringify(filtered.slice(0,5))); renderRecents(); }
 function renderRecents(){ const cont=document.getElementById('recentStops'); if(!cont) return; const recents=JSON.parse(localStorage.getItem('zpa_recents')||'[]'); if(!recents.length){ cont.innerHTML=`<div class="text-xs text-zinc-500">Brak historii</div>`; return; } cont.innerHTML=recents.map(r=>`<button data-recent="${r.lineId}|${r.dirIdx}|${r.stopIdx}" class="flex items-center gap-2 p-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 w-full text-left"><span class="w-7 h-7 rounded-lg ${r.lineColor} text-white flex items-center justify-center font-bold text-[11px]">${r.lineNumber}</span><span class="text-[12px] truncate">${r.stop}</span></button>`).join(''); cont.querySelectorAll('[data-recent]').forEach(btn=>btn.addEventListener('click',()=>{ const [lineId,dirIdx,stopIdx]=btn.dataset.recent.split('|'); state.lineId=lineId; state.dirIdx=Number(dirIdx); state.stopIdx=Number(stopIdx); saveState(); renderAll(); })); }
-function renderAll(){ renderLines(); renderDirectionSwitcher(); renderHeader(); renderStops(); renderTimetable(); renderNextBus(); renderTrip(); renderRecents(); renderStopsViewList(); updateAllDayButtons(); setupDayButtons(); }
+function renderFavorites(){ 
+  const cont = document.getElementById('favoritesList');
+  if(!cont) return;
+  const favs = getFavorites();
+  if(!favs.length){ 
+    cont.innerHTML = `<div class="text-xs text-zinc-500 py-4 text-center">Brak ulubionych przystanków<br><span class="text-[10px]">Kliknij ❤️ przy przystanku aby dodać</span></div>`; 
+    return; 
+  }
+  cont.innerHTML = favs.map(f => `
+    <button data-fav="${f.stop}" class="flex items-center justify-between p-3 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 w-full text-left group">
+      <div class="flex-1 min-w-0">
+        <div class="font-semibold text-[13px] truncate">${f.stop}</div>
+        <div class="text-[10px] text-zinc-500">${f.lines?.slice(0,5).join(', ') || 'Wszystkie linie'}</div>
+      </div>
+      <button data-remove-fav="${f.stop}" class="w-7 h-7 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center opacity-0 group-hover:opacity-100 transition" title="Usuń z ulubionych">✕</button>
+    </button>
+  `).join('');
+  cont.querySelectorAll('[data-fav]').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      if(e.target.closest('[data-remove-fav]')) return;
+      const stopName = btn.dataset.fav;
+      // Find and show this stop
+      const stopEl = Array.from(document.querySelectorAll('[data-stop-name]')).find(el => el.dataset.stopName === stopName);
+      if(stopEl) {
+        stopEl.scrollIntoView({behavior:'smooth', block:'center'});
+        stopEl.classList.add('ring-2', 'ring-emerald-500');
+        setTimeout(()=>stopEl.classList.remove('ring-2', 'ring-emerald-500'), 2000);
+      } else {
+        showToast('Przystanek nie znaleziony na aktualnej liście', 'info');
+      }
+    });
+  });
+  cont.querySelectorAll('[data-remove-fav]').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      toggleFavorite(btn.dataset.removeFav, []);
+    });
+  });
+}
+function renderAll(){ renderLines(); renderDirectionSwitcher(); renderHeader(); renderStops(); renderTimetable(); renderNextBus(); renderTrip(); renderRecents(); renderFavorites(); renderStopsViewList(); updateAllDayButtons(); setupDayButtons(); }
 
 /* ========== VIEW SWITCHER ========== */
 let currentView = 'lines';
@@ -1090,10 +1172,14 @@ function initMap(){
   mapInstance = L.map('map', {zoomControl:false}).setView(ZYRARDOW_CENTER, ZYRARDOW_ZOOM);
   window.mapInstance = mapInstance;
   L.control.zoom({position:'bottomright'}).addTo(mapInstance);
+  
+  // Tile layer with offline fallback - OSM tiles cached by SW
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap',
-    maxZoom: 19
+    maxZoom: 19,
+    crossOrigin: true
   }).addTo(mapInstance);
+  
   // Force correct size after container becomes visible
   setTimeout(()=>{
     mapInstance.invalidateSize();

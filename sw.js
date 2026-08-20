@@ -9,6 +9,8 @@ const SHELL_ASSETS = [
   './timetables.json',
   './stops_gps.json',
   './stops_gps.js',
+  './stops_corrected.json',
+  './stops_corrected.js',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/icon-192-maskable.png',
@@ -49,7 +51,7 @@ self.addEventListener('fetch', (event) => {
   if (url.protocol.startsWith('chrome-extension')) return;
 
   // Strategy for timetables and GPS: NETWORK FIRST
-  if (url.pathname.endsWith('timetables.json') || url.pathname.endsWith('stops_gps.json') || url.pathname.endsWith('stops_gps.js') || url.hostname.includes('kiedyprzyjedzie.pl')) {
+  if (url.pathname.endsWith('timetables.json') || url.pathname.endsWith('stops_gps.json') || url.pathname.endsWith('stops_gps.js') || url.pathname.endsWith('stops_corrected.json') || url.pathname.endsWith('stops_corrected.js') || url.hostname.includes('kiedyprzyjedzie.pl')) {
     event.respondWith(
       fetch(req, { cache: 'no-store' })
         .then((res) => {
