@@ -10,10 +10,15 @@ Uruchomienie: python scraper.py
 Output: ../timetables.json
 """
 
-import re, json, hashlib, os, sys, time
+import re, json, hashlib, os, sys, time, warnings
 from pathlib import Path
+from urllib.parse import urljoin
 import requests
 from bs4 import BeautifulSoup
+from urllib3.exceptions import InsecureRequestWarning
+
+# Suppress only the insecure request warning if verify=False is necessary
+warnings.filterwarnings('ignore', category=InsecureRequestWarning)
 
 try:
     import pdfplumber
@@ -48,7 +53,6 @@ def fetch_pdf_list():
                 if not href: continue
                 if not href.startswith('http'):
                     # relative
-                    from urllib.parse import urljoin
                     href = urljoin(url, href)
                 text = a.get_text(strip=True)
                 if 'Linia' in text or 'linia' in text.lower() or re.search(r'\b[0-9]{1,2}\b', text):
