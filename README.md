@@ -72,20 +72,47 @@ Stary `index.html` v2 jest w `legacy.html` – nadal działa jeśli otworzysz be
 - **Mobile-first** – BottomNav 80px, FAB odśwież, search w AppBar (desktop) + osobny na mobile
 - **Residents** – ulubione ❤️, ostatnio, next bus countdown 56px mono, trip progress LinearProgress
 
-## PWA
+## PWA – vite-plugin-pwa ✅
 
-- `manifest.json` + `sw.js` w `public/` – kopiowane do `dist/` przez Vite
-- Install banner (beforeinstallprompt) + new data banner
-- Offline: localStorage cache + fallback.js
-- W dev SW może być wyłączony – w prod rejestrujemy w App.jsx (TODO)
+- **vite-plugin-pwa v1.3.0** – auto-generuje `dist/sw.js` + `workbox-*.js` + `manifest.webmanifest`
+- `registerSW` z `virtual:pwa-register` w `main.jsx` – event `pwa-update-available` -> banner "Nowa wersja"
+- Runtime caching:
+  - `timetables.json` – NetworkFirst (5s timeout, 24h cache)
+  - `stops_gps.json` – NetworkFirst (7 dni)
+  - `kiedyprzyjedzie.pl` – NetworkFirst (1h)
+  - `OSRM` + `OSM tiles` + `Google Fonts` – CacheFirst (30 dni / 1 rok)
+- Install banner (beforeinstallprompt) + new data banner (hash timetables) + PWA update banner
+- Offline: Workbox precache 26 entries (1.5MB) + localStorage cache + fallback.js
 
-## Co dalej? (roadmapa z ANALIZA.md)
+## Lazy loading ✅
 
-- [ ] Dodać Workbox + vite-plugin-pwa dla auto-generacji SW
-- [ ] Code-split: lazy() dla MapView (ciężki Leaflet)
-- [ ] GitHub Actions: scrape.yml + update_stops.yml (cron 04:00)
+- **Przed:** 1 chunk `index 623KB (188KB gzip)` – wszystko naraz
+- **Po:** 
+  - `mui 417KB (128KB gzip)` – cache'owany raz
+  - `leaflet 155KB (45KB gzip)` – tylko dla mapy
+  - `fallback 94KB (9KB gzip)`
+  - `index 36KB (11KB gzip)` – LinesView (codzienne użycie mieszkańca)
+  - `MapView 7KB`, `RouteView 6.5KB`, `StopsView 5.8KB` – ładowane lazy via `React.lazy() + Suspense`
+- Mieszkaniec sprawdzający linię 1 pobiera ~200KB initial zamiast 623KB, mapa ładuje się dopiero po kliknięciu "Mapa"
+
+```jsx
+const MapView = lazy(() => import('./components/MapView.jsx'));
+<Suspense fallback={<Skeleton />}><MapView /></Suspense>
+```
+
+## GitHub Actions cron ✅
+
+- `.github/workflows/scrape.yml` – codziennie `0 4 * * *` UTC (05:00/06:00 PL)
+- Steps: checkout, setup-python 3.11, pip install, `scraper.py`, `update_stops.py`, copy to `public/`, git add + commit + push jeśli hash się zmienił
+- Drugi job `build-check` – `npm ci && npm run build` + upload artifact `dist/`
+- Ręczne uruchomienie: `workflow_dispatch` z GitHub UI
+- Efekt: użytkownik rano widzi banner "Nowy rozkład!" automatycznie
+
+## Co dalej?
+
 - [ ] Testy: Vitest dla time.js, stops.js
-- [ ] GTFS export, live GPS autobusów
-- [ ] WCAG AA audit, powiększanie czcionki
+- [ ] GTFS export, live GPS autobusów (vehicle positions)
+- [ ] WCAG AA audit, powiększanie czcionki, głosowe wyszukiwanie
+- [ ] Deploy na GitHub Pages via `peaceiris/actions-gh-pages`
 
 Autor: v3 MUI – Vite + React + MUI dla mieszkańców Żyrardowa.

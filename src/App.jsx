@@ -1,17 +1,33 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { Box, Container, CircularProgress, Typography, Snackbar, Alert, Fab, useMediaQuery } from '@mui/material';
+import React, { useState, useEffect, useMemo, lazy, Suspense } from 'react';
+import { ThemeProvider } from '@mui/material/styles';
+import { Box, Container, CircularProgress, Typography, Snackbar, Alert, Fab, useMediaQuery, Skeleton, Stack } from '@mui/material';
 import { Refresh as RefreshIcon } from '@mui/icons-material';
 import getTheme from './theme.js';
 import { useTimetables } from './hooks/useTimetables.js';
 import { loadState, saveState, getFavorites, saveFavorites, getRecents, addRecent } from './utils/storage.js';
-import { parseMinutes, getScheduleForStop, formatNow } from './utils/time.js';
+import { formatNow } from './utils/time.js';
 import TopAppBar from './components/TopAppBar.jsx';
 import BottomNav from './components/BottomNav.jsx';
 import LinesView from './components/LinesView.jsx';
-import StopsView from './components/StopsView.jsx';
-import RouteView from './components/RouteView.jsx';
-import MapView from './components/MapView.jsx';
+
+// Lazy loading – code-splitting dla ciężkich widoków
+// Mieszkaniec codziennie używa LinesView (200KB initial), a Mapa (Leaflet 150KB + OSRM) ładuje się tylko gdy kliknie "Mapa"
+const StopsView = lazy(() => import('./components/StopsView.jsx'));
+const RouteView = lazy(() => import('./components/RouteView.jsx'));
+const MapView = lazy(() => import('./components/MapView.jsx'));
+
+function LazyFallback() {
+  return (
+    <Stack spacing={2} sx={{ p: 2 }}>
+      <Skeleton variant="rounded" height={120} sx={{ borderRadius: '24px' }} />
+      <Skeleton variant="rounded" height={200} sx={{ borderRadius: '24px' }} />
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2, gap: 1, alignItems: 'center' }}>
+        <CircularProgress size={20} />
+        <Typography variant="bodySmall" color="text.secondary">Ładuję moduł...</Typography>
+      </Box>
+    </Stack>
+  );
+}
 
 function App() {
   const { busData, stopCoords, status, meta, newData, setNewData } = useTimetables();
@@ -20,7 +36,7 @@ function App() {
     if (saved) return saved === 'dark';
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
-  const [view, setView] = useState('lines'); // lines | stops | route | map
+  const [view, setView] = useState('lines');
   const [state, setState] = useState(() => {
     const saved = loadState();
     const defaultDay = new Date().getDay() === 0 ? 'sunday' : new Date().getDay() === 6 ? 'saturday' : 'weekday';
@@ -33,26 +49,18 @@ function App() {
   const [toast, setToast] = useState({ open: false, message: '', severity: 'info' });
   const [installPrompt, setInstallPrompt] = useState(null);
   const [showInstallBanner, setShowInstallBanner] = useState(false);
+  const [pwaUpdate, setPwaUpdate] = useState(false);
 
   const isMobile = useMediaQuery('(max-width:900px)');
-
   const theme = useMemo(() => getTheme(darkMode ? 'dark' : 'light'), [darkMode]);
 
-  // Clock
   useEffect(() => {
     const id = setInterval(() => setNow(formatNow()), 1000);
     return () => clearInterval(id);
   }, []);
 
-  // Save state
-  useEffect(() => {
-    saveState(state);
-  }, [state]);
-
-  // Save theme
-  useEffect(() => {
-    localStorage.setItem('zpa_theme', darkMode ? 'dark' : 'light');
-  }, [darkMode]);
+  useEffect(() => { saveState(state); }, [state]);
+  useEffect(() => { localStorage.setItem('zpa_theme', darkMode ? 'dark' : 'light'); }, [darkMode]);
 
   // PWA install prompt
   useEffect(() => {
@@ -65,6 +73,17 @@ function App() {
     };
     window.addEventListener('beforeinstallprompt', handler);
     return () => window.removeEventListener('beforeinstallprompt', handler);
+  }, []);
+
+  // vite-plugin-pwa update detection
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        setPwaUpdate(true);
+      });
+      // Listen for custom event from vite-plugin-pwa
+      window.addEventListener('pwa-update-available', () => setPwaUpdate(true));
+    }
   }, []);
 
   const handleInstall = async () => {
@@ -177,16 +196,17 @@ function App() {
         />
 
         {newData && (
-          <Alert
-            severity="success"
-            sx={{ borderRadius: 0, justifyContent: 'center' }}
-            onClose={() => setNewData(false)}
-            action={<></>}
-          >
+          <Alert severity="success" sx={{ borderRadius: 0, justifyContent: 'center' }} onClose={() => setNewData(false)}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <Box sx={{ width: 8, height: 8, bgcolor: 'white', borderRadius: '50%', animation: 'pulse 1.5s infinite' }} />
               <strong>Nowy rozkład!</strong> Wykryto zmianę na stronie ZPA/PKS. Dane zostały zaktualizowane.
             </Box>
+          </Alert>
+        )}
+
+        {pwaUpdate && (
+          <Alert severity="info" sx={{ borderRadius: 0, justifyContent: 'center' }} onClose={() => setPwaUpdate(false)} action={<Box component="button" onClick={() => window.location.reload()} style={{ background: 'white', color: '#006A60', border: 'none', borderRadius: 20, padding: '4px 12px', fontWeight: 700, cursor: 'pointer' }}>Odśwież</Box>}>
+            Dostępna nowa wersja aplikacji – odśwież aby zaktualizować
           </Alert>
         )}
 
@@ -201,7 +221,7 @@ function App() {
               </Box>
             }
           >
-            <strong>Zainstaluj ŻPA Żyrardów</strong> – działa offline, szybki dostęp z pulpitu, PWA
+            <strong>Zainstaluj ŻPA Żyrardów</strong> – działa offline, szybki dostęp z pulpitu, PWA (vite-plugin-pwa)
           </Alert>
         )}
 
@@ -222,53 +242,21 @@ function App() {
               setToast={setToast}
             />
           )}
-          {view === 'stops' && (
-            <StopsView
-              busData={busData}
-              state={state}
-              setState={setState}
-              now={now}
-            />
-          )}
-          {view === 'route' && (
-            <RouteView
-              busData={busData}
-              state={state}
-              setState={setState}
-              now={now}
-            />
-          )}
-          {view === 'map' && (
-            <MapView
-              busData={busData}
-              stopCoords={stopCoords}
-              state={state}
-              setState={setState}
-              now={now}
-            />
-          )}
+          <Suspense fallback={<LazyFallback />}>
+            {view === 'stops' && <StopsView busData={busData} state={state} setState={setState} now={now} />}
+            {view === 'route' && <RouteView busData={busData} state={state} setState={setState} now={now} />}
+            {view === 'map' && <MapView busData={busData} stopCoords={stopCoords} state={state} setState={setState} now={now} />}
+          </Suspense>
         </Container>
 
         <BottomNav view={view} setView={setView} />
 
-        <Snackbar
-          open={toast.open}
-          autoHideDuration={3000}
-          onClose={() => setToast(prev => ({ ...prev, open: false }))}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-          sx={{ mb: isMobile ? '80px' : 0 }}
-        >
-          <Alert onClose={() => setToast(prev => ({ ...prev, open: false }))} severity={toast.severity} sx={{ borderRadius: '24px', boxShadow: 3 }}>
-            {toast.message}
-          </Alert>
+        <Snackbar open={toast.open} autoHideDuration={3000} onClose={() => setToast(prev => ({ ...prev, open: false }))} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} sx={{ mb: isMobile ? '80px' : 0 }}>
+          <Alert onClose={() => setToast(prev => ({ ...prev, open: false }))} severity={toast.severity} sx={{ borderRadius: '24px', boxShadow: 3 }}>{toast.message}</Alert>
         </Snackbar>
 
         {isMobile && view === 'lines' && (
-          <Fab
-            color="primary"
-            sx={{ position: 'fixed', bottom: 90, right: 16, borderRadius: '16px' }}
-            onClick={handleRefresh}
-          >
+          <Fab color="primary" sx={{ position: 'fixed', bottom: 90, right: 16, borderRadius: '16px' }} onClick={handleRefresh}>
             <RefreshIcon />
           </Fab>
         )}
