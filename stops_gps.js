@@ -1,305 +1,951 @@
-// Auto-generated from pksgostynin.kiedyprzyjedzie.pl API
-// Generated: 2026-08-22T19:18:07.185399
-// Version: 2026-08-22
+// Offline fallback generated from timetables.json; live API has priority.
 const STOP_COORDS = {
-  "ŻYRARDÓW 1": {
+  "NOWE KOZŁOWICE ZAKRĘT [2973]": {
+    "id": "2030383:2103773",
+    "designator": 2973,
+    "name": "NOWE KOZŁOWICE ZAKRĘT",
+    "lat": 52.08711,
+    "lon": 20.42478,
+    "source": "route"
+  },
+  "WISKITKI  PL. Wolności 5/6 / I [2341]": {
+    "id": "2029980:2103141",
+    "designator": 2341,
+    "name": "WISKITKI  PL. Wolności 5/6 / I",
+    "lat": 52.086983,
+    "lon": 20.383143,
+    "source": "route"
+  },
+  "Wiskitki Szkoła [2938]": {
+    "id": "2030362:2103738",
+    "designator": 2938,
+    "name": "Wiskitki Szkoła",
+    "lat": 52.082353,
+    "lon": 20.385157,
+    "source": "route"
+  },
+  "ŻYRARDÓW 1 [6876]": {
+    "id": "2502985:2600501",
+    "designator": 6876,
+    "name": "ŻYRARDÓW 1",
     "lat": 52.04756,
-    "lon": 20.442972
+    "lon": 20.442972,
+    "source": "route"
   },
-  "ŻYRARDÓW 1 MAJA CARREFOUR": {
+  "ŻYRARDÓW 1 MAJA CARREFOUR [2091]": {
+    "id": "2029845:2102891",
+    "designator": 2091,
+    "name": "ŻYRARDÓW 1 MAJA CARREFOUR",
     "lat": 52.056299,
-    "lon": 20.437519
+    "lon": 20.437519,
+    "source": "route"
   },
-  "ŻYRARDÓW 1MAJA/WARYŃS - RESUR": {
-    "lat": 52.057481,
-    "lon": 20.436455
+  "ŻYRARDÓW 1 MAJA CARREFOUR [2092]": {
+    "id": "2029845:2102892",
+    "designator": 2092,
+    "name": "ŻYRARDÓW 1 MAJA CARREFOUR",
+    "lat": 52.056478,
+    "lon": 20.437402,
+    "source": "route"
   },
-  "ŻYRARDÓW 2": {
-    "lat": 52.045002,
-    "lon": 20.436062
-  },
-  "ŻYRARDÓW 3": {
+  "ŻYRARDÓW 3 [6882]": {
+    "id": "2502988:2600505",
+    "designator": 6882,
+    "name": "ŻYRARDÓW 3",
     "lat": 52.058355,
-    "lon": 20.439832
+    "lon": 20.439832,
+    "source": "route"
   },
-  "ŻYRARDÓW BAZA PKS": {
-    "lat": 52.06382,
-    "lon": 20.429467
-  },
-  "ŻYRARDÓW CHMIELNA": {
+  "ŻYRARDÓW CHMIELNA [6428]": {
+    "id": "2387116:2483706",
+    "designator": 6428,
+    "name": "ŻYRARDÓW CHMIELNA",
     "lat": 52.054462,
-    "lon": 20.464713
+    "lon": 20.464713,
+    "source": "route"
   },
-  "ŻYRARDÓW D": {
+  "ŻYRARDÓW D [6886]": {
+    "id": "2502987:2600503",
+    "designator": 6886,
+    "name": "ŻYRARDÓW D",
     "lat": 52.052346,
-    "lon": 20.447317
+    "lon": 20.447317,
+    "source": "route"
   },
-  "ŻYRARDÓW D.A.": {
+  "ŻYRARDÓW D.A. [2302]": {
+    "id": "2029960:2103102",
+    "designator": 2302,
+    "name": "ŻYRARDÓW D.A.",
     "lat": 52.052403,
-    "lon": 20.447342
+    "lon": 20.447342,
+    "source": "route"
   },
-  "ŻYRARDÓW F.DE GIRARDA": {
+  "ŻYRARDÓW D.A. [2303]": {
+    "id": "2029960:2103103",
+    "designator": 2303,
+    "name": "ŻYRARDÓW D.A.",
+    "lat": 52.052358,
+    "lon": 20.447202,
+    "source": "route"
+  },
+  "ŻYRARDÓW F.DE GIRARDA [2429]": {
+    "id": "2030027:2103229",
+    "designator": 2429,
+    "name": "ŻYRARDÓW F.DE GIRARDA",
     "lat": 52.065838,
-    "lon": 20.443929
+    "lon": 20.443929,
+    "source": "route"
   },
-  "ŻYRARDÓW FIELDORFA NILA": {
+  "ŻYRARDÓW F.DE GIRARDA [2430]": {
+    "id": "2030027:2103230",
+    "designator": 2430,
+    "name": "ŻYRARDÓW F.DE GIRARDA",
+    "lat": 52.065488,
+    "lon": 20.444171,
+    "source": "route"
+  },
+  "ŻYRARDÓW FIELDORFA NILA [2102]": {
+    "id": "2029851:2102902",
+    "designator": 2102,
+    "name": "ŻYRARDÓW FIELDORFA NILA",
     "lat": 52.066344,
-    "lon": 20.447141
+    "lon": 20.447141,
+    "source": "route"
   },
-  "ŻYRARDÓW JAKTOROWSKA/1 MAJA": {
+  "ŻYRARDÓW FIELDORFA NILA [2103]": {
+    "id": "2029851:2102903",
+    "designator": 2103,
+    "name": "ŻYRARDÓW FIELDORFA NILA",
+    "lat": 52.066291,
+    "lon": 20.447318,
+    "source": "route"
+  },
+  "ŻYRARDÓW JAKTOROWSKA/1 MAJA [2111]": {
+    "id": "2029856:2102911",
+    "designator": 2111,
+    "name": "ŻYRARDÓW JAKTOROWSKA/1 MAJA",
     "lat": 52.049399,
-    "lon": 20.448479
+    "lon": 20.448479,
+    "source": "route"
   },
-  "ŻYRARDÓW JAKTOROWSKA/RÓWNOLEG": {
+  "ŻYRARDÓW JAKTOROWSKA/1 MAJA [6425]": {
+    "id": "2029856:2483703",
+    "designator": 6425,
+    "name": "ŻYRARDÓW JAKTOROWSKA/1 MAJA",
+    "lat": 52.049415,
+    "lon": 20.448012,
+    "source": "route"
+  },
+  "ŻYRARDÓW JAKTOROWSKA/RÓWNOLEG [2112]": {
+    "id": "2029857:2102912",
+    "designator": 2112,
+    "name": "ŻYRARDÓW JAKTOROWSKA/RÓWNOLEG",
     "lat": 52.056802,
-    "lon": 20.467789
+    "lon": 20.467789,
+    "source": "route"
   },
-  "ŻYRARDÓW JAKTOROWSKA/SADE BUDY": {
+  "ŻYRARDÓW JAKTOROWSKA/RÓWNOLEG [6426]": {
+    "id": "2029857:2483704",
+    "designator": 6426,
+    "name": "ŻYRARDÓW JAKTOROWSKA/RÓWNOLEG",
+    "lat": 52.056729,
+    "lon": 20.467295,
+    "source": "route"
+  },
+  "ŻYRARDÓW JAKTOROWSKA/SADE BUDY [2113]": {
+    "id": "2029858:2102913",
+    "designator": 2113,
+    "name": "ŻYRARDÓW JAKTOROWSKA/SADE BUDY",
     "lat": 52.059187,
-    "lon": 20.47949
+    "lon": 20.47949,
+    "source": "route"
   },
-  "ŻYRARDÓW JASNA": {
+  "ŻYRARDÓW JASNA [2703]": {
+    "id": "2030208:2103503",
+    "designator": 2703,
+    "name": "ŻYRARDÓW JASNA",
     "lat": 52.060372,
-    "lon": 20.436106
+    "lon": 20.436106,
+    "source": "route"
   },
-  "ŻYRARDÓW KACPERSKIEJ": {
+  "ŻYRARDÓW JASNA [4643]": {
+    "id": "2030208:2381599",
+    "designator": 4643,
+    "name": "ŻYRARDÓW JASNA",
+    "lat": 52.060187,
+    "lon": 20.436509,
+    "source": "route"
+  },
+  "ŻYRARDÓW KACPERSKIEJ [6548]": {
+    "id": "2451528:2548446",
+    "designator": 6548,
+    "name": "ŻYRARDÓW KACPERSKIEJ",
     "lat": 52.06857,
-    "lon": 20.44251
+    "lon": 20.44251,
+    "source": "route"
   },
-  "ŻYRARDÓW KONARSKIEGO": {
+  "ŻYRARDÓW KONARSKIEGO [2120]": {
+    "id": "2029863:2102920",
+    "designator": 2120,
+    "name": "ŻYRARDÓW KONARSKIEGO",
     "lat": 52.052512,
-    "lon": 20.428803
+    "lon": 20.428803,
+    "source": "route"
   },
-  "ŻYRARDÓW KORYTÓW": {
+  "ŻYRARDÓW KONARSKIEGO [6385]": {
+    "id": "2029863:2467761",
+    "designator": 6385,
+    "name": "ŻYRARDÓW KONARSKIEGO",
+    "lat": 52.052916,
+    "lon": 20.426451,
+    "source": "route"
+  },
+  "ŻYRARDÓW KORYTÓW [2087]": {
+    "id": "2029843:2102887",
+    "designator": 2087,
+    "name": "ŻYRARDÓW KORYTÓW",
     "lat": 52.030783,
-    "lon": 20.464964
+    "lon": 20.464964,
+    "source": "route"
   },
-  "ŻYRARDÓW KPT. PAŁACA": {
+  "ŻYRARDÓW KORYTÓW [2088]": {
+    "id": "2029843:2102888",
+    "designator": 2088,
+    "name": "ŻYRARDÓW KORYTÓW",
+    "lat": 52.03097,
+    "lon": 20.464792,
+    "source": "route"
+  },
+  "ŻYRARDÓW KPT. PAŁACA [2047]": {
+    "id": "2029819:2102847",
+    "designator": 2047,
+    "name": "ŻYRARDÓW KPT. PAŁACA",
     "lat": 52.06801,
-    "lon": 20.440686
+    "lon": 20.440686,
+    "source": "route"
   },
-  "ŻYRARDÓW LEGIONÓW POLSKICH": {
+  "ŻYRARDÓW KPT. PAŁACA [2048]": {
+    "id": "2029819:2102848",
+    "designator": 2048,
+    "name": "ŻYRARDÓW KPT. PAŁACA",
+    "lat": 52.068029,
+    "lon": 20.441028,
+    "source": "route"
+  },
+  "ŻYRARDÓW LEGIONÓW POLSKICH [6427]": {
+    "id": "2387115:2483705",
+    "designator": 6427,
+    "name": "ŻYRARDÓW LEGIONÓW POLSKICH",
     "lat": 52.053983,
-    "lon": 20.430688
+    "lon": 20.430688,
+    "source": "route"
   },
-  "ŻYRARDÓW LELEWELA": {
+  "ŻYRARDÓW LEGIONÓW POLSKICH [6536]": {
+    "id": "2387115:2548434",
+    "designator": 6536,
+    "name": "ŻYRARDÓW LEGIONÓW POLSKICH",
+    "lat": 52.05309,
+    "lon": 20.4314,
+    "source": "route"
+  },
+  "ŻYRARDÓW LELEWELA [2116]": {
+    "id": "2029861:2102916",
+    "designator": 2116,
+    "name": "ŻYRARDÓW LELEWELA",
     "lat": 52.050395,
-    "lon": 20.454252
+    "lon": 20.454252,
+    "source": "route"
   },
-  "ŻYRARDÓW LIMANOWSKIEGO/A KRAJ.": {
-    "lat": 52.05676,
-    "lon": 20.43586
+  "ŻYRARDÓW LELEWELA [2117]": {
+    "id": "2029861:2102917",
+    "designator": 2117,
+    "name": "ŻYRARDÓW LELEWELA",
+    "lat": 52.050268,
+    "lon": 20.454501,
+    "source": "route"
   },
-  "ŻYRARDÓW LIMANOWSKIEGO/DITTRI.": {
-    "lat": 52.055993,
-    "lon": 20.434441
-  },
-  "ŻYRARDÓW LIMANOWSKIEGO/LEGION.": {
-    "lat": 52.054963,
-    "lon": 20.431573
-  },
-  "ŻYRARDÓW LIMANOWSKIEGO-SZPITAL": {
+  "ŻYRARDÓW LIMANOWSKIEGO-SZPITAL [2096]": {
+    "id": "2029848:2102896",
+    "designator": 2096,
+    "name": "ŻYRARDÓW LIMANOWSKIEGO-SZPITAL",
     "lat": 52.058581,
-    "lon": 20.440291
+    "lon": 20.440291,
+    "source": "route"
   },
-  "ŻYRARDÓW MICKIEWICZA/DZIAŁKI": {
+  "ŻYRARDÓW LIMANOWSKIEGO-SZPITAL [2097]": {
+    "id": "2029848:2102897",
+    "designator": 2097,
+    "name": "ŻYRARDÓW LIMANOWSKIEGO-SZPITAL",
+    "lat": 52.058235,
+    "lon": 20.439617,
+    "source": "route"
+  },
+  "ŻYRARDÓW LIMANOWSKIEGO/A KRAJ. [6423]": {
+    "id": "2387113:2483701",
+    "designator": 6423,
+    "name": "ŻYRARDÓW LIMANOWSKIEGO/A KRAJ.",
+    "lat": 52.05676,
+    "lon": 20.43586,
+    "source": "route"
+  },
+  "ŻYRARDÓW LIMANOWSKIEGO/DITTRI. [6424]": {
+    "id": "2387114:2483702",
+    "designator": 6424,
+    "name": "ŻYRARDÓW LIMANOWSKIEGO/DITTRI.",
+    "lat": 52.055993,
+    "lon": 20.434441,
+    "source": "route"
+  },
+  "ŻYRARDÓW LIMANOWSKIEGO/LEGION. [2060]": {
+    "id": "2029826:2102860",
+    "designator": 2060,
+    "name": "ŻYRARDÓW LIMANOWSKIEGO/LEGION.",
+    "lat": 52.054963,
+    "lon": 20.431573,
+    "source": "route"
+  },
+  "ŻYRARDÓW LIMANOWSKIEGO/LEGION. [2061]": {
+    "id": "2029826:2102861",
+    "designator": 2061,
+    "name": "ŻYRARDÓW LIMANOWSKIEGO/LEGION.",
+    "lat": 52.054323,
+    "lon": 20.429866,
+    "source": "route"
+  },
+  "ŻYRARDÓW LIMANOWSKIEGO/LEGION. [4004]": {
+    "id": "2029826:2177013",
+    "designator": 4004,
+    "name": "ŻYRARDÓW LIMANOWSKIEGO/LEGION.",
+    "lat": 52.05497,
+    "lon": 20.43161,
+    "source": "route"
+  },
+  "ŻYRARDÓW MICKIEWICZA/DZIAŁKI [2085]": {
+    "id": "2029842:2102885",
+    "designator": 2085,
+    "name": "ŻYRARDÓW MICKIEWICZA/DZIAŁKI",
     "lat": 52.036645,
-    "lon": 20.45895
+    "lon": 20.45895,
+    "source": "route"
   },
-  "ŻYRARDÓW MICKIEWICZA/KANAŁOWA": {
+  "ŻYRARDÓW MICKIEWICZA/DZIAŁKI [2086]": {
+    "id": "2029842:2102886",
+    "designator": 2086,
+    "name": "ŻYRARDÓW MICKIEWICZA/DZIAŁKI",
+    "lat": 52.037047,
+    "lon": 20.458734,
+    "source": "route"
+  },
+  "ŻYRARDÓW MICKIEWICZA/KANAŁOWA [2079]": {
+    "id": "2029839:2102879",
+    "designator": 2079,
+    "name": "ŻYRARDÓW MICKIEWICZA/KANAŁOWA",
     "lat": 52.047532,
-    "lon": 20.447353
+    "lon": 20.447353,
+    "source": "route"
   },
-  "ŻYRARDÓW MICKIEWICZA/ROSZARNI": {
+  "ŻYRARDÓW MICKIEWICZA/KANAŁOWA [2080]": {
+    "id": "2029839:2102880",
+    "designator": 2080,
+    "name": "ŻYRARDÓW MICKIEWICZA/KANAŁOWA",
+    "lat": 52.046544,
+    "lon": 20.448236,
+    "source": "route"
+  },
+  "ŻYRARDÓW MICKIEWICZA/ROSZARNI [2083]": {
+    "id": "2029841:2102883",
+    "designator": 2083,
+    "name": "ŻYRARDÓW MICKIEWICZA/ROSZARNI",
     "lat": 52.039409,
-    "lon": 20.456161
+    "lon": 20.456161,
+    "source": "route"
   },
-  "ŻYRARDÓW MICKIEWICZA/SKIERNIE": {
+  "ŻYRARDÓW MICKIEWICZA/ROSZARNI [2084]": {
+    "id": "2029841:2102884",
+    "designator": 2084,
+    "name": "ŻYRARDÓW MICKIEWICZA/ROSZARNI",
+    "lat": 52.040123,
+    "lon": 20.455563,
+    "source": "route"
+  },
+  "ŻYRARDÓW MICKIEWICZA/SKIERNIE [1063]": {
+    "id": "2029175:2101863",
+    "designator": 1063,
+    "name": "ŻYRARDÓW MICKIEWICZA/SKIERNIE",
     "lat": 52.047686,
-    "lon": 20.447112
+    "lon": 20.447112,
+    "source": "route"
   },
-  "ŻYRARDÓW MICKIEWICZA/WROCŁAWSK": {
+  "ŻYRARDÓW MICKIEWICZA/SKIERNIE [1064]": {
+    "id": "2029175:2101864",
+    "designator": 1064,
+    "name": "ŻYRARDÓW MICKIEWICZA/SKIERNIE",
+    "lat": 52.04656,
+    "lon": 20.448249,
+    "source": "route"
+  },
+  "ŻYRARDÓW MICKIEWICZA/WROCŁAWSK [2081]": {
+    "id": "2029840:2102881",
+    "designator": 2081,
+    "name": "ŻYRARDÓW MICKIEWICZA/WROCŁAWSK",
     "lat": 52.042091,
-    "lon": 20.453199
+    "lon": 20.453199,
+    "source": "route"
   },
-  "ŻYRARDÓW MIRECKIEGO/1 MAJA": {
+  "ŻYRARDÓW MICKIEWICZA/WROCŁAWSK [2082]": {
+    "id": "2029840:2102882",
+    "designator": 2082,
+    "name": "ŻYRARDÓW MICKIEWICZA/WROCŁAWSK",
+    "lat": 52.0434,
+    "lon": 20.451912,
+    "source": "route"
+  },
+  "ŻYRARDÓW MIRECKIEGO/1 MAJA [2093]": {
+    "id": "2029846:2102893",
+    "designator": 2093,
+    "name": "ŻYRARDÓW MIRECKIEGO/1 MAJA",
     "lat": 52.055241,
-    "lon": 20.440988
+    "lon": 20.440988,
+    "source": "route"
   },
-  "ŻYRARDÓW MIRECKIEGO/OSSOWSKIE": {
+  "ŻYRARDÓW MIRECKIEGO/1 MAJA [2094]": {
+    "id": "2029846:2102894",
+    "designator": 2094,
+    "name": "ŻYRARDÓW MIRECKIEGO/1 MAJA",
+    "lat": 52.054818,
+    "lon": 20.440229,
+    "source": "route"
+  },
+  "ŻYRARDÓW MIRECKIEGO/OSSOWSKIE [2105]": {
+    "id": "2029853:2102905",
+    "designator": 2105,
+    "name": "ŻYRARDÓW MIRECKIEGO/OSSOWSKIE",
     "lat": 52.057971,
-    "lon": 20.447881
+    "lon": 20.447881,
+    "source": "route"
   },
-  "ŻYRARDÓW MOSTOWA": {
+  "ŻYRARDÓW MIRECKIEGO/OSSOWSKIE [2106]": {
+    "id": "2029853:2102906",
+    "designator": 2106,
+    "name": "ŻYRARDÓW MIRECKIEGO/OSSOWSKIE",
+    "lat": 52.057857,
+    "lon": 20.447251,
+    "source": "route"
+  },
+  "ŻYRARDÓW MOSTOWA [2069]": {
+    "id": "2029831:2102869",
+    "designator": 2069,
+    "name": "ŻYRARDÓW MOSTOWA",
     "lat": 52.051088,
-    "lon": 20.429517
+    "lon": 20.429517,
+    "source": "route"
   },
-  "ŻYRARDÓW MOSTOWA PĘTLA": {
+  "ŻYRARDÓW MOSTOWA PĘTLA [2070]": {
+    "id": "2029832:2102870",
+    "designator": 2070,
+    "name": "ŻYRARDÓW MOSTOWA PĘTLA",
     "lat": 52.048738,
-    "lon": 20.422953
+    "lon": 20.422953,
+    "source": "route"
   },
-  "ŻYRARDÓW NIETRZEBKI": {
+  "ŻYRARDÓW NIETRZEBKI [2104]": {
+    "id": "2029852:2102904",
+    "designator": 2104,
+    "name": "ŻYRARDÓW NIETRZEBKI",
     "lat": 52.071928,
-    "lon": 20.435889
+    "lon": 20.435889,
+    "source": "route"
   },
-  "ŻYRARDÓW OKRZEI": {
+  "ŻYRARDÓW NIETRZEBKI [4427]": {
+    "id": "2029852:2288416",
+    "designator": 4427,
+    "name": "ŻYRARDÓW NIETRZEBKI",
+    "lat": 52.071796,
+    "lon": 20.435787,
+    "source": "route"
+  },
+  "ŻYRARDÓW OKRZEI [2557]": {
+    "id": "2030107:2103357",
+    "designator": 2557,
+    "name": "ŻYRARDÓW OKRZEI",
     "lat": 52.052352,
-    "lon": 20.437013
+    "lon": 20.437013,
+    "source": "route"
   },
-  "ŻYRARDÓW OPOLSKA": {
+  "ŻYRARDÓW OKRZEI [2558]": {
+    "id": "2030107:2103358",
+    "designator": 2558,
+    "name": "ŻYRARDÓW OKRZEI",
+    "lat": 52.052098,
+    "lon": 20.436337,
+    "source": "route"
+  },
+  "ŻYRARDÓW OPOLSKA [2075]": {
+    "id": "2029836:2102875",
+    "designator": 2075,
+    "name": "ŻYRARDÓW OPOLSKA",
     "lat": 52.043313,
-    "lon": 20.445395
+    "lon": 20.445395,
+    "source": "route"
   },
-  "ŻYRARDÓW OSSOWSKIEGO": {
+  "ŻYRARDÓW OSSOWSKIEGO [2555]": {
+    "id": "2030106:2103355",
+    "designator": 2555,
+    "name": "ŻYRARDÓW OSSOWSKIEGO",
     "lat": 52.061037,
-    "lon": 20.445118
+    "lon": 20.445118,
+    "source": "route"
   },
-  "ŻYRARDÓW PARKINGOWA": {
+  "ŻYRARDÓW OSSOWSKIEGO [2556]": {
+    "id": "2030106:2103356",
+    "designator": 2556,
+    "name": "ŻYRARDÓW OSSOWSKIEGO",
+    "lat": 52.06205,
+    "lon": 20.444082,
+    "source": "route"
+  },
+  "ŻYRARDÓW PARKINGOWA [2098]": {
+    "id": "2029849:2102898",
+    "designator": 2098,
+    "name": "ŻYRARDÓW PARKINGOWA",
     "lat": 52.072274,
-    "lon": 20.438619
+    "lon": 20.438619,
+    "source": "route"
   },
-  "ŻYRARDÓW PARKINGOWA/KPT. PAŁAC": {
+  "ŻYRARDÓW PARKINGOWA [2099]": {
+    "id": "2029849:2102899",
+    "designator": 2099,
+    "name": "ŻYRARDÓW PARKINGOWA",
+    "lat": 52.072241,
+    "lon": 20.439751,
+    "source": "route"
+  },
+  "ŻYRARDÓW PARKINGOWA/KPT. PAŁAC [6429]": {
+    "id": "2387117:2483707",
+    "designator": 6429,
+    "name": "ŻYRARDÓW PARKINGOWA/KPT. PAŁAC",
     "lat": 52.070064,
-    "lon": 20.444806
+    "lon": 20.444806,
+    "source": "route"
   },
-  "ŻYRARDÓW PARTYZANTÓW PDT": {
+  "ŻYRARDÓW PARTYZANTÓW PDT [2013]": {
+    "id": "2029798:2102813",
+    "designator": 2013,
+    "name": "ŻYRARDÓW PARTYZANTÓW PDT",
     "lat": 52.056008,
-    "lon": 20.445045
+    "lon": 20.445045,
+    "source": "route"
   },
-  "ŻYRARDÓW PESZKOWSKIEGO": {
+  "ŻYRARDÓW PARTYZANTÓW PDT [2014]": {
+    "id": "2029798:2102814",
+    "designator": 2014,
+    "name": "ŻYRARDÓW PARTYZANTÓW PDT",
+    "lat": 52.056219,
+    "lon": 20.444753,
+    "source": "route"
+  },
+  "ŻYRARDÓW PESZKOWSKIEGO [6432]": {
+    "id": "2387120:2483710",
+    "designator": 6432,
+    "name": "ŻYRARDÓW PESZKOWSKIEGO",
     "lat": 52.063658,
-    "lon": 20.442338
+    "lon": 20.442338,
+    "source": "route"
   },
-  "ŻYRARDÓW PIĘKNA": {
-    "lat": 52.064375,
-    "lon": 20.438681
-  },
-  "ŻYRARDÓW PIĘKNA/LESZNO": {
-    "lat": 52.061371,
-    "lon": 20.43483
-  },
-  "ŻYRARDÓW PILECKIEGO": {
+  "ŻYRARDÓW PILECKIEGO [2100]": {
+    "id": "2029850:2102900",
+    "designator": 2100,
+    "name": "ŻYRARDÓW PILECKIEGO",
     "lat": 52.067936,
-    "lon": 20.448474
+    "lon": 20.448474,
+    "source": "route"
   },
-  "ŻYRARDÓW PIOTRA SKARGI/REYMONT": {
+  "ŻYRARDÓW PILECKIEGO [2101]": {
+    "id": "2029850:2102901",
+    "designator": 2101,
+    "name": "ŻYRARDÓW PILECKIEGO",
+    "lat": 52.068274,
+    "lon": 20.448225,
+    "source": "route"
+  },
+  "ŻYRARDÓW PIOTRA SKARGI/REYMONT [2073]": {
+    "id": "2029834:2102873",
+    "designator": 2073,
+    "name": "ŻYRARDÓW PIOTRA SKARGI/REYMONT",
     "lat": 52.045313,
-    "lon": 20.438614
+    "lon": 20.438614,
+    "source": "route"
   },
-  "ŻYRARDÓW PIOTRA SKARGI/ROLNA": {
+  "ŻYRARDÓW PIOTRA SKARGI/ROLNA [2074]": {
+    "id": "2029835:2102874",
+    "designator": 2074,
+    "name": "ŻYRARDÓW PIOTRA SKARGI/ROLNA",
     "lat": 52.04161,
-    "lon": 20.442354
+    "lon": 20.442354,
+    "source": "route"
   },
-  "ŻYRARDÓW POŁUDNIOWA": {
+  "ŻYRARDÓW PIĘKNA [2701]": {
+    "id": "2030206:2103501",
+    "designator": 2701,
+    "name": "ŻYRARDÓW PIĘKNA",
+    "lat": 52.064375,
+    "lon": 20.438681,
+    "source": "route"
+  },
+  "ŻYRARDÓW PIĘKNA [4641]": {
+    "id": "2030206:2381597",
+    "designator": 4641,
+    "name": "ŻYRARDÓW PIĘKNA",
+    "lat": 52.063445,
+    "lon": 20.437265,
+    "source": "route"
+  },
+  "ŻYRARDÓW POŁUDNIOWA [3052]": {
+    "id": "2030454:2103852",
+    "designator": 3052,
+    "name": "ŻYRARDÓW POŁUDNIOWA",
     "lat": 52.053325,
-    "lon": 20.463864
+    "lon": 20.463864,
+    "source": "route"
   },
-  "ŻYRARDÓW RADZIWIŁŁOWSKA": {
+  "ŻYRARDÓW RADZIWIŁŁOWSKA [2109]": {
+    "id": "2029855:2102909",
+    "designator": 2109,
+    "name": "ŻYRARDÓW RADZIWIŁŁOWSKA",
     "lat": 52.049544,
-    "lon": 20.439488
+    "lon": 20.439488,
+    "source": "route"
   },
-  "ŻYRARDÓW REYMONTA": {
+  "ŻYRARDÓW RADZIWIŁŁOWSKA [2110]": {
+    "id": "2029855:2102910",
+    "designator": 2110,
+    "name": "ŻYRARDÓW RADZIWIŁŁOWSKA",
+    "lat": 52.048272,
+    "lon": 20.435508,
+    "source": "route"
+  },
+  "ŻYRARDÓW REYMONTA [2077]": {
+    "id": "2029838:2102877",
+    "designator": 2077,
+    "name": "ŻYRARDÓW REYMONTA",
     "lat": 52.047421,
-    "lon": 20.44239
+    "lon": 20.44239,
+    "source": "route"
   },
-  "ŻYRARDÓW REYMONTA Bema": {
-    "lat": 52.045032,
-    "lon": 20.436214
+  "ŻYRARDÓW REYMONTA [2078]": {
+    "id": "2029838:2102878",
+    "designator": 2078,
+    "name": "ŻYRARDÓW REYMONTA",
+    "lat": 52.048003,
+    "lon": 20.44437,
+    "source": "route"
   },
-  "ŻYRARDÓW ROLNA": {
+  "ŻYRARDÓW ROLNA [2076]": {
+    "id": "2029837:2102876",
+    "designator": 2076,
+    "name": "ŻYRARDÓW ROLNA",
     "lat": 52.041852,
-    "lon": 20.443472
+    "lon": 20.443472,
+    "source": "route"
   },
-  "ŻYRARDÓW SIKORSKIEGO/MACZKA": {
+  "ŻYRARDÓW SIKORSKIEGO/MACZKA [2730]": {
+    "id": "2030232:2103530",
+    "designator": 2730,
+    "name": "ŻYRARDÓW SIKORSKIEGO/MACZKA",
     "lat": 52.049648,
-    "lon": 20.43131
+    "lon": 20.43131,
+    "source": "route"
   },
-  "ŻYRARDÓW SIKORSKIEGO/MOSTOWA": {
+  "ŻYRARDÓW SIKORSKIEGO/MACZKA [2731]": {
+    "id": "2030232:2103531",
+    "designator": 2731,
+    "name": "ŻYRARDÓW SIKORSKIEGO/MACZKA",
+    "lat": 52.04877,
+    "lon": 20.431911,
+    "source": "route"
+  },
+  "ŻYRARDÓW SIKORSKIEGO/MOSTOWA [2121]": {
+    "id": "2029864:2102921",
+    "designator": 2121,
+    "name": "ŻYRARDÓW SIKORSKIEGO/MOSTOWA",
     "lat": 52.051065,
-    "lon": 20.429993
+    "lon": 20.429993,
+    "source": "route"
   },
-  "ŻYRARDÓW SIKORSKIEGO/ROOSEVEL": {
+  "ŻYRARDÓW SIKORSKIEGO/MOSTOWA [2122]": {
+    "id": "2029864:2102922",
+    "designator": 2122,
+    "name": "ŻYRARDÓW SIKORSKIEGO/MOSTOWA",
+    "lat": 52.050926,
+    "lon": 20.430042,
+    "source": "route"
+  },
+  "ŻYRARDÓW SIKORSKIEGO/ROOSEVEL [6430]": {
+    "id": "2387118:2483708",
+    "designator": 6430,
+    "name": "ŻYRARDÓW SIKORSKIEGO/ROOSEVEL",
     "lat": 52.05256,
-    "lon": 20.42863
+    "lon": 20.42863,
+    "source": "route"
   },
-  "ŻYRARDÓW SKROWACZEWSKIEGO/NIET": {
+  "ŻYRARDÓW SKROWACZEWSKIEGO/NIET [2051]": {
+    "id": "2029821:2102851",
+    "designator": 2051,
+    "name": "ŻYRARDÓW SKROWACZEWSKIEGO/NIET",
     "lat": 52.067966,
-    "lon": 20.434787
+    "lon": 20.434787,
+    "source": "route"
   },
-  "ŻYRARDÓW SOSABOWSKIEGO": {
+  "ŻYRARDÓW SKROWACZEWSKIEGO/NIET [2052]": {
+    "id": "2029821:2102852",
+    "designator": 2052,
+    "name": "ŻYRARDÓW SKROWACZEWSKIEGO/NIET",
+    "lat": 52.067733,
+    "lon": 20.435972,
+    "source": "route"
+  },
+  "ŻYRARDÓW SOSABOWSKIEGO [2095]": {
+    "id": "2029847:2102895",
+    "designator": 2095,
+    "name": "ŻYRARDÓW SOSABOWSKIEGO",
     "lat": 52.050419,
-    "lon": 20.427006
+    "lon": 20.427006,
+    "source": "route"
   },
-  "ŻYRARDÓW SPÓŁDZIELCZA": {
+  "ŻYRARDÓW SPÓŁDZIELCZA [2118]": {
+    "id": "2029862:2102918",
+    "designator": 2118,
+    "name": "ŻYRARDÓW SPÓŁDZIELCZA",
     "lat": 52.068762,
-    "lon": 20.429532
+    "lon": 20.429532,
+    "source": "route"
   },
-  "ŻYRARDÓW SZARYCH SZEREGÓW": {
+  "ŻYRARDÓW SPÓŁDZIELCZA [2119]": {
+    "id": "2029862:2102919",
+    "designator": 2119,
+    "name": "ŻYRARDÓW SPÓŁDZIELCZA",
+    "lat": 52.068614,
+    "lon": 20.429692,
+    "source": "route"
+  },
+  "ŻYRARDÓW SZARYCH SZEREGÓW [2551]": {
+    "id": "2030104:2103351",
+    "designator": 2551,
+    "name": "ŻYRARDÓW SZARYCH SZEREGÓW",
     "lat": 52.054163,
-    "lon": 20.426978
+    "lon": 20.426978,
+    "source": "route"
   },
-  "ŻYRARDÓW ŚRODKOWA/BOHATERÓW": {
-    "lat": 52.056282,
-    "lon": 20.454402
+  "ŻYRARDÓW SZARYCH SZEREGÓW [2552]": {
+    "id": "2030104:2103352",
+    "designator": 2552,
+    "name": "ŻYRARDÓW SZARYCH SZEREGÓW",
+    "lat": 52.053746,
+    "lon": 20.427229,
+    "source": "route"
   },
-  "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE": {
-    "lat": 52.061693,
-    "lon": 20.448332
-  },
-  "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO": {
-    "lat": 52.059016,
-    "lon": 20.451329
-  },
-  "ŻYRARDÓW ŚRODKOWA/SPOKOJNA": {
-    "lat": 52.06342,
-    "lon": 20.446371
-  },
-  "ŻYRARDÓW WARYŃSKIEGO": {
+  "ŻYRARDÓW WARYŃSKIEGO [2704]": {
+    "id": "2030209:2103504",
+    "designator": 2704,
+    "name": "ŻYRARDÓW WARYŃSKIEGO",
     "lat": 52.059931,
-    "lon": 20.439561
+    "lon": 20.439561,
+    "source": "route"
   },
-  "ŻYRARDÓW WAWELSKA": {
+  "ŻYRARDÓW WARYŃSKIEGO [4644]": {
+    "id": "2030209:2381600",
+    "designator": 4644,
+    "name": "ŻYRARDÓW WARYŃSKIEGO",
+    "lat": 52.059493,
+    "lon": 20.438638,
+    "source": "route"
+  },
+  "ŻYRARDÓW WAWELSKA [2553]": {
+    "id": "2030105:2103353",
+    "designator": 2553,
+    "name": "ŻYRARDÓW WAWELSKA",
     "lat": 52.051384,
-    "lon": 20.458806
+    "lon": 20.458806,
+    "source": "route"
   },
-  "ŻYRARDÓW WITTENBERGA": {
+  "ŻYRARDÓW WAWELSKA [2554]": {
+    "id": "2030105:2103354",
+    "designator": 2554,
+    "name": "ŻYRARDÓW WAWELSKA",
+    "lat": 52.051267,
+    "lon": 20.458254,
+    "source": "route"
+  },
+  "ŻYRARDÓW WITTENBERGA [2049]": {
+    "id": "2029820:2102849",
+    "designator": 2049,
+    "name": "ŻYRARDÓW WITTENBERGA",
     "lat": 52.055848,
-    "lon": 20.428021
+    "lon": 20.428021,
+    "source": "route"
   },
-  "ŻYRARDÓW WYSPIAŃSKIEGO": {
+  "ŻYRARDÓW WITTENBERGA [2050]": {
+    "id": "2029820:2102850",
+    "designator": 2050,
+    "name": "ŻYRARDÓW WITTENBERGA",
+    "lat": 52.055373,
+    "lon": 20.427542,
+    "source": "route"
+  },
+  "ŻYRARDÓW WYSPIAŃSKIEGO [2115]": {
+    "id": "2029860:2102915",
+    "designator": 2115,
+    "name": "ŻYRARDÓW WYSPIAŃSKIEGO",
     "lat": 52.049482,
-    "lon": 20.438555
+    "lon": 20.438555,
+    "source": "route"
   },
-  "ŻYRARDÓW ZALEW ŻYRARDOWSKI": {
+  "ŻYRARDÓW ZALEW ŻYRARDOWSKI [2033]": {
+    "id": "2029811:2102833",
+    "designator": 2033,
+    "name": "ŻYRARDÓW ZALEW ŻYRARDOWSKI",
     "lat": 52.03675,
-    "lon": 20.45089
+    "lon": 20.45089,
+    "source": "route"
   },
-  "ŻYRARDÓW ZUS": {
+  "ŻYRARDÓW ZUS [2107]": {
+    "id": "2029854:2102907",
+    "designator": 2107,
+    "name": "ŻYRARDÓW ZUS",
     "lat": 52.050956,
-    "lon": 20.442755
+    "lon": 20.442755,
+    "source": "route"
   },
-  "ŻYRARDÓW ŻEROMKSIEGO PĘTLA": {
+  "ŻYRARDÓW ZUS [2108]": {
+    "id": "2029854:2102908",
+    "designator": 2108,
+    "name": "ŻYRARDÓW ZUS",
+    "lat": 52.051017,
+    "lon": 20.443059,
+    "source": "route"
+  },
+  "ŻYRARDÓW ŚRODKOWA/BOHATERÓW [2067]": {
+    "id": "2029830:2102867",
+    "designator": 2067,
+    "name": "ŻYRARDÓW ŚRODKOWA/BOHATERÓW",
+    "lat": 52.056282,
+    "lon": 20.454402,
+    "source": "route"
+  },
+  "ŻYRARDÓW ŚRODKOWA/BOHATERÓW [2068]": {
+    "id": "2029830:2102868",
+    "designator": 2068,
+    "name": "ŻYRARDÓW ŚRODKOWA/BOHATERÓW",
+    "lat": 52.056657,
+    "lon": 20.453763,
+    "source": "route"
+  },
+  "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE [2055]": {
+    "id": "2029823:2102855",
+    "designator": 2055,
+    "name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+    "lat": 52.061693,
+    "lon": 20.448332,
+    "source": "route"
+  },
+  "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE [2056]": {
+    "id": "2029823:2102856",
+    "designator": 2056,
+    "name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+    "lat": 52.061485,
+    "lon": 20.448342,
+    "source": "route"
+  },
+  "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO [2057]": {
+    "id": "2029824:2102857",
+    "designator": 2057,
+    "name": "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO",
+    "lat": 52.059016,
+    "lon": 20.451329,
+    "source": "route"
+  },
+  "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO [2058]": {
+    "id": "2029824:2102858",
+    "designator": 2058,
+    "name": "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO",
+    "lat": 52.058996,
+    "lon": 20.451111,
+    "source": "route"
+  },
+  "ŻYRARDÓW ŚRODKOWA/SPOKOJNA [2053]": {
+    "id": "2029822:2102853",
+    "designator": 2053,
+    "name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+    "lat": 52.06342,
+    "lon": 20.446371,
+    "source": "route"
+  },
+  "ŻYRARDÓW ŚRODKOWA/SPOKOJNA [2054]": {
+    "id": "2029822:2102854",
+    "designator": 2054,
+    "name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+    "lat": 52.063341,
+    "lon": 20.446221,
+    "source": "route"
+  },
+  "ŻYRARDÓW ŻEROMKSIEGO PĘTLA [6431]": {
+    "id": "2387119:2483709",
+    "designator": 6431,
+    "name": "ŻYRARDÓW ŻEROMKSIEGO PĘTLA",
     "lat": 52.05934,
-    "lon": 20.41432
+    "lon": 20.41432,
+    "source": "route"
   },
-  "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA": {
+  "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA [2064]": {
+    "id": "2029828:2102864",
+    "designator": 2064,
+    "name": "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
     "lat": 52.058067,
-    "lon": 20.421515
+    "lon": 20.421515,
+    "source": "route"
   },
-  "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK": {
+  "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA [2065]": {
+    "id": "2029828:2102865",
+    "designator": 2065,
+    "name": "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
+    "lat": 52.058218,
+    "lon": 20.420005,
+    "source": "route"
+  },
+  "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK [2062]": {
+    "id": "2029827:2102862",
+    "designator": 2062,
+    "name": "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
     "lat": 52.057266,
-    "lon": 20.425613
+    "lon": 20.425613,
+    "source": "route"
   },
-  "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA": {
+  "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK [2063]": {
+    "id": "2029827:2102863",
+    "designator": 2063,
+    "name": "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
+    "lat": 52.057442,
+    "lon": 20.424436,
+    "source": "route"
+  },
+  "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA [2089]": {
+    "id": "2029844:2102889",
+    "designator": 2089,
+    "name": "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
     "lat": 52.05878,
-    "lon": 20.417711
+    "lon": 20.417711,
+    "source": "route"
   },
-  "ŻYRARDÓW1": {
-    "lat": 52.056651,
-    "lon": 20.437227
+  "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA [2090]": {
+    "id": "2029844:2102890",
+    "designator": 2090,
+    "name": "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
+    "lat": 52.05883,
+    "lon": 20.416588,
+    "source": "route"
   }
 };
 
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { STOP_COORDS };
+  module.exports = { STOP_COORDS };
 }

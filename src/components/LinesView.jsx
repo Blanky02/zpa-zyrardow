@@ -1,281 +1,442 @@
-import React from 'react';
-import { Box, Grid, Card, CardContent, Typography, Chip, Stack, Button, Divider, List, ListItem, ListItemButton, ListItemAvatar, Avatar, IconButton, Paper, LinearProgress } from '@mui/material';
-import { DirectionsBus, Favorite, FavoriteBorder, Share, LocationOn, Schedule, ArrowForward } from '@mui/icons-material';
-import { getLineHex } from '../utils/stops.js';
-import { getScheduleForStop, parseMinutes, formatNow } from '../utils/time.js';
-import { addRecent } from '../utils/storage.js';
+import React, { useMemo, useState } from 'react';
+import {
+  Avatar,
+  Box,
+  Button,
+  ButtonBase,
+  Divider,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  List,
+  ListItemButton,
+  MenuItem,
+  Paper,
+  Select,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
+import {
+  ArrowBackRounded,
+  ArrowForwardRounded,
+  DirectionsBusRounded,
+  FavoriteBorderRounded,
+  FavoriteRounded,
+  SearchRounded,
+} from '@mui/icons-material';
+import { findOccurrencesForStop, getLineHex } from '../utils/stops.js';
+import { getScheduleForStop, parseMinutes } from '../utils/time.js';
 
-function LineCard({ line, active, onClick }) {
+const dayShort = {
+  weekday: 'Pn–pt',
+  saturday: 'Sobota',
+  sunday: 'Niedziela',
+};
+
+const flow = [
+  { id: 'stop', label: 'Kierunek i przystanek' },
+  { id: 'departures', label: 'Odjazdy' },
+];
+
+function LineBadge({ line, size = 44 }) {
   return (
-    <Card
-      onClick={onClick}
-      elevation={active ? 2 : 0}
+    <Avatar
+      variant="rounded"
       sx={{
-        cursor: 'pointer',
-        borderRadius: '20px',
-        bgcolor: active ? 'primary.container' : 'background.container',
-        border: 1,
-        borderColor: active ? 'primary.main' : 'divider',
-        transition: 'all 0.2s',
-        '&:hover': { elevation: 1, transform: 'translateY(-1px)' },
-        height: '100%',
+        width: size,
+        height: size,
+        borderRadius: `${Math.round(size * 0.32)}px`,
+        bgcolor: getLineHex(line.color),
+        color: '#fff',
+        fontWeight: 800,
+        fontSize: size < 40 ? 12 : 15,
+        flexShrink: 0,
       }}
     >
-      <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-          <Avatar sx={{ bgcolor: active ? 'primary.main' : getLineHex(line.color), width: 36, height: 36, fontWeight: 700 }}>{line.number}</Avatar>
-          <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: line.type === 'miejska' ? 'success.main' : 'info.main' }} />
-        </Box>
-        <Typography variant="labelLarge" sx={{ fontWeight: 600, lineHeight: 1.2, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', minHeight: 32 }}>{line.name}</Typography>
-        <Typography variant="labelSmall" color="text.secondary" sx={{ mt: 0.5, fontSize: 11, textTransform: 'uppercase' }}>{line.directions.length} kier. • {line.type}</Typography>
-      </CardContent>
-    </Card>
+      {line.number}
+    </Avatar>
   );
 }
 
-export default function LinesView({ busData, state, setState, currentLine, currentDir, now, favorites, recents, toggleFavorite, onSelectStop, setToast }) {
-  const [nextTick, setNextTick] = React.useState(0);
-  React.useEffect(() => {
-    const id = setInterval(() => setNextTick(t => t + 1), 1000);
-    return () => clearInterval(id);
-  }, []);
+export default function LinesView({
+  busData,
+  state,
+  setState,
+  currentLine,
+  currentDir,
+  now,
+  favorites,
+  toggleFavorite,
+  onSelectStop,
+}) {
+  const [step, setStep] = useState('stop');
+  const [stopSearch, setStopSearch] = useState('');
+  const stepIndex = flow.findIndex(item => item.id === step);
+
+  const selectedStop = currentDir?.stops[state.stopIdx] || currentDir?.stops[0] || '';
+  const schedule = useMemo(
+    () => currentDir ? getScheduleForStop(currentDir, state.stopIdx, state.dayType) : [],
+    [currentDir, state.stopIdx, state.dayType],
+  );
+  const upcoming = useMemo(
+    () => schedule
+      .map(time => ({ time, minutes: parseMinutes(time) }))
+      .filter(item => item.minutes >= now.minutes)
+      .slice(0, 5),
+    [schedule, now.minutes],
+  );
+  const groupedSchedule = useMemo(() => {
+    const groups = new Map();
+    schedule.forEach(time => {
+      const hour = time.split(':')[0];
+      if (!groups.has(hour)) groups.set(hour, []);
+      groups.get(hour).push(time);
+    });
+    return Array.from(groups.entries());
+  }, [schedule]);
+  const filteredStops = useMemo(() => {
+    if (!currentDir) return [];
+    const query = stopSearch.trim().toLocaleLowerCase('pl');
+    return currentDir.stops
+      .map((name, index) => ({ name, index }))
+      .filter(stop => !query || stop.name.toLocaleLowerCase('pl').includes(query));
+  }, [currentDir, stopSearch]);
 
   if (!currentLine || !currentDir) return null;
 
-  const schedule = getScheduleForStop(currentDir, state.stopIdx, state.dayType);
-  const nowMin = now.minutes;
-  const upcoming = schedule.map(t => ({ time: t, mins: parseMinutes(t) })).filter(o => o.mins >= nowMin).slice(0, 4);
   const next = upcoming[0];
-  const diffMin = next ? Math.max(0, Math.floor(next.mins - nowMin)) : null;
-  const diffSec = next ? Math.max(0, Math.floor((next.mins - nowMin - diffMin) * 60)) : null;
+  const minutesToNext = next ? Math.max(0, Math.floor(next.minutes - now.minutes)) : null;
+  const isFavorite = favorites.some(favorite => favorite.stop === selectedStop);
+  const todayType = now.date.getDay() === 0 ? 'sunday' : now.date.getDay() === 6 ? 'saturday' : 'weekday';
 
-  const grouped = {};
-  schedule.forEach(t => { const h = t.split(':')[0]; (grouped[h] = grouped[h] || []).push(t); });
-  const hours = Object.keys(grouped).sort((a, b) => Number(a) - Number(b));
+  const chooseLine = (line) => {
+    setState(previous => ({ ...previous, lineId: line.id, dirIdx: 0, stopIdx: 0 }));
+    setStopSearch('');
+    setStep('stop');
+  };
 
-  const totalStops = currentDir.stops.length;
-  const progress = totalStops > 1 ? (state.stopIdx / (totalStops - 1)) * 100 : 100;
+  const chooseDirection = (index) => {
+    setState(previous => ({ ...previous, dirIdx: index, stopIdx: 0 }));
+    setStopSearch('');
+  };
 
-  const isFav = favorites.some(f => f.stop === currentDir.stops[state.stopIdx]);
+  const chooseStop = (index) => {
+    onSelectStop(currentLine.id, state.dirIdx, index);
+    setStep('departures');
+  };
+
+  const chooseFavorite = (favorite) => {
+    const occurrence = findOccurrencesForStop(busData, favorite.stop)[0];
+    if (!occurrence) return;
+    onSelectStop(occurrence.line.id, occurrence.dirIdx, occurrence.stopIdx);
+    setStep('departures');
+  };
+
+  const goBack = () => {
+    if (stepIndex > 0) setStep(flow[stepIndex - 1].id);
+  };
 
   return (
-    <Grid container spacing={2}>
-      {/* Left - Lines */}
-      <Grid item xs={12} lg={3}>
-        <Stack spacing={2} sx={{ position: { lg: 'sticky' }, top: { lg: 80 } }}>
-          <Card sx={{ borderRadius: '24px' }}>
-            <CardContent>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                <Typography variant="titleSmall" sx={{ fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1, color: 'text.secondary' }}>Wybierz linię</Typography>
-                <Chip label={`${busData.lines.length} linii`} size="small" color="primary" variant="outlined" />
-              </Box>
-              <Grid container spacing={1.5}>
-                {busData.lines.map(line => (
-                  <Grid item xs={3} sm={2} lg={4} key={line.id}>
-                    <LineCard line={line} active={line.id === state.lineId} onClick={() => setState(prev => ({ ...prev, lineId: line.id, dirIdx: 0, stopIdx: 0 }))} />
-                  </Grid>
-                ))}
-              </Grid>
-              <Paper variant="outlined" sx={{ mt: 2, p: 1.5, borderRadius: '12px', bgcolor: 'background.container', borderStyle: 'dashed' }}>
-                <Typography variant="labelSmall" color="text.secondary">Ostatnia aktualizacja: {busData.meta?.generatedAt ? new Date(busData.meta.generatedAt).toLocaleString('pl-PL') : '—'}</Typography>
-              </Paper>
-            </CardContent>
-          </Card>
+    <Box sx={{ maxWidth: 1040, mx: 'auto' }}>
+      <Box sx={{ mb: { xs: 2, md: 3 }, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 2 }}>
+        <Box>
+          <Typography variant="headlineSmall" sx={{ fontWeight: 750, letterSpacing: '-0.025em' }}>
+            Linie i odjazdy
+          </Typography>
+          <Typography variant="bodyMedium" color="text.secondary" sx={{ mt: 0.5 }}>
+            Wybierz kolejno linię, kierunek i przystanek.
+          </Typography>
+        </Box>
 
-          <Card sx={{ borderRadius: '24px', display: { xs: 'none', lg: 'block' } }}>
-            <CardContent>
-              <Typography variant="titleSmall" sx={{ fontWeight: 600, mb: 1.5 }}>❤️ Ulubione</Typography>
-              {favorites.length === 0 ? (
-                <Typography variant="bodySmall" color="text.secondary" sx={{ textAlign: 'center', py: 2 }}>Brak ulubionych<br/><span style={{ fontSize: 10 }}>Kliknij serce przy przystanku</span></Typography>
-              ) : (
-                <Stack spacing={1}>
-                  {favorites.map((f, i) => (
-                    <Paper key={i} variant="outlined" sx={{ p: 1.5, borderRadius: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <Box>
-                        <Typography variant="bodySmall" sx={{ fontWeight: 600 }}>{f.stop}</Typography>
-                        <Typography variant="labelSmall" color="text.secondary">{f.lines?.join(', ')}</Typography>
-                      </Box>
-                      <IconButton size="small" onClick={() => toggleFavorite(f.stop, [])}>✕</IconButton>
-                    </Paper>
-                  ))}
-                </Stack>
-              )}
-            </CardContent>
-          </Card>
+        <FormControl size="small">
+          <Select
+            value={state.dayType}
+            onChange={(event) => setState(previous => ({ ...previous, dayType: event.target.value }))}
+            aria-label="Dzień kursowania"
+            sx={{ minWidth: 105, borderRadius: '16px', fontWeight: 650, bgcolor: 'background.paper' }}
+          >
+            {Object.entries(dayShort).map(([value, label]) => (
+              <MenuItem key={value} value={value}>{label}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
 
-          <Card sx={{ borderRadius: '24px', display: { xs: 'none', lg: 'block' } }}>
-            <CardContent>
-              <Typography variant="titleSmall" sx={{ fontWeight: 600, mb: 1.5 }}>Ostatnio</Typography>
-              {recents.length === 0 ? <Typography variant="bodySmall" color="text.secondary">Brak historii</Typography> :
-                <Stack spacing={1}>
-                  {recents.map((r, i) => (
-                    <Button key={i} variant="contained" disableElevation onClick={() => setState(prev => ({ ...prev, lineId: r.lineId, dirIdx: r.dirIdx, stopIdx: r.stopIdx }))} sx={{ justifyContent: 'flex-start', bgcolor: 'background.container', color: 'text.primary', borderRadius: '16px', p: 1, '&:hover': { bgcolor: 'background.containerHigh' } }}>
-                      <Avatar sx={{ bgcolor: getLineHex(r.lineColor), width: 28, height: 28, fontSize: 12, mr: 1 }}>{r.lineNumber}</Avatar>
-                      <Typography variant="bodySmall" sx={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{r.stop}</Typography>
-                    </Button>
-                  ))}
-                </Stack>
-              }
-            </CardContent>
-          </Card>
-        </Stack>
-      </Grid>
+      <Paper elevation={0} sx={{ borderRadius: '28px', border: 1, borderColor: 'divider', overflow: 'hidden' }}>
+        <Box sx={{ px: { xs: 2, sm: 3 }, py: 1.75, borderBottom: 1, borderColor: 'divider' }}>
+          <Typography variant="labelLarge" color="text.secondary">Linia</Typography>
+          <Box sx={{ display: 'flex', gap: 0.75, mt: 1, overflowX: 'auto', pb: 0.5 }}>
+            {busData.lines.map(line => {
+              const selected = line.id === currentLine.id;
+              return (
+                <ButtonBase
+                  key={line.id}
+                  aria-label={`Wybierz linię ${line.number}`}
+                  aria-pressed={selected}
+                  onClick={() => chooseLine(line)}
+                  sx={{
+                    p: 0.55,
+                    borderRadius: '15px',
+                    border: 2,
+                    borderColor: selected ? 'primary.main' : 'transparent',
+                    bgcolor: selected ? 'primary.container' : 'transparent',
+                    flexShrink: 0,
+                  }}
+                >
+                  <LineBadge line={line} size={38} />
+                </ButtonBase>
+              );
+            })}
+          </Box>
 
-      {/* Center */}
-      <Grid item xs={12} lg={5}>
-        <Stack spacing={2}>
-          <Card sx={{ borderRadius: '24px', p: 1 }}>
-            <CardContent sx={{ pb: '8px !important' }}>
-              <Stack direction="row" spacing={1} sx={{ overflowX: 'auto', pb: 1 }}>
-                {currentLine.directions.map((d, i) => (
-                  <Chip key={i} label={d.short} onClick={() => setState(prev => ({ ...prev, dirIdx: i, stopIdx: 0 }))} color={i === state.dirIdx ? 'primary' : 'default'} variant={i === state.dirIdx ? 'filled' : 'outlined'} sx={{ borderRadius: '20px', fontWeight: 600 }} />
-                ))}
-              </Stack>
-              <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
-                {['weekday', 'saturday', 'sunday'].map(day => (
-                  <Chip key={day} label={day === 'weekday' ? 'PN-PT' : day === 'saturday' ? 'SOBOTA' : 'NIEDZIELA'} onClick={() => setState(prev => ({ ...prev, dayType: day }))} color={state.dayType === day ? 'primary' : 'default'} variant={state.dayType === day ? 'filled' : 'outlined'} sx={{ borderRadius: '20px', fontSize: 12 }} />
-                ))}
-              </Stack>
-              <Box sx={{ mt: 2, display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                <Avatar sx={{ bgcolor: getLineHex(currentLine.color), width: 40, height: 40, fontWeight: 700 }}>{currentLine.number}</Avatar>
-                <Box sx={{ minWidth: 0 }}>
-                  <Typography variant="titleMedium" sx={{ fontWeight: 700, lineHeight: 1.1 }}>{currentLine.name}</Typography>
-                  <Typography variant="bodySmall" color="text.secondary" sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{currentDir.label}</Typography>
-                </Box>
-                <Chip label={`${currentDir.stops.length} przyst.`} size="small" variant="outlined" sx={{ ml: 'auto' }} />
-              </Box>
-            </CardContent>
-          </Card>
-
-          <Card sx={{ borderRadius: '24px', overflow: 'hidden' }}>
-            <Box sx={{ p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: 1, borderColor: 'divider' }}>
-              <Typography variant="titleSmall" sx={{ fontWeight: 700 }}>Przystanki</Typography>
-              <Chip label={`${currentDir.stops.length}`} size="small" />
+          {favorites.length > 0 && (
+            <Box sx={{ display: 'flex', gap: 0.75, mt: 1, overflowX: 'auto', pb: 0.25 }}>
+              {favorites.slice(0, 5).map(favorite => (
+                <Button
+                  key={favorite.stop}
+                  size="small"
+                  color="inherit"
+                  startIcon={<FavoriteRounded sx={{ color: 'primary.main' }} />}
+                  onClick={() => chooseFavorite(favorite)}
+                  sx={{ minHeight: 34, bgcolor: 'background.container', flexShrink: 0, maxWidth: 240 }}
+                >
+                  <Typography variant="labelMedium" noWrap>{favorite.stop}</Typography>
+                </Button>
+              ))}
             </Box>
-            <List disablePadding sx={{ maxHeight: 520, overflowY: 'auto' }}>
-              {currentDir.stops.map((stop, i) => {
-                const sched = getScheduleForStop(currentDir, i, state.dayType);
-                const active = i === state.stopIdx;
-                const nextIdx = sched.findIndex(t => parseMinutes(t) >= now.minutes);
-                const fav = favorites.some(f => f.stop === stop);
-                return (
-                  <ListItem key={i} disablePadding divider>
-                    <ListItemButton selected={active} onClick={() => { setState(prev => ({ ...prev, stopIdx: i })); const line = currentLine; const newRecents = addRecent(line, state.dirIdx, i, stop); }} sx={{ py: 1.5, gap: 1.5, '&.Mui-selected': { bgcolor: 'primary.container' } }}>
-                      <Avatar sx={{ width: 32, height: 32, fontSize: 12, fontWeight: 700, bgcolor: active ? 'primary.main' : 'background.containerHighest', color: active ? 'white' : 'text.primary', border: 1, borderColor: 'outline.variant' }}>{i + 1}</Avatar>
-                      <Box sx={{ flex: 1, minWidth: 0 }}>
-                        <Typography variant="bodyMedium" sx={{ fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{stop}</Typography>
-                        <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', mt: 0.5 }}>
-                          <Typography variant="labelSmall" color="text.secondary">{sched.length} kursów</Typography>
-                          {nextIdx !== -1 && <Chip label={`nast. ${sched[nextIdx]}`} size="small" sx={{ height: 20, fontSize: 10, bgcolor: active ? 'primary.main' : 'success.container', color: active ? 'white' : 'success.onContainer' }} />}
-                        </Box>
-                      </Box>
-                      <IconButton size="small" onClick={(e) => { e.stopPropagation(); toggleFavorite(stop, [currentLine.number]); }} sx={{ bgcolor: fav ? 'error.container' : 'background.container' }}>
-                        {fav ? <Favorite fontSize="small" color="error" /> : <FavoriteBorder fontSize="small" />}
-                      </IconButton>
-                    </ListItemButton>
-                  </ListItem>
-                );
-              })}
-            </List>
-          </Card>
+          )}
+        </Box>
 
-          <Card sx={{ borderRadius: '24px' }}>
-            <Box sx={{ p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: 1, borderColor: 'divider' }}>
-              <Typography variant="titleSmall" sx={{ fontWeight: 700 }}>Rozkład</Typography>
-              <Typography variant="labelSmall" color="primary" sx={{ fontWeight: 600, maxWidth: '50%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{currentDir.stops[state.stopIdx]}</Typography>
-            </Box>
-            <CardContent>
-              {hours.length ? (
-                <Grid container spacing={1.5}>
-                  {hours.map(h => (
-                    <Grid item xs={12} sm={6} key={h}>
-                      <Paper variant="outlined" sx={{ p: 1.5, borderRadius: '16px', bgcolor: 'background.container' }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-                          <Avatar sx={{ width: 28, height: 28, fontSize: 12, fontWeight: 700, bgcolor: 'primary.main' }}>{h}</Avatar>
-                          <Divider sx={{ flex: 1 }} />
-                        </Box>
-                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.75 }}>
-                          {grouped[h].map(t => {
-                            const isNext = parseMinutes(t) >= now.minutes && schedule.findIndex(x => parseMinutes(x) >= now.minutes) === schedule.indexOf(t);
-                            const isPast = parseMinutes(t) < now.minutes;
-                            return (
-                              <Chip key={t} label={t} size="small" color={isNext ? 'primary' : 'default'} variant={isNext ? 'filled' : 'outlined'} sx={{ fontFamily: 'Roboto Mono', fontSize: 12, textDecoration: isPast ? 'line-through' : 'none', opacity: isPast ? 0.5 : 1 }} />
-                            );
-                          })}
-                        </Box>
-                      </Paper>
-                    </Grid>
-                  ))}
-                </Grid>
-              ) : <Typography sx={{ textAlign: 'center', py: 4 }} color="text.secondary">Brak kursów</Typography>}
-            </CardContent>
-          </Card>
-        </Stack>
-      </Grid>
-
-      {/* Right - Next Bus */}
-      <Grid item xs={12} lg={4}>
-        <Stack spacing={2} sx={{ position: { lg: 'sticky' }, top: { lg: 80 } }}>
-          <Card sx={{ borderRadius: '28px', bgcolor: 'primary.main', color: 'white', overflow: 'hidden', position: 'relative' }}>
-            <Box sx={{ position: 'absolute', top: -80, right: -80, width: 240, height: 240, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%)' }} />
-            <CardContent sx={{ p: 3, position: 'relative' }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <Box>
-                  <Typography variant="labelSmall" sx={{ textTransform: 'uppercase', letterSpacing: 2, opacity: 0.7 }}>Następny odjazd</Typography>
-                  <Chip label={`Linia ${currentLine.number}`} sx={{ mt: 1, bgcolor: 'white', color: 'primary.main', fontWeight: 700 }} />
-                </Box>
-                <Box sx={{ width: 40, height: 40, borderRadius: '50%', bgcolor: 'rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: '#4ade80', animation: 'pulse 1.5s infinite' }} />
-                </Box>
-              </Box>
-
-              <Box sx={{ mt: 4 }}>
-                <Typography variant="h1" sx={{ fontSize: 56, fontWeight: 700, lineHeight: 0.9, fontFamily: 'Roboto Mono' }}>{next ? (diffMin < 60 ? `${String(diffMin).padStart(2, '0')}:${String(diffSec).padStart(2, '0')}` : next.time) : '--:--'}</Typography>
-                <Typography variant="bodyMedium" sx={{ mt: 1, opacity: 0.8 }}>{next ? `odjazd o ${next.time} • za ${diffMin} min` : 'Koniec kursów na dziś'}</Typography>
-              </Box>
-
-              <Grid container spacing={1} sx={{ mt: 3 }}>
-                <Grid item xs={4}><Paper sx={{ p: 1.5, borderRadius: '16px', bgcolor: 'rgba(255,255,255,0.1)', color: 'white' }}><Typography variant="labelSmall" sx={{ opacity: 0.6, textTransform: 'uppercase', fontSize: 10 }}>Kierunek</Typography><Typography variant="bodySmall" sx={{ mt: 0.5, fontSize: 12 }}>{currentDir.short.slice(0, 20)}</Typography></Paper></Grid>
-                <Grid item xs={4}><Paper sx={{ p: 1.5, borderRadius: '16px', bgcolor: 'rgba(255,255,255,0.1)', color: 'white' }}><Typography variant="labelSmall" sx={{ opacity: 0.6, textTransform: 'uppercase', fontSize: 10 }}>Przystanek</Typography><Typography variant="bodySmall" sx={{ mt: 0.5, fontSize: 12 }}>{currentDir.stops[state.stopIdx]?.slice(0, 18)}</Typography></Paper></Grid>
-                <Grid item xs={4}><Paper sx={{ p: 1.5, borderRadius: '16px', bgcolor: 'rgba(255,255,255,0.1)', color: 'white' }}><Typography variant="labelSmall" sx={{ opacity: 0.6, textTransform: 'uppercase', fontSize: 10 }}>Dzień</Typography><Typography variant="bodySmall" sx={{ mt: 0.5, fontSize: 12 }}>{state.dayType === 'weekday' ? 'PN-PT' : state.dayType === 'saturday' ? 'SOB' : 'NDZ'}</Typography></Paper></Grid>
-              </Grid>
-
-              <Box sx={{ mt: 3 }}>
-                <Typography variant="labelSmall" sx={{ textTransform: 'uppercase', opacity: 0.6, mb: 1, display: 'block' }}>Kolejne odjazdy</Typography>
-                <Stack spacing={1}>
-                  {upcoming.map((o, idx) => (
-                    <Box key={idx} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 1.5, borderRadius: '16px', bgcolor: idx === 0 ? 'white' : 'rgba(255,255,255,0.1)', color: idx === 0 ? 'primary.main' : 'white' }}>
-                      <Typography variant="bodyMedium" sx={{ fontFamily: 'Roboto Mono', fontWeight: 600 }}>{o.time}</Typography>
-                      <Typography variant="labelSmall">{idx === 0 ? 'TERAZ' : `za ${Math.floor(o.mins - nowMin)} min`}</Typography>
-                    </Box>
-                  ))}
-                </Stack>
-              </Box>
-
-              <Stack direction="row" spacing={1} sx={{ mt: 3 }}>
-                <Button fullWidth variant="contained" sx={{ bgcolor: 'white', color: 'primary.main', '&:hover': { bgcolor: 'grey.100' }, borderRadius: '24px' }} startIcon={<Share />} onClick={() => { if (navigator.share) navigator.share({ title: `ŻPA ${currentLine.number}`, text: currentDir.stops[state.stopIdx], url: location.href }); else { navigator.clipboard.writeText(location.href); setToast({ open: true, message: 'Skopiowano link', severity: 'success' }); } }}>Udostępnij</Button>
-                <IconButton onClick={() => toggleFavorite(currentDir.stops[state.stopIdx], [currentLine.number])} sx={{ bgcolor: 'rgba(255,255,255,0.15)', color: 'white', width: 48, height: 48 }}>{isFav ? <Favorite /> : <FavoriteBorder />}</IconButton>
-              </Stack>
-            </CardContent>
-          </Card>
-
-          <Card sx={{ borderRadius: '24px' }}>
-            <CardContent>
-              <Typography variant="titleSmall" sx={{ fontWeight: 600, mb: 2 }}>Symulacja przejazdu</Typography>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}><Typography variant="labelSmall" color="text.secondary">Start</Typography><Typography variant="labelSmall" color="text.secondary">{Math.round(progress)}%</Typography><Typography variant="labelSmall" color="text.secondary">Koniec</Typography></Box>
-              <LinearProgress variant="determinate" value={progress} sx={{ height: 8, borderRadius: 4, mb: 2 }} />
-              <Stack spacing={0.5} sx={{ maxHeight: 200, overflowY: 'auto' }}>
-                {currentDir.stops.map((s, i) => (
-                  <Box key={i} sx={{ display: 'flex', gap: 1, alignItems: 'center', opacity: i < state.stopIdx ? 0.5 : 1, textDecoration: i < state.stopIdx ? 'line-through' : 'none' }}>
-                    <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: i === state.stopIdx ? 'primary.main' : i < state.stopIdx ? 'text.primary' : 'outline.variant' }} />
-                    <Typography variant="bodySmall" sx={{ fontWeight: i === state.stopIdx ? 700 : 400, color: i === state.stopIdx ? 'primary.main' : 'text.primary' }}>{s}</Typography>
+        <Box sx={{ px: { xs: 1.5, sm: 2.5 }, py: 1.25, bgcolor: 'background.container' }}>
+          <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: { xs: 0.5, sm: 1 } }}>
+            {flow.map((item, index) => {
+              const active = item.id === step;
+              const completed = index < stepIndex;
+              return (
+                <ButtonBase
+                  key={item.id}
+                  disabled={index > stepIndex}
+                  onClick={() => index <= stepIndex && setStep(item.id)}
+                  sx={{
+                    minWidth: 0,
+                    borderRadius: '16px',
+                    px: { xs: 0.5, sm: 1 },
+                    py: 0.8,
+                    gap: 0.75,
+                    color: active ? 'primary.onContainer' : 'text.secondary',
+                    bgcolor: active ? 'primary.container' : 'transparent',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: 24,
+                      height: 24,
+                      borderRadius: '50%',
+                      display: 'grid',
+                      placeItems: 'center',
+                      bgcolor: active || completed ? 'primary.main' : 'background.containerHighest',
+                      color: active || completed ? 'primary.contrastText' : 'text.secondary',
+                      fontSize: 11,
+                      fontWeight: 800,
+                      flexShrink: 0,
+                    }}
+                  >
+                    {index + 1}
                   </Box>
+                  <Typography variant="labelMedium" sx={{ fontWeight: active ? 750 : 600, display: { xs: index === stepIndex ? 'block' : 'none', sm: 'block' } }} noWrap>
+                    {item.label}
+                  </Typography>
+                </ButtonBase>
+              );
+            })}
+          </Box>
+        </Box>
+
+        {step === 'departures' && (
+          <Box sx={{ px: { xs: 2, sm: 3 }, pt: 2.25, display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Button startIcon={<ArrowBackRounded />} onClick={goBack} color="inherit" sx={{ px: 1.25, minHeight: 38 }}>
+              Zmień przystanek
+            </Button>
+            <Box sx={{ minWidth: 0, display: 'flex', alignItems: 'center', gap: 1, ml: 'auto' }}>
+              <LineBadge line={currentLine} size={34} />
+              <Typography variant="bodySmall" color="text.secondary" noWrap>
+                {currentDir.short} · {selectedStop}
+              </Typography>
+            </Box>
+          </Box>
+        )}
+
+        <Box sx={{ p: { xs: 2, sm: 3 } }}>
+          {step === 'stop' && (
+            <Box sx={{ maxWidth: 760, mx: 'auto' }}>
+              <Typography variant="titleLarge" sx={{ fontWeight: 750 }}>Wybierz kierunek i przystanek</Typography>
+              <Typography variant="bodyMedium" color="text.secondary" sx={{ mt: 0.5 }}>Linia {currentLine.number} · {currentLine.name}</Typography>
+
+              <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: `repeat(${Math.min(currentLine.directions.length, 2)}, 1fr)` }, gap: 1, mt: 2.5 }}>
+                {currentLine.directions.map((direction, index) => {
+                  const selected = index === state.dirIdx;
+                  return (
+                    <ButtonBase
+                      key={`${currentLine.id}-${index}`}
+                      onClick={() => chooseDirection(index)}
+                      sx={{
+                        width: '100%',
+                        p: 1.5,
+                        gap: 1.25,
+                        textAlign: 'left',
+                        justifyContent: 'flex-start',
+                        borderRadius: '18px',
+                        border: 1,
+                        borderColor: selected ? 'primary.main' : 'divider',
+                        bgcolor: selected ? 'primary.container' : 'transparent',
+                        color: selected ? 'primary.onContainer' : 'text.primary',
+                      }}
+                    >
+                      <Box sx={{ width: 34, height: 34, borderRadius: '12px', bgcolor: selected ? 'primary.main' : 'background.container', color: selected ? 'primary.contrastText' : 'text.secondary', display: 'grid', placeItems: 'center', flexShrink: 0 }}>
+                        <DirectionsBusRounded fontSize="small" />
+                      </Box>
+                      <Box sx={{ minWidth: 0, flex: 1 }}>
+                        <Typography variant="bodySmall" sx={{ fontWeight: 750 }} noWrap>{direction.short || direction.label}</Typography>
+                        <Typography variant="bodySmall" color="text.secondary">{direction.stops.length} przyst.</Typography>
+                      </Box>
+                    </ButtonBase>
+                  );
+                })}
+              </Box>
+
+              <Divider sx={{ my: 2.5 }} />
+              <Typography variant="titleMedium" sx={{ fontWeight: 750 }}>Przystanek</Typography>
+
+              <TextField
+                fullWidth
+                value={stopSearch}
+                onChange={(event) => setStopSearch(event.target.value)}
+                placeholder="Szukaj na trasie"
+                sx={{ mt: 1.5 }}
+                InputProps={{ startAdornment: <InputAdornment position="start"><SearchRounded color="action" /></InputAdornment> }}
+              />
+
+              <List disablePadding sx={{ mt: 1.5 }}>
+                {filteredStops.map(stop => (
+                  <ListItemButton
+                    key={`${stop.name}-${stop.index}`}
+                    onClick={() => chooseStop(stop.index)}
+                    sx={{ borderRadius: '16px', gap: 1.25, py: 1.15 }}
+                  >
+                    <Box sx={{ width: 30, height: 30, borderRadius: '50%', bgcolor: 'background.container', color: 'text.secondary', display: 'grid', placeItems: 'center', fontSize: 11, fontWeight: 750, flexShrink: 0 }}>
+                      {stop.index + 1}
+                    </Box>
+                    <Typography variant="bodyMedium" sx={{ flex: 1, fontWeight: 600 }}>{stop.name}</Typography>
+                    <ArrowForwardRounded color="action" fontSize="small" />
+                  </ListItemButton>
                 ))}
-              </Stack>
-            </CardContent>
-          </Card>
-        </Stack>
-      </Grid>
-    </Grid>
+              </List>
+
+              {!filteredStops.length && (
+                <Typography variant="bodyMedium" color="text.secondary" sx={{ textAlign: 'center', py: 5 }}>Nie znaleziono przystanku.</Typography>
+              )}
+            </Box>
+          )}
+
+          {step === 'departures' && (
+            <Box>
+              <Box sx={{ mb: 2.5 }}>
+                <Typography variant="titleLarge" sx={{ fontWeight: 750 }}>Odjazdy z przystanku</Typography>
+                <Typography variant="bodyMedium" color="text.secondary" sx={{ mt: 0.5 }}>{selectedStop}</Typography>
+              </Box>
+
+              <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '320px minmax(0, 1fr)' }, gap: { xs: 2, md: 3 }, alignItems: 'start' }}>
+                <Box
+                  sx={{
+                    bgcolor: 'primary.main',
+                    color: 'primary.contrastText',
+                    borderRadius: '24px',
+                    p: 2.5,
+                  }}
+                >
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 1 }}>
+                    <Box>
+                      <Typography variant="bodySmall" sx={{ opacity: 0.72 }}>Najbliższy odjazd</Typography>
+                      <Typography variant="h3" sx={{ fontFamily: 'Roboto Mono', fontWeight: 800, lineHeight: 1, mt: 0.75 }}>
+                        {next?.time || '—'}
+                      </Typography>
+                    </Box>
+                    <IconButton
+                      aria-label={isFavorite ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'}
+                      onClick={() => toggleFavorite(selectedStop, [currentLine.number])}
+                      sx={{ color: 'inherit', bgcolor: 'rgba(255,255,255,.14)', alignSelf: 'flex-start' }}
+                    >
+                      {isFavorite ? <FavoriteRounded /> : <FavoriteBorderRounded />}
+                    </IconButton>
+                  </Box>
+
+                  <Typography variant="titleMedium" sx={{ fontWeight: 750, mt: 1 }}>
+                    {next ? (minutesToNext < 1 ? 'Odjazd teraz' : `Za ${minutesToNext} min`) : 'Brak kolejnych kursów'}
+                  </Typography>
+
+                  {upcoming.length > 1 && (
+                    <Box sx={{ mt: 2.5 }}>
+                      <Typography variant="bodySmall" sx={{ opacity: 0.72 }}>Kolejne</Typography>
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.75, mt: 0.75 }}>
+                        {upcoming.slice(1).map(item => (
+                          <Box key={item.time} sx={{ px: 1.15, py: 0.65, borderRadius: '12px', bgcolor: 'rgba(255,255,255,.14)', fontFamily: 'Roboto Mono', fontWeight: 650, fontSize: 13 }}>
+                            {item.time}
+                          </Box>
+                        ))}
+                      </Box>
+                    </Box>
+                  )}
+                </Box>
+
+                <Box>
+                  <Typography variant="titleMedium" sx={{ fontWeight: 750, mb: 1.5 }}>Pełny rozkład dnia</Typography>
+                  {groupedSchedule.length ? (
+                    <Stack spacing={1.35}>
+                      {groupedSchedule.map(([hour, times]) => (
+                        <Box key={hour} sx={{ display: 'grid', gridTemplateColumns: '32px minmax(0, 1fr)', gap: 1, alignItems: 'start' }}>
+                          <Typography variant="labelLarge" color="text.secondary" sx={{ pt: 0.75, fontFamily: 'Roboto Mono', fontWeight: 700 }}>{hour}</Typography>
+                          <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(62px, 1fr))', gap: 0.6 }}>
+                            {times.map(time => {
+                              const past = state.dayType === todayType && parseMinutes(time) < now.minutes;
+                              const isNext = time === next?.time;
+                              return (
+                                <Box
+                                  key={time}
+                                  sx={{
+                                    textAlign: 'center',
+                                    py: 0.7,
+                                    px: 0.75,
+                                    borderRadius: '12px',
+                                    bgcolor: isNext ? 'primary.container' : 'background.container',
+                                    color: isNext ? 'primary.onContainer' : 'text.primary',
+                                    fontFamily: 'Roboto Mono',
+                                    fontSize: 13,
+                                    fontWeight: isNext ? 800 : 550,
+                                    opacity: past ? 0.4 : 1,
+                                  }}
+                                >
+                                  {time}
+                                </Box>
+                              );
+                            })}
+                          </Box>
+                        </Box>
+                      ))}
+                    </Stack>
+                  ) : (
+                    <Box sx={{ py: 6, textAlign: 'center' }}>
+                      <DirectionsBusRounded sx={{ fontSize: 42, color: 'text.disabled' }} />
+                      <Typography variant="bodyMedium" color="text.secondary" sx={{ mt: 1 }}>Brak kursów w tym dniu.</Typography>
+                    </Box>
+                  )}
+                </Box>
+              </Box>
+            </Box>
+          )}
+        </Box>
+      </Paper>
+    </Box>
   );
 }

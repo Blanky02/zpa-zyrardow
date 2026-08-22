@@ -1,3 +1,55 @@
+export function normalizeStopName(name = '') {
+  return name
+    .toLocaleUpperCase('pl')
+    .replace(/ŻYR\.\s*/g, 'ŻYRARDÓW ')
+    .replace(/ZYR\.\s*/g, 'ŻYRARDÓW ')
+    .replace(/\s*\[\d+\]\s*$/, '')
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^A-Z0-9]+/g, ' ')
+    .trim();
+}
+
+export function getPlatformKey(platform = {}) {
+  if (platform.designator !== undefined && platform.designator !== null && platform.designator !== '') {
+    return `designator:${platform.designator}`;
+  }
+  if (platform.id) return `id:${platform.id}`;
+  const name = normalizeStopName(platform.name || platform.official_name || 'przystanek');
+  const lat = Number(platform.lat || 0).toFixed(6);
+  const lon = Number(platform.lon ?? platform.lng ?? 0).toFixed(6);
+  return `location:${name}:${lat}:${lon}`;
+}
+
+export function getRoutePlatforms(busData) {
+  const platforms = new Map();
+  if (!busData?.lines) return [];
+
+  busData.lines.forEach(line => {
+    line.directions.forEach((direction, directionIndex) => {
+      (direction.stops_full || []).forEach((stop, stopIndex) => {
+        if (!stop?.lat || !stop?.lon) return;
+        const platform = {
+          id: stop.id || null,
+          designator: stop.designator ?? null,
+          name: stop.official_name || stop.name || direction.stops?.[stopIndex] || 'Przystanek',
+          lat: Number(stop.lat),
+          lon: Number(stop.lon),
+          source: 'route',
+          lineId: line.id,
+          lineNumber: line.number,
+          directionIndex,
+          stopIndex,
+        };
+        const key = getPlatformKey(platform);
+        if (!platforms.has(key)) platforms.set(key, platform);
+      });
+    });
+  });
+
+  return Array.from(platforms.values());
+}
+
 export function getUniqueStops(busData) {
   const map = new Map();
   if (!busData) return [];
@@ -19,18 +71,41 @@ export function getUniqueStops(busData) {
     .map(v => ({ name: v.name, count: v.count, linesCount: v.lines.size, lines: Array.from(v.lines).join(', ') }));
 }
 
-export function findOccurrencesForStop(busData, stopName) {
+export function findOccurrencesForStop(busData, stopSelection) {
   const results = [];
-  const q = stopName.toLowerCase();
+  if (!busData?.lines || !stopSelection) return results;
+
+  const selection = typeof stopSelection === 'string'
+    ? { name: stopSelection }
+    : stopSelection;
+  const selectedName = normalizeStopName(selection.name || selection.official_name || '');
+  const selectedDesignator = selection.designator !== undefined && selection.designator !== null
+    ? String(selection.designator)
+    : null;
+  const selectedId = selection.id ? String(selection.id) : null;
+  const hasPlatformIdentity = Boolean(selectedDesignator || selectedId);
+
   busData.lines.forEach(line => {
     line.directions.forEach((dir, dirIdx) => {
       dir.stops.forEach((sName, stopIdx) => {
-        if (sName.toLowerCase() === q || sName.toLowerCase().includes(q) || q.includes(sName.toLowerCase())) {
-          results.push({ line, dir, dirIdx, stopIdx, stopName: sName });
+        const platform = dir.stops_full?.[stopIdx];
+        const platformDesignator = platform?.designator !== undefined && platform?.designator !== null
+          ? String(platform.designator)
+          : null;
+        const platformId = platform?.id ? String(platform.id) : null;
+        const exactPlatform = (
+          selectedDesignator && platformDesignator === selectedDesignator
+        ) || (
+          selectedId && platformId === selectedId
+        );
+
+        if (hasPlatformIdentity ? exactPlatform : normalizeStopName(sName) === selectedName) {
+          results.push({ line, dir, dirIdx, stopIdx, stopName: sName, platform });
         }
       });
     });
   });
+
   return results;
 }
 
