@@ -522,7 +522,7 @@ export default function MapView({ busData, stopCoords, state, now }) {
                 eventHandlers={{ click: () => setSelectedStop({
                   id: stop.id || null,
                   designator: stop.designator ?? null,
-                  name: stop.official_name || stop.name,
+                  name: stop.name || stop.official_name,
                   lat: Number(stop.lat),
                   lon: Number(stop.lon),
                   lng: Number(stop.lon),
@@ -530,7 +530,7 @@ export default function MapView({ busData, stopCoords, state, now }) {
                 }) }}
               >
                 <Tooltip direction="top" offset={[0, -14]}>
-                  {stop.official_name || stop.name}{stop.designator ? ` · stanowisko ${stop.designator}` : ''}
+                  {stop.name || stop.official_name}{stop.designator ? ` · stanowisko ${stop.designator}` : ''}
                 </Tooltip>
               </Marker>
             ))}

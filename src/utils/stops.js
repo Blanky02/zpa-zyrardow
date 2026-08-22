@@ -32,7 +32,7 @@ export function getRoutePlatforms(busData) {
         const platform = {
           id: stop.id || null,
           designator: stop.designator ?? null,
-          name: stop.official_name || stop.name || direction.stops?.[stopIndex] || 'Przystanek',
+          name: stop.name || stop.official_name || direction.stops?.[stopIndex] || 'Przystanek',
           lat: Number(stop.lat),
           lon: Number(stop.lon),
           source: 'route',

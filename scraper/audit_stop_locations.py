@@ -22,7 +22,8 @@ def normalize_name(name: str) -> str:
     name = re.sub(r"\s*\[\d+\]\s*$", "", name)
     name = unicodedata.normalize("NFKD", name)
     name = "".join(char for char in name if not unicodedata.combining(char))
-    return re.sub(r"[^A-Z0-9]+", " ", name).strip()
+    normalized = re.sub(r"[^A-Z0-9]+", " ", name).strip()
+    return re.sub(r"^ZYRARDOW\s+", "", normalized)
 
 
 def distance_m(first: tuple[float, float], second: tuple[float, float]) -> float:
@@ -60,7 +61,7 @@ def collect_route_platforms(timetables: dict) -> tuple[dict[str, dict], set[str]
                 record = {
                     "id": str(stop_id) if stop_id else None,
                     "designator": designator,
-                    "name": stop.get("official_name") or stop.get("name") or names[index],
+                    "name": stop.get("name") or stop.get("official_name") or names[index],
                     "lat": float(stop["lat"]),
                     "lon": float(stop["lon"]),
                 }

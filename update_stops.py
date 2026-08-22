@@ -55,7 +55,7 @@ def load_route_platforms(path: Path = TIMETABLES_PATH) -> list[dict]:
                 lat, lon = stop.get("lat"), stop.get("lon")
                 if not lat or not lon:
                     continue
-                name = stop.get("official_name") or stop.get("name") or direction.get("stops", [])[index]
+                name = stop.get("name") or stop.get("official_name") or direction.get("stops", [])[index]
                 designator = stop.get("designator")
                 stop_id = stop.get("id")
                 identity = f"designator:{designator}" if designator is not None else f"id:{stop_id}"
@@ -159,6 +159,18 @@ def main() -> None:
     relevant_api_stops = select_relevant_api_stops(api_stops, route_platforms)
     platform_map = build_platform_map(relevant_api_stops, route_platforms)
     generate_files(platform_map, revision)
+
+    print("\nKontrola kolejności przystanków względem PDF...")
+    subprocess.run(
+        [
+            sys.executable,
+            str(ROOT / "scraper" / "audit_stop_order.py"),
+            "--timetables",
+            str(ROOT / "timetables.json"),
+        ],
+        cwd=ROOT,
+        check=True,
+    )
 
     # GitHub Actions has unrestricted access to Overpass. Run the complete OSM
     # comparison there and expose every non-confirmed platform in the job log.

@@ -128,8 +128,8 @@
       "directions": [
         {
           "id": "0_zera",
-          "label": "ŻYRARDÓW ŻEROMKSIEGO PĘTLA → ŻYRARDÓW ZALEW ŻYRARDOWSKI",
-          "short": "ŻYRARDÓW ŻEROMKSIEGO PĘTLA → ŻYRARDÓW ZA",
+          "label": "ŻYRARDÓW ŻEROMSKIEGO PĘTLA → ŻYRARDÓW ZALEW ŻYRARDOWSKI",
+          "short": "ŻYRARDÓW ŻEROMSKIEGO PĘTLA → ŻYRARDÓW ZALEW ŻYRARDOWSKI",
           "baseTimes": {
             "weekday": [
               "08:44",
@@ -148,7 +148,7 @@
             ]
           },
           "stops": [
-            "ŻYRARDÓW ŻEROMKSIEGO PĘTLA",
+            "ŻYRARDÓW ŻEROMSKIEGO PĘTLA",
             "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
             "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
             "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
@@ -361,8 +361,8 @@
         },
         {
           "id": "0_zerb",
-          "label": "ŻYRARDÓW ZALEW ŻYRARDOWSKI → ŻYRARDÓW ŻEROMKSIEGO PĘTLA",
-          "short": "ŻYRARDÓW ZALEW ŻYRARDOWSKI → ŻYRARDÓW ŻE",
+          "label": "ŻYRARDÓW ZALEW ŻYRARDOWSKI → ŻYRARDÓW ŻEROMSKIEGO PĘTLA",
+          "short": "ŻYRARDÓW ZALEW ŻYRARDOWSKI → ŻYRARDÓW ŻEROMSKIEGO PĘTLA",
           "baseTimes": {
             "weekday": [
               "09:10",
@@ -403,7 +403,7 @@
             "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
             "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
             "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
-            "ŻYRARDÓW ŻEROMKSIEGO PĘTLA"
+            "ŻYRARDÓW ŻEROMSKIEGO PĘTLA"
           ],
           "stops_full": [
             {
@@ -604,7 +604,7 @@
         {
           "id": "0_spoa",
           "label": "ŻYRARDÓW SPÓŁDZIELCZA → ŻYRARDÓW ZALEW ŻYRARDOWSKI",
-          "short": "ŻYRARDÓW SPÓŁDZIELCZA → ŻYRARDÓW ZALEW Ż",
+          "short": "ŻYRARDÓW SPÓŁDZIELCZA → ŻYRARDÓW ZALEW ŻYRARDOWSKI",
           "baseTimes": {
             "weekday": [
               "10:45",
@@ -813,7 +813,7 @@
         {
           "id": "0_spob",
           "label": "ŻYRARDÓW ZALEW ŻYRARDOWSKI → ŻYRARDÓW SPÓŁDZIELCZA",
-          "short": "ŻYRARDÓW ZALEW ŻYRARDOWSKI → ŻYRARDÓW SP",
+          "short": "ŻYRARDÓW ZALEW ŻYRARDOWSKI → ŻYRARDÓW SPÓŁDZIELCZA",
           "baseTimes": {
             "weekday": [
               "10:10",
@@ -1275,8 +1275,8 @@
       "directions": [
         {
           "id": "2a",
-          "label": "ŻYRARDÓW ŻEROMKSIEGO PĘTLA → ŻYRARDÓW SPÓŁDZIELCZA",
-          "short": "ŻYRARDÓW ŻEROMKSIEGO PĘTLA → ŻYRARDÓW SP",
+          "label": "ŻYRARDÓW ŻEROMSKIEGO PĘTLA → ŻYRARDÓW SPÓŁDZIELCZA",
+          "short": "ŻYRARDÓW ŻEROMSKIEGO PĘTLA → ŻYRARDÓW SPÓŁDZIELCZA",
           "baseTimes": {
             "weekday": [
               "03:03",
@@ -1346,7 +1346,7 @@
             ]
           },
           "stops": [
-            "ŻYRARDÓW ŻEROMKSIEGO PĘTLA",
+            "ŻYRARDÓW ŻEROMSKIEGO PĘTLA",
             "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
             "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
             "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
@@ -1365,9 +1365,9 @@
             "ŻYRARDÓW KACPERSKIEJ",
             "ŻYRARDÓW PARKINGOWA/KPT. PAŁAC",
             "ŻYRARDÓW PARKINGOWA",
-            "ŻYRARDÓW 3",
+            "NOWE KOZŁOWICE 53",
             "NOWE KOZŁOWICE ZAKRĘT",
-            "ŻYRARDÓW 1",
+            "STARE KOZŁOWICE 1/2 / I",
             "ŻYRARDÓW SPÓŁDZIELCZA"
           ],
           "stops_full": [
@@ -1525,11 +1525,11 @@
             },
             {
               "name": "Nowe Kozłowice 53",
-              "official_name": "ŻYRARDÓW 3",
-              "id": "2502988:2600505",
-              "designator": 6882,
-              "lat": 52.058355,
-              "lon": 20.439832
+              "official_name": "NOWE KOZŁOWICE 53",
+              "id": "2030210:2103505",
+              "designator": 2705,
+              "lat": 52.082772,
+              "lon": 20.433107
             },
             {
               "name": "Nowe Kozłowice Zakręt",
@@ -1540,12 +1540,12 @@
               "lon": 20.42478
             },
             {
-              "name": "Stare Kozłowice 1/2 /I",
-              "official_name": "ŻYRARDÓW 1",
-              "id": "2502985:2600501",
-              "designator": 6876,
-              "lat": 52.04756,
-              "lon": 20.442972
+              "name": "Stare Kozłowice 1/2 / I",
+              "official_name": "STARE KOZŁOWICE 1/2 / I",
+              "id": "2029978:2103137",
+              "designator": 2337,
+              "lat": 52.071841,
+              "lon": 20.420523
             },
             {
               "name": "Spółdzielcza",
@@ -1559,8 +1559,8 @@
         },
         {
           "id": "2b",
-          "label": "ŻYRARDÓW SPÓŁDZIELCZA → ŻYRARDÓW ŻEROMKSIEGO PĘTLA",
-          "short": "ŻYRARDÓW SPÓŁDZIELCZA → ŻYRARDÓW ŻEROMKS",
+          "label": "ŻYRARDÓW SPÓŁDZIELCZA → ŻYRARDÓW ŻEROMSKIEGO PĘTLA",
+          "short": "ŻYRARDÓW SPÓŁDZIELCZA → ŻYRARDÓW ŻEROMSKIEGO PĘTLA",
           "baseTimes": {
             "weekday": [
               "00:15",
@@ -1649,7 +1649,7 @@
             "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
             "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
             "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
-            "ŻYRARDÓW ŻEROMKSIEGO PĘTLA"
+            "ŻYRARDÓW ŻEROMSKIEGO PĘTLA"
           ],
           "stops_full": [
             {
@@ -1819,14 +1819,14 @@
     {
       "id": "3",
       "number": "3",
-      "name": "Linia 3 Działki OSP - Jaktorowska",
+      "name": "Linia 3 Działki OSP - Międzyborów",
       "type": "miejska",
       "color": "bg-violet-600",
       "directions": [
         {
           "id": "3a",
-          "label": "ŻYRARDÓW D → ŻYRARDÓW D",
-          "short": "ŻYRARDÓW D → ŻYRARDÓW D",
+          "label": "DZIAŁKI OSP → MIĘDZYBORÓW",
+          "short": "DZIAŁKI OSP → MIĘDZYBORÓW",
           "baseTimes": {
             "weekday": [
               "05:50",
@@ -1857,8 +1857,8 @@
             ]
           },
           "stops": [
-            "ŻYRARDÓW D",
-            "ŻYRARDÓW D",
+            "DZIAŁKI OSP",
+            "DZIAŁKI - MŁYŃSKA",
             "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
             "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
             "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
@@ -1894,24 +1894,24 @@
             "ŻYRARDÓW POŁUDNIOWA",
             "ŻYRARDÓW JAKTOROWSKA/RÓWNOLEG",
             "ŻYRARDÓW JAKTOROWSKA/SADE BUDY",
-            "ŻYRARDÓW D"
+            "MIĘDZYBORÓW"
           ],
           "stops_full": [
             {
-              "name": "Działki Osp",
-              "official_name": "ŻYRARDÓW D",
-              "id": "2502987:2600503",
-              "designator": 6886,
-              "lat": 52.052346,
-              "lon": 20.447317
+              "name": "Działki OSP",
+              "official_name": "DZIAŁKI OSP",
+              "id": "2030033:2103239",
+              "designator": 2439,
+              "lat": 52.067063,
+              "lon": 20.395722
             },
             {
               "name": "Działki - Młyńska",
-              "official_name": "ŻYRARDÓW D",
-              "id": "2502987:2600503",
-              "designator": 6886,
-              "lat": 52.052346,
-              "lon": 20.447317
+              "official_name": "DZIAŁKI - MŁYŃSKA",
+              "id": "2030190:2103478",
+              "designator": 2678,
+              "lat": 52.065029,
+              "lon": 20.406735
             },
             {
               "name": "Żeromskiego/Poznańska",
@@ -2195,18 +2195,18 @@
             },
             {
               "name": "Międzyborów",
-              "official_name": "ŻYRARDÓW D",
-              "id": "2502987:2600503",
-              "designator": 6886,
-              "lat": 52.052346,
-              "lon": 20.447317
+              "official_name": "MIĘDZYBORÓW",
+              "id": "2029859:2102914",
+              "designator": 2114,
+              "lat": 52.058387,
+              "lon": 20.485516
             }
           ]
         },
         {
           "id": "3b",
-          "label": "ŻYRARDÓW D → ŻYRARDÓW D",
-          "short": "ŻYRARDÓW D → ŻYRARDÓW D",
+          "label": "MIĘDZYBORÓW → DZIAŁKI OSP",
+          "short": "MIĘDZYBORÓW → DZIAŁKI OSP",
           "baseTimes": {
             "weekday": [
               "05:28",
@@ -2237,7 +2237,7 @@
             ]
           },
           "stops": [
-            "ŻYRARDÓW D",
+            "MIĘDZYBORÓW",
             "ŻYRARDÓW JAKTOROWSKA/SADE BUDY",
             "ŻYRARDÓW JAKTOROWSKA/RÓWNOLEG",
             "ŻYRARDÓW CHMIELNA",
@@ -2272,17 +2272,17 @@
             "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
             "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
             "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
-            "ŻYRARDÓW D",
-            "ŻYRARDÓW D"
+            "DZIAŁKI - MŁYŃSKA",
+            "DZIAŁKI OSP"
           ],
           "stops_full": [
             {
               "name": "Międzyborów",
-              "official_name": "ŻYRARDÓW D",
-              "id": "2502987:2600503",
-              "designator": 6886,
-              "lat": 52.052346,
-              "lon": 20.447317
+              "official_name": "MIĘDZYBORÓW",
+              "id": "2029859:2102914",
+              "designator": 2114,
+              "lat": 52.058387,
+              "lon": 20.485516
             },
             {
               "name": "Żyrardów Jaktorowska/Sade Budy",
@@ -2558,19 +2558,19 @@
             },
             {
               "name": "Działki - Młyńska",
-              "official_name": "ŻYRARDÓW D",
-              "id": "2502987:2600503",
-              "designator": 6886,
-              "lat": 52.052346,
-              "lon": 20.447317
+              "official_name": "DZIAŁKI - MŁYŃSKA",
+              "id": "2030190:2103479",
+              "designator": 2679,
+              "lat": 52.065104,
+              "lon": 20.406333
             },
             {
-              "name": "Działki Osp",
-              "official_name": "ŻYRARDÓW D",
-              "id": "2502987:2600503",
-              "designator": 6886,
-              "lat": 52.052346,
-              "lon": 20.447317
+              "name": "Działki OSP",
+              "official_name": "DZIAŁKI OSP",
+              "id": "2030033:2103240",
+              "designator": 2440,
+              "lat": 52.06705,
+              "lon": 20.395969
             }
           ]
         }
@@ -2586,7 +2586,7 @@
         {
           "id": "4a",
           "label": "WISKITKI  PL. Wolności 5/6 / I → ŻYRARDÓW SPÓŁDZIELCZA",
-          "short": "WISKITKI  PL. Wolności 5/6 / I → ŻYRARDÓ",
+          "short": "WISKITKI  PL. Wolności 5/6 / I → ŻYRARDÓW SPÓŁDZIELCZA",
           "baseTimes": {
             "weekday": [
               "04:07",
@@ -2621,9 +2621,9 @@
           "stops": [
             "WISKITKI  PL. Wolności 5/6 / I",
             "Wiskitki Szkoła",
-            "ŻYRARDÓW D",
-            "ŻYRARDÓW D",
-            "ŻYRARDÓW D",
+            "DZIAŁKI MAŁE",
+            "DZIAŁKI OSP",
+            "DZIAŁKI - MŁYŃSKA",
             "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
             "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
             "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
@@ -2662,27 +2662,27 @@
             },
             {
               "name": "Działki Małe",
-              "official_name": "ŻYRARDÓW D",
-              "id": "2502987:2600503",
-              "designator": 6886,
-              "lat": 52.052346,
-              "lon": 20.447317
+              "official_name": "DZIAŁKI MAŁE",
+              "id": "2030032:2103237",
+              "designator": 2437,
+              "lat": 52.071512,
+              "lon": 20.393871
             },
             {
-              "name": "Działki Osp",
-              "official_name": "ŻYRARDÓW D",
-              "id": "2502987:2600503",
-              "designator": 6886,
-              "lat": 52.052346,
-              "lon": 20.447317
+              "name": "Działki OSP",
+              "official_name": "DZIAŁKI OSP",
+              "id": "2030033:2103239",
+              "designator": 2439,
+              "lat": 52.067063,
+              "lon": 20.395722
             },
             {
               "name": "Działki - Młyńska",
-              "official_name": "ŻYRARDÓW D",
-              "id": "2502987:2600503",
-              "designator": 6886,
-              "lat": 52.052346,
-              "lon": 20.447317
+              "official_name": "DZIAŁKI - MŁYŃSKA",
+              "id": "2030190:2103478",
+              "designator": 2678,
+              "lat": 52.065029,
+              "lon": 20.406735
             },
             {
               "name": "Żeromskiego/Poznańska",
@@ -2833,7 +2833,7 @@
         {
           "id": "4b",
           "label": "ŻYRARDÓW SPÓŁDZIELCZA → WISKITKI  PL. Wolności 5/6 / I",
-          "short": "ŻYRARDÓW SPÓŁDZIELCZA → WISKITKI  PL. Wo",
+          "short": "ŻYRARDÓW SPÓŁDZIELCZA → WISKITKI  PL. Wolności 5/6 / I",
           "baseTimes": {
             "weekday": [
               "05:00",
@@ -2884,9 +2884,9 @@
             "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
             "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
             "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
-            "ŻYRARDÓW D",
-            "ŻYRARDÓW D",
-            "ŻYRARDÓW D",
+            "DZIAŁKI - MŁYŃSKA",
+            "DZIAŁKI OSP",
+            "DZIAŁKI MAŁE",
             "Wiskitki Szkoła",
             "WISKITKI  PL. Wolności 5/6 / I"
           ],
@@ -3037,27 +3037,27 @@
             },
             {
               "name": "Działki - Młyńska",
-              "official_name": "ŻYRARDÓW D",
-              "id": "2502987:2600503",
-              "designator": 6886,
-              "lat": 52.052346,
-              "lon": 20.447317
+              "official_name": "DZIAŁKI - MŁYŃSKA",
+              "id": "2030190:2103479",
+              "designator": 2679,
+              "lat": 52.065104,
+              "lon": 20.406333
             },
             {
-              "name": "Działki Osp",
-              "official_name": "ŻYRARDÓW D",
-              "id": "2502987:2600503",
-              "designator": 6886,
-              "lat": 52.052346,
-              "lon": 20.447317
+              "name": "Działki OSP",
+              "official_name": "DZIAŁKI OSP",
+              "id": "2030033:2103240",
+              "designator": 2440,
+              "lat": 52.06705,
+              "lon": 20.395969
             },
             {
               "name": "Działki Małe",
-              "official_name": "ŻYRARDÓW D",
-              "id": "2502987:2600503",
-              "designator": 6886,
-              "lat": 52.052346,
-              "lon": 20.447317
+              "official_name": "DZIAŁKI MAŁE",
+              "id": "2030032:2103238",
+              "designator": 2438,
+              "lat": 52.071555,
+              "lon": 20.394167
             },
             {
               "name": "Wiskitki Szkoła",
@@ -3089,7 +3089,7 @@
         {
           "id": "5a",
           "label": "ŻYRARDÓW MOSTOWA PĘTLA → ŻYRARDÓW KORYTÓW",
-          "short": "ŻYRARDÓW MOSTOWA PĘTLA → ŻYRARDÓW KORYTÓ",
+          "short": "ŻYRARDÓW MOSTOWA PĘTLA → ŻYRARDÓW KORYTÓW",
           "baseTimes": {
             "weekday": [
               "06:11",
@@ -3463,7 +3463,7 @@
         {
           "id": "5b",
           "label": "ŻYRARDÓW KORYTÓW → ŻYRARDÓW MOSTOWA PĘTLA",
-          "short": "ŻYRARDÓW KORYTÓW → ŻYRARDÓW MOSTOWA PĘTL",
+          "short": "ŻYRARDÓW KORYTÓW → ŻYRARDÓW MOSTOWA PĘTLA",
           "baseTimes": {
             "weekday": [
               "07:05",
@@ -3818,8 +3818,8 @@
       "directions": [
         {
           "id": "7a",
-          "label": "ŻYRARDÓW ŻEROMKSIEGO PĘTLA → ŻYRARDÓW SPÓŁDZIELCZA",
-          "short": "ŻYRARDÓW ŻEROMKSIEGO PĘTLA → ŻYRARDÓW SP",
+          "label": "ŻYRARDÓW ŻEROMSKIEGO PĘTLA → ŻYRARDÓW SPÓŁDZIELCZA",
+          "short": "ŻYRARDÓW ŻEROMSKIEGO PĘTLA → ŻYRARDÓW SPÓŁDZIELCZA",
           "baseTimes": {
             "weekday": [],
             "saturday": [
@@ -3848,7 +3848,7 @@
             ]
           },
           "stops": [
-            "ŻYRARDÓW ŻEROMKSIEGO PĘTLA",
+            "ŻYRARDÓW ŻEROMSKIEGO PĘTLA",
             "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
             "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
             "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
@@ -4061,8 +4061,8 @@
         },
         {
           "id": "7b",
-          "label": "ŻYRARDÓW SPÓŁDZIELCZA → ŻYRARDÓW ŻEROMKSIEGO PĘTLA",
-          "short": "ŻYRARDÓW SPÓŁDZIELCZA → ŻYRARDÓW ŻEROMKS",
+          "label": "ŻYRARDÓW SPÓŁDZIELCZA → ŻYRARDÓW ŻEROMSKIEGO PĘTLA",
+          "short": "ŻYRARDÓW SPÓŁDZIELCZA → ŻYRARDÓW ŻEROMSKIEGO PĘTLA",
           "baseTimes": {
             "weekday": [],
             "saturday": [
@@ -4110,7 +4110,7 @@
             "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
             "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
             "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
-            "ŻYRARDÓW ŻEROMKSIEGO PĘTLA"
+            "ŻYRARDÓW ŻEROMSKIEGO PĘTLA"
           ],
           "stops_full": [
             {
@@ -4287,7 +4287,7 @@
         {
           "id": "8a",
           "label": "WISKITKI  PL. Wolności 5/6 / I → ŻYRARDÓW SPÓŁDZIELCZA",
-          "short": "WISKITKI  PL. Wolności 5/6 / I → ŻYRARDÓ",
+          "short": "WISKITKI  PL. Wolności 5/6 / I → ŻYRARDÓW SPÓŁDZIELCZA",
           "baseTimes": {
             "weekday": [
               "04:55",
@@ -4324,8 +4324,8 @@
           "stops": [
             "WISKITKI  PL. Wolności 5/6 / I",
             "Wiskitki Szkoła",
-            "ŻYRARDÓW D",
-            "ŻYRARDÓW D",
+            "DZIAŁKI MAŁE",
+            "DZIAŁKI - MŁYŃSKA",
             "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
             "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
             "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
@@ -4368,19 +4368,19 @@
             },
             {
               "name": "Działki Małe",
-              "official_name": "ŻYRARDÓW D",
-              "id": "2502987:2600503",
-              "designator": 6886,
-              "lat": 52.052346,
-              "lon": 20.447317
+              "official_name": "DZIAŁKI MAŁE",
+              "id": "2030032:2103237",
+              "designator": 2437,
+              "lat": 52.071512,
+              "lon": 20.393871
             },
             {
               "name": "Działki - Młyńska",
-              "official_name": "ŻYRARDÓW D",
-              "id": "2502987:2600503",
-              "designator": 6886,
-              "lat": 52.052346,
-              "lon": 20.447317
+              "official_name": "DZIAŁKI - MŁYŃSKA",
+              "id": "2030190:2103478",
+              "designator": 2678,
+              "lat": 52.065029,
+              "lon": 20.406735
             },
             {
               "name": "Żeromskiego/Poznańska",
@@ -4563,7 +4563,7 @@
         {
           "id": "8b",
           "label": "ŻYRARDÓW SPÓŁDZIELCZA → WISKITKI  PL. Wolności 5/6 / I",
-          "short": "ŻYRARDÓW SPÓŁDZIELCZA → WISKITKI  PL. Wo",
+          "short": "ŻYRARDÓW SPÓŁDZIELCZA → WISKITKI  PL. Wolności 5/6 / I",
           "baseTimes": {
             "weekday": [
               "05:35",
@@ -4617,8 +4617,8 @@
             "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
             "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
             "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
-            "ŻYRARDÓW D",
-            "ŻYRARDÓW D",
+            "DZIAŁKI - MŁYŃSKA",
+            "DZIAŁKI MAŁE",
             "Wiskitki Szkoła",
             "WISKITKI  PL. Wolności 5/6 / I"
           ],
@@ -4777,19 +4777,19 @@
             },
             {
               "name": "Działki - Młyńska",
-              "official_name": "ŻYRARDÓW D",
-              "id": "2502987:2600503",
-              "designator": 6886,
-              "lat": 52.052346,
-              "lon": 20.447317
+              "official_name": "DZIAŁKI - MŁYŃSKA",
+              "id": "2030190:2103479",
+              "designator": 2679,
+              "lat": 52.065104,
+              "lon": 20.406333
             },
             {
               "name": "Działki Małe",
-              "official_name": "ŻYRARDÓW D",
-              "id": "2502987:2600503",
-              "designator": 6886,
-              "lat": 52.052346,
-              "lon": 20.447317
+              "official_name": "DZIAŁKI MAŁE",
+              "id": "2030032:2103238",
+              "designator": 2438,
+              "lat": 52.071555,
+              "lon": 20.394167
             },
             {
               "name": "Wiskitki Szkoła",
@@ -4820,8 +4820,8 @@
       "directions": [
         {
           "id": "9a",
-          "label": "ŻYRARDÓW ŻEROMKSIEGO PĘTLA → ŻYRARDÓW D.A.",
-          "short": "ŻYRARDÓW ŻEROMKSIEGO PĘTLA → ŻYRARDÓW D.",
+          "label": "ŻYRARDÓW ŻEROMSKIEGO PĘTLA → ŻYRARDÓW D.A.",
+          "short": "ŻYRARDÓW ŻEROMSKIEGO PĘTLA → ŻYRARDÓW D.A.",
           "baseTimes": {
             "weekday": [
               "05:04",
@@ -4845,7 +4845,7 @@
             ]
           },
           "stops": [
-            "ŻYRARDÓW ŻEROMKSIEGO PĘTLA",
+            "ŻYRARDÓW ŻEROMSKIEGO PĘTLA",
             "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
             "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
             "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
@@ -4950,8 +4950,8 @@
         },
         {
           "id": "9b",
-          "label": "ŻYRARDÓW D.A. → ŻYRARDÓW ŻEROMKSIEGO PĘTLA",
-          "short": "ŻYRARDÓW D.A. → ŻYRARDÓW ŻEROMKSIEGO PĘT",
+          "label": "ŻYRARDÓW D.A. → ŻYRARDÓW ŻEROMSKIEGO PĘTLA",
+          "short": "ŻYRARDÓW D.A. → ŻYRARDÓW ŻEROMSKIEGO PĘTLA",
           "baseTimes": {
             "weekday": [
               "04:54",
@@ -4994,7 +4994,7 @@
             "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
             "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
             "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
-            "ŻYRARDÓW ŻEROMKSIEGO PĘTLA"
+            "ŻYRARDÓW ŻEROMSKIEGO PĘTLA"
           ],
           "stops_full": [
             {
@@ -5106,8 +5106,8 @@
       "directions": [
         {
           "id": "10a",
-          "label": "ŻYRARDÓW MOSTOWA PĘTLA → ŻYRARDÓW KORYTÓW",
-          "short": "ŻYRARDÓW MOSTOWA PĘTLA → ŻYRARDÓW KORYTÓ",
+          "label": "ŻYRARDÓW MOSTOWA PĘTLA → KORYTÓW LAS",
+          "short": "ŻYRARDÓW MOSTOWA PĘTLA → KORYTÓW LAS",
           "baseTimes": {
             "weekday": [
               "07:00",
@@ -5165,10 +5165,10 @@
             "ŻYRARDÓW MICKIEWICZA/ROSZARNI",
             "ŻYRARDÓW MICKIEWICZA/DZIAŁKI",
             "ŻYRARDÓW KORYTÓW",
-            "ŻYRARDÓW KORYTÓW",
-            "ŻYRARDÓW KORYTÓW",
-            "ŻYRARDÓW KORYTÓW",
-            "ŻYRARDÓW KORYTÓW"
+            "KORYTÓW(A)-SZKOŁA",
+            "KORYTÓW STRAŻ",
+            "KORYTÓW POLNA",
+            "KORYTÓW LAS"
           ],
           "stops_full": [
             {
@@ -5477,42 +5477,42 @@
             },
             {
               "name": "Korytów(A)-Szkoła",
-              "official_name": "ŻYRARDÓW KORYTÓW",
-              "id": "2029843:2102887",
-              "designator": 2087,
-              "lat": 52.030783,
-              "lon": 20.464964
+              "official_name": "KORYTÓW(A)-SZKOŁA",
+              "id": "2029987:2103155",
+              "designator": 2355,
+              "lat": 52.029543,
+              "lon": 20.467277
             },
             {
               "name": "Korytów Straż",
-              "official_name": "ŻYRARDÓW KORYTÓW",
-              "id": "2029843:2102887",
-              "designator": 2087,
-              "lat": 52.030783,
-              "lon": 20.464964
+              "official_name": "KORYTÓW STRAŻ",
+              "id": "2029988:2103157",
+              "designator": 2357,
+              "lat": 52.024764,
+              "lon": 20.474937
             },
             {
               "name": "Korytów Polna",
-              "official_name": "ŻYRARDÓW KORYTÓW",
-              "id": "2029843:2102887",
-              "designator": 2087,
-              "lat": 52.030783,
-              "lon": 20.464964
+              "official_name": "KORYTÓW POLNA",
+              "id": "2029989:2103159",
+              "designator": 2359,
+              "lat": 52.020817,
+              "lon": 20.480616
             },
             {
               "name": "Korytów Las",
-              "official_name": "ŻYRARDÓW KORYTÓW",
-              "id": "2029843:2102887",
-              "designator": 2087,
-              "lat": 52.030783,
-              "lon": 20.464964
+              "official_name": "KORYTÓW LAS",
+              "id": "2030233:2103532",
+              "designator": 2732,
+              "lat": 52.01765,
+              "lon": 20.487241
             }
           ]
         },
         {
           "id": "10b",
-          "label": "ŻYRARDÓW KORYTÓW → ŻYRARDÓW MOSTOWA PĘTLA",
-          "short": "ŻYRARDÓW KORYTÓW → ŻYRARDÓW MOSTOWA PĘTL",
+          "label": "KORYTÓW LAS → ŻYRARDÓW MOSTOWA PĘTLA",
+          "short": "KORYTÓW LAS → ŻYRARDÓW MOSTOWA PĘTLA",
           "baseTimes": {
             "weekday": [
               "06:07",
@@ -5532,10 +5532,10 @@
             ]
           },
           "stops": [
-            "ŻYRARDÓW KORYTÓW",
-            "ŻYRARDÓW KORYTÓW",
-            "ŻYRARDÓW KORYTÓW",
-            "ŻYRARDÓW KORYTÓW",
+            "KORYTÓW LAS",
+            "KORYTÓW POLNA",
+            "KORYTÓW STRAŻ",
+            "KORYTÓW(A)-SZKOŁA",
             "ŻYRARDÓW KORYTÓW",
             "ŻYRARDÓW MICKIEWICZA/DZIAŁKI",
             "ŻYRARDÓW MICKIEWICZA/ROSZARNI",
@@ -5575,35 +5575,35 @@
           "stops_full": [
             {
               "name": "Korytów Las",
-              "official_name": "ŻYRARDÓW KORYTÓW",
-              "id": "2029843:2102888",
-              "designator": 2088,
-              "lat": 52.03097,
-              "lon": 20.464792
+              "official_name": "KORYTÓW LAS",
+              "id": "2030233:2103533",
+              "designator": 2733,
+              "lat": 52.017479,
+              "lon": 20.487627
             },
             {
               "name": "Korytów Polna",
-              "official_name": "ŻYRARDÓW KORYTÓW",
-              "id": "2029843:2102888",
-              "designator": 2088,
-              "lat": 52.03097,
-              "lon": 20.464792
+              "official_name": "KORYTÓW POLNA",
+              "id": "2029989:2103160",
+              "designator": 2360,
+              "lat": 52.020358,
+              "lon": 20.481797
             },
             {
               "name": "Korytów Straż",
-              "official_name": "ŻYRARDÓW KORYTÓW",
-              "id": "2029843:2102888",
-              "designator": 2088,
-              "lat": 52.03097,
-              "lon": 20.464792
+              "official_name": "KORYTÓW STRAŻ",
+              "id": "2029988:2103158",
+              "designator": 2358,
+              "lat": 52.025081,
+              "lon": 20.474508
             },
             {
               "name": "Korytów(A)-Szkoła",
-              "official_name": "ŻYRARDÓW KORYTÓW",
-              "id": "2029843:2102888",
-              "designator": 2088,
-              "lat": 52.03097,
-              "lon": 20.464792
+              "official_name": "KORYTÓW(A)-SZKOŁA",
+              "id": "2029987:2103156",
+              "designator": 2356,
+              "lat": 52.029754,
+              "lon": 20.46659
             },
             {
               "name": "Żyrardów Korytów",
