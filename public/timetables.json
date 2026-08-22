@@ -1,10 +1,122 @@
 {
   "meta": {
-    "version": "2026-08-20-PKS-REAL-DAYTYPES",
-    "generatedAt": "2026-08-20T20:13:50Z",
-    "source": "PKS Gostynin ONLY with real D/C daytypes",
-    "totalLines": 11,
-    "totalStationEntries": 537
+    "version": "2026-08-22",
+    "generatedAt": "2026-08-22T19:18:05Z",
+    "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady, http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/",
+    "pdfsFound": 22,
+    "pdfs": [
+      {
+        "text": "Linia nr 1 Żyrardów Spółdzielcza PKP (965)(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,236,linia-nr-1-zyrardow-spoldzielcza-pkp-965.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Linia nr  2 Żyrardów Żeromskiego Poznańska Parkingowa Nowe Kozłowice Stare Kozłowice Żyrardów (966)(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,14,linia-nr-2-zyrardow-zeromskiego-poznanska-parkingowa-nowe-kozlowice-stare-kozlowice-zyrardow-966.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Linia nr 3 Działki OSP - Żyrardów - Żeromskiego - Poznańska - Jaktorowska (967)(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,15,linia-nr-3-dzialki-osp-zyrardow-zeromskiego-poznanska-jaktorowska-967.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Linia nr 4 Wiskitki Pl. Wolności - Spółdzielcza p. Działki (968)(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,18,linia-nr-4-wiskitki-pl-wolnosci-spoldzielcza-p-dzialki-968.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Linia nr 5 Żyrardów Mostowa - Korytów p. Okrzei, PKP (969)(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,235,linia-nr-5-z-yrardo-w-mostowa-koryto-w-p-okrzei-pkp-969.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Linia nr 7 Żyrardów Żeromskiego - Parkingowa - Spółdzielcza (971)(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,20,linia-nr-7-zyrardow-zeromskiego-parkingowa-spoldzielcza-971.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Linia nr 8 Wiskitki Pl. Wolności Żyrardów Żeromskiego - Parkingowa - Spółdzielcza (1006)(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,21,linia-nr-8-wiskitki-pl-wolnosci-zyrardow-zeromskiego-parkingowa-spoldzielcza-1006.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Linia nr 9 Żyrardów Żeromskiego PKP (970)(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,22,linia-nr-9-zyrardow-zeromskiego-pkp-970.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Linia nr 10 Żyrardów Mostowa - Korytów Las p. Ossowskiego, Parkingowa (1005)(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,23,linia-nr-10-zyrardow-mostowa-korytow-las-p-ossowskiego-parkingowa-1005.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Linia Różanów - Żyrardów (1957)(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,180,linia-rozanow-zyrardow-1957.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Kąty Szkoła - Kuznocin 72 p. Rozlazłów ( 818)(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,206,katy-szkola-kuznocin-72-p-rozlazlow-818.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Linia 0 Żeromskiego – Zalew (przez PKP)",
+        "href": "http://pksgostynin.pl/wp-content/uploads/2026/07/Linia-0-Żeromskiego.pdf",
+        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
+      },
+      {
+        "text": "Linia 0 Spółdzielcza – Zalew (przez PKP)",
+        "href": "http://pksgostynin.pl/wp-content/uploads/2026/07/Linia-0-Spółdzielcza.pdf",
+        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
+      },
+      {
+        "text": "Linia 1",
+        "href": "http://pksgostynin.pl/wp-content/uploads/2026/04/Linia-1.pdf",
+        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
+      },
+      {
+        "text": "Linia 2",
+        "href": "http://pksgostynin.pl/wp-content/uploads/2026/04/Linia-2-1.pdf",
+        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
+      },
+      {
+        "text": "Linia 3",
+        "href": "http://pksgostynin.pl/wp-content/uploads/2026/04/Linia-3.pdf",
+        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
+      },
+      {
+        "text": "Linia 4",
+        "href": "http://pksgostynin.pl/wp-content/uploads/2026/07/Linia-4-1.pdf",
+        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
+      },
+      {
+        "text": "Linia 5",
+        "href": "http://pksgostynin.pl/wp-content/uploads/2026/07/Linia-5-04.07-prprawiona.pdf",
+        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
+      },
+      {
+        "text": "Linia 7",
+        "href": "http://pksgostynin.pl/wp-content/uploads/2026/04/Linia-7.pdf",
+        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
+      },
+      {
+        "text": "Linia 8",
+        "href": "http://pksgostynin.pl/wp-content/uploads/2026/04/Linia-8.pdf",
+        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
+      },
+      {
+        "text": "Linia 9",
+        "href": "http://pksgostynin.pl/wp-content/uploads/2026/04/Linia-9.pdf",
+        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
+      },
+      {
+        "text": "Linia 10",
+        "href": "http://pksgostynin.pl/wp-content/uploads/2026/04/Linia-10.pdf",
+        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
+      }
+    ],
+    "note": "Wygenerowano przez scraper.py - podmień logikę parse na pełne tabele per przystanek. Ten plik jest kompatybilny z index.html v2."
   },
   "lines": [
     {

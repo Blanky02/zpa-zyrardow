@@ -1,6 +1,6 @@
 // Auto-generated from pksgostynin.kiedyprzyjedzie.pl API
-// Generated: 2026-08-20T20:43:51.953539
-// Version: 2026-08-20
+// Generated: 2026-08-22T19:18:07.185399
+// Version: 2026-08-22
 const STOP_COORDS = {
   "ŻYRARDÓW 1": {
     "lat": 52.04756,
