@@ -39,3 +39,4 @@ pnpm-debug.log*
 
 # Arena
 .arena/
+dev-dist/
