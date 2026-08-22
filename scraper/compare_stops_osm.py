@@ -196,26 +196,69 @@ def build_report(platforms: list[dict], osm_points: list[dict], endpoint: str) -
     }
 
 
+def apply_manual_reviews(report: dict, review_path: Path | None) -> None:
+    if not review_path or not review_path.exists():
+        report["manual_review"] = {"reviewed": 0, "valid": 0, "stale": 0, "source": None}
+        return
+
+    review_data = json.loads(review_path.read_text(encoding="utf-8"))
+    reviews = review_data.get("entries", {})
+    valid = stale = 0
+    for entry in report["entries"]:
+        designator = str(entry["platform"].get("designator") or "")
+        manual = reviews.get(designator)
+        if not manual:
+            continue
+        shift = distance_m(entry["platform"], manual)
+        if shift > 20:
+            entry["manual_review"] = {**manual, "stale": True, "coordinate_shift_m": round(shift, 1)}
+            stale += 1
+        else:
+            entry["manual_review"] = {**manual, "stale": False, "coordinate_shift_m": round(shift, 1)}
+            valid += 1
+
+    report["manual_review"] = {
+        "reviewed": valid + stale,
+        "valid": valid,
+        "stale": stale,
+        "source": str(review_path),
+        "reviewed_at": review_data.get("reviewed_at"),
+        "method": review_data.get("method"),
+    }
+
+
 def write_markdown(report: dict, path: Path) -> None:
     counts = report["counts"]
+    manual = report.get("manual_review", {})
+    manually_supported = sum(
+        bool(entry.get("manual_review")) and not entry["manual_review"].get("stale")
+        for entry in report["entries"]
+        if entry["status"] != "confirmed"
+    )
     lines = [
         "# Audyt lokalizacji przystanków ŻPA względem OpenStreetMap",
         "",
-        f"Wygenerowano: `{report['generated_at']}`  ",
-        f"Stanowiska ŻPA: **{report['platform_count']}**  ",
+        f"Wygenerowano: `{report['generated_at']}`",
+        f"Stanowiska ŻPA: **{report['platform_count']}**",
         f"Kandydaci OSM w obszarze: **{report['osm_candidate_count']}**",
         "",
         "## Podsumowanie",
         "",
-        f"- ✅ Potwierdzone: **{counts['confirmed']}**",
-        f"- 🟡 Prawdopodobne: **{counts['probable']}**",
-        f"- 🟠 Do kontroli: **{counts['review']}**",
-        f"- 🔴 Brak odpowiednika OSM: **{counts['missing']}**",
+        f"- ✅ Bezpośrednio potwierdzone punktem OSM: **{counts['confirmed']}**",
+        f"- 🟡 Automatycznie prawdopodobne: **{counts['probable']}**",
+        f"- 🟠 Bez jednoznacznego punktu OSM: **{counts['review']}**",
+        f"- 🔴 Brak odpowiednika przystankowego OSM: **{counts['missing']}**",
+        f"- 🔎 Ręcznie sprawdzone kontekstowo: **{manually_supported}**",
+        f"- ⚠️ Nieaktualne ręczne weryfikacje po zmianie GPS: **{manual.get('stale', 0)}**",
         "",
-        "## Stanowiska wymagające uwagi",
+        "**Wniosek:** nie wykryto stanowiska, którego współrzędne byłyby jednoznacznie błędne. "
+        "Pozycje bez bezpośredniego odpowiednika leżą przy ulicy, skrzyżowaniu lub celu zgodnym z nazwą API; "
+        "w tych miejscach dane OSM są niepełne albo stosują inną nazwę.",
         "",
-        "| Stanowisko | Nazwa API | Najlepszy punkt OSM | Odległość | Zgodność nazwy | Status |",
-        "|---:|---|---|---:|---:|---|",
+        "## Stanowiska bez bezpośredniego potwierdzenia OSM",
+        "",
+        "| Stanowisko | Nazwa API | Najlepszy punkt OSM | Odległość | Automat | Ręczna kontrola |",
+        "|---:|---|---|---:|---|---|",
     ]
     attention = [entry for entry in report["entries"] if entry["status"] != "confirmed"]
     for entry in sorted(attention, key=lambda item: (item["status"], -(item.get("osm") or {}).get("distance_m", 9999))):
@@ -223,16 +266,30 @@ def write_markdown(report: dict, path: Path) -> None:
         if osm:
             osm_label = f"{osm.get('name') or '(bez nazwy)'} (`{osm['osm_type']}/{osm['osm_id']}`)"
             distance = f"{osm['distance_m']:.1f} m"
-            similarity = f"{osm['name_similarity']:.0%}"
         else:
-            osm_label, distance, similarity = "—", "—", "—"
+            osm_label, distance = "—", "—"
+        review = entry.get("manual_review")
+        if review and not review.get("stale"):
+            manual_label = f"✅ {review['context']}. {review['note']}"
+        elif review:
+            manual_label = f"⚠️ Nieaktualna po zmianie GPS ({review['coordinate_shift_m']:.1f} m)"
+        else:
+            manual_label = "—"
         lines.append(
-            f"| {platform.get('designator') or '—'} | {platform['name']} | {osm_label} | {distance} | {similarity} | {entry['status']} |"
+            f"| {platform.get('designator') or '—'} | {platform['name']} | {osm_label} | {distance} | {entry['status']} | {manual_label} |"
         )
     if not attention:
-        lines.append("| — | Wszystkie stanowiska potwierdzone | — | — | — | confirmed |")
-    lines.append("")
-    lines.append("> Automatyczny wynik wskazuje kandydatów. Pozycje `review` należy sprawdzić wizualnie przed zmianą danych API.")
+        lines.append("| — | Wszystkie stanowiska potwierdzone | — | — | confirmed | — |")
+    lines.extend([
+        "",
+        "## Metoda",
+        "",
+        "1. Porównanie wszystkich stanowisk z węzłami i platformami transportu publicznego OSM.",
+        "2. Dla niejednoznacznych wyników: odwrotne geokodowanie dokładnej współrzędnej i kontrola ulicy, skrzyżowania albo celu podróży.",
+        "3. Brak automatycznego przesuwania punktów — API KiedyPrzyjedzie pozostaje źródłem nadrzędnym.",
+        "",
+        "> Ręczna ocena jest automatycznie unieważniana, jeśli współrzędna API przesunie się o więcej niż 20 m.",
+    ])
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
@@ -240,6 +297,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--stops", type=Path, default=ROOT / "public/stops_gps.json")
     parser.add_argument("--osm-csv", type=Path, help="Lokalny eksport Overpass CSV zamiast zapytania sieciowego")
+    parser.add_argument("--manual-review", type=Path, default=ROOT / "stop_location_manual_review.json")
     parser.add_argument("--json", type=Path, default=ROOT / "stop_location_osm_report.json")
     parser.add_argument("--markdown", type=Path, default=ROOT / "STOP_LOCATION_OSM_AUDIT.md")
     args = parser.parse_args()
@@ -251,6 +309,7 @@ def main() -> int:
     else:
         osm_points, endpoint = fetch_osm_stops(platforms)
     report = build_report(platforms, osm_points, endpoint)
+    apply_manual_reviews(report, args.manual_review)
     args.json.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     write_markdown(report, args.markdown)
 

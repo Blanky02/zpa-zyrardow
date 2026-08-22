@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T22:36:40Z",
+  "generated_at": "2026-08-22T22:42:33Z",
   "overpass_endpoint": "snapshot:scraper/osm_stops_snapshot_2026-08-22.csv",
   "platform_count": 118,
   "osm_candidate_count": 129,
@@ -30,7 +30,16 @@
         "distance_m": 46.4,
         "name_similarity": 0.0
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.04756,
+        "lon": 20.442972,
+        "verdict": "context_supported",
+        "context": "ul. Reymonta; najbliższy przystanek OSM Reymonta 46 m",
+        "note": "Techniczna nazwa API ŻYRARDÓW 1 nie ma odpowiednika nazewniczego w OSM.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -96,7 +105,16 @@
         "distance_m": 19.9,
         "name_similarity": 0.0
       },
-      "status": "probable"
+      "status": "probable",
+      "manual_review": {
+        "lat": 52.058355,
+        "lon": 20.439832,
+        "verdict": "context_supported",
+        "context": "ul. Limanowskiego; najbliższy przystanek OSM Limanowskiego/Szpital 20 m",
+        "note": "Techniczna nazwa API ŻYRARDÓW 3 nie ma odpowiednika nazewniczego w OSM.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -118,7 +136,16 @@
         "distance_m": 153.4,
         "name_similarity": 0.219
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.054462,
+        "lon": 20.464713,
+        "verdict": "context_supported",
+        "context": "ul. Chmielna, w pobliżu numeru 13",
+        "note": "OSM nie zawiera odpowiadającego węzła przystankowego.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -250,7 +277,16 @@
         "distance_m": 30.5,
         "name_similarity": 0.2
       },
-      "status": "probable"
+      "status": "probable",
+      "manual_review": {
+        "lat": 52.066344,
+        "lon": 20.447141,
+        "verdict": "context_supported",
+        "context": "ul. Jedności Robotniczej / dawna nazwa Fieldorfa-Nila",
+        "note": "Różnica nazewnicza między źródłami, położenie ulicy jest zgodne.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -272,7 +308,16 @@
         "distance_m": 35.1,
         "name_similarity": 0.2
       },
-      "status": "probable"
+      "status": "probable",
+      "manual_review": {
+        "lat": 52.066291,
+        "lon": 20.447318,
+        "verdict": "context_supported",
+        "context": "ul. Jedności Robotniczej / dawna nazwa Fieldorfa-Nila",
+        "note": "Różnica nazewnicza między źródłami, położenie ulicy jest zgodne.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -404,7 +449,16 @@
         "distance_m": 42.6,
         "name_similarity": 1.0
       },
-      "status": "probable"
+      "status": "probable",
+      "manual_review": {
+        "lat": 52.060372,
+        "lon": 20.436106,
+        "verdict": "context_supported",
+        "context": "ul. Jasna, przy Szkole Podstawowej nr 1",
+        "note": "OSM ma przystanek Jasna/Szkoła 43 m dalej.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -426,7 +480,16 @@
         "distance_m": 75.9,
         "name_similarity": 1.0
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.060187,
+        "lon": 20.436509,
+        "verdict": "context_supported",
+        "context": "ul. Jasna, w pobliżu numeru 7",
+        "note": "OSM ma tylko jedno stanowisko Jasna/Szkoła.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -448,7 +511,16 @@
         "distance_m": 117.1,
         "name_similarity": 0.243
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.06857,
+        "lon": 20.44251,
+        "verdict": "context_supported",
+        "context": "ul. Kpt. Pałaca, przy skrzyżowaniu z ul. Kacperskiej",
+        "note": "Nazwa API pochodzi od ulicy poprzecznej; brak węzła OSM.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -646,7 +718,16 @@
         "distance_m": 170.7,
         "name_similarity": 1.0
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.050395,
+        "lon": 20.454252,
+        "verdict": "context_supported",
+        "context": "ul. Joachima Lelewela, okolice numerów 30–34",
+        "note": "OSM ma przystanek Dąbrowskiego/Lelewela w innej części ulicy.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -668,7 +749,16 @@
         "distance_m": 157.4,
         "name_similarity": 1.0
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.050268,
+        "lon": 20.454501,
+        "verdict": "context_supported",
+        "context": "ul. Joachima Lelewela, okolice numerów 30–32",
+        "note": "OSM ma przystanek Dąbrowskiego/Lelewela w innej części ulicy.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -1152,7 +1242,16 @@
         "distance_m": 45.2,
         "name_similarity": 1.0
       },
-      "status": "probable"
+      "status": "probable",
+      "manual_review": {
+        "lat": 52.051088,
+        "lon": 20.429517,
+        "verdict": "context_supported",
+        "context": "ul. Mostowa",
+        "note": "Najbliższy węzeł OSM Sikorskiego/Mostowa 45 m.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -1230,7 +1329,16 @@
         "source": "route"
       },
       "osm": null,
-      "status": "missing"
+      "status": "missing",
+      "manual_review": {
+        "lat": 52.08711,
+        "lon": 20.42478,
+        "verdict": "osm_missing_context_supported",
+        "context": "droga w miejscowości Nowe Kozłowice",
+        "note": "OSM nie ma węzła przystankowego, ale lokalizacja miejscowości i drogi jest zgodna.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -1252,7 +1360,16 @@
         "distance_m": 56.9,
         "name_similarity": 1.0
       },
-      "status": "probable"
+      "status": "probable",
+      "manual_review": {
+        "lat": 52.052352,
+        "lon": 20.437013,
+        "verdict": "context_supported",
+        "context": "ul. Stefana Okrzei, okolice numeru 54B",
+        "note": "OSM nazywa pobliski przystanek Okrzei/Wyspiańskiego.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -1362,7 +1479,16 @@
         "distance_m": 157.8,
         "name_similarity": 1.0
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.072274,
+        "lon": 20.438619,
+        "verdict": "context_supported",
+        "context": "ul. Parkingowa",
+        "note": "OSM zawiera tylko punkty pętli, nie to stanowisko pośrednie.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -1384,7 +1510,16 @@
         "distance_m": 80.7,
         "name_similarity": 1.0
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.072241,
+        "lon": 20.439751,
+        "verdict": "context_supported",
+        "context": "ul. Parkingowa, okolice numeru 7",
+        "note": "Najbliższy punkt OSM Parkingowa Pętla 81 m.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -1406,7 +1541,16 @@
         "distance_m": 306.6,
         "name_similarity": 0.212
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.070064,
+        "lon": 20.444806,
+        "verdict": "context_supported",
+        "context": "ul. Parkingowa w kierunku ul. Kpt. Pałaca",
+        "note": "OSM nie ma węzła o złożonej nazwie API.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -1472,7 +1616,16 @@
         "distance_m": 213.2,
         "name_similarity": 0.515
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.063658,
+        "lon": 20.442338,
+        "verdict": "context_supported",
+        "context": "ul. Michała Ossowskiego, w pobliżu ul. Peszkowskiego",
+        "note": "Nazwa API pochodzi od ulicy poprzecznej; brak węzła OSM.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -1494,7 +1647,16 @@
         "distance_m": 203.5,
         "name_similarity": 0.268
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.064375,
+        "lon": 20.438681,
+        "verdict": "context_supported",
+        "context": "ul. Piękna, okolice numeru 3K",
+        "note": "OSM ma inne stanowiska Piękna, ale nie ten punkt.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -1516,7 +1678,16 @@
         "distance_m": 294.6,
         "name_similarity": 1.0
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.063445,
+        "lon": 20.437265,
+        "verdict": "context_supported",
+        "context": "ul. Piękna, okolice numeru 7B",
+        "note": "OSM ma inne stanowiska Piękna, ale nie ten punkt.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -1736,7 +1907,16 @@
         "distance_m": 92.6,
         "name_similarity": 1.0
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.041852,
+        "lon": 20.443472,
+        "verdict": "context_supported",
+        "context": "ul. Rolna, okolice numeru 14B",
+        "note": "OSM ma przystanek P. Skargi/Rolna 93 m dalej.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -1758,7 +1938,16 @@
         "distance_m": 157.5,
         "name_similarity": 0.643
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.049648,
+        "lon": 20.43131,
+        "verdict": "context_supported",
+        "context": "ul. Generała Sikorskiego, okolice numeru 11A",
+        "note": "Nazwa API wskazuje pobliską ul. Maczka; brak węzła OSM.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -1780,7 +1969,16 @@
         "distance_m": 262.8,
         "name_similarity": 0.643
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.04877,
+        "lon": 20.431911,
+        "verdict": "context_supported",
+        "context": "ul. Generała Sikorskiego, okolice numeru 10A",
+        "note": "Nazwa API wskazuje pobliską ul. Maczka; brak węzła OSM.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -2154,7 +2352,16 @@
         "distance_m": 22.7,
         "name_similarity": 0.097
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.054163,
+        "lon": 20.426978,
+        "verdict": "context_supported",
+        "context": "ul. Wittenberga przy rejonie ul. Szarych Szeregów",
+        "note": "Pobliskie stanowisko OSM ma inną nazwę Wittenberga k. Żabki.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -2198,7 +2405,16 @@
         "distance_m": 161.6,
         "name_similarity": 0.372
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.059931,
+        "lon": 20.439561,
+        "verdict": "context_supported",
+        "context": "rejon ul. Waryńskiego i Limanowskiego przy szpitalu",
+        "note": "OSM nie ma odpowiadającego stanowiska.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -2220,7 +2436,16 @@
         "distance_m": 141.2,
         "name_similarity": 0.232
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.059493,
+        "lon": 20.438638,
+        "verdict": "context_supported",
+        "context": "ul. Ludwika Waryńskiego, okolice numerów 11–19",
+        "note": "Położenie na nazwanej ulicy jest zgodne.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -2242,7 +2467,16 @@
         "distance_m": 142.4,
         "name_similarity": 0.293
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.051384,
+        "lon": 20.458806,
+        "verdict": "context_supported",
+        "context": "ul. Dąbrowskiego w pobliżu ul. Wawelskiej",
+        "note": "Nazwa API pochodzi od ulicy poprzecznej; brak węzła OSM.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -2264,7 +2498,16 @@
         "distance_m": 103.2,
         "name_similarity": 0.293
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.051267,
+        "lon": 20.458254,
+        "verdict": "context_supported",
+        "context": "ul. Dąbrowskiego w pobliżu ul. Wawelskiej",
+        "note": "Nazwa API pochodzi od ulicy poprzecznej; brak węzła OSM.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -2298,7 +2541,16 @@
         "source": "route"
       },
       "osm": null,
-      "status": "missing"
+      "status": "missing",
+      "manual_review": {
+        "lat": 52.082353,
+        "lon": 20.385157,
+        "verdict": "osm_missing_context_supported",
+        "context": "ul. Tadeusza Kościuszki w Wiskitkach, przy zabudowaniach szkolnych",
+        "note": "OSM nie ma węzła przystankowego, ale kontekst lokalizacji jest zgodny.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -2342,7 +2594,16 @@
         "distance_m": 54.0,
         "name_similarity": 1.0
       },
-      "status": "probable"
+      "status": "probable",
+      "manual_review": {
+        "lat": 52.055373,
+        "lon": 20.427542,
+        "verdict": "context_supported",
+        "context": "ul. Księdza Ottona Wittenberga, okolice numeru 8",
+        "note": "OSM przypisuje pobliskim stanowiskom bardziej szczegółowe nazwy.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -2386,7 +2647,16 @@
         "distance_m": 474.3,
         "name_similarity": 0.297
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.03675,
+        "lon": 20.45089,
+        "verdict": "context_supported",
+        "context": "Parking Kąpielisko Zalew Żyrardowski",
+        "note": "OSM nie ma węzła autobusowego, ale punkt znajduje się przy celu wskazanym nazwą.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -2430,7 +2700,16 @@
         "distance_m": 131.2,
         "name_similarity": 1.0
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.058067,
+        "lon": 20.421515,
+        "verdict": "context_supported",
+        "context": "ul. Stefana Żeromskiego, okolice numeru 28",
+        "note": "OSM ma przystanek Żeromskiego/Krzywa 131 m dalej; API wskazuje inne stanowisko na tej samej ulicy.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -2474,7 +2753,16 @@
         "distance_m": 69.3,
         "name_similarity": 1.0
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.057266,
+        "lon": 20.425613,
+        "verdict": "context_supported",
+        "context": "ul. Stefana Żeromskiego, okolice numeru 14B",
+        "note": "OSM ma przystanek Żeromskiego/Piastowska 69 m dalej.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -2518,7 +2806,16 @@
         "distance_m": 74.9,
         "name_similarity": 0.61
       },
-      "status": "review"
+      "status": "review",
+      "manual_review": {
+        "lat": 52.05878,
+        "lon": 20.417711,
+        "verdict": "context_supported",
+        "context": "ul. Stefana Żeromskiego, okolice numeru 42B",
+        "note": "OSM nie ma stanowiska Poznańska w tej lokalizacji.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     },
     {
       "platform": {
@@ -2584,7 +2881,24 @@
         "distance_m": 17.7,
         "name_similarity": 0.103
       },
-      "status": "probable"
+      "status": "probable",
+      "manual_review": {
+        "lat": 52.051017,
+        "lon": 20.443059,
+        "verdict": "context_supported",
+        "context": "ul. Radziwiłłowska przy kompleksie ZUS",
+        "note": "OSM nazywa pobliski przystanek Polskiej Organizacji Wojskowej.",
+        "stale": false,
+        "coordinate_shift_m": 0.0
+      }
     }
-  ]
+  ],
+  "manual_review": {
+    "reviewed": 34,
+    "valid": 34,
+    "stale": 0,
+    "source": "/home/user/zpa-zyrardow/stop_location_manual_review.json",
+    "reviewed_at": "2026-08-23",
+    "method": "Ręczne porównanie współrzędnych API z węzłami przystanków OSM oraz odwrotnym geokodowaniem Nominatim."
+  }
 }
