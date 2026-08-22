@@ -139,7 +139,12 @@ def build_timetables_from_pdfs(pdf_items, output_path):
     # for item in pdf_items:
     #   ...
     #   data['lines'].append(...)
-    
+
+    # Nazwy techniczne z API (np. "ŻYRARDÓW D") nie mogą zastępować
+    # kolejności i nazw widocznych w oficjalnych tabelach PDF.
+    from apply_pdf_stop_corrections import apply as apply_pdf_stop_corrections
+    data = apply_pdf_stop_corrections(data)
+
     with open(output_path, 'w', encoding='utf-8') as out:
         json.dump(data, out, ensure_ascii=False, indent=2)
     print(f"✅ Zapisano {output_path} ({len(pdf_items)} PDFów)")

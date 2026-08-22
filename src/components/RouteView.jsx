@@ -1,7 +1,110 @@
-import React, { useState, useMemo } from 'react';
-import { Box, Card, CardContent, Typography, TextField, Button, Chip, Stack, Paper, Grid, InputAdornment, Divider, LinearProgress } from '@mui/material';
-import { Search, SwapVert, DirectionsBus, Place } from '@mui/icons-material';
+import React, { useMemo, useState } from 'react';
+import {
+  Avatar,
+  Autocomplete,
+  Box,
+  Button,
+  ButtonBase,
+  Divider,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  MenuItem,
+  Paper,
+  Select,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
+import {
+  ArrowForwardRounded,
+  AltRouteRounded,
+  HistoryRounded,
+  SearchRounded,
+  SwapVertRounded,
+} from '@mui/icons-material';
 import { getUniqueStops, findDirectRoutes, getLineHex } from '../utils/stops.js';
+import { dayLabel } from '../utils/time.js';
+import { addRouteRecent, getRouteRecents } from '../utils/storage.js';
+
+const dayShort = {
+  weekday: 'Pn–pt',
+  saturday: 'Sobota',
+  sunday: 'Niedziela',
+};
+
+function StopField({ marker, label, placeholder, options, value, query, onValueChange, onQueryChange }) {
+  const selected = options.find(option => option.name === value) || null;
+
+  return (
+    <Autocomplete
+      freeSolo
+      autoHighlight
+      openOnFocus={false}
+      options={options}
+      value={selected}
+      inputValue={query}
+      getOptionLabel={(option) => typeof option === 'string' ? option : option.name}
+      filterOptions={(items, params) => {
+        const q = params.inputValue.trim().toLocaleLowerCase('pl');
+        if (q.length < 2) return [];
+        return items.filter(item => item.name.toLocaleLowerCase('pl').includes(q)).slice(0, 6);
+      }}
+      onChange={(_, option) => {
+        const name = typeof option === 'string' ? option : option?.name || '';
+        onValueChange(name);
+        onQueryChange(name);
+      }}
+      onInputChange={(_, next, reason) => {
+        onQueryChange(next);
+        if (reason === 'input') onValueChange('');
+      }}
+      renderOption={(props, option) => {
+        const { key, ...optionProps } = props;
+        return (
+          <Box component="li" key={key} {...optionProps} sx={{ gap: 1.5, py: '10px !important' }}>
+            <Box sx={{ minWidth: 0, flex: 1 }}>
+              <Typography variant="bodyMedium" sx={{ fontWeight: 650 }}>{option.name}</Typography>
+              <Typography variant="bodySmall" color="text.secondary">
+                Linie {option.lines || '—'}
+              </Typography>
+            </Box>
+          </Box>
+        );
+      }}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label={label}
+          placeholder={placeholder}
+          InputProps={{
+            ...params.InputProps,
+            startAdornment: (
+              <InputAdornment position="start">
+                <Box
+                  sx={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: '50%',
+                    display: 'grid',
+                    placeItems: 'center',
+                    bgcolor: marker === 'A' ? 'primary.main' : 'text.primary',
+                    color: marker === 'A' ? 'primary.contrastText' : 'background.paper',
+                    fontWeight: 750,
+                    fontSize: 12,
+                  }}
+                >
+                  {marker}
+                </Box>
+              </InputAdornment>
+            ),
+          }}
+        />
+      )}
+      slotProps={{ paper: { sx: { mt: 1, borderRadius: '20px' } } }}
+    />
+  );
+}
 
 export default function RouteView({ busData, state, setState, now }) {
   const [from, setFrom] = useState('');
@@ -9,150 +112,326 @@ export default function RouteView({ busData, state, setState, now }) {
   const [fromQuery, setFromQuery] = useState('');
   const [toQuery, setToQuery] = useState('');
   const [results, setResults] = useState([]);
+  const [hasSearched, setHasSearched] = useState(false);
+  const [error, setError] = useState('');
+  const [routeRecents, setRouteRecents] = useState(() => getRouteRecents());
 
-  const unique = useMemo(() => getUniqueStops(busData), [busData]);
+  const stops = useMemo(() => getUniqueStops(busData), [busData]);
+  const todayType = useMemo(() => {
+    const day = now.date.getDay();
+    return day === 0 ? 'sunday' : day === 6 ? 'saturday' : 'weekday';
+  }, [now.date]);
 
-  const fromMatches = useMemo(() => {
-    if (!fromQuery || fromQuery.length < 2) return [];
-    const q = fromQuery.toLowerCase();
-    return unique.filter(u => u.name.toLowerCase().includes(q)).slice(0, 6);
-  }, [unique, fromQuery]);
+  const searchRoutes = (fromStop = from || fromQuery, toStop = to || toQuery, selectedDay = state.dayType) => {
+    const start = fromStop.trim();
+    const end = toStop.trim();
 
-  const toMatches = useMemo(() => {
-    if (!toQuery || toQuery.length < 2) return [];
-    const q = toQuery.toLowerCase();
-    return unique.filter(u => u.name.toLowerCase().includes(q)).slice(0, 6);
-  }, [unique, toQuery]);
-
-  const handleSearch = () => {
-    const f = from || fromQuery;
-    const t = to || toQuery;
-    if (!f || !t) {
-      alert('Wybierz przystanek OD i DO');
+    if (!start || !end) {
+      setError('Wybierz przystanek początkowy i końcowy.');
       return;
     }
-    const routes = findDirectRoutes(busData, f, t, state.dayType);
-    const nowMin = now.minutes;
-    const upcoming = routes.filter(r => r.depMins >= nowMin).slice(0, 20);
-    setResults(upcoming.length ? upcoming : routes.slice(0, 20));
+    if (start === end) {
+      setError('Początek i cel podróży muszą być różne.');
+      return;
+    }
+
+    setError('');
+    const routes = findDirectRoutes(busData, start, end, selectedDay);
+    const visible = selectedDay === todayType
+      ? routes.filter(route => route.depMins >= now.minutes)
+      : routes;
+
+    setFrom(start);
+    setTo(end);
+    setFromQuery(start);
+    setToQuery(end);
+    setState(previous => ({ ...previous, dayType: selectedDay }));
+    setResults((visible.length ? visible : routes).slice(0, 30));
+    setHasSearched(true);
+    setRouteRecents(addRouteRecent(start, end, selectedDay));
   };
 
   const handleSwap = () => {
-    const a = from, b = to;
-    const aq = fromQuery, bq = toQuery;
-    setFrom(b); setTo(a);
-    setFromQuery(bq); setToQuery(aq);
+    setFrom(to);
+    setTo(from);
+    setFromQuery(toQuery);
+    setToQuery(fromQuery);
+    setResults([]);
+    setHasSearched(false);
+    setError('');
+  };
+
+  const useRecent = (route) => {
+    searchRoutes(route.from, route.to, route.dayType);
   };
 
   return (
-    <Box sx={{ maxWidth: 900, mx: 'auto' }}>
-      <Card sx={{ borderRadius: '28px', mb: 2 }}>
-        <CardContent sx={{ p: 3 }}>
-          <Typography variant="headlineSmall" sx={{ fontWeight: 700, mb: 1 }}>Gdzie chcesz jechać?</Typography>
-          <Typography variant="bodySmall" color="text.secondary" sx={{ mb: 2 }}>Wybierz przystanek początkowy i końcowy – pokażemy Ci bezpośrednie linie</Typography>
+    <Box>
+      <Box sx={{ mb: { xs: 2, md: 3 } }}>
+        <Typography variant="headlineSmall" sx={{ fontWeight: 750, letterSpacing: '-0.025em' }}>
+          Zaplanuj przejazd
+        </Typography>
+        <Typography variant="bodyMedium" color="text.secondary" sx={{ mt: 0.5 }}>
+          Wybierz dwa przystanki, a pokażemy najbliższe bezpośrednie połączenia.
+        </Typography>
+      </Box>
 
-          <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
-            {['weekday', 'saturday', 'sunday'].map(day => (
-              <Chip key={day} label={day === 'weekday' ? 'PN-PT' : day === 'saturday' ? 'SOB' : 'NDZ'} onClick={() => setState(prev => ({ ...prev, dayType: day }))} color={state.dayType === day ? 'primary' : 'default'} variant={state.dayType === day ? 'filled' : 'outlined'} size="small" />
-            ))}
-            <Typography variant="labelSmall" color="text.secondary" sx={{ alignSelf: 'center', ml: 1 }}>Dzień kursowania</Typography>
-          </Stack>
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', lg: 'minmax(340px, .85fr) minmax(480px, 1.25fr)' },
+          gap: { xs: 2, md: 3 },
+          alignItems: 'start',
+        }}
+      >
+        <Paper
+          elevation={0}
+          sx={{
+            p: { xs: 2.25, sm: 3 },
+            borderRadius: '28px',
+            bgcolor: 'primary.main',
+            color: 'primary.contrastText',
+            position: { lg: 'sticky' },
+            top: { lg: 166 },
+            overflow: 'visible',
+          }}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 2, mb: 2.5 }}>
+            <Box>
+              <Typography variant="titleLarge" sx={{ fontWeight: 750, letterSpacing: '-0.025em' }}>
+                Dokąd jedziesz?
+              </Typography>
+              <Typography variant="bodySmall" sx={{ opacity: 0.78, mt: 0.5 }}>
+                Rozkład dla wybranego dnia
+              </Typography>
+            </Box>
 
-          <Grid container spacing={2} alignItems="flex-end">
-            <Grid item xs={12} md={5}>
-              <Typography variant="labelSmall" sx={{ fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1, mb: 1, display: 'block' }}>Skąd (Od)</Typography>
-              <TextField
-                fullWidth
-                placeholder="Np. F. de Girarda"
-                value={fromQuery}
-                onChange={(e) => { setFromQuery(e.target.value); setFrom(''); }}
-                InputProps={{
-                  startAdornment: <InputAdornment position="start"><Box sx={{ width: 28, height: 28, borderRadius: '50%', bgcolor: 'primary.main', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 12 }}>A</Box></InputAdornment>,
-                  sx: { borderRadius: '16px', bgcolor: 'background.container', height: 56 }
+            <FormControl size="small">
+              <Select
+                value={state.dayType}
+                onChange={(event) => setState(previous => ({ ...previous, dayType: event.target.value }))}
+                aria-label="Dzień kursowania"
+                sx={{
+                  minWidth: 105,
+                  height: 38,
+                  borderRadius: '16px',
+                  bgcolor: 'rgba(255,255,255,.16)',
+                  color: 'white',
+                  fontWeight: 650,
+                  '.MuiOutlinedInput-notchedOutline': { border: 0 },
+                  '.MuiSvgIcon-root': { color: 'white' },
                 }}
-              />
-              {fromMatches.length > 0 && (
-                <Paper elevation={3} sx={{ mt: 1, borderRadius: '16px', overflow: 'hidden', maxHeight: 200, overflowY: 'auto' }}>
-                  {fromMatches.map((m, i) => (
-                    <Box key={i} onClick={() => { setFrom(m.name); setFromQuery(m.name); }} sx={{ p: 1.5, cursor: 'pointer', '&:hover': { bgcolor: 'action.hover' }, borderBottom: 1, borderColor: 'divider' }}>
-                      <Typography variant="bodySmall" sx={{ fontWeight: 600 }}>{m.name}</Typography>
-                      <Typography variant="labelSmall" color="text.secondary">{m.linesCount} linii</Typography>
-                    </Box>
-                  ))}
-                </Paper>
-              )}
-              {from && <Chip label={`Od: ${from}`} color="primary" size="small" sx={{ mt: 1 }} />}
-            </Grid>
+              >
+                {Object.entries(dayShort).map(([value, label]) => (
+                  <MenuItem key={value} value={value}>{label}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
 
-            <Grid item xs={12} md={2} sx={{ display: 'flex', justifyContent: 'center' }}>
-              <Button onClick={handleSwap} variant="contained" disableElevation sx={{ minWidth: 48, width: 48, height: 48, borderRadius: '50%', bgcolor: 'background.container', color: 'text.primary', '&:hover': { bgcolor: 'background.containerHigh' } }}><SwapVert /></Button>
-            </Grid>
+          <Paper elevation={0} sx={{ p: 1.25, borderRadius: '24px', bgcolor: 'background.paper' }}>
+            <StopField
+              marker="A"
+              label="Skąd"
+              placeholder="Wpisz przystanek"
+              options={stops}
+              value={from}
+              query={fromQuery}
+              onValueChange={setFrom}
+              onQueryChange={setFromQuery}
+            />
 
-            <Grid item xs={12} md={5}>
-              <Typography variant="labelSmall" sx={{ fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1, mb: 1, display: 'block' }}>Dokąd (Do)</Typography>
-              <TextField
-                fullWidth
-                placeholder="Np. Wittenberga"
-                value={toQuery}
-                onChange={(e) => { setToQuery(e.target.value); setTo(''); }}
-                InputProps={{
-                  startAdornment: <InputAdornment position="start"><Box sx={{ width: 28, height: 28, borderRadius: '50%', bgcolor: 'text.primary', color: 'background.paper', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 12 }}>B</Box></InputAdornment>,
-                  sx: { borderRadius: '16px', bgcolor: 'background.container', height: 56 }
+            <Box sx={{ height: 16, position: 'relative' }}>
+              <Box sx={{ position: 'absolute', left: 28, top: -3, bottom: -3, width: 2, bgcolor: 'divider' }} />
+              <IconButton
+                aria-label="Zamień przystanki"
+                onClick={handleSwap}
+                size="small"
+                sx={{
+                  position: 'absolute',
+                  right: 10,
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  bgcolor: 'background.container',
+                  color: 'text.primary',
+                  zIndex: 1,
+                  '&:hover': { bgcolor: 'background.containerHigh' },
                 }}
-              />
-              {toMatches.length > 0 && (
-                <Paper elevation={3} sx={{ mt: 1, borderRadius: '16px', overflow: 'hidden', maxHeight: 200, overflowY: 'auto' }}>
-                  {toMatches.map((m, i) => (
-                    <Box key={i} onClick={() => { setTo(m.name); setToQuery(m.name); }} sx={{ p: 1.5, cursor: 'pointer', '&:hover': { bgcolor: 'action.hover' }, borderBottom: 1, borderColor: 'divider' }}>
-                      <Typography variant="bodySmall" sx={{ fontWeight: 600 }}>{m.name}</Typography>
-                      <Typography variant="labelSmall" color="text.secondary">{m.linesCount} linii</Typography>
-                    </Box>
-                  ))}
-                </Paper>
-              )}
-              {to && <Chip label={`Do: ${to}`} color="secondary" size="small" sx={{ mt: 1 }} />}
-            </Grid>
-          </Grid>
+              >
+                <SwapVertRounded fontSize="small" />
+              </IconButton>
+            </Box>
 
-          <Button fullWidth variant="contained" size="large" onClick={handleSearch} startIcon={<Search />} sx={{ mt: 3, height: 56, borderRadius: '16px', fontWeight: 700, fontSize: 16 }}>Znajdź bezpośrednie połączenia</Button>
-          <Typography variant="labelSmall" color="text.secondary" sx={{ display: 'block', textAlign: 'center', mt: 1 }}>Pokazujemy tylko połączenia bezpośrednie bez przesiadek • +2 min na przystanek</Typography>
-        </CardContent>
-      </Card>
-
-      <Stack spacing={1.5}>
-        {results.length === 0 && from && to ? (
-          <Paper sx={{ p: 2, borderRadius: '16px', bgcolor: 'warning.container', color: 'warning.onContainer' }}>
-            <Typography variant="bodySmall">Brak bezpośrednich połączeń między tymi przystankami. Spróbuj innych przystanków.</Typography>
+            <StopField
+              marker="B"
+              label="Dokąd"
+              placeholder="Wpisz przystanek"
+              options={stops}
+              value={to}
+              query={toQuery}
+              onValueChange={setTo}
+              onQueryChange={setToQuery}
+            />
           </Paper>
-        ) : results.map((r, idx) => {
-          const diff = Math.max(0, r.depMins - now.minutes);
-          const isSoon = diff < 30;
-          return (
-            <Card key={idx} elevation={isSoon ? 2 : 0} sx={{ borderRadius: '20px', border: 1, borderColor: isSoon ? 'primary.main' : 'divider' }}>
-              <CardContent>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 2 }}>
-                  <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'center' }}>
-                    <Box sx={{ width: 44, height: 44, borderRadius: '12px', bgcolor: getLineHex(r.line.color), color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700 }}>{r.line.number}</Box>
-                    <Box>
-                      <Typography variant="titleMedium" sx={{ fontWeight: 700 }}>{r.depTime} → {r.arrTime} <Typography component="span" variant="labelSmall" color="text.secondary">{diff < 1 ? 'teraz' : `za ${diff} min`}</Typography></Typography>
-                      <Typography variant="bodySmall" color="text.secondary">{r.line.name} • {r.dir.short}</Typography>
-                    </Box>
-                  </Box>
-                  <Chip label={`${r.duration} min • ${r.stopsCount} przyst.`} size="small" color={isSoon ? 'primary' : 'default'} />
+
+          {error && (
+            <Typography variant="bodySmall" role="alert" sx={{ mt: 1.5, color: '#FFE3DE', fontWeight: 600 }}>
+              {error}
+            </Typography>
+          )}
+
+          <Button
+            fullWidth
+            variant="contained"
+            size="large"
+            startIcon={<SearchRounded />}
+            onClick={() => searchRoutes()}
+            sx={{
+              mt: 2,
+              minHeight: 54,
+              bgcolor: 'background.paper',
+              color: 'primary.main',
+              fontWeight: 750,
+              '&:hover': { bgcolor: 'background.containerHigh' },
+            }}
+          >
+            Pokaż połączenia
+          </Button>
+          <Typography variant="bodySmall" sx={{ opacity: 0.7, textAlign: 'center', mt: 1.25 }}>
+            Połączenia bezpośrednie · około 2 min na przystanek
+          </Typography>
+        </Paper>
+
+        <Paper elevation={0} sx={{ borderRadius: '28px', overflow: 'hidden', border: 1, borderColor: 'divider' }}>
+          {hasSearched ? (
+            <>
+              <Box sx={{ px: { xs: 2.25, sm: 3 }, py: 2.5, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 2 }}>
+                <Box>
+                  <Typography variant="titleLarge" sx={{ fontWeight: 750 }}>Najbliższe połączenia</Typography>
+                  <Typography variant="bodySmall" color="text.secondary" sx={{ mt: 0.4 }}>
+                    {from} → {to} · {dayLabel(state.dayType)}
+                  </Typography>
                 </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 2, color: 'text.secondary' }}>
-                  <Place fontSize="small" color="success" />
-                  <Typography variant="labelSmall">{from} → {to}</Typography>
+                <Typography variant="labelLarge" color="primary.main" sx={{ fontWeight: 700, whiteSpace: 'nowrap' }}>
+                  {results.length} {results.length === 1 ? 'wynik' : 'wyników'}
+                </Typography>
+              </Box>
+
+              <Divider />
+
+              {results.length === 0 ? (
+                <Box sx={{ px: 3, py: 8, textAlign: 'center' }}>
+                  <AltRouteRounded sx={{ fontSize: 44, color: 'text.disabled' }} />
+                  <Typography variant="titleMedium" sx={{ fontWeight: 700, mt: 1.5 }}>Brak bezpośredniego połączenia</Typography>
+                  <Typography variant="bodyMedium" color="text.secondary" sx={{ mt: 0.75 }}>
+                    Spróbuj wybrać inny przystanek lub dzień.
+                  </Typography>
                 </Box>
-                <Box sx={{ display: 'flex', mt: 1.5, height: 6, borderRadius: 3, overflow: 'hidden', bgcolor: 'background.container' }}>
-                  <Box sx={{ width: `${(r.fromIdx / r.dir.stops.length) * 100}%`, bgcolor: 'divider' }} />
-                  <Box sx={{ width: `${(r.stopsCount / r.dir.stops.length) * 100}%`, bgcolor: 'primary.main' }} />
+              ) : (
+                <Stack divider={<Divider flexItem />}>
+                  {results.map((route, index) => {
+                    const minutesLeft = Math.max(0, Math.floor(route.depMins - now.minutes));
+                    const showRelative = state.dayType === todayType && route.depMins >= now.minutes;
+                    return (
+                      <Box
+                        key={`${route.line.id}-${route.dir.id || route.dir.label}-${route.depTime}-${index}`}
+                        sx={{
+                          display: 'grid',
+                          gridTemplateColumns: { xs: '46px minmax(0, 1fr) auto', sm: '50px minmax(0, 1fr) 120px' },
+                          gap: { xs: 1.25, sm: 2 },
+                          alignItems: 'center',
+                          px: { xs: 2, sm: 3 },
+                          py: 2,
+                          '&:hover': { bgcolor: 'action.hover' },
+                        }}
+                      >
+                        <Avatar
+                          variant="rounded"
+                          sx={{
+                            width: 44,
+                            height: 44,
+                            borderRadius: '14px',
+                            bgcolor: getLineHex(route.line.color),
+                            fontWeight: 800,
+                          }}
+                        >
+                          {route.line.number}
+                        </Avatar>
+
+                        <Box sx={{ minWidth: 0 }}>
+                          <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 0.75, flexWrap: 'wrap' }}>
+                            <Typography variant="titleMedium" sx={{ fontWeight: 800, fontFamily: 'Roboto Mono' }}>
+                              {route.depTime}
+                            </Typography>
+                            <ArrowForwardRounded sx={{ fontSize: 16, color: 'text.disabled' }} />
+                            <Typography variant="bodyMedium" sx={{ fontFamily: 'Roboto Mono', color: 'text.secondary' }}>
+                              {route.arrTime}
+                            </Typography>
+                            {showRelative && (
+                              <Typography variant="labelMedium" color="primary.main" sx={{ fontWeight: 750 }}>
+                                {minutesLeft < 1 ? 'teraz' : `za ${minutesLeft} min`}
+                              </Typography>
+                            )}
+                          </Box>
+                          <Typography variant="bodySmall" color="text.secondary" noWrap sx={{ mt: 0.35 }}>
+                            {route.dir.short || route.line.name}
+                          </Typography>
+                        </Box>
+
+                        <Box sx={{ textAlign: 'right' }}>
+                          <Typography variant="bodyMedium" sx={{ fontWeight: 700 }}>{route.duration} min</Typography>
+                          <Typography variant="bodySmall" color="text.secondary">
+                            {route.stopsCount} przyst.
+                          </Typography>
+                        </Box>
+                      </Box>
+                    );
+                  })}
+                </Stack>
+              )}
+            </>
+          ) : (
+            <Box sx={{ p: { xs: 2.25, sm: 3 } }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25, mb: 2.5 }}>
+                <Box sx={{ width: 40, height: 40, borderRadius: '14px', bgcolor: 'primary.container', color: 'primary.onContainer', display: 'grid', placeItems: 'center' }}>
+                  <HistoryRounded />
                 </Box>
-              </CardContent>
-            </Card>
-          );
-        })}
-      </Stack>
+                <Box>
+                  <Typography variant="titleMedium" sx={{ fontWeight: 750 }}>Ostatnie trasy</Typography>
+                  <Typography variant="bodySmall" color="text.secondary">Wybierz trasę, aby sprawdzić ją ponownie</Typography>
+                </Box>
+              </Box>
+
+              {routeRecents.length ? (
+                <Stack divider={<Divider flexItem />}>
+                  {routeRecents.map((route) => (
+                    <ButtonBase
+                      key={`${route.from}-${route.to}-${route.dayType}`}
+                      onClick={() => useRecent(route)}
+                      sx={{ width: '100%', textAlign: 'left', borderRadius: '16px', p: 1.5, gap: 1.5, justifyContent: 'flex-start', '&:hover': { bgcolor: 'action.hover' } }}
+                    >
+                      <Box sx={{ minWidth: 0, flex: 1 }}>
+                        <Typography variant="bodyMedium" sx={{ fontWeight: 700 }} noWrap>{route.from}</Typography>
+                        <Typography variant="bodyMedium" color="text.secondary" noWrap>{route.to}</Typography>
+                      </Box>
+                      <Typography variant="labelMedium" color="text.secondary">{dayShort[route.dayType]}</Typography>
+                      <ArrowForwardRounded color="action" />
+                    </ButtonBase>
+                  ))}
+                </Stack>
+              ) : (
+                <Box sx={{ py: { xs: 5, md: 9 }, textAlign: 'center' }}>
+                  <AltRouteRounded sx={{ fontSize: 54, color: 'primary.main', opacity: 0.2 }} />
+                  <Typography variant="titleMedium" sx={{ fontWeight: 700, mt: 1.5 }}>Tutaj pojawią się Twoje trasy</Typography>
+                  <Typography variant="bodyMedium" color="text.secondary" sx={{ maxWidth: 340, mx: 'auto', mt: 0.75 }}>
+                    Wyszukaj pierwsze połączenie, a zapamiętamy je na tym urządzeniu.
+                  </Typography>
+                </Box>
+              )}
+            </Box>
+          )}
+        </Paper>
+      </Box>
     </Box>
   );
 }

@@ -1,134 +1,91 @@
-import React, { useState, useEffect, useMemo, lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
-import { Box, Container, CircularProgress, Typography, Snackbar, Alert, Fab, useMediaQuery, Skeleton, Stack } from '@mui/material';
-import { Refresh as RefreshIcon } from '@mui/icons-material';
+import {
+  Alert,
+  Box,
+  CircularProgress,
+  Container,
+  CssBaseline,
+  Skeleton,
+  Snackbar,
+  Stack,
+  Typography,
+} from '@mui/material';
 import getTheme from './theme.js';
 import { useTimetables } from './hooks/useTimetables.js';
-import { loadState, saveState, getFavorites, saveFavorites, getRecents, addRecent } from './utils/storage.js';
+import { loadState, saveState, getFavorites, saveFavorites, addRecent } from './utils/storage.js';
 import { formatNow } from './utils/time.js';
 import TopAppBar from './components/TopAppBar.jsx';
 import BottomNav from './components/BottomNav.jsx';
+import RouteView from './components/RouteView.jsx';
 import LinesView from './components/LinesView.jsx';
 
-// Lazy loading – code-splitting dla ciężkich widoków
-// Mieszkaniec codziennie używa LinesView (200KB initial), a Mapa (Leaflet 150KB + OSRM) ładuje się tylko gdy kliknie "Mapa"
-const StopsView = lazy(() => import('./components/StopsView.jsx'));
-const RouteView = lazy(() => import('./components/RouteView.jsx'));
 const MapView = lazy(() => import('./components/MapView.jsx'));
 
 function LazyFallback() {
   return (
-    <Stack spacing={2} sx={{ p: 2 }}>
-      <Skeleton variant="rounded" height={120} sx={{ borderRadius: '24px' }} />
-      <Skeleton variant="rounded" height={200} sx={{ borderRadius: '24px' }} />
-      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2, gap: 1, alignItems: 'center' }}>
-        <CircularProgress size={20} />
-        <Typography variant="bodySmall" color="text.secondary">Ładuję moduł...</Typography>
-      </Box>
+    <Stack spacing={1.5} sx={{ maxWidth: 1100, mx: 'auto' }}>
+      <Skeleton variant="rounded" height={70} sx={{ borderRadius: '24px' }} />
+      <Skeleton variant="rounded" height={480} sx={{ borderRadius: '28px' }} />
     </Stack>
   );
 }
 
 function App() {
-  const { busData, stopCoords, status, meta, newData, setNewData } = useTimetables();
+  const { busData, stopCoords, status, meta, newData } = useTimetables();
   const [darkMode, setDarkMode] = useState(() => {
     const saved = localStorage.getItem('zpa_theme');
     if (saved) return saved === 'dark';
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
-  const [view, setView] = useState('lines');
+  const [view, setView] = useState('route');
   const [state, setState] = useState(() => {
     const saved = loadState();
-    const defaultDay = new Date().getDay() === 0 ? 'sunday' : new Date().getDay() === 6 ? 'saturday' : 'weekday';
+    const day = new Date().getDay();
+    const defaultDay = day === 0 ? 'sunday' : day === 6 ? 'saturday' : 'weekday';
     return saved || { lineId: '1', dirIdx: 0, stopIdx: 0, dayType: defaultDay };
   });
-  const [searchQuery, setSearchQuery] = useState('');
   const [favorites, setFavorites] = useState(() => getFavorites());
-  const [recents, setRecents] = useState(() => getRecents());
   const [now, setNow] = useState(() => formatNow());
   const [toast, setToast] = useState({ open: false, message: '', severity: 'info' });
   const [installPrompt, setInstallPrompt] = useState(null);
-  const [showInstallBanner, setShowInstallBanner] = useState(false);
   const [pwaUpdate, setPwaUpdate] = useState(false);
 
-  const isMobile = useMediaQuery('(max-width:900px)');
   const theme = useMemo(() => getTheme(darkMode ? 'dark' : 'light'), [darkMode]);
 
   useEffect(() => {
-    const id = setInterval(() => setNow(formatNow()), 1000);
-    return () => clearInterval(id);
+    const timer = window.setInterval(() => setNow(formatNow()), 1000);
+    return () => window.clearInterval(timer);
   }, []);
 
   useEffect(() => { saveState(state); }, [state]);
   useEffect(() => { localStorage.setItem('zpa_theme', darkMode ? 'dark' : 'light'); }, [darkMode]);
 
-  // PWA install prompt
   useEffect(() => {
-    const handler = (e) => {
-      e.preventDefault();
-      setInstallPrompt(e);
-      const dismissed = localStorage.getItem('zpa_install_dismissed');
-      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-      if (!dismissed && !isStandalone) setShowInstallBanner(true);
+    const handleInstallPrompt = (event) => {
+      event.preventDefault();
+      setInstallPrompt(event);
     };
-    window.addEventListener('beforeinstallprompt', handler);
-    return () => window.removeEventListener('beforeinstallprompt', handler);
+    window.addEventListener('beforeinstallprompt', handleInstallPrompt);
+    return () => window.removeEventListener('beforeinstallprompt', handleInstallPrompt);
   }, []);
 
-  // vite-plugin-pwa update detection
   useEffect(() => {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
-        setPwaUpdate(true);
-      });
-      // Listen for custom event from vite-plugin-pwa
-      window.addEventListener('pwa-update-available', () => setPwaUpdate(true));
-    }
+    if (!('serviceWorker' in navigator)) return undefined;
+    const handleUpdate = () => setPwaUpdate(true);
+    navigator.serviceWorker.addEventListener('controllerchange', handleUpdate);
+    window.addEventListener('pwa-update-available', handleUpdate);
+    return () => {
+      navigator.serviceWorker.removeEventListener('controllerchange', handleUpdate);
+      window.removeEventListener('pwa-update-available', handleUpdate);
+    };
   }, []);
 
   const handleInstall = async () => {
     if (!installPrompt) return;
-    installPrompt.prompt();
-    const { outcome } = await installPrompt.userChoice;
-    console.log('Install outcome', outcome);
+    await installPrompt.prompt();
+    await installPrompt.userChoice;
     setInstallPrompt(null);
-    setShowInstallBanner(false);
-  };
-
-  const dismissInstall = () => {
-    setShowInstallBanner(false);
-    localStorage.setItem('zpa_install_dismissed', '1');
-  };
-
-  const toggleFavorite = (stopName, lines) => {
-    const idx = favorites.findIndex(f => f.stop === stopName);
-    let newFavs;
-    if (idx >= 0) {
-      newFavs = [...favorites];
-      newFavs.splice(idx, 1);
-      setToast({ open: true, message: 'Usunięto z ulubionych', severity: 'info' });
-    } else {
-      newFavs = [...favorites, { stop: stopName, lines, added: new Date().toISOString() }];
-      setToast({ open: true, message: 'Dodano do ulubionych ❤️', severity: 'success' });
-    }
-    setFavorites(newFavs);
-    saveFavorites(newFavs);
-    return idx < 0;
-  };
-
-  const handleSelectStop = (lineId, dirIdx, stopIdx) => {
-    setState(prev => ({ ...prev, lineId, dirIdx, stopIdx }));
-    if (busData) {
-      const line = busData.lines.find(l => l.id === lineId);
-      if (line) {
-        const dir = line.directions[dirIdx];
-        const stop = dir?.stops[stopIdx];
-        if (stop) {
-          const newRecents = addRecent(line, dirIdx, stopIdx, stop);
-          setRecents(newRecents);
-        }
-      }
-    }
   };
 
   const handleRefresh = () => {
@@ -136,9 +93,35 @@ function App() {
     window.location.reload();
   };
 
+  const toggleFavorite = (stopName, lines) => {
+    const existingIndex = favorites.findIndex(favorite => favorite.stop === stopName);
+    let nextFavorites;
+
+    if (existingIndex >= 0) {
+      nextFavorites = favorites.filter((_, index) => index !== existingIndex);
+      setToast({ open: true, message: 'Usunięto z ulubionych', severity: 'info' });
+    } else {
+      nextFavorites = [...favorites, { stop: stopName, lines, added: new Date().toISOString() }];
+      setToast({ open: true, message: 'Przystanek zapisany w ulubionych', severity: 'success' });
+    }
+
+    setFavorites(nextFavorites);
+    saveFavorites(nextFavorites);
+    return existingIndex < 0;
+  };
+
+  const handleSelectStop = (lineId, dirIdx, stopIdx) => {
+    setState(previous => ({ ...previous, lineId, dirIdx, stopIdx }));
+    if (!busData) return;
+
+    const line = busData.lines.find(item => item.id === lineId);
+    const stop = line?.directions[dirIdx]?.stops[stopIdx];
+    if (line && stop) addRecent(line, dirIdx, stopIdx, stop);
+  };
+
   const currentLine = useMemo(() => {
     if (!busData) return null;
-    return busData.lines.find(l => l.id === state.lineId) || busData.lines[0];
+    return busData.lines.find(line => line.id === state.lineId) || busData.lines[0];
   }, [busData, state.lineId]);
 
   const currentDir = useMemo(() => {
@@ -146,32 +129,18 @@ function App() {
     return currentLine.directions[state.dirIdx] || currentLine.directions[0];
   }, [currentLine, state.dirIdx]);
 
-  const allStops = useMemo(() => {
-    if (!busData) return [];
-    const stops = [];
-    busData.lines.forEach(line => {
-      line.directions.forEach((dir, dirIdx) => {
-        dir.stops.forEach((stop, stopIdx) => {
-          stops.push({ lineId: line.id, lineNumber: line.number, lineName: line.name, lineColor: line.color, dirIdx, dirLabel: dir.short, stop, stopIdx });
-        });
-      });
-    });
-    return stops;
-  }, [busData]);
-
-  const filteredStops = useMemo(() => {
-    if (!searchQuery || searchQuery.length < 2) return [];
-    const q = searchQuery.toLowerCase();
-    return allStops.filter(s => s.stop.toLowerCase().includes(q)).slice(0, 8);
-  }, [allStops, searchQuery]);
-
   if (!busData) {
     return (
       <ThemeProvider theme={theme}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', gap: 2, p: 3 }}>
-          <CircularProgress size={48} />
-          <Typography variant="titleMedium" sx={{ fontWeight: 600 }}>Pobieram aktualny rozkład...</Typography>
-          <Typography variant="bodySmall" color="text.secondary">Status: {status} • {meta?.version || 'ładowanie'}</Typography>
+        <CssBaseline />
+        <Box sx={{ minHeight: '100dvh', bgcolor: 'primary.main', color: 'primary.contrastText', display: 'grid', placeItems: 'center', p: 3 }}>
+          <Box sx={{ textAlign: 'center' }}>
+            <Box sx={{ width: 72, height: 72, mx: 'auto', borderRadius: '24px', bgcolor: 'rgba(255,255,255,.14)', display: 'grid', placeItems: 'center', mb: 2.5 }}>
+              <CircularProgress size={34} sx={{ color: 'white' }} />
+            </Box>
+            <Typography variant="titleLarge" sx={{ fontWeight: 750 }}>Pobieramy rozkład</Typography>
+            <Typography variant="bodyMedium" sx={{ opacity: 0.72, mt: 0.75 }}>To potrwa tylko chwilę.</Typography>
+          </Box>
         </Box>
       </ThemeProvider>
     );
@@ -179,87 +148,65 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', pb: isMobile ? '80px' : 0 }}>
+      <CssBaseline />
+      <Box sx={{ bgcolor: 'background.default', minHeight: '100dvh', pb: { xs: '92px', md: 4 } }}>
         <TopAppBar
           status={status}
           meta={meta}
-          now={now}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          filteredStops={filteredStops}
-          onSelectStop={handleSelectStop}
           darkMode={darkMode}
           setDarkMode={setDarkMode}
           onRefresh={handleRefresh}
-          onSelectView={setView}
-          currentView={view}
+          canInstall={Boolean(installPrompt)}
+          onInstall={handleInstall}
+          dataChanged={newData}
+          appUpdate={pwaUpdate}
+          onApplyUpdate={() => window.location.reload()}
         />
 
-        {newData && (
-          <Alert severity="success" sx={{ borderRadius: 0, justifyContent: 'center' }} onClose={() => setNewData(false)}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Box sx={{ width: 8, height: 8, bgcolor: 'white', borderRadius: '50%', animation: 'pulse 1.5s infinite' }} />
-              <strong>Nowy rozkład!</strong> Wykryto zmianę na stronie ZPA/PKS. Dane zostały zaktualizowane.
-            </Box>
-          </Alert>
-        )}
+        <BottomNav view={view} setView={setView} />
 
-        {pwaUpdate && (
-          <Alert severity="info" sx={{ borderRadius: 0, justifyContent: 'center' }} onClose={() => setPwaUpdate(false)} action={<Box component="button" onClick={() => window.location.reload()} style={{ background: 'white', color: '#006A60', border: 'none', borderRadius: 20, padding: '4px 12px', fontWeight: 700, cursor: 'pointer' }}>Odśwież</Box>}>
-            Dostępna nowa wersja aplikacji – odśwież aby zaktualizować
-          </Alert>
-        )}
+        <Container maxWidth="xl" component="main" sx={{ pt: { xs: 2.5, md: 1 }, px: { xs: 1.5, sm: 2.5, lg: 3 } }}>
+          {view === 'route' && (
+            <RouteView busData={busData} state={state} setState={setState} now={now} />
+          )}
 
-        {showInstallBanner && (
-          <Alert
-            severity="info"
-            sx={{ borderRadius: 0, bgcolor: 'primary.main', color: 'white', '.MuiAlert-icon': { color: 'white' } }}
-            onClose={dismissInstall}
-            action={
-              <Box sx={{ display: 'flex', gap: 1 }}>
-                <Box component="button" onClick={handleInstall} sx={{ bgcolor: 'white', color: 'primary.main', border: 'none', borderRadius: '20px', px: 2, py: 0.5, fontWeight: 700, cursor: 'pointer' }}>Zainstaluj</Box>
-              </Box>
-            }
-          >
-            <strong>Zainstaluj ŻPA Żyrardów</strong> – działa offline, szybki dostęp z pulpitu, PWA (vite-plugin-pwa)
-          </Alert>
-        )}
-
-        <Container maxWidth="xl" sx={{ py: 2, px: { xs: 1, md: 2 } }}>
           {view === 'lines' && (
             <LinesView
               busData={busData}
-              stopCoords={stopCoords}
               state={state}
               setState={setState}
               currentLine={currentLine}
               currentDir={currentDir}
               now={now}
               favorites={favorites}
-              recents={recents}
               toggleFavorite={toggleFavorite}
               onSelectStop={handleSelectStop}
-              setToast={setToast}
             />
           )}
+
           <Suspense fallback={<LazyFallback />}>
-            {view === 'stops' && <StopsView busData={busData} state={state} setState={setState} now={now} />}
-            {view === 'route' && <RouteView busData={busData} state={state} setState={setState} now={now} />}
-            {view === 'map' && <MapView busData={busData} stopCoords={stopCoords} state={state} setState={setState} now={now} />}
+            {view === 'map' && (
+              <MapView busData={busData} stopCoords={stopCoords} state={state} now={now} />
+            )}
           </Suspense>
         </Container>
 
-        <BottomNav view={view} setView={setView} />
-
-        <Snackbar open={toast.open} autoHideDuration={3000} onClose={() => setToast(prev => ({ ...prev, open: false }))} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} sx={{ mb: isMobile ? '80px' : 0 }}>
-          <Alert onClose={() => setToast(prev => ({ ...prev, open: false }))} severity={toast.severity} sx={{ borderRadius: '24px', boxShadow: 3 }}>{toast.message}</Alert>
+        <Snackbar
+          open={toast.open}
+          autoHideDuration={2800}
+          onClose={() => setToast(previous => ({ ...previous, open: false }))}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          sx={{ mb: { xs: '76px', md: 0 } }}
+        >
+          <Alert
+            onClose={() => setToast(previous => ({ ...previous, open: false }))}
+            severity={toast.severity}
+            variant="filled"
+            sx={{ borderRadius: '18px' }}
+          >
+            {toast.message}
+          </Alert>
         </Snackbar>
-
-        {isMobile && view === 'lines' && (
-          <Fab color="primary" sx={{ position: 'fixed', bottom: 90, right: 16, borderRadius: '16px' }} onClick={handleRefresh}>
-            <RefreshIcon />
-          </Fab>
-        )}
       </Box>
     </ThemeProvider>
   );

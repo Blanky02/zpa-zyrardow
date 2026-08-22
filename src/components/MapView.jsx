@@ -1,202 +1,635 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Card, CardContent, Typography, Chip, Stack, Paper, Button, Select, MenuItem, IconButton, Avatar, Grid } from '@mui/material';
-import { MyLocation, Place } from '@mui/icons-material';
-import { MapContainer, TileLayer, CircleMarker, Marker, Popup, Polyline, useMap } from 'react-leaflet';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useTheme } from '@mui/material/styles';
+import {
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Paper,
+  Stack,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+} from '@mui/material';
+import {
+  CheckRounded,
+  CloseRounded,
+  FilterAltRounded,
+  MapRounded,
+  MyLocationRounded,
+  TravelExploreRounded,
+} from '@mui/icons-material';
+import {
+  MapContainer,
+  Marker,
+  Polyline,
+  TileLayer,
+  Tooltip,
+  ZoomControl,
+  useMap,
+} from 'react-leaflet';
+import MarkerClusterGroup from 'react-leaflet-cluster';
+import 'react-leaflet-cluster/dist/assets/MarkerCluster.css';
+import 'react-leaflet-cluster/dist/assets/MarkerCluster.Default.css';
 import L from 'leaflet';
-import { findOccurrencesForStop, getLineHex } from '../utils/stops.js';
+import {
+  findOccurrencesForStop,
+  getLineHex,
+  getPlatformKey,
+  getRoutePlatforms,
+  normalizeStopName,
+} from '../utils/stops.js';
 import { getScheduleForStop, parseMinutes } from '../utils/time.js';
 
-function MapController({ center }) {
+function MapController({ center, zoom, bounds }) {
   const map = useMap();
   useEffect(() => {
-    map.setView(center, 13);
-    setTimeout(() => map.invalidateSize(), 200);
-  }, [center, map]);
+    if (bounds?.length > 1) {
+      map.fitBounds(bounds, { padding: [28, 28], maxZoom: zoom });
+    } else {
+      map.setView(center, zoom);
+    }
+    window.setTimeout(() => map.invalidateSize(), 150);
+  }, [bounds, center, map, zoom]);
   return null;
 }
 
+function lineMarker(line, index) {
+  const color = getLineHex(line.color);
+  return L.divIcon({
+    className: '',
+    html: `<div style="width:28px;height:28px;background:${color};color:white;border:2px solid white;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;box-shadow:0 3px 10px rgba(0,0,0,.28)">${index + 1}</div>`,
+    iconSize: [28, 28],
+    iconAnchor: [14, 14],
+  });
+}
+
+const stopMarkerIcon = L.divIcon({
+  className: '',
+  html: '<div style="width:15px;height:15px;background:#2A9D6F;border:2px solid white;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,.28)"></div>',
+  iconSize: [15, 15],
+  iconAnchor: [7.5, 7.5],
+});
+
+const auditStopMarkerIcon = L.divIcon({
+  className: '',
+  html: '<div style="width:20px;height:20px;background:#E76F51;border:3px solid white;border-radius:50%;box-shadow:0 3px 12px rgba(120,34,15,.42)"></div>',
+  iconSize: [20, 20],
+  iconAnchor: [10, 10],
+});
+
+function distanceMeters(first, second) {
+  const radius = 6_371_000;
+  const lat1 = first.lat * Math.PI / 180;
+  const lat2 = second.lat * Math.PI / 180;
+  const deltaLat = (second.lat - first.lat) * Math.PI / 180;
+  const deltaLon = (second.lng - first.lng) * Math.PI / 180;
+  const value = Math.sin(deltaLat / 2) ** 2
+    + Math.cos(lat1) * Math.cos(lat2) * Math.sin(deltaLon / 2) ** 2;
+  return 2 * radius * Math.asin(Math.sqrt(value));
+}
+
+function clusterMarkerIcon(cluster) {
+  const count = cluster.getChildCount();
+  const size = count > 20 ? 46 : count > 8 ? 40 : 36;
+  return L.divIcon({
+    className: '',
+    html: `<div style="width:${size}px;height:${size}px;background:#2A9D6F;color:white;border:3px solid rgba(255,255,255,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font:800 12px Roboto,sans-serif;box-shadow:0 5px 16px rgba(0,0,0,.28)">${count}</div>`,
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size / 2],
+  });
+}
+
 export default function MapView({ busData, stopCoords, state, now }) {
+  const theme = useTheme();
+  const darkMap = theme.palette.mode === 'dark';
   const [selectedLine, setSelectedLine] = useState('all');
   const [selectedDir, setSelectedDir] = useState(0);
   const [selectedStop, setSelectedStop] = useState(null);
   const [userPos, setUserPos] = useState(null);
   const [routeCoords, setRouteCoords] = useState([]);
+  const [filterAnchor, setFilterAnchor] = useState(null);
+  const [auditMode, setAuditMode] = useState(false);
 
-  const stopsWithCoords = React.useMemo(() => {
-    if (stopCoords && Object.keys(stopCoords).length) {
-      const all = [];
-      for (const key in stopCoords) {
-        const v = stopCoords[key];
-        if (!v.lat || !v.lon) continue;
-        const baseName = key.replace(/\s*\[\d+\]$/, '').trim();
-        all.push({ name: baseName, officialKey: key, lat: v.lat, lng: v.lon });
-      }
-      const seen = new Set();
-      const deduped = [];
-      for (const s of all) {
-        const k = `${s.lat.toFixed(5)},${s.lng.toFixed(5)}`;
-        if (!seen.has(k)) { seen.add(k); deduped.push(s); }
-      }
-      return deduped;
-    }
-    return [];
-  }, [stopCoords]);
+  const stopsWithCoords = useMemo(() => {
+    const sourcePriority = { static: 0, route: 1, cache: 2, api: 3 };
+    const routePlatforms = getRoutePlatforms(busData);
+    const dynamicPlatforms = Object.entries(stopCoords || {})
+      .filter(([, value]) => Number.isFinite(Number(value?.lat)) && Number.isFinite(Number(value?.lon)))
+      .map(([key, value]) => ({
+        id: value.id || null,
+        designator: value.designator ?? null,
+        name: value.name || key.replace(/\s*\[\d+\]\s*$/, '').trim(),
+        lat: Number(value.lat),
+        lon: Number(value.lon),
+        source: value.source || 'static',
+      }));
 
-  const center = React.useMemo(() => {
-    if (stopsWithCoords.length) {
-      const sum = stopsWithCoords.reduce((acc, s) => ({ lat: acc.lat + s.lat, lng: acc.lng + s.lng }), { lat: 0, lng: 0 });
-      return [sum.lat / stopsWithCoords.length, sum.lng / stopsWithCoords.length];
-    }
-    return [52.055, 20.045];
+    const authoritativeNames = new Set(
+      [...routePlatforms, ...dynamicPlatforms.filter(stop => stop.source !== 'static')]
+        .map(stop => normalizeStopName(stop.name)),
+    );
+    const merged = new Map();
+
+    [...dynamicPlatforms, ...routePlatforms]
+      .sort((left, right) => (sourcePriority[left.source] || 0) - (sourcePriority[right.source] || 0))
+      .forEach(platform => {
+        if (platform.source === 'static' && authoritativeNames.has(normalizeStopName(platform.name))) return;
+        const key = getPlatformKey(platform);
+        const current = merged.get(key);
+        if (!current || (sourcePriority[platform.source] || 0) >= (sourcePriority[current.source] || 0)) {
+          merged.set(key, platform);
+        }
+      });
+
+    return Array.from(merged.values()).map(platform => ({ ...platform, lng: platform.lon }));
+  }, [busData, stopCoords]);
+
+  const suspiciousGroups = useMemo(() => {
+    const groups = new Map();
+    stopsWithCoords.forEach(stop => {
+      const name = normalizeStopName(stop.name);
+      if (!groups.has(name)) groups.set(name, []);
+      groups.get(name).push(stop);
+    });
+
+    const result = [];
+    groups.forEach((platforms, name) => {
+      if (platforms.length < 2) return;
+      const pairs = [];
+      let maxDistance = 0;
+      for (let first = 0; first < platforms.length; first += 1) {
+        for (let second = first + 1; second < platforms.length; second += 1) {
+          const distance = distanceMeters(platforms[first], platforms[second]);
+          maxDistance = Math.max(maxDistance, distance);
+          if (distance >= 100) pairs.push({ first: platforms[first], second: platforms[second], distance });
+        }
+      }
+      if (pairs.length) result.push({ name, platforms, pairs, maxDistance });
+    });
+    return result.sort((left, right) => right.maxDistance - left.maxDistance);
   }, [stopsWithCoords]);
 
-  const lineObj = React.useMemo(() => {
+  const suspiciousPlatformKeys = useMemo(() => new Set(
+    suspiciousGroups.flatMap(group => group.platforms.map(getPlatformKey)),
+  ), [suspiciousGroups]);
+
+  const mapCenter = useMemo(() => {
+    if (!stopsWithCoords.length) return [52.055, 20.445];
+    const sum = stopsWithCoords.reduce(
+      (total, stop) => ({ lat: total.lat + stop.lat, lng: total.lng + stop.lng }),
+      { lat: 0, lng: 0 },
+    );
+    return [sum.lat / stopsWithCoords.length, sum.lng / stopsWithCoords.length];
+  }, [stopsWithCoords]);
+
+  const activeCenter = userPos || mapCenter;
+  const line = useMemo(() => {
     if (selectedLine === 'all') return null;
-    return busData.lines.find(l => l.id === selectedLine) || busData.lines.find(l => l.number === selectedLine);
-  }, [busData, selectedLine]);
+    return busData.lines.find(item => item.id === selectedLine) || null;
+  }, [busData.lines, selectedLine]);
+  const direction = line?.directions[selectedDir] || line?.directions[0] || null;
+  const visibleBounds = useMemo(() => {
+    if (userPos) return null;
+    if (direction?.stops_full) {
+      return direction.stops_full
+        .filter(stop => stop.lat && stop.lon)
+        .map(stop => [Number(stop.lat), Number(stop.lon)]);
+    }
+    return stopsWithCoords.map(stop => [stop.lat, stop.lng]);
+  }, [direction, stopsWithCoords, userPos]);
 
   useEffect(() => {
-    if (!lineObj) { setRouteCoords([]); return; }
-    const dir = lineObj.directions[selectedDir] || lineObj.directions[0];
-    if (!dir || !dir.stops_full) { setRouteCoords([]); return; }
+    let cancelled = false;
+    if (!direction?.stops_full) {
+      setRouteCoords([]);
+      return undefined;
+    }
 
-    async function fetchRoute() {
-      const coords = dir.stops_full.filter(s => s.lat && s.lon).map(s => [s.lat, s.lon]);
-      if (coords.length < 2) { setRouteCoords([]); return; }
-      let full = [];
-      for (let i = 0; i < coords.length - 1; i++) {
-        const a = coords[i], b = coords[i + 1];
+    async function loadRoute() {
+      const points = direction.stops_full
+        .filter(stop => stop.lat && stop.lon)
+        .map(stop => [stop.lat, stop.lon]);
+
+      if (points.length < 2) {
+        setRouteCoords([]);
+        return;
+      }
+
+      const fullRoute = [];
+      for (let index = 0; index < points.length - 1; index += 1) {
+        const start = points[index];
+        const end = points[index + 1];
+        const key = `${start[1].toFixed(5)},${start[0].toFixed(5)};${end[1].toFixed(5)},${end[0].toFixed(5)}`;
+
         try {
-          const key = `${a[1].toFixed(5)},${a[0].toFixed(5)};${b[1].toFixed(5)},${b[0].toFixed(5)}`;
-          const cached = localStorage.getItem('osrm_' + key);
-          if (cached) {
-            const parsed = JSON.parse(cached);
-            if (full.length) parsed.shift();
-            full.push(...parsed);
-            continue;
-          }
-          const url = `https://router.project-osrm.org/route/v1/driving/${a[1]},${a[0]};${b[1]},${b[0]}?overview=full&geometries=geojson`;
-          const res = await fetch(url);
-          if (res.ok) {
-            const json = await res.json();
-            if (json.routes?.[0]?.geometry?.coordinates) {
-              const seg = json.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
-              try { localStorage.setItem('osrm_' + key, JSON.stringify(seg)); } catch {}
-              if (full.length) seg.shift();
-              full.push(...seg);
-              continue;
+          const cached = localStorage.getItem(`osrm_${key}`);
+          let segment = cached ? JSON.parse(cached) : null;
+          if (!segment) {
+            const response = await fetch(`https://router.project-osrm.org/route/v1/driving/${start[1]},${start[0]};${end[1]},${end[0]}?overview=full&geometries=geojson`);
+            if (response.ok) {
+              const data = await response.json();
+              segment = data.routes?.[0]?.geometry?.coordinates?.map(point => [point[1], point[0]]) || null;
+              if (segment) {
+                try { localStorage.setItem(`osrm_${key}`, JSON.stringify(segment)); } catch {}
+              }
             }
           }
+
+          if (segment?.length) {
+            if (fullRoute.length) segment = segment.slice(1);
+            fullRoute.push(...segment);
+            continue;
+          }
         } catch {}
-        if (full.length === 0) full.push(a);
-        full.push(b);
+
+        if (!fullRoute.length) fullRoute.push(start);
+        fullRoute.push(end);
       }
-      setRouteCoords(full.length ? full : coords);
-    }
-    fetchRoute();
-  }, [lineObj, selectedDir]);
 
-  const occurrences = React.useMemo(() => {
+      if (!cancelled) setRouteCoords(fullRoute.length ? fullRoute : points);
+    }
+
+    loadRoute();
+    return () => { cancelled = true; };
+  }, [direction]);
+
+  const departures = useMemo(() => {
     if (!selectedStop) return [];
-    return findOccurrencesForStop(busData, selectedStop);
-  }, [busData, selectedStop]);
-
-  const deps = React.useMemo(() => {
-    let all = [];
-    occurrences.forEach(o => {
-      const sched = getScheduleForStop(o.dir, o.stopIdx, state.dayType);
-      sched.forEach(t => all.push({ time: t, mins: parseMinutes(t), line: o.line, dir: o.dir }));
-    });
-    all.sort((a, b) => a.mins - b.mins);
-    const upcoming = all.filter(d => d.mins >= now.minutes).slice(0, 10);
-    return upcoming.length ? upcoming : all.slice(0, 10);
-  }, [occurrences, state.dayType, now.minutes]);
-
-  const handleLocate = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(pos => {
-        setUserPos([pos.coords.latitude, pos.coords.longitude]);
+    const all = [];
+    findOccurrencesForStop(busData, selectedStop).forEach(occurrence => {
+      getScheduleForStop(occurrence.dir, occurrence.stopIdx, state.dayType).forEach(time => {
+        all.push({
+          time,
+          minutes: parseMinutes(time),
+          line: occurrence.line,
+          direction: occurrence.dir,
+        });
       });
-    }
+    });
+    all.sort((a, b) => a.minutes - b.minutes);
+    const upcoming = all.filter(item => item.minutes >= now.minutes).slice(0, 5);
+    return upcoming.length ? upcoming : all.slice(0, 5);
+  }, [busData, now.minutes, selectedStop, state.dayType]);
+
+  const locateUser = () => {
+    navigator.geolocation?.getCurrentPosition(position => {
+      setUserPos([position.coords.latitude, position.coords.longitude]);
+    });
   };
 
   return (
-    <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', lg: '1fr 380px' }, gap: 2, alignItems: 'start' }}>
-      <Card sx={{ borderRadius: '28px', overflow: 'hidden' }}>
-        <Box sx={{ p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: 1, borderColor: 'divider', flexWrap: 'wrap', gap: 1 }}>
-          <Box>
-            <Typography variant="titleMedium" sx={{ fontWeight: 700 }}>Mapa przystanków ŻPA</Typography>
-            <Typography variant="labelSmall" color="text.secondary">Kliknij pinezkę • {stopsWithCoords.length} GPS • Żyrardów</Typography>
-          </Box>
-          <Stack direction="row" spacing={1}>
-            <IconButton onClick={handleLocate} sx={{ bgcolor: 'background.container' }}><MyLocation /></IconButton>
-            <Select value={selectedLine} onChange={(e) => { setSelectedLine(e.target.value); setSelectedDir(0); }} size="small" sx={{ borderRadius: '20px', minWidth: 180, bgcolor: 'background.container' }}>
-              <MenuItem value="all">Wszystkie linie</MenuItem>
-              {busData.lines.map(l => <MenuItem key={l.id} value={l.id}>Linia {l.number} – {l.name.slice(0, 20)}</MenuItem>)}
-            </Select>
-          </Stack>
-        </Box>
+    <Box sx={{ mx: { xs: -1.5, sm: 0 }, mt: { xs: -2.5, sm: 0 } }}>
+      <Box sx={{ mb: { sm: 2, md: 3 }, display: { xs: 'none', sm: 'block' } }}>
+        <Typography variant="headlineSmall" sx={{ fontWeight: 750, letterSpacing: '-0.025em' }}>
+          Mapa przystanków
+        </Typography>
+        <Typography variant="bodyMedium" color="text.secondary" sx={{ mt: 0.5 }}>
+          Dotknij przystanku, aby sprawdzić najbliższe odjazdy.
+        </Typography>
+      </Box>
 
-        {lineObj && (
-          <Box sx={{ px: 2, py: 1, bgcolor: 'background.container', display: 'flex', gap: 1, overflowX: 'auto', borderBottom: 1, borderColor: 'divider' }}>
-            {lineObj.directions.map((d, idx) => (
-              <Chip key={idx} label={d.short} onClick={() => setSelectedDir(idx)} color={idx === selectedDir ? 'primary' : 'default'} variant={idx === selectedDir ? 'filled' : 'outlined'} size="small" sx={{ borderRadius: '20px' }} />
+      <Paper
+        elevation={0}
+        sx={{
+          height: { xs: 'calc(100dvh - 138px)', sm: 'auto' },
+          display: 'flex',
+          flexDirection: 'column',
+          borderRadius: { xs: 0, sm: '28px' },
+          border: { xs: 0, sm: 1 },
+          borderColor: 'divider',
+          overflow: 'hidden',
+        }}
+      >
+        <Box
+          sx={{
+            p: { xs: 1.5, sm: 2 },
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1,
+            flexWrap: 'wrap',
+            bgcolor: 'background.paper',
+          }}
+        >
+          <Box sx={{ width: 38, height: 38, borderRadius: '14px', bgcolor: 'primary.container', color: 'primary.onContainer', display: { xs: 'none', sm: 'grid' }, placeItems: 'center' }}>
+            <MapRounded fontSize="small" />
+          </Box>
+
+          <Button
+            variant="contained"
+            color="inherit"
+            startIcon={<FilterAltRounded />}
+            onClick={(event) => setFilterAnchor(event.currentTarget)}
+            sx={{
+              minHeight: 42,
+              maxWidth: { xs: 'calc(100% - 50px)', sm: 260 },
+              bgcolor: auditMode ? 'warning.container' : 'background.container',
+              color: auditMode ? 'warning.onContainer' : 'text.primary',
+              justifyContent: 'flex-start',
+              '&:hover': { bgcolor: 'background.containerHigh' },
+            }}
+          >
+            <Typography variant="labelLarge" noWrap>
+              {auditMode ? `Audyt GPS · ${suspiciousGroups.length}` : line ? `Linia ${line.number}` : 'Filtruj linie'}
+            </Typography>
+          </Button>
+
+          <Menu
+            anchorEl={filterAnchor}
+            open={Boolean(filterAnchor)}
+            onClose={() => setFilterAnchor(null)}
+            slotProps={{ paper: { sx: { mt: 1, width: 310, maxHeight: 430, borderRadius: '22px', p: 0.75 } } }}
+          >
+            <MenuItem
+              selected={auditMode}
+              onClick={() => {
+                const next = !auditMode;
+                setAuditMode(next);
+                if (next) {
+                  setSelectedLine('all');
+                  setSelectedDir(0);
+                  setSelectedStop(null);
+                }
+                setFilterAnchor(null);
+              }}
+              sx={{ borderRadius: '14px' }}
+            >
+              <ListItemIcon><TravelExploreRounded color={auditMode ? 'warning' : 'inherit'} fontSize="small" /></ListItemIcon>
+              <ListItemText
+                primary="Audyt lokalizacji"
+                secondary={`${suspiciousGroups.length} grup powyżej 100 m`}
+              />
+              {auditMode && <CheckRounded color="warning" fontSize="small" />}
+            </MenuItem>
+            <Divider sx={{ my: 0.75 }} />
+
+            <MenuItem
+              selected={selectedLine === 'all'}
+              onClick={() => {
+                setSelectedLine('all');
+                setSelectedDir(0);
+                setSelectedStop(null);
+                setFilterAnchor(null);
+              }}
+              sx={{ borderRadius: '14px' }}
+            >
+              <ListItemIcon><MapRounded fontSize="small" /></ListItemIcon>
+              <ListItemText primary="Wszystkie przystanki" />
+              {selectedLine === 'all' && <CheckRounded color="primary" fontSize="small" />}
+            </MenuItem>
+            {busData.lines.map(item => (
+              <MenuItem
+                key={item.id}
+                selected={selectedLine === item.id}
+                onClick={() => {
+                  setSelectedLine(item.id);
+                  setSelectedDir(0);
+                  setSelectedStop(null);
+                  setAuditMode(false);
+                  setFilterAnchor(null);
+                }}
+                sx={{ borderRadius: '14px', gap: 1 }}
+              >
+                <ListItemIcon>
+                  <Avatar sx={{ width: 28, height: 28, bgcolor: getLineHex(item.color), color: '#fff', fontSize: 11, fontWeight: 800 }}>
+                    {item.number}
+                  </Avatar>
+                </ListItemIcon>
+                <ListItemText primary={`Linia ${item.number}`} secondary={item.name} slotProps={{ secondary: { noWrap: true } }} />
+                {selectedLine === item.id && <CheckRounded color="primary" fontSize="small" />}
+              </MenuItem>
             ))}
-            <Typography variant="labelSmall" color="text.secondary" sx={{ alignSelf: 'center', ml: 1 }}>Tylko 1 kierunek na raz</Typography>
-          </Box>
-        )}
+          </Menu>
 
-        <Box sx={{ height: { xs: '60vh', md: '75vh' }, width: '100%' }}>
-          <MapContainer center={center} zoom={13} style={{ height: '100%', width: '100%' }} zoomControl={false}>
-            <MapController center={center} />
-            <TileLayer attribution="© OpenStreetMap" url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            {userPos && <Marker position={userPos}><Popup>Twoja lokalizacja</Popup></Marker>}
-            {selectedLine === 'all' ? (
-              stopsWithCoords.map((s, i) => (
-                <CircleMarker key={i} center={[s.lat, s.lng]} radius={7} pathOptions={{ fillColor: '#006A60', color: 'white', weight: 2, fillOpacity: 0.95 }} eventHandlers={{ click: () => setSelectedStop(s.name) }}>
-                  <Popup><b>{s.name}</b><br/><Button size="small" variant="contained" sx={{ mt: 1, borderRadius: '12px' }} onClick={() => setSelectedStop(s.name)}>Pokaż odjazdy</Button></Popup>
-                </CircleMarker>
-              ))
-            ) : lineObj && lineObj.directions[selectedDir]?.stops_full ? (
-              lineObj.directions[selectedDir].stops_full.map((sf, idx) => (
-                <Marker key={idx} position={[sf.lat, sf.lon]} icon={L.divIcon({ className: '', html: `<div style="width:26px;height:26px;background:${getLineHex(lineObj.color)};color:white;border:2px solid white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:11px;box-shadow:0 2px 6px rgba(0,0,0,0.3)">${idx + 1}</div>`, iconSize: [26, 26], iconAnchor: [13, 13] })} eventHandlers={{ click: () => setSelectedStop(sf.official_name || sf.name) }}>
-                  <Popup><b>{idx + 1}. {sf.official_name}</b><br/>Linia {lineObj.number} • {lineObj.directions[selectedDir].short}</Popup>
-                </Marker>
-              ))
-            ) : null}
-            {routeCoords.length > 1 && <Polyline positions={routeCoords} pathOptions={{ color: lineObj ? getLineHex(lineObj.color) : '#006A60', weight: 5, opacity: 0.85 }} />}
+          {line && line.directions.length > 1 && (
+            <ToggleButtonGroup
+              exclusive
+              size="small"
+              value={selectedDir}
+              onChange={(_, value) => value !== null && setSelectedDir(value)}
+              sx={{
+                maxWidth: { xs: '100%', md: 520 },
+                overflowX: 'auto',
+                order: { xs: 3, md: 0 },
+                width: { xs: '100%', md: 'auto' },
+                '& .MuiToggleButton-root': { textTransform: 'none', px: 1.5, whiteSpace: 'nowrap', borderRadius: '14px', fontWeight: 650 },
+              }}
+            >
+              {line.directions.map((item, index) => (
+                <ToggleButton key={index} value={index}>{item.short || `Kierunek ${index + 1}`}</ToggleButton>
+              ))}
+            </ToggleButtonGroup>
+          )}
+
+          <IconButton
+            aria-label="Pokaż moją lokalizację"
+            onClick={locateUser}
+            sx={{ ml: { sm: 'auto' }, bgcolor: 'background.container' }}
+          >
+            <MyLocationRounded />
+          </IconButton>
+        </Box>
+
+        <Box
+          sx={{
+            flex: { xs: 1, sm: 'none' },
+            height: { xs: 'auto', sm: '66dvh', md: '70dvh' },
+            minHeight: { xs: 0, sm: 520, md: 560 },
+            position: 'relative',
+            '& .zpa-map-tiles-dark': {
+              filter: 'brightness(.66) invert(1) contrast(1.45) hue-rotate(165deg) saturate(.82) brightness(.74)',
+            },
+            '& .leaflet-control-zoom a': {
+              bgcolor: 'background.paper',
+              color: 'text.primary',
+              borderColor: 'divider',
+            },
+            '& .leaflet-control-attribution': {
+              bgcolor: darkMap ? 'rgba(25,32,31,.82)' : 'rgba(255,255,255,.82)',
+              color: 'text.secondary',
+            },
+            '& .leaflet-control-attribution a': { color: 'primary.main' },
+            '& .leaflet-tooltip': {
+              bgcolor: 'background.paper',
+              color: 'text.primary',
+              borderColor: 'divider',
+              boxShadow: '0 6px 18px rgba(0,0,0,.16)',
+            },
+          }}
+        >
+          <MapContainer
+            center={mapCenter}
+            zoom={13}
+            zoomControl={false}
+            style={{ height: '100%', width: '100%', background: darkMap ? '#111A18' : '#DCE9E4' }}
+          >
+            <MapController center={activeCenter} zoom={userPos ? 15 : 13} bounds={visibleBounds} />
+            <ZoomControl position="bottomright" />
+            <TileLayer
+              key={`tiles-${theme.palette.mode}`}
+              attribution="© OpenStreetMap"
+              className={darkMap ? 'zpa-map-tiles-dark' : ''}
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+
+            {userPos && <Marker position={userPos}><Tooltip>Twoja lokalizacja</Tooltip></Marker>}
+
+            {auditMode && suspiciousGroups.flatMap(group => group.pairs).map((pair, index) => (
+              <Polyline
+                key={`audit-${getPlatformKey(pair.first)}-${getPlatformKey(pair.second)}-${index}`}
+                positions={[[pair.first.lat, pair.first.lng], [pair.second.lat, pair.second.lng]]}
+                pathOptions={{ color: '#E76F51', weight: 3, opacity: 0.85, dashArray: '7 7' }}
+                interactive={false}
+              />
+            ))}
+
+            {!line && (
+              <MarkerClusterGroup
+                key={auditMode ? 'audit-clusters' : 'standard-clusters'}
+                chunkedLoading
+                showCoverageOnHover={false}
+                spiderfyOnMaxZoom
+                disableClusteringAtZoom={auditMode ? 0 : 14}
+                maxClusterRadius={38}
+                iconCreateFunction={clusterMarkerIcon}
+              >
+                {stopsWithCoords.map((stop, index) => (
+                  <Marker
+                    key={getPlatformKey(stop) || `${stop.lat}-${stop.lng}-${index}`}
+                    position={[stop.lat, stop.lng]}
+                    icon={auditMode && suspiciousPlatformKeys.has(getPlatformKey(stop)) ? auditStopMarkerIcon : stopMarkerIcon}
+                    eventHandlers={{ click: () => setSelectedStop(stop) }}
+                  >
+                    <Tooltip direction="top" offset={[0, -8]}>
+                      {stop.name}{stop.designator ? ` · stanowisko ${stop.designator}` : ''}
+                      {auditMode && suspiciousPlatformKeys.has(getPlatformKey(stop)) ? ' · do kontroli' : ''}
+                    </Tooltip>
+                  </Marker>
+                ))}
+              </MarkerClusterGroup>
+            )}
+
+            {line && direction?.stops_full?.filter(stop => stop.lat && stop.lon).map((stop, index) => (
+              <Marker
+                key={`${stop.id || stop.official_name}-${index}`}
+                position={[stop.lat, stop.lon]}
+                icon={lineMarker(line, index)}
+                eventHandlers={{ click: () => setSelectedStop({
+                  id: stop.id || null,
+                  designator: stop.designator ?? null,
+                  name: stop.name || stop.official_name,
+                  lat: Number(stop.lat),
+                  lon: Number(stop.lon),
+                  lng: Number(stop.lon),
+                  source: 'route',
+                }) }}
+              >
+                <Tooltip direction="top" offset={[0, -14]}>
+                  {stop.name || stop.official_name}{stop.designator ? ` · stanowisko ${stop.designator}` : ''}
+                </Tooltip>
+              </Marker>
+            ))}
+
+            {routeCoords.length > 1 && (
+              <Polyline positions={routeCoords} pathOptions={{ color: getLineHex(line?.color), weight: 5, opacity: 0.85 }} />
+            )}
           </MapContainer>
-        </Box>
-        <Box sx={{ p: 1.5, bgcolor: 'background.container', display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-          <Typography variant="labelSmall" color="text.secondary">📍 {stopsWithCoords.length} GPS • PKS Gostynin + OSM</Typography>
-        </Box>
-      </Card>
 
-      <Stack spacing={2} sx={{ position: { lg: 'sticky' }, top: 80 }}>
-        <Card sx={{ borderRadius: '24px' }}>
-          <CardContent>
-            <Typography variant="titleSmall" sx={{ fontWeight: 600, mb: 1 }}>Wybrany przystanek</Typography>
-            {selectedStop ? <><Typography variant="bodyMedium" sx={{ fontWeight: 700 }}>{selectedStop}</Typography><Typography variant="labelSmall" color="text.secondary">{stopCoords[selectedStop]?.lat?.toFixed(5)}, {stopCoords[selectedStop]?.lon?.toFixed(5)}</Typography></> : <Typography variant="bodySmall" color="text.secondary">Kliknij pinezkę na mapie</Typography>}
-          </CardContent>
-        </Card>
+          {auditMode && (
+            <Paper
+              elevation={0}
+              sx={{
+                position: 'absolute',
+                zIndex: 1000,
+                top: 12,
+                left: 12,
+                maxWidth: { xs: 'calc(100% - 24px)', sm: 330 },
+                px: 1.5,
+                py: 1,
+                borderRadius: '16px',
+                bgcolor: 'warning.container',
+                color: 'warning.onContainer',
+                border: 1,
+                borderColor: 'warning.main',
+              }}
+            >
+              <Typography variant="labelLarge" sx={{ fontWeight: 800 }}>Audyt lokalizacji</Typography>
+              <Typography variant="bodySmall">
+                Pomarańczowe punkty: {suspiciousGroups.length} nazw ze stanowiskami oddalonymi o ponad 100 m.
+              </Typography>
+            </Paper>
+          )}
 
-        <Card sx={{ borderRadius: '28px', bgcolor: 'primary.main', color: 'white' }}>
-          <CardContent>
-            <Typography variant="labelLarge" sx={{ textTransform: 'uppercase', opacity: 0.7, mb: 2 }}>Odjazdy z pinezki</Typography>
-            <Stack spacing={1} sx={{ maxHeight: '40vh', overflowY: 'auto' }}>
-              {deps.length ? deps.map((d, i) => (
-                <Paper key={i} sx={{ p: 1.5, borderRadius: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', bgcolor: 'rgba(255,255,255,0.1)', color: 'white' }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <Avatar sx={{ bgcolor: getLineHex(d.line.color), width: 28, height: 28, fontSize: 11, fontWeight: 700 }}>{d.line.number}</Avatar>
-                    <Typography variant="bodySmall" sx={{ fontFamily: 'Roboto Mono', fontWeight: 600 }}>{d.time}</Typography>
-                  </Box>
-                  <Typography variant="labelSmall" sx={{ opacity: 0.7 }}>za {Math.max(0, Math.floor(d.mins - now.minutes))} min • {d.dir.short.slice(0, 12)}</Typography>
-                </Paper>
-              )) : <Typography variant="bodySmall" sx={{ opacity: 0.7 }}>Brak kursów dziś</Typography>}
-            </Stack>
-          </CardContent>
-        </Card>
-      </Stack>
+          {selectedStop && (
+            <Paper
+              elevation={0}
+              sx={{
+                position: 'absolute',
+                zIndex: 1000,
+                left: { xs: 10, sm: 18 },
+                right: { xs: 10, sm: 'auto' },
+                bottom: { xs: 10, sm: 18 },
+                width: { sm: 430 },
+                maxHeight: '46%',
+                overflowY: 'auto',
+                borderRadius: '24px',
+                border: 1,
+                borderColor: 'divider',
+                boxShadow: '0 16px 40px rgba(20, 55, 48, .2)',
+              }}
+            >
+              <Box sx={{ px: 2.25, pt: 2, pb: 1.25, display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                <Box sx={{ minWidth: 0, flex: 1 }}>
+                  <Typography variant="bodySmall" color="text.secondary">
+                    Najbliższe odjazdy{selectedStop.designator ? ` · stanowisko ${selectedStop.designator}` : ''}
+                  </Typography>
+                  <Typography variant="titleMedium" sx={{ fontWeight: 750, mt: 0.25 }}>{selectedStop.name}</Typography>
+                  {auditMode && (
+                    <Typography variant="bodySmall" color="text.secondary" sx={{ mt: 0.5 }}>
+                      GPS: {selectedStop.source === 'api' ? 'API KiedyPrzyjedzie' : selectedStop.source === 'route' ? 'dane trasy (fallback)' : 'plik offline'} · {selectedStop.lat.toFixed(6)}, {(selectedStop.lng ?? selectedStop.lon).toFixed(6)}
+                    </Typography>
+                  )}
+                </Box>
+                <IconButton size="small" aria-label="Zamknij panel" onClick={() => setSelectedStop(null)}>
+                  <CloseRounded fontSize="small" />
+                </IconButton>
+              </Box>
+
+              {departures.length ? (
+                <Stack sx={{ px: 1.25, pb: 1.25 }}>
+                  {departures.map((departure, index) => {
+                    const minutes = Math.max(0, Math.floor(departure.minutes - now.minutes));
+                    return (
+                      <Box
+                        key={`${departure.line.id}-${departure.time}-${index}`}
+                        sx={{ display: 'grid', gridTemplateColumns: '34px 52px minmax(0, 1fr) auto', alignItems: 'center', gap: 1, px: 1, py: 0.9, borderRadius: '14px', '&:hover': { bgcolor: 'action.hover' } }}
+                      >
+                        <Avatar sx={{ width: 32, height: 32, bgcolor: getLineHex(departure.line.color), fontSize: 11, fontWeight: 800 }}>
+                          {departure.line.number}
+                        </Avatar>
+                        <Typography variant="bodyMedium" sx={{ fontFamily: 'Roboto Mono', fontWeight: 750 }}>{departure.time}</Typography>
+                        <Typography variant="bodySmall" color="text.secondary" noWrap>{departure.direction.short}</Typography>
+                        <Typography variant="labelMedium" color="primary.main" sx={{ fontWeight: 750, whiteSpace: 'nowrap' }}>
+                          {minutes < 1 ? 'teraz' : `${minutes} min`}
+                        </Typography>
+                      </Box>
+                    );
+                  })}
+                </Stack>
+              ) : (
+                <Typography variant="bodyMedium" color="text.secondary" sx={{ px: 2.25, pb: 2.25 }}>
+                  Brak kursów dla wybranego dnia.
+                </Typography>
+              )}
+            </Paper>
+          )}
+        </Box>
+      </Paper>
     </Box>
   );
 }
