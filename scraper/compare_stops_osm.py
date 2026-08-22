@@ -9,6 +9,7 @@ i Markdown. Nie modyfikuje współrzędnych aplikacji automatycznie.
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import math
 import re
@@ -16,8 +17,6 @@ import time
 import unicodedata
 from difflib import SequenceMatcher
 from pathlib import Path
-
-import requests
 
 ROOT = Path(__file__).resolve().parent.parent
 OVERPASS_URLS = (
@@ -84,7 +83,25 @@ def load_platforms(path: Path) -> list[dict]:
     return list(seen.values())
 
 
+def load_osm_csv(path: Path) -> list[dict]:
+    points = []
+    with path.open(encoding="utf-8", newline="") as source:
+        for row in csv.DictReader(source, delimiter="|"):
+            points.append({
+                "osm_id": int(row["osm_id"]),
+                "osm_type": "node",
+                "name": row.get("name", ""),
+                "lat": float(row["lat"]),
+                "lon": float(row["lon"]),
+                "public_transport": "stop_position",
+                "highway": "bus_stop",
+            })
+    return points
+
+
 def fetch_osm_stops(platforms: list[dict]) -> tuple[list[dict], str]:
+    import requests
+
     padding = 0.012
     south = min(stop["lat"] for stop in platforms) - padding
     north = max(stop["lat"] for stop in platforms) + padding
@@ -222,12 +239,17 @@ def write_markdown(report: dict, path: Path) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--stops", type=Path, default=ROOT / "public/stops_gps.json")
+    parser.add_argument("--osm-csv", type=Path, help="Lokalny eksport Overpass CSV zamiast zapytania sieciowego")
     parser.add_argument("--json", type=Path, default=ROOT / "stop_location_osm_report.json")
     parser.add_argument("--markdown", type=Path, default=ROOT / "STOP_LOCATION_OSM_AUDIT.md")
     args = parser.parse_args()
 
     platforms = load_platforms(args.stops)
-    osm_points, endpoint = fetch_osm_stops(platforms)
+    if args.osm_csv:
+        osm_points = load_osm_csv(args.osm_csv)
+        endpoint = f"snapshot:{args.osm_csv}"
+    else:
+        osm_points, endpoint = fetch_osm_stops(platforms)
     report = build_report(platforms, osm_points, endpoint)
     args.json.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     write_markdown(report, args.markdown)

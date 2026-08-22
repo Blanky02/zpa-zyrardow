@@ -1,0 +1,2590 @@
+{
+  "generated_at": "2026-08-22T22:36:40Z",
+  "overpass_endpoint": "snapshot:scraper/osm_stops_snapshot_2026-08-22.csv",
+  "platform_count": 118,
+  "osm_candidate_count": 129,
+  "counts": {
+    "confirmed": 84,
+    "probable": 8,
+    "review": 24,
+    "missing": 2
+  },
+  "entries": [
+    {
+      "platform": {
+        "id": "2502985:2600501",
+        "designator": 6876,
+        "name": "ŻYRARDÓW 1",
+        "lat": 52.04756,
+        "lon": 20.442972,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557431,
+        "osm_type": "node",
+        "name": "Reymonta",
+        "lat": 52.0473405,
+        "lon": 20.4423941,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 46.4,
+        "name_similarity": 0.0
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2029845:2102891",
+        "designator": 2091,
+        "name": "ŻYRARDÓW 1 MAJA CARREFOUR",
+        "lat": 52.056299,
+        "lon": 20.437519,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547376126,
+        "osm_type": "node",
+        "name": "1 Maja/Carrefour",
+        "lat": 52.0563198,
+        "lon": 20.4376312,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 8.0,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029845:2102892",
+        "designator": 2092,
+        "name": "ŻYRARDÓW 1 MAJA CARREFOUR",
+        "lat": 52.056478,
+        "lon": 20.437402,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547376126,
+        "osm_type": "node",
+        "name": "1 Maja/Carrefour",
+        "lat": 52.0563198,
+        "lon": 20.4376312,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 23.6,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2502988:2600505",
+        "designator": 6882,
+        "name": "ŻYRARDÓW 3",
+        "lat": 52.058355,
+        "lon": 20.439832,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300684,
+        "osm_type": "node",
+        "name": "Limanowskiego/Szpital",
+        "lat": 52.0582522,
+        "lon": 20.4395934,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 19.9,
+        "name_similarity": 0.0
+      },
+      "status": "probable"
+    },
+    {
+      "platform": {
+        "id": "2387116:2483706",
+        "designator": 6428,
+        "name": "ŻYRARDÓW CHMIELNA",
+        "lat": 52.054462,
+        "lon": 20.464713,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300260,
+        "osm_type": "node",
+        "name": "Dąbrowskiego/Południowa",
+        "lat": 52.0532666,
+        "lon": 20.463592,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 153.4,
+        "name_similarity": 0.219
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2502987:2600503",
+        "designator": 6886,
+        "name": "ŻYRARDÓW D",
+        "lat": 52.052346,
+        "lon": 20.447317,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 11533905072,
+        "osm_type": "node",
+        "name": "Żyrardów PKP",
+        "lat": 52.052389,
+        "lon": 20.4474859,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 12.5,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029960:2103102",
+        "designator": 2302,
+        "name": "ŻYRARDÓW D.A.",
+        "lat": 52.052403,
+        "lon": 20.447342,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 11533905072,
+        "osm_type": "node",
+        "name": "Żyrardów PKP",
+        "lat": 52.052389,
+        "lon": 20.4474859,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 10.0,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029960:2103103",
+        "designator": 2303,
+        "name": "ŻYRARDÓW D.A.",
+        "lat": 52.052358,
+        "lon": 20.447202,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545027014,
+        "osm_type": "node",
+        "name": "Żyrardów PKP",
+        "lat": 52.0523945,
+        "lon": 20.4471445,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 5.7,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2030027:2103229",
+        "designator": 2429,
+        "name": "ŻYRARDÓW F.DE GIRARDA",
+        "lat": 52.065838,
+        "lon": 20.443929,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 3024844148,
+        "osm_type": "node",
+        "name": "F. de Girarda",
+        "lat": 52.0657814,
+        "lon": 20.4439616,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 6.7,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2030027:2103230",
+        "designator": 2430,
+        "name": "ŻYRARDÓW F.DE GIRARDA",
+        "lat": 52.065488,
+        "lon": 20.444171,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 3024844147,
+        "osm_type": "node",
+        "name": "F. de Girarda",
+        "lat": 52.0655362,
+        "lon": 20.4441804,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 5.4,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029851:2102902",
+        "designator": 2102,
+        "name": "ŻYRARDÓW FIELDORFA NILA",
+        "lat": 52.066344,
+        "lon": 20.447141,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300642,
+        "osm_type": "node",
+        "name": "Żyrardów Jedności Robotniczej",
+        "lat": 52.0661184,
+        "lon": 20.4468875,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 30.5,
+        "name_similarity": 0.2
+      },
+      "status": "probable"
+    },
+    {
+      "platform": {
+        "id": "2029851:2102903",
+        "designator": 2103,
+        "name": "ŻYRARDÓW FIELDORFA NILA",
+        "lat": 52.066291,
+        "lon": 20.447318,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300642,
+        "osm_type": "node",
+        "name": "Żyrardów Jedności Robotniczej",
+        "lat": 52.0661184,
+        "lon": 20.4468875,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 35.1,
+        "name_similarity": 0.2
+      },
+      "status": "probable"
+    },
+    {
+      "platform": {
+        "id": "2029856:2102911",
+        "designator": 2111,
+        "name": "ŻYRARDÓW JAKTOROWSKA/1 MAJA",
+        "lat": 52.049399,
+        "lon": 20.448479,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300285,
+        "osm_type": "node",
+        "name": "Jaktorowska/1 Maja",
+        "lat": 52.0494343,
+        "lon": 20.4483243,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 11.3,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029856:2483703",
+        "designator": 6425,
+        "name": "ŻYRARDÓW JAKTOROWSKA/1 MAJA",
+        "lat": 52.049415,
+        "lon": 20.448012,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300280,
+        "osm_type": "node",
+        "name": "Jaktorowska/1 Maja",
+        "lat": 52.0493233,
+        "lon": 20.4479714,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 10.6,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029857:2102912",
+        "designator": 2112,
+        "name": "ŻYRARDÓW JAKTOROWSKA/RÓWNOLEG",
+        "lat": 52.056802,
+        "lon": 20.467789,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300250,
+        "osm_type": "node",
+        "name": "Jaktorowska/Sade",
+        "lat": 52.0568383,
+        "lon": 20.4676702,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 9.1,
+        "name_similarity": 0.614
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029857:2483704",
+        "designator": 6426,
+        "name": "ŻYRARDÓW JAKTOROWSKA/RÓWNOLEG",
+        "lat": 52.056729,
+        "lon": 20.467295,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300255,
+        "osm_type": "node",
+        "name": "Jaktorowska/Sade",
+        "lat": 52.0565665,
+        "lon": 20.4670856,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 23.1,
+        "name_similarity": 0.614
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029858:2102913",
+        "designator": 2113,
+        "name": "ŻYRARDÓW JAKTOROWSKA/SADE BUDY",
+        "lat": 52.059187,
+        "lon": 20.47949,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300244,
+        "osm_type": "node",
+        "name": "Międzyborów",
+        "lat": 52.059118,
+        "lon": 20.4795733,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 9.6,
+        "name_similarity": 0.212
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2030208:2103503",
+        "designator": 2703,
+        "name": "ŻYRARDÓW JASNA",
+        "lat": 52.060372,
+        "lon": 20.436106,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547647758,
+        "osm_type": "node",
+        "name": "Jasna/Szkoła",
+        "lat": 52.0606875,
+        "lon": 20.4357531,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 42.6,
+        "name_similarity": 1.0
+      },
+      "status": "probable"
+    },
+    {
+      "platform": {
+        "id": "2030208:2381599",
+        "designator": 4643,
+        "name": "ŻYRARDÓW JASNA",
+        "lat": 52.060187,
+        "lon": 20.436509,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547647758,
+        "osm_type": "node",
+        "name": "Jasna/Szkoła",
+        "lat": 52.0606875,
+        "lon": 20.4357531,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 75.9,
+        "name_similarity": 1.0
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2451528:2548446",
+        "designator": 6548,
+        "name": "ŻYRARDÓW KACPERSKIEJ",
+        "lat": 52.06857,
+        "lon": 20.44251,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 1822002826,
+        "osm_type": "node",
+        "name": "Kpt. Pałaca",
+        "lat": 52.0680707,
+        "lon": 20.4410011,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 117.1,
+        "name_similarity": 0.243
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2029863:2102920",
+        "designator": 2120,
+        "name": "ŻYRARDÓW KONARSKIEGO",
+        "lat": 52.052512,
+        "lon": 20.428803,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545154965,
+        "osm_type": "node",
+        "name": "Sikorskiego/Konarskiego",
+        "lat": 52.0524546,
+        "lon": 20.4286962,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 9.7,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029863:2467761",
+        "designator": 6385,
+        "name": "ŻYRARDÓW KONARSKIEGO",
+        "lat": 52.052916,
+        "lon": 20.426451,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557450,
+        "osm_type": "node",
+        "name": "Konarskiego",
+        "lat": 52.052915,
+        "lon": 20.4265374,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 5.9,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029843:2102887",
+        "designator": 2087,
+        "name": "ŻYRARDÓW KORYTÓW",
+        "lat": 52.030783,
+        "lon": 20.464964,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 1873255835,
+        "osm_type": "node",
+        "name": "Korytów",
+        "lat": 52.030769,
+        "lon": 20.4650021,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 3.0,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029843:2102888",
+        "designator": 2088,
+        "name": "ŻYRARDÓW KORYTÓW",
+        "lat": 52.03097,
+        "lon": 20.464792,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 1873255835,
+        "osm_type": "node",
+        "name": "Korytów",
+        "lat": 52.030769,
+        "lon": 20.4650021,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 26.6,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029819:2102847",
+        "designator": 2047,
+        "name": "ŻYRARDÓW KPT. PAŁACA",
+        "lat": 52.06801,
+        "lon": 20.440686,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 1822002670,
+        "osm_type": "node",
+        "name": "Kpt. Pałaca",
+        "lat": 52.0680381,
+        "lon": 20.4409104,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 15.7,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029819:2102848",
+        "designator": 2048,
+        "name": "ŻYRARDÓW KPT. PAŁACA",
+        "lat": 52.068029,
+        "lon": 20.441028,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 1822002826,
+        "osm_type": "node",
+        "name": "Kpt. Pałaca",
+        "lat": 52.0680707,
+        "lon": 20.4410011,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 5.0,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2387115:2483705",
+        "designator": 6427,
+        "name": "ŻYRARDÓW LEGIONÓW POLSKICH",
+        "lat": 52.053983,
+        "lon": 20.430688,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547647746,
+        "osm_type": "node",
+        "name": "Legionów Polskich/Szkoła",
+        "lat": 52.0537916,
+        "lon": 20.4307364,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 21.5,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2387115:2548434",
+        "designator": 6536,
+        "name": "ŻYRARDÓW LEGIONÓW POLSKICH",
+        "lat": 52.05309,
+        "lon": 20.4314,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547681789,
+        "osm_type": "node",
+        "name": "Legionów Polskich/Szkoła",
+        "lat": 52.0532593,
+        "lon": 20.4312169,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 22.6,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029861:2102916",
+        "designator": 2116,
+        "name": "ŻYRARDÓW LELEWELA",
+        "lat": 52.050395,
+        "lon": 20.454252,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300270,
+        "osm_type": "node",
+        "name": "Dąbrowskiego/Lelewela",
+        "lat": 52.0506713,
+        "lon": 20.456707,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 170.7,
+        "name_similarity": 1.0
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2029861:2102917",
+        "designator": 2117,
+        "name": "ŻYRARDÓW LELEWELA",
+        "lat": 52.050268,
+        "lon": 20.454501,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300270,
+        "osm_type": "node",
+        "name": "Dąbrowskiego/Lelewela",
+        "lat": 52.0506713,
+        "lon": 20.456707,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 157.4,
+        "name_similarity": 1.0
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2387113:2483701",
+        "designator": 6423,
+        "name": "ŻYRARDÓW LIMANOWSKIEGO/A KRAJ.",
+        "lat": 52.05676,
+        "lon": 20.43586,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300696,
+        "osm_type": "node",
+        "name": "Limanowskiego/Armii Krajowej",
+        "lat": 52.0567204,
+        "lon": 20.4359037,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 5.3,
+        "name_similarity": 0.708
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2387114:2483702",
+        "designator": 6424,
+        "name": "ŻYRARDÓW LIMANOWSKIEGO/DITTRI.",
+        "lat": 52.055993,
+        "lon": 20.434441,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300703,
+        "osm_type": "node",
+        "name": "Limanowskiego/Dittricha",
+        "lat": 52.0558919,
+        "lon": 20.4339816,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 33.4,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029826:2102860",
+        "designator": 2060,
+        "name": "ŻYRARDÓW LIMANOWSKIEGO/LEGION.",
+        "lat": 52.054963,
+        "lon": 20.431573,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300713,
+        "osm_type": "node",
+        "name": "Limanowskiego/Legionów",
+        "lat": 52.0550233,
+        "lon": 20.4317952,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 16.6,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029826:2102861",
+        "designator": 2061,
+        "name": "ŻYRARDÓW LIMANOWSKIEGO/LEGION.",
+        "lat": 52.054323,
+        "lon": 20.429866,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5143018243,
+        "osm_type": "node",
+        "name": "Limanowskiego/Legionów",
+        "lat": 52.0542672,
+        "lon": 20.4295846,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 20.2,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029826:2177013",
+        "designator": 4004,
+        "name": "ŻYRARDÓW LIMANOWSKIEGO/LEGION.",
+        "lat": 52.05497,
+        "lon": 20.43161,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300713,
+        "osm_type": "node",
+        "name": "Limanowskiego/Legionów",
+        "lat": 52.0550233,
+        "lon": 20.4317952,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 14.0,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029848:2102896",
+        "designator": 2096,
+        "name": "ŻYRARDÓW LIMANOWSKIEGO-SZPITAL",
+        "lat": 52.058581,
+        "lon": 20.440291,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300679,
+        "osm_type": "node",
+        "name": "Limanowskiego/Szpital",
+        "lat": 52.0585582,
+        "lon": 20.4403351,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 3.9,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029848:2102897",
+        "designator": 2097,
+        "name": "ŻYRARDÓW LIMANOWSKIEGO-SZPITAL",
+        "lat": 52.058235,
+        "lon": 20.439617,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300684,
+        "osm_type": "node",
+        "name": "Limanowskiego/Szpital",
+        "lat": 52.0582522,
+        "lon": 20.4395934,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 2.5,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029842:2102885",
+        "designator": 2085,
+        "name": "ŻYRARDÓW MICKIEWICZA/DZIAŁKI",
+        "lat": 52.036645,
+        "lon": 20.45895,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557069,
+        "osm_type": "node",
+        "name": "Mickiewicza",
+        "lat": 52.0368025,
+        "lon": 20.4588916,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 18.0,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029842:2102886",
+        "designator": 2086,
+        "name": "ŻYRARDÓW MICKIEWICZA/DZIAŁKI",
+        "lat": 52.037047,
+        "lon": 20.458734,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557069,
+        "osm_type": "node",
+        "name": "Mickiewicza",
+        "lat": 52.0368025,
+        "lon": 20.4588916,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 29.2,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029839:2102879",
+        "designator": 2079,
+        "name": "ŻYRARDÓW MICKIEWICZA/KANAŁOWA",
+        "lat": 52.047532,
+        "lon": 20.447353,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557113,
+        "osm_type": "node",
+        "name": "Mickiewicza/Kanałowa",
+        "lat": 52.0474801,
+        "lon": 20.4473016,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 6.8,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029839:2102880",
+        "designator": 2080,
+        "name": "ŻYRARDÓW MICKIEWICZA/KANAŁOWA",
+        "lat": 52.046544,
+        "lon": 20.448236,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557108,
+        "osm_type": "node",
+        "name": "Mickiewicza/Kanałowa",
+        "lat": 52.0464838,
+        "lon": 20.4484249,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 14.5,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029841:2102883",
+        "designator": 2083,
+        "name": "ŻYRARDÓW MICKIEWICZA/ROSZARNI",
+        "lat": 52.039409,
+        "lon": 20.456161,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557080,
+        "osm_type": "node",
+        "name": "Mickiewicza/Roszarnicza",
+        "lat": 52.039551,
+        "lon": 20.4561188,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 16.1,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029841:2102884",
+        "designator": 2084,
+        "name": "ŻYRARDÓW MICKIEWICZA/ROSZARNI",
+        "lat": 52.040123,
+        "lon": 20.455563,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557086,
+        "osm_type": "node",
+        "name": "Mickiewicza/Roszarnicza",
+        "lat": 52.0402739,
+        "lon": 20.4553015,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 24.5,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029175:2101863",
+        "designator": 1063,
+        "name": "ŻYRARDÓW MICKIEWICZA/SKIERNIE",
+        "lat": 52.047686,
+        "lon": 20.447112,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557113,
+        "osm_type": "node",
+        "name": "Mickiewicza/Kanałowa",
+        "lat": 52.0474801,
+        "lon": 20.4473016,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 26.3,
+        "name_similarity": 0.595
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029175:2101864",
+        "designator": 1064,
+        "name": "ŻYRARDÓW MICKIEWICZA/SKIERNIE",
+        "lat": 52.04656,
+        "lon": 20.448249,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557108,
+        "osm_type": "node",
+        "name": "Mickiewicza/Kanałowa",
+        "lat": 52.0464838,
+        "lon": 20.4484249,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 14.7,
+        "name_similarity": 0.595
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029840:2102881",
+        "designator": 2081,
+        "name": "ŻYRARDÓW MICKIEWICZA/WROCŁAWSK",
+        "lat": 52.042091,
+        "lon": 20.453199,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557094,
+        "osm_type": "node",
+        "name": "Mickiewicza/Wrocławska",
+        "lat": 52.0421739,
+        "lon": 20.4532274,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 9.4,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029840:2102882",
+        "designator": 2082,
+        "name": "ŻYRARDÓW MICKIEWICZA/WROCŁAWSK",
+        "lat": 52.0434,
+        "lon": 20.451912,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557102,
+        "osm_type": "node",
+        "name": "Mickiewicza/Wrocławska",
+        "lat": 52.0433013,
+        "lon": 20.4519317,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 11.1,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029846:2102893",
+        "designator": 2093,
+        "name": "ŻYRARDÓW MIRECKIEGO/1 MAJA",
+        "lat": 52.055241,
+        "lon": 20.440988,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557443,
+        "osm_type": "node",
+        "name": "Mireckiego/1 Maja",
+        "lat": 52.0551587,
+        "lon": 20.4409335,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 9.9,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029846:2102894",
+        "designator": 2094,
+        "name": "ŻYRARDÓW MIRECKIEGO/1 MAJA",
+        "lat": 52.054818,
+        "lon": 20.440229,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547375019,
+        "osm_type": "node",
+        "name": "Mireckiego/1 Maja",
+        "lat": 52.0549247,
+        "lon": 20.4403733,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 15.4,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029853:2102905",
+        "designator": 2105,
+        "name": "ŻYRARDÓW MIRECKIEGO/OSSOWSKIE",
+        "lat": 52.057971,
+        "lon": 20.447881,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300627,
+        "osm_type": "node",
+        "name": "Mireckiego/Ossowskiego",
+        "lat": 52.0580316,
+        "lon": 20.4478051,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 8.5,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029853:2102906",
+        "designator": 2106,
+        "name": "ŻYRARDÓW MIRECKIEGO/OSSOWSKIE",
+        "lat": 52.057857,
+        "lon": 20.447251,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300625,
+        "osm_type": "node",
+        "name": "Mireckiego/Ossowskiego",
+        "lat": 52.0578655,
+        "lon": 20.4474029,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 10.4,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029831:2102869",
+        "designator": 2069,
+        "name": "ŻYRARDÓW MOSTOWA",
+        "lat": 52.051088,
+        "lon": 20.429517,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545154952,
+        "osm_type": "node",
+        "name": "Sikorskiego/Mostowa",
+        "lat": 52.0508947,
+        "lon": 20.4300989,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 45.2,
+        "name_similarity": 1.0
+      },
+      "status": "probable"
+    },
+    {
+      "platform": {
+        "id": "2029832:2102870",
+        "designator": 2070,
+        "name": "ŻYRARDÓW MOSTOWA PĘTLA",
+        "lat": 52.048738,
+        "lon": 20.422953,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557462,
+        "osm_type": "node",
+        "name": "Mostowa Pętla",
+        "lat": 52.0487498,
+        "lon": 20.4230176,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 4.6,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029852:2102904",
+        "designator": 2104,
+        "name": "ŻYRARDÓW NIETRZEBKI",
+        "lat": 52.071928,
+        "lon": 20.435889,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 1822002885,
+        "osm_type": "node",
+        "name": "Marii Nietrzebki",
+        "lat": 52.071966,
+        "lon": 20.4360161,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 9.7,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029852:2288416",
+        "designator": 4427,
+        "name": "ŻYRARDÓW NIETRZEBKI",
+        "lat": 52.071796,
+        "lon": 20.435787,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 1822002885,
+        "osm_type": "node",
+        "name": "Marii Nietrzebki",
+        "lat": 52.071966,
+        "lon": 20.4360161,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 24.5,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2030383:2103773",
+        "designator": 2973,
+        "name": "NOWE KOZŁOWICE ZAKRĘT",
+        "lat": 52.08711,
+        "lon": 20.42478,
+        "source": "route"
+      },
+      "osm": null,
+      "status": "missing"
+    },
+    {
+      "platform": {
+        "id": "2030107:2103357",
+        "designator": 2557,
+        "name": "ŻYRARDÓW OKRZEI",
+        "lat": 52.052352,
+        "lon": 20.437013,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300303,
+        "osm_type": "node",
+        "name": "Okrzei/Wyspiańskiego",
+        "lat": 52.0521134,
+        "lon": 20.4362764,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 56.9,
+        "name_similarity": 1.0
+      },
+      "status": "probable"
+    },
+    {
+      "platform": {
+        "id": "2030107:2103358",
+        "designator": 2558,
+        "name": "ŻYRARDÓW OKRZEI",
+        "lat": 52.052098,
+        "lon": 20.436337,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300303,
+        "osm_type": "node",
+        "name": "Okrzei/Wyspiańskiego",
+        "lat": 52.0521134,
+        "lon": 20.4362764,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 4.5,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029836:2102875",
+        "designator": 2075,
+        "name": "ŻYRARDÓW OPOLSKA",
+        "lat": 52.043313,
+        "lon": 20.445395,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557421,
+        "osm_type": "node",
+        "name": "Opolska/Rolna",
+        "lat": 52.0433304,
+        "lon": 20.4453047,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 6.5,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2030106:2103355",
+        "designator": 2555,
+        "name": "ŻYRARDÓW OSSOWSKIEGO",
+        "lat": 52.061037,
+        "lon": 20.445118,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300674,
+        "osm_type": "node",
+        "name": "Ossowskiego/Limanowskiego",
+        "lat": 52.0610691,
+        "lon": 20.4450974,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 3.8,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2030106:2103356",
+        "designator": 2556,
+        "name": "ŻYRARDÓW OSSOWSKIEGO",
+        "lat": 52.06205,
+        "lon": 20.444082,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300669,
+        "osm_type": "node",
+        "name": "Ossowskiego/Waryńskiego",
+        "lat": 52.0619902,
+        "lon": 20.4440262,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 7.7,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029849:2102898",
+        "designator": 2098,
+        "name": "ŻYRARDÓW PARKINGOWA",
+        "lat": 52.072274,
+        "lon": 20.438619,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 1822002823,
+        "osm_type": "node",
+        "name": "Parkingowa Pętla",
+        "lat": 52.0723067,
+        "lon": 20.4409271,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 157.8,
+        "name_similarity": 1.0
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2029849:2102899",
+        "designator": 2099,
+        "name": "ŻYRARDÓW PARKINGOWA",
+        "lat": 52.072241,
+        "lon": 20.439751,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 1822002823,
+        "osm_type": "node",
+        "name": "Parkingowa Pętla",
+        "lat": 52.0723067,
+        "lon": 20.4409271,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 80.7,
+        "name_similarity": 1.0
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2387117:2483707",
+        "designator": 6429,
+        "name": "ŻYRARDÓW PARKINGOWA/KPT. PAŁAC",
+        "lat": 52.070064,
+        "lon": 20.444806,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300649,
+        "osm_type": "node",
+        "name": "R. Witolda Pileckiego",
+        "lat": 52.0682399,
+        "lon": 20.4481706,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 306.6,
+        "name_similarity": 0.212
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2029798:2102813",
+        "designator": 2013,
+        "name": "ŻYRARDÓW PARTYZANTÓW PDT",
+        "lat": 52.056008,
+        "lon": 20.445045,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300313,
+        "osm_type": "node",
+        "name": "Al. Partyzantów/PDT",
+        "lat": 52.0559874,
+        "lon": 20.4450702,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 2.9,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029798:2102814",
+        "designator": 2014,
+        "name": "ŻYRARDÓW PARTYZANTÓW PDT",
+        "lat": 52.056219,
+        "lon": 20.444753,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5142652671,
+        "osm_type": "node",
+        "name": "Al. Partyzantów/PDT",
+        "lat": 52.0562256,
+        "lon": 20.4448178,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 4.5,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2387120:2483710",
+        "designator": 6432,
+        "name": "ŻYRARDÓW PESZKOWSKIEGO",
+        "lat": 52.063658,
+        "lon": 20.442338,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300632,
+        "osm_type": "node",
+        "name": "Żyrardów Środkowa / Kilińskiego",
+        "lat": 52.0646798,
+        "lon": 20.4449767,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 213.2,
+        "name_similarity": 0.515
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2030206:2103501",
+        "designator": 2701,
+        "name": "ŻYRARDÓW PIĘKNA",
+        "lat": 52.064375,
+        "lon": 20.438681,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300660,
+        "osm_type": "node",
+        "name": "I. Zielińskiej",
+        "lat": 52.0659075,
+        "lon": 20.4403095,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 203.5,
+        "name_similarity": 0.268
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2030206:2381597",
+        "designator": 4641,
+        "name": "ŻYRARDÓW PIĘKNA",
+        "lat": 52.063445,
+        "lon": 20.437265,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547647763,
+        "osm_type": "node",
+        "name": "Piękna",
+        "lat": 52.0616756,
+        "lon": 20.4340573,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 294.6,
+        "name_similarity": 1.0
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2029850:2102900",
+        "designator": 2100,
+        "name": "ŻYRARDÓW PILECKIEGO",
+        "lat": 52.067936,
+        "lon": 20.448474,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300654,
+        "osm_type": "node",
+        "name": "R. Witolda Pileckiego",
+        "lat": 52.0679169,
+        "lon": 20.4485559,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 6.0,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029850:2102901",
+        "designator": 2101,
+        "name": "ŻYRARDÓW PILECKIEGO",
+        "lat": 52.068274,
+        "lon": 20.448225,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300649,
+        "osm_type": "node",
+        "name": "R. Witolda Pileckiego",
+        "lat": 52.0682399,
+        "lon": 20.4481706,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 5.3,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029834:2102873",
+        "designator": 2073,
+        "name": "ŻYRARDÓW PIOTRA SKARGI/REYMONT",
+        "lat": 52.045313,
+        "lon": 20.438614,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557425,
+        "osm_type": "node",
+        "name": "Piotra Skargi/Reymonta",
+        "lat": 52.0453526,
+        "lon": 20.4385987,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 4.5,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029835:2102874",
+        "designator": 2074,
+        "name": "ŻYRARDÓW PIOTRA SKARGI/ROLNA",
+        "lat": 52.04161,
+        "lon": 20.442354,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557423,
+        "osm_type": "node",
+        "name": "P. Skargi/Rolna",
+        "lat": 52.0418538,
+        "lon": 20.4421187,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 31.5,
+        "name_similarity": 0.721
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2030454:2103852",
+        "designator": 3052,
+        "name": "ŻYRARDÓW POŁUDNIOWA",
+        "lat": 52.053325,
+        "lon": 20.463864,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300260,
+        "osm_type": "node",
+        "name": "Dąbrowskiego/Południowa",
+        "lat": 52.0532666,
+        "lon": 20.463592,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 19.7,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029855:2102909",
+        "designator": 2109,
+        "name": "ŻYRARDÓW RADZIWIŁŁOWSKA",
+        "lat": 52.049544,
+        "lon": 20.439488,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545154947,
+        "osm_type": "node",
+        "name": "Radziwiłłowska",
+        "lat": 52.0494862,
+        "lon": 20.4393264,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 12.8,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029855:2102910",
+        "designator": 2110,
+        "name": "ŻYRARDÓW RADZIWIŁŁOWSKA",
+        "lat": 52.048272,
+        "lon": 20.435508,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545154950,
+        "osm_type": "node",
+        "name": "Radziwiłłowska",
+        "lat": 52.0484089,
+        "lon": 20.4358801,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 29.7,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029838:2102877",
+        "designator": 2077,
+        "name": "ŻYRARDÓW REYMONTA",
+        "lat": 52.047421,
+        "lon": 20.44239,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557431,
+        "osm_type": "node",
+        "name": "Reymonta",
+        "lat": 52.0473405,
+        "lon": 20.4423941,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 9.0,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029838:2102878",
+        "designator": 2078,
+        "name": "ŻYRARDÓW REYMONTA",
+        "lat": 52.048003,
+        "lon": 20.44437,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557438,
+        "osm_type": "node",
+        "name": "Reymonta",
+        "lat": 52.048034,
+        "lon": 20.4442025,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 12.0,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029837:2102876",
+        "designator": 2076,
+        "name": "ŻYRARDÓW ROLNA",
+        "lat": 52.041852,
+        "lon": 20.443472,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557423,
+        "osm_type": "node",
+        "name": "P. Skargi/Rolna",
+        "lat": 52.0418538,
+        "lon": 20.4421187,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 92.6,
+        "name_similarity": 1.0
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2030232:2103530",
+        "designator": 2730,
+        "name": "ŻYRARDÓW SIKORSKIEGO/MACZKA",
+        "lat": 52.049648,
+        "lon": 20.43131,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545154957,
+        "osm_type": "node",
+        "name": "Sikorskiego/Mostowa",
+        "lat": 52.0508635,
+        "lon": 20.4301274,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 157.5,
+        "name_similarity": 0.643
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2030232:2103531",
+        "designator": 2731,
+        "name": "ŻYRARDÓW SIKORSKIEGO/MACZKA",
+        "lat": 52.04877,
+        "lon": 20.431911,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545154957,
+        "osm_type": "node",
+        "name": "Sikorskiego/Mostowa",
+        "lat": 52.0508635,
+        "lon": 20.4301274,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 262.8,
+        "name_similarity": 0.643
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2029864:2102921",
+        "designator": 2121,
+        "name": "ŻYRARDÓW SIKORSKIEGO/MOSTOWA",
+        "lat": 52.051065,
+        "lon": 20.429993,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545154952,
+        "osm_type": "node",
+        "name": "Sikorskiego/Mostowa",
+        "lat": 52.0508947,
+        "lon": 20.4300989,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 20.3,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029864:2102922",
+        "designator": 2122,
+        "name": "ŻYRARDÓW SIKORSKIEGO/MOSTOWA",
+        "lat": 52.050926,
+        "lon": 20.430042,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545154952,
+        "osm_type": "node",
+        "name": "Sikorskiego/Mostowa",
+        "lat": 52.0508947,
+        "lon": 20.4300989,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 5.2,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2387118:2483708",
+        "designator": 6430,
+        "name": "ŻYRARDÓW SIKORSKIEGO/ROOSEVEL",
+        "lat": 52.05256,
+        "lon": 20.42863,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545154965,
+        "osm_type": "node",
+        "name": "Sikorskiego/Konarskiego",
+        "lat": 52.0524546,
+        "lon": 20.4286962,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 12.6,
+        "name_similarity": 0.553
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029821:2102851",
+        "designator": 2051,
+        "name": "ŻYRARDÓW SKROWACZEWSKIEGO/NIET",
+        "lat": 52.067966,
+        "lon": 20.434787,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545026942,
+        "osm_type": "node",
+        "name": "Skrowaczewskiego/Nietrzebki",
+        "lat": 52.0679367,
+        "lon": 20.434704,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 6.5,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029821:2102852",
+        "designator": 2052,
+        "name": "ŻYRARDÓW SKROWACZEWSKIEGO/NIET",
+        "lat": 52.067733,
+        "lon": 20.435972,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545026937,
+        "osm_type": "node",
+        "name": "Skrowaczewskiego/Nietrzebki",
+        "lat": 52.0677579,
+        "lon": 20.4361614,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 13.2,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029847:2102895",
+        "designator": 2095,
+        "name": "ŻYRARDÓW SOSABOWSKIEGO",
+        "lat": 52.050419,
+        "lon": 20.427006,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557460,
+        "osm_type": "node",
+        "name": "Sosabowskiego",
+        "lat": 52.0504645,
+        "lon": 20.4269721,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 5.6,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029862:2102918",
+        "designator": 2118,
+        "name": "ŻYRARDÓW SPÓŁDZIELCZA",
+        "lat": 52.068762,
+        "lon": 20.429532,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545026931,
+        "osm_type": "node",
+        "name": "Spółdzielcza",
+        "lat": 52.0686906,
+        "lon": 20.429618,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 9.9,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029862:2102919",
+        "designator": 2119,
+        "name": "ŻYRARDÓW SPÓŁDZIELCZA",
+        "lat": 52.068614,
+        "lon": 20.429692,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545026926,
+        "osm_type": "node",
+        "name": "Spółdzielcza",
+        "lat": 52.0686701,
+        "lon": 20.4297417,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 7.1,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029830:2102867",
+        "designator": 2067,
+        "name": "ŻYRARDÓW ŚRODKOWA/BOHATERÓW",
+        "lat": 52.056282,
+        "lon": 20.454402,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545026996,
+        "osm_type": "node",
+        "name": "Żyrardów Środkowa / Bohaterów Warszawy",
+        "lat": 52.0562372,
+        "lon": 20.4543278,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 7.1,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029830:2102868",
+        "designator": 2068,
+        "name": "ŻYRARDÓW ŚRODKOWA/BOHATERÓW",
+        "lat": 52.056657,
+        "lon": 20.453763,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545026991,
+        "osm_type": "node",
+        "name": "Żyrardów Środkowa / Bohaterów Warszawy",
+        "lat": 52.0566679,
+        "lon": 20.4538488,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 6.0,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029823:2102855",
+        "designator": 2055,
+        "name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+        "lat": 52.061693,
+        "lon": 20.448332,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545026979,
+        "osm_type": "node",
+        "name": "Żyrardów Środkowa / Limanowskiego",
+        "lat": 52.0616598,
+        "lon": 20.4482663,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 5.8,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029823:2102856",
+        "designator": 2056,
+        "name": "ŻYRARDÓW ŚRODKOWA/LIMANOWSKIE",
+        "lat": 52.061485,
+        "lon": 20.448342,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545026974,
+        "osm_type": "node",
+        "name": "Żyrardów Środkowa / Limanowskiego",
+        "lat": 52.0615163,
+        "lon": 20.4484325,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 7.1,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029824:2102857",
+        "designator": 2057,
+        "name": "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO",
+        "lat": 52.059016,
+        "lon": 20.451329,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545026989,
+        "osm_type": "node",
+        "name": "Żyrardów Środkowa / Mireckiego",
+        "lat": 52.0589804,
+        "lon": 20.4512738,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 5.5,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029824:2102858",
+        "designator": 2058,
+        "name": "ŻYRARDÓW ŚRODKOWA/MIRECKIEGO",
+        "lat": 52.058996,
+        "lon": 20.451111,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545026984,
+        "osm_type": "node",
+        "name": "Żyrardów Środkowa / Mireckiego",
+        "lat": 52.0590686,
+        "lon": 20.4511775,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 9.3,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029822:2102853",
+        "designator": 2053,
+        "name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+        "lat": 52.06342,
+        "lon": 20.446371,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 13448771791,
+        "osm_type": "node",
+        "name": "Żyrardów Środkowa / Kilińskiego",
+        "lat": 52.0633479,
+        "lon": 20.4463133,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 8.9,
+        "name_similarity": 0.505
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029822:2102854",
+        "designator": 2054,
+        "name": "ŻYRARDÓW ŚRODKOWA/SPOKOJNA",
+        "lat": 52.063341,
+        "lon": 20.446221,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 13448771791,
+        "osm_type": "node",
+        "name": "Żyrardów Środkowa / Kilińskiego",
+        "lat": 52.0633479,
+        "lon": 20.4463133,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 6.4,
+        "name_similarity": 0.505
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2030104:2103351",
+        "designator": 2551,
+        "name": "ŻYRARDÓW SZARYCH SZEREGÓW",
+        "lat": 52.054163,
+        "lon": 20.426978,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545154967,
+        "osm_type": "node",
+        "name": "Wittenberga k. Żabki",
+        "lat": 52.053969,
+        "lon": 20.4270819,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 22.7,
+        "name_similarity": 0.097
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2030104:2103352",
+        "designator": 2552,
+        "name": "ŻYRARDÓW SZARYCH SZEREGÓW",
+        "lat": 52.053746,
+        "lon": 20.427229,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545154975,
+        "osm_type": "node",
+        "name": "Wittenberga k. Żabki",
+        "lat": 52.0538174,
+        "lon": 20.4272223,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 8.0,
+        "name_similarity": 0.097
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2030209:2103504",
+        "designator": 2704,
+        "name": "ŻYRARDÓW WARYŃSKIEGO",
+        "lat": 52.059931,
+        "lon": 20.439561,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300679,
+        "osm_type": "node",
+        "name": "Limanowskiego/Szpital",
+        "lat": 52.0585582,
+        "lon": 20.4403351,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 161.6,
+        "name_similarity": 0.372
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2030209:2381600",
+        "designator": 4644,
+        "name": "ŻYRARDÓW WARYŃSKIEGO",
+        "lat": 52.059493,
+        "lon": 20.438638,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547647751,
+        "osm_type": "node",
+        "name": "Narutowicza",
+        "lat": 52.0582364,
+        "lon": 20.4383437,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 141.2,
+        "name_similarity": 0.232
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2030105:2103353",
+        "designator": 2553,
+        "name": "ŻYRARDÓW WAWELSKA",
+        "lat": 52.051384,
+        "lon": 20.458806,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300275,
+        "osm_type": "node",
+        "name": "Dąbrowskiego/Lelewela",
+        "lat": 52.050772,
+        "lon": 20.4569767,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 142.4,
+        "name_similarity": 0.293
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2030105:2103354",
+        "designator": 2554,
+        "name": "ŻYRARDÓW WAWELSKA",
+        "lat": 52.051267,
+        "lon": 20.458254,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300275,
+        "osm_type": "node",
+        "name": "Dąbrowskiego/Lelewela",
+        "lat": 52.050772,
+        "lon": 20.4569767,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 103.2,
+        "name_similarity": 0.293
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2029980:2103141",
+        "designator": 2341,
+        "name": "WISKITKI  PL. Wolności 5/6 / I",
+        "lat": 52.086983,
+        "lon": 20.383143,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 2699768039,
+        "osm_type": "node",
+        "name": "Plac Wolności",
+        "lat": 52.0868237,
+        "lon": 20.3833921,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 24.6,
+        "name_similarity": 0.479
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2030362:2103738",
+        "designator": 2938,
+        "name": "Wiskitki Szkoła",
+        "lat": 52.082353,
+        "lon": 20.385157,
+        "source": "route"
+      },
+      "osm": null,
+      "status": "missing"
+    },
+    {
+      "platform": {
+        "id": "2029820:2102849",
+        "designator": 2049,
+        "name": "ŻYRARDÓW WITTENBERGA",
+        "lat": 52.055848,
+        "lon": 20.428021,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545154982,
+        "osm_type": "node",
+        "name": "Wittenberga",
+        "lat": 52.0558325,
+        "lon": 20.4279288,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 6.5,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029820:2102850",
+        "designator": 2050,
+        "name": "ŻYRARDÓW WITTENBERGA",
+        "lat": 52.055373,
+        "lon": 20.427542,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300735,
+        "osm_type": "node",
+        "name": "Legionów Polskich/Wittenberga",
+        "lat": 52.0552853,
+        "lon": 20.426765,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 54.0,
+        "name_similarity": 1.0
+      },
+      "status": "probable"
+    },
+    {
+      "platform": {
+        "id": "2029860:2102915",
+        "designator": 2115,
+        "name": "ŻYRARDÓW WYSPIAŃSKIEGO",
+        "lat": 52.049482,
+        "lon": 20.438555,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547300308,
+        "osm_type": "node",
+        "name": "Wyspiańskiego",
+        "lat": 52.0496249,
+        "lon": 20.4385144,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 16.1,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029811:2102833",
+        "designator": 2033,
+        "name": "ŻYRARDÓW ZALEW ŻYRARDOWSKI",
+        "lat": 52.03675,
+        "lon": 20.45089,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5547557080,
+        "osm_type": "node",
+        "name": "Mickiewicza/Roszarnicza",
+        "lat": 52.039551,
+        "lon": 20.4561188,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 474.3,
+        "name_similarity": 0.297
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2387119:2483709",
+        "designator": 6431,
+        "name": "ŻYRARDÓW ŻEROMKSIEGO PĘTLA",
+        "lat": 52.05934,
+        "lon": 20.41432,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545155008,
+        "osm_type": "node",
+        "name": "Żeromskiego/Poznańska",
+        "lat": 52.0593292,
+        "lon": 20.4142039,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 8.0,
+        "name_similarity": 0.582
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029828:2102864",
+        "designator": 2064,
+        "name": "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
+        "lat": 52.058067,
+        "lon": 20.421515,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545154998,
+        "osm_type": "node",
+        "name": "Żeromskiego/Krzywa",
+        "lat": 52.0583482,
+        "lon": 20.4196518,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 131.2,
+        "name_similarity": 1.0
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2029828:2102865",
+        "designator": 2065,
+        "name": "ŻYRARDÓW ŻEROMSKIEGO/KRZYWA",
+        "lat": 52.058218,
+        "lon": 20.420005,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545154998,
+        "osm_type": "node",
+        "name": "Żeromskiego/Krzywa",
+        "lat": 52.0583482,
+        "lon": 20.4196518,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 28.2,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029827:2102862",
+        "designator": 2062,
+        "name": "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
+        "lat": 52.057266,
+        "lon": 20.425613,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545154993,
+        "osm_type": "node",
+        "name": "Żeromskiego/Piastowska",
+        "lat": 52.0574392,
+        "lon": 20.4246391,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 69.3,
+        "name_similarity": 1.0
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2029827:2102863",
+        "designator": 2063,
+        "name": "ŻYRARDÓW ŻEROMSKIEGO/PIASTOWSK",
+        "lat": 52.057442,
+        "lon": 20.424436,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545154993,
+        "osm_type": "node",
+        "name": "Żeromskiego/Piastowska",
+        "lat": 52.0574392,
+        "lon": 20.4246391,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 13.9,
+        "name_similarity": 1.0
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029844:2102889",
+        "designator": 2089,
+        "name": "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
+        "lat": 52.05878,
+        "lon": 20.417711,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545155003,
+        "osm_type": "node",
+        "name": "Żeromskiego/Krzywa",
+        "lat": 52.058898,
+        "lon": 20.4166318,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 74.9,
+        "name_similarity": 0.61
+      },
+      "status": "review"
+    },
+    {
+      "platform": {
+        "id": "2029844:2102890",
+        "designator": 2090,
+        "name": "ŻYRARDÓW ŻEROMSKIEGO/POZNAŃSKA",
+        "lat": 52.05883,
+        "lon": 20.416588,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545155003,
+        "osm_type": "node",
+        "name": "Żeromskiego/Krzywa",
+        "lat": 52.058898,
+        "lon": 20.4166318,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 8.1,
+        "name_similarity": 0.61
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029854:2102907",
+        "designator": 2107,
+        "name": "ŻYRARDÓW ZUS",
+        "lat": 52.050956,
+        "lon": 20.442755,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545154939,
+        "osm_type": "node",
+        "name": "Polskiej Organizacji Wojskowej",
+        "lat": 52.0509458,
+        "lon": 20.4428283,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 5.1,
+        "name_similarity": 0.103
+      },
+      "status": "confirmed"
+    },
+    {
+      "platform": {
+        "id": "2029854:2102908",
+        "designator": 2108,
+        "name": "ŻYRARDÓW ZUS",
+        "lat": 52.051017,
+        "lon": 20.443059,
+        "source": "route"
+      },
+      "osm": {
+        "osm_id": 5545154939,
+        "osm_type": "node",
+        "name": "Polskiej Organizacji Wojskowej",
+        "lat": 52.0509458,
+        "lon": 20.4428283,
+        "public_transport": "stop_position",
+        "highway": "bus_stop",
+        "distance_m": 17.7,
+        "name_similarity": 0.103
+      },
+      "status": "probable"
+    }
+  ]
+}
