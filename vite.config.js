@@ -118,7 +118,7 @@ export default defineConfig({
     cors: true,
     allowedHosts: true,
   },
-  base: './',
+  base: '/',
   build: {
     rollupOptions: {
       output: {
