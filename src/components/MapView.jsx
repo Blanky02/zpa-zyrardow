@@ -306,21 +306,21 @@ export default function MapView({ busData, stopCoords, state, now }) {
       >
         <Box
           sx={{
-            p: { xs: 1.5, sm: 2 },
+            p: { xs: 0, sm: 2 },
             display: 'flex',
             alignItems: 'center',
             gap: 1,
             flexWrap: 'wrap',
-            bgcolor: 'background.paper',
+            bgcolor: { xs: 'transparent', sm: 'background.paper' },
             position: { xs: 'absolute', sm: 'static' },
-            top: { xs: 'calc(env(safe-area-inset-top, 0px) + 60px)', sm: 'auto' },
-            left: { xs: 8, sm: 'auto' },
-            right: { xs: 8, sm: 'auto' },
+            top: { xs: 'calc(env(safe-area-inset-top, 0px) + 12px)', sm: 'auto' },
+            left: { xs: 16, sm: 'auto' },
+            right: { xs: 112, sm: 'auto' },
             zIndex: { xs: 1001, sm: 'auto' },
-            borderRadius: { xs: '18px', sm: 0 },
-            border: { xs: 1, sm: 0 },
+            borderRadius: { xs: 0, sm: 0 },
+            border: { xs: 0, sm: 0 },
             borderColor: 'divider',
-            boxShadow: { xs: '0 10px 28px rgba(20, 55, 48, .16)', sm: 'none' },
+            boxShadow: 'none',
           }}
         >
           <Box sx={{ width: 38, height: 38, borderRadius: '14px', bgcolor: 'primary.container', color: 'primary.onContainer', display: { xs: 'none', sm: 'grid' }, placeItems: 'center' }}>
@@ -333,10 +333,17 @@ export default function MapView({ busData, stopCoords, state, now }) {
             startIcon={<FilterAltRounded />}
             onClick={(event) => setFilterAnchor(event.currentTarget)}
             sx={{
-              minHeight: 42,
-              maxWidth: { xs: 'calc(100% - 50px)', sm: 260 },
-              bgcolor: auditMode ? 'warning.container' : 'background.container',
+              minHeight: { xs: 40, sm: 42 },
+              height: { xs: 40, sm: 'auto' },
+              flex: { xs: '1 1 0', sm: '0 1 auto' },
+              minWidth: 0,
+              maxWidth: { xs: 'none', sm: 260 },
+              borderRadius: { xs: '15px', sm: '18px' },
+              border: { xs: 1, sm: 0 },
+              borderColor: 'divider',
+              bgcolor: auditMode ? 'warning.container' : { xs: 'background.paper', sm: 'background.container' },
               color: auditMode ? 'warning.onContainer' : 'text.primary',
+              boxShadow: auditMode ? 'none' : { xs: '0 6px 18px rgba(20, 55, 48, .12)', sm: 'none' },
               justifyContent: 'flex-start',
               '&:hover': { bgcolor: 'background.containerHigh' },
             }}
@@ -424,7 +431,13 @@ export default function MapView({ busData, stopCoords, state, now }) {
                 overflowX: 'auto',
                 order: { xs: 3, md: 0 },
                 width: { xs: '100%', md: 'auto' },
-                '& .MuiToggleButton-root': { textTransform: 'none', px: 1.5, whiteSpace: 'nowrap', borderRadius: '14px', fontWeight: 650 },
+                bgcolor: { xs: 'background.paper', sm: 'transparent' },
+                borderRadius: { xs: '15px', sm: 0 },
+                border: { xs: 1, sm: 0 },
+                borderColor: 'divider',
+                boxShadow: { xs: '0 6px 18px rgba(20, 55, 48, .12)', sm: 'none' },
+                mt: { xs: 1, sm: 0 },
+                '& .MuiToggleButton-root': { textTransform: 'none', px: 1.5, whiteSpace: 'nowrap', borderRadius: '14px', fontWeight: 650, height: { xs: 38, sm: 'auto' } },
               }}
             >
               {line.directions.map((item, index) => (
@@ -436,7 +449,16 @@ export default function MapView({ busData, stopCoords, state, now }) {
           <IconButton
             aria-label="Pokaż moją lokalizację"
             onClick={locateUser}
-            sx={{ ml: { sm: 'auto' }, bgcolor: 'background.container' }}
+            sx={{
+              ml: { sm: 'auto' },
+              width: { xs: 40, sm: 'auto' },
+              height: 40,
+              flexShrink: 0,
+              bgcolor: { xs: 'background.paper', sm: 'background.container' },
+              border: { xs: 1, sm: 0 },
+              borderColor: 'divider',
+              boxShadow: { xs: '0 6px 18px rgba(20, 55, 48, .12)', sm: 'none' },
+            }}
           >
             <MyLocationRounded />
           </IconButton>
@@ -556,7 +578,7 @@ export default function MapView({ busData, stopCoords, state, now }) {
               sx={{
                 position: 'absolute',
                 zIndex: 1000,
-                top: { xs: 156, sm: 12 },
+                top: { xs: 'calc(env(safe-area-inset-top, 0px) + 112px)', sm: 12 },
                 left: 12,
                 maxWidth: { xs: 'calc(100% - 24px)', sm: 330 },
                 px: 1.5,
