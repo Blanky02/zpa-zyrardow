@@ -257,7 +257,6 @@ export default function LinesView({
               Zmień przystanek
             </Button>
             <Box sx={{ minWidth: 0, display: 'flex', alignItems: 'center', gap: 1, ml: 'auto' }}>
-              <LineBadge line={currentLine} size={34} />
               <Typography variant="bodySmall" color="text.secondary" noWrap>
                 Do {formatDestination(currentDir)} · {selectedStop}
               </Typography>
@@ -269,7 +268,6 @@ export default function LinesView({
           {step === 'stop' && (
             <Box sx={{ width: '100%', minWidth: 0 }}>
               <Typography variant="titleLarge" sx={{ fontWeight: 750 }}>Wybierz kierunek i przystanek</Typography>
-              <Typography variant="bodyMedium" color="text.secondary" sx={{ mt: 0.5 }}>Linia {currentLine.number} · {currentLine.name}</Typography>
 
               <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: `repeat(${Math.min(currentLine.directions.length, 2)}, minmax(0, 1fr))` }, gap: 1, mt: 2.5 }}>
                 {currentLine.directions.map((direction, index) => {
