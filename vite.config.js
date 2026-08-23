@@ -13,7 +13,7 @@ export default defineConfig({
         name: 'ŻPA Żyrardów - Rozkład Live',
         short_name: 'ŻPA Live',
         description: 'Live rozkład jazdy Żyrardowskich Przewozów Autobusowych - offline, PWA, Material UI',
-        theme_color: '#006A60',
+        theme_color: '#2A9D6F',
         background_color: '#FAFDFB',
         display: 'fullscreen',
         display_override: ['fullscreen', 'standalone', 'minimal-ui'],
