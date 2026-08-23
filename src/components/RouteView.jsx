@@ -404,8 +404,8 @@ export default function RouteView({ busData, state, setState, now }) {
                       sx={{ width: '100%', textAlign: 'left', borderRadius: '16px', p: 1.5, gap: 1.5, justifyContent: 'flex-start', '&:hover': { bgcolor: 'action.hover' } }}
                     >
                       <Box sx={{ minWidth: 0, flex: 1 }}>
-                        <Typography variant="bodyMedium" sx={{ fontWeight: 700 }} noWrap>{route.from}</Typography>
-                        <Typography variant="bodyMedium" color="text.secondary" noWrap>{route.to}</Typography>
+                        <Typography variant="bodyMedium" sx={{ fontWeight: 700, display: 'block' }} noWrap>{route.from}</Typography>
+                        <Typography variant="bodyMedium" color="text.secondary" sx={{ display: 'block' }} noWrap>{route.to}</Typography>
                       </Box>
                       <Typography variant="labelMedium" color="text.secondary">{dayShort[route.dayType]}</Typography>
                       <ArrowForwardRounded color="action" />

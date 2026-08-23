@@ -219,7 +219,7 @@ export default function LinesView({
               <Typography variant="labelMedium" sx={{ fontWeight: 750 }}>Wszystkie</Typography>
             </ButtonBase>
             {busData.lines.map(line => {
-              const selected = line.id === currentLine.id;
+              const selected = !isAll && line.id === currentLine.id;
               return (
                 <ButtonBase
                   key={line.id}
@@ -360,7 +360,7 @@ export default function LinesView({
               )}
 
               {!isAll && <Divider sx={{ mb: 2.5 }} />}
-              <Typography variant="titleMedium" sx={{ fontWeight: 750, mt: isAll ? 2.5 : 0 }}>Przystanek</Typography>
+              {!isAll && <Typography variant="titleMedium" sx={{ fontWeight: 750 }}>Przystanek</Typography>}
 
               <TextField
                 fullWidth
