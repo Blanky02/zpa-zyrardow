@@ -161,7 +161,7 @@ export default function RouteView({ busData, state, setState, now }) {
     setError('');
   };
 
-  const useRecent = (route) => {
+  const applyRecent = (route) => {
     searchRoutes(route.from, route.to, route.dayType);
   };
 
@@ -400,7 +400,7 @@ export default function RouteView({ busData, state, setState, now }) {
                   {routeRecents.map((route) => (
                     <ButtonBase
                       key={`${route.from}-${route.to}-${route.dayType}`}
-                      onClick={() => useRecent(route)}
+                      onClick={() => applyRecent(route)}
                       sx={{ width: '100%', textAlign: 'left', borderRadius: '16px', p: 1.5, gap: 1.5, justifyContent: 'flex-start', '&:hover': { bgcolor: 'action.hover' } }}
                     >
                       <Box sx={{ minWidth: 0, flex: 1 }}>

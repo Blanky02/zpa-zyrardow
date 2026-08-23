@@ -119,6 +119,11 @@ export default defineConfig({
     allowedHosts: true,
   },
   base: '/',
+  test: {
+    environment: 'jsdom',
+    setupFiles: './src/test/setup.js',
+    globals: true,
+  },
   build: {
     rollupOptions: {
       output: {

@@ -14,6 +14,7 @@ const KEEP_UPPER_TOKENS = new Set(['OSP', 'PKP', 'PKS', 'D.A.', 'D.A', 'D.W.', '
 
 // Skraca opis kierunku do samego przystanku końcowego, np.
 // "ŻYRARDÓW SPÓŁDZIELCZA → WISKITKI PL. Wolności 5/6 / I" -> "Wiskitki Pl. Wolności 5/6"
+// Wielkie litery normalizuje tylko dla słów pisanych WYŁĄCZNIE wersalikami.
 export function formatDestination(dir, fallback = '') {
   const raw = dir?.short || dir?.label || fallback || '';
   const destination = (raw.split('→').pop() || raw).trim();
@@ -24,9 +25,13 @@ export function formatDestination(dir, fallback = '') {
     .trim()
     .split(' ')
     .map(word => {
+      const hasLetters = /[A-ZĄĆĘŁŃÓŚŹŻ]/i.test(word);
+      if (!hasLetters) return word;
       const upper = word.toLocaleUpperCase('pl');
-      if (KEEP_UPPER_TOKENS.has(upper) || /\d/.test(word) || word.startsWith('/')) return upper;
-      return upper.charAt(0) + word.toLocaleLowerCase('pl').slice(1);
+      if (KEEP_UPPER_TOKENS.has(upper)) return upper;
+      if (!/^[A-ZĄĆĘŁŃÓŚŹŻ]/i.test(word)) return word;
+      if (word === upper) return word.charAt(0) + word.toLocaleLowerCase('pl').slice(1);
+      return word;
     })
     .join(' ');
 }
