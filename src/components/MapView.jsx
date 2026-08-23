@@ -284,7 +284,7 @@ export default function MapView({ busData, stopCoords, state, now }) {
   };
 
   return (
-    <Box sx={{ mx: { xs: -1.5, sm: 0 }, mt: { xs: -2.5, sm: 0 } }}>
+    <Box sx={{ position: { xs: 'fixed', sm: 'static' }, inset: { xs: 0, sm: 'auto' }, zIndex: { xs: 1150, sm: 'auto' } }}>
       <Box sx={{ mb: { sm: 2, md: 3 }, display: { xs: 'none', sm: 'block' } }}>
         <Typography variant="headlineSmall" sx={{ fontWeight: 750, letterSpacing: '-0.025em' }}>
           Mapa przystanków
@@ -294,13 +294,14 @@ export default function MapView({ busData, stopCoords, state, now }) {
       <Paper
         elevation={0}
         sx={{
-          height: { xs: 'calc(100dvh - 138px)', sm: 'auto' },
+          height: { xs: '100%', sm: 'auto' },
           display: 'flex',
           flexDirection: 'column',
           borderRadius: { xs: 0, sm: '28px' },
           border: { xs: 0, sm: 1 },
           borderColor: 'divider',
           overflow: 'hidden',
+          position: 'relative',
         }}
       >
         <Box
@@ -311,6 +312,15 @@ export default function MapView({ busData, stopCoords, state, now }) {
             gap: 1,
             flexWrap: 'wrap',
             bgcolor: 'background.paper',
+            position: { xs: 'absolute', sm: 'static' },
+            top: { xs: 'calc(env(safe-area-inset-top, 0px) + 60px)', sm: 'auto' },
+            left: { xs: 8, sm: 'auto' },
+            right: { xs: 8, sm: 'auto' },
+            zIndex: { xs: 1001, sm: 'auto' },
+            borderRadius: { xs: '18px', sm: 0 },
+            border: { xs: 1, sm: 0 },
+            borderColor: 'divider',
+            boxShadow: { xs: '0 10px 28px rgba(20, 55, 48, .16)', sm: 'none' },
           }}
         >
           <Box sx={{ width: 38, height: 38, borderRadius: '14px', bgcolor: 'primary.container', color: 'primary.onContainer', display: { xs: 'none', sm: 'grid' }, placeItems: 'center' }}>
@@ -451,6 +461,9 @@ export default function MapView({ busData, stopCoords, state, now }) {
               color: 'text.secondary',
             },
             '& .leaflet-control-attribution a': { color: 'primary.main' },
+            '& .leaflet-bottom': {
+              bottom: { xs: 'calc(80px + env(safe-area-inset-bottom, 0px))', sm: 0 },
+            },
             '& .leaflet-tooltip': {
               bgcolor: 'background.paper',
               color: 'text.primary',
@@ -543,7 +556,7 @@ export default function MapView({ busData, stopCoords, state, now }) {
               sx={{
                 position: 'absolute',
                 zIndex: 1000,
-                top: 12,
+                top: { xs: 156, sm: 12 },
                 left: 12,
                 maxWidth: { xs: 'calc(100% - 24px)', sm: 330 },
                 px: 1.5,
@@ -570,7 +583,7 @@ export default function MapView({ busData, stopCoords, state, now }) {
                 zIndex: 1000,
                 left: { xs: 10, sm: 18 },
                 right: { xs: 10, sm: 'auto' },
-                bottom: { xs: 10, sm: 18 },
+                bottom: { xs: 'calc(82px + env(safe-area-inset-bottom, 0px))', sm: 18 },
                 width: { sm: 430 },
                 maxHeight: '46%',
                 overflowY: 'auto',
