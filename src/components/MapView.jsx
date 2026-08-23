@@ -22,6 +22,8 @@ import {
   MyLocationRounded,
   SwapVertRounded,
   TravelExploreRounded,
+  ExpandLessRounded,
+  ExpandMoreRounded,
 } from '@mui/icons-material';
 import {
   MapContainer,
@@ -115,6 +117,9 @@ export default function MapView({ busData, stopCoords, state, now }) {
   const [routeCoords, setRouteCoords] = useState([]);
   const [filterAnchor, setFilterAnchor] = useState(null);
   const [auditMode, setAuditMode] = useState(false);
+  const [showAllDepartures, setShowAllDepartures] = useState(false);
+
+  useEffect(() => { setShowAllDepartures(false); }, [selectedStop]);
 
   const stopsWithCoords = useMemo(() => {
     const sourcePriority = { static: 0, route: 1, cache: 2, api: 3 };
@@ -260,7 +265,7 @@ export default function MapView({ busData, stopCoords, state, now }) {
     return () => { cancelled = true; };
   }, [direction]);
 
-  const departures = useMemo(() => {
+  const allDepartures = useMemo(() => {
     if (!selectedStop) return [];
     const all = [];
     findOccurrencesForStop(busData, selectedStop).forEach(occurrence => {
@@ -274,9 +279,13 @@ export default function MapView({ busData, stopCoords, state, now }) {
       });
     });
     all.sort((a, b) => a.minutes - b.minutes);
-    const upcoming = all.filter(item => item.minutes >= now.minutes).slice(0, 5);
-    return upcoming.length ? upcoming : all.slice(0, 5);
-  }, [busData, now.minutes, selectedStop, state.dayType]);
+    return all;
+  }, [busData, selectedStop, state.dayType]);
+
+  const departures = useMemo(() => {
+    const upcoming = allDepartures.filter(item => item.minutes >= now.minutes).slice(0, 5);
+    return upcoming.length ? upcoming : allDepartures.slice(0, 5);
+  }, [allDepartures, now.minutes]);
 
   const locateUser = () => {
     navigator.geolocation?.getCurrentPosition(position => {
@@ -641,20 +650,21 @@ export default function MapView({ busData, stopCoords, state, now }) {
 
               {departures.length ? (
                 <Stack sx={{ px: 1.25, pb: 1.25 }}>
-                  {departures.map((departure, index) => {
+                  {(showAllDepartures ? allDepartures : departures).map((departure, index) => {
                     const minutes = Math.max(0, Math.floor(departure.minutes - now.minutes));
+                    const past = departure.minutes < now.minutes;
                     return (
                       <Box
                         key={`${departure.line.id}-${departure.time}-${index}`}
-                        sx={{ display: 'grid', gridTemplateColumns: '34px 52px minmax(0, 1fr) auto', alignItems: 'center', gap: 1, px: 1, py: 0.9, borderRadius: '14px', '&:hover': { bgcolor: 'action.hover' } }}
+                        sx={{ display: 'grid', gridTemplateColumns: '34px 52px minmax(0, 1fr) auto', alignItems: 'center', gap: 1, px: 1, py: 0.9, borderRadius: '14px', opacity: past && showAllDepartures ? 0.42 : 1, '&:hover': { bgcolor: 'action.hover' } }}
                       >
                         <Avatar sx={{ width: 32, height: 32, bgcolor: getLineHex(departure.line.color), fontSize: 11, fontWeight: 800 }}>
                           {departure.line.number}
                         </Avatar>
                         <Typography variant="bodyMedium" sx={{ fontFamily: 'Roboto Mono', fontWeight: 750 }}>{departure.time}</Typography>
-                        <Typography variant="bodySmall" color="text.secondary" noWrap>{departure.direction.short}</Typography>
+                        <Typography variant="bodySmall" color="text.secondary" noWrap>Do {formatDestination(departure.direction)}</Typography>
                         <Typography variant="labelMedium" color="primary.main" sx={{ fontWeight: 750, whiteSpace: 'nowrap' }}>
-                          {minutes < 1 ? 'teraz' : `${minutes} min`}
+                          {past && showAllDepartures ? '' : minutes < 1 ? 'teraz' : `${minutes} min`}
                         </Typography>
                       </Box>
                     );
@@ -664,6 +674,18 @@ export default function MapView({ busData, stopCoords, state, now }) {
                 <Typography variant="bodyMedium" color="text.secondary" sx={{ px: 2.25, pb: 2.25 }}>
                   Brak kursów dla wybranego dnia.
                 </Typography>
+              )}
+
+              {(allDepartures.length > departures.length || showAllDepartures) && departures.length > 0 && (
+                <Button
+                  size="small"
+                  color="inherit"
+                  startIcon={showAllDepartures ? <ExpandLessRounded /> : <ExpandMoreRounded />}
+                  onClick={() => setShowAllDepartures(value => !value)}
+                  sx={{ mx: 1.25, mb: 1.25, minHeight: 36, alignSelf: 'flex-start' }}
+                >
+                  {showAllDepartures ? 'Zwiń listę' : `Zobacz więcej (${allDepartures.length})`}
+                </Button>
               )}
             </Paper>
           )}
