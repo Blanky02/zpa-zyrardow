@@ -289,9 +289,6 @@ export default function MapView({ busData, stopCoords, state, now }) {
         <Typography variant="headlineSmall" sx={{ fontWeight: 750, letterSpacing: '-0.025em' }}>
           Mapa przystanków
         </Typography>
-        <Typography variant="bodyMedium" color="text.secondary" sx={{ mt: 0.5 }}>
-          Dotknij przystanku, aby sprawdzić najbliższe odjazdy.
-        </Typography>
       </Box>
 
       <Paper

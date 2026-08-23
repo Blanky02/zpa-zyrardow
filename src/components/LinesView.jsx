@@ -144,9 +144,6 @@ export default function LinesView({
           <Typography variant="headlineSmall" sx={{ fontWeight: 750, letterSpacing: '-0.025em' }}>
             Linie i odjazdy
           </Typography>
-          <Typography variant="bodyMedium" color="text.secondary" sx={{ mt: 0.5 }}>
-            Wybierz kolejno linię, kierunek i przystanek.
-          </Typography>
         </Box>
 
         <FormControl size="small" sx={{ flexShrink: 0 }}>

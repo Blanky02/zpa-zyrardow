@@ -171,9 +171,6 @@ export default function RouteView({ busData, state, setState, now }) {
         <Typography variant="headlineSmall" sx={{ fontWeight: 750, letterSpacing: '-0.025em' }}>
           Zaplanuj przejazd
         </Typography>
-        <Typography variant="bodyMedium" color="text.secondary" sx={{ mt: 0.5 }}>
-          Wybierz dwa przystanki, a pokażemy najbliższe bezpośrednie połączenia.
-        </Typography>
       </Box>
 
       <Box
@@ -396,9 +393,8 @@ export default function RouteView({ busData, state, setState, now }) {
                 <Box sx={{ width: 40, height: 40, borderRadius: '14px', bgcolor: 'primary.container', color: 'primary.onContainer', display: 'grid', placeItems: 'center' }}>
                   <HistoryRounded />
                 </Box>
-                <Box>
+                <Box sx={{ alignSelf: 'center' }}>
                   <Typography variant="titleMedium" sx={{ fontWeight: 750 }}>Ostatnie trasy</Typography>
-                  <Typography variant="bodySmall" color="text.secondary">Wybierz trasę, aby sprawdzić ją ponownie</Typography>
                 </Box>
               </Box>
 

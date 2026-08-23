@@ -87,9 +87,6 @@ export default function TopAppBar({
           >
             ŻPA Żyrardów
           </Typography>
-          <Typography variant="bodySmall" sx={{ opacity: 0.76, mt: 0.25 }}>
-            Rozkład jazdy
-          </Typography>
         </Box>
 
         <IconButton
