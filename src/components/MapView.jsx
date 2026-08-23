@@ -12,8 +12,6 @@ import {
   MenuItem,
   Paper,
   Stack,
-  ToggleButton,
-  ToggleButtonGroup,
   Typography,
 } from '@mui/material';
 import {
@@ -22,6 +20,7 @@ import {
   FilterAltRounded,
   MapRounded,
   MyLocationRounded,
+  SwapVertRounded,
   TravelExploreRounded,
 } from '@mui/icons-material';
 import {
@@ -57,6 +56,25 @@ function MapController({ center, zoom, bounds }) {
     window.setTimeout(() => map.invalidateSize(), 150);
   }, [bounds, center, map, zoom]);
   return null;
+}
+
+const KEEP_UPPER_TOKENS = new Set(['OSP', 'PKP', 'PKS', 'D.A.', 'D.A', 'D.W.', 'DW.']);
+
+function formatDestination(dir) {
+  const raw = dir?.short || dir?.label || '';
+  const destination = (raw.split('→').pop() || raw).trim();
+  return destination
+    .replace(/\s+\/\s?[A-Z0-9]+$/i, '') // przytnij numer stanowiska typu "/ I"
+    .replace(/^ŻYRARDÓW\s+/i, '') // powielany prefiks miejscowości
+    .replace(/\s+/g, ' ')
+    .trim()
+    .split(' ')
+    .map(word => {
+      const upper = word.toLocaleUpperCase('pl');
+      if (KEEP_UPPER_TOKENS.has(upper) || /\d/.test(word) || word.startsWith('/')) return upper;
+      return upper.charAt(0) + word.toLocaleLowerCase('pl').slice(1);
+    })
+    .join(' ');
 }
 
 function lineMarker(line, index) {
@@ -194,6 +212,7 @@ export default function MapView({ busData, stopCoords, state, now }) {
     return busData.lines.find(item => item.id === selectedLine) || null;
   }, [busData.lines, selectedLine]);
   const direction = line?.directions[selectedDir] || line?.directions[0] || null;
+  const destination = useMemo(() => (direction ? formatDestination(direction) : ''), [direction]);
   const visibleBounds = useMemo(() => {
     if (userPos) return null;
     if (direction?.stops_full) {
@@ -421,29 +440,35 @@ export default function MapView({ busData, stopCoords, state, now }) {
           </Menu>
 
           {line && line.directions.length > 1 && (
-            <ToggleButtonGroup
-              exclusive
-              size="small"
-              value={selectedDir}
-              onChange={(_, value) => value !== null && setSelectedDir(value)}
+            <Button
+              variant="contained"
+              color="inherit"
+              startIcon={<SwapVertRounded />}
+              onClick={() => setSelectedDir(previous => (previous + 1) % line.directions.length)}
+              aria-label={`Zmień kierunek, obecnie do ${destination}`}
               sx={{
-                maxWidth: { xs: '100%', md: 520 },
-                overflowX: 'auto',
-                order: { xs: 3, md: 0 },
-                width: { xs: '100%', md: 'auto' },
-                bgcolor: { xs: 'background.paper', sm: 'transparent' },
-                borderRadius: { xs: '15px', sm: 0 },
+                minHeight: { xs: 40, sm: 42 },
+                height: { xs: 40, sm: 'auto' },
+                minWidth: 0,
+                maxWidth: { xs: '100%', sm: 300 },
+                borderRadius: { xs: '15px', sm: '18px' },
                 border: { xs: 1, sm: 0 },
                 borderColor: 'divider',
+                bgcolor: { xs: 'background.paper', sm: 'background.container' },
+                color: 'text.primary',
                 boxShadow: { xs: '0 6px 18px rgba(20, 55, 48, .12)', sm: 'none' },
+                justifyContent: 'flex-start',
+                order: { xs: 3, md: 0 },
+                width: { xs: '100%', md: 'auto' },
                 mt: { xs: 1, sm: 0 },
-                '& .MuiToggleButton-root': { textTransform: 'none', px: 1.5, whiteSpace: 'nowrap', borderRadius: '14px', fontWeight: 650, height: { xs: 38, sm: 'auto' } },
+                px: { xs: 1.5, sm: 2 },
+                '&:hover': { bgcolor: 'background.containerHigh' },
               }}
             >
-              {line.directions.map((item, index) => (
-                <ToggleButton key={index} value={index}>{item.short || `Kierunek ${index + 1}`}</ToggleButton>
-              ))}
-            </ToggleButtonGroup>
+              <Typography variant="labelLarge" noWrap>
+                {destination ? `Do ${destination}` : 'Zmień kierunek'}
+              </Typography>
+            </Button>
           )}
 
           <IconButton
