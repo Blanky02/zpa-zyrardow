@@ -294,7 +294,7 @@ export default function LinesView({
                       </Box>
                       <Box sx={{ minWidth: 0, flex: 1 }}>
                         <Typography variant="bodySmall" sx={{ fontWeight: 750 }} noWrap>Do {formatDestination(direction)}</Typography>
-                        <Typography variant="bodySmall" color="text.secondary">{direction.stops.length} przyst.</Typography>
+                        <Typography variant="bodySmall" color="text.secondary" sx={{ mt: 0.5 }}>{direction.stops.length} przyst.</Typography>
                       </Box>
                     </ButtonBase>
                   );
