@@ -6,7 +6,7 @@
 <title>ŻPA Żyrardów - Rozkład Jazdy Live v2</title>
 <meta name="theme-color" content="#059669">
 <link rel="manifest" href="./manifest.json">
-<link rel="apple-touch-icon" href="./icons/icon-180.png">
+<link rel="apple-touch-icon" href="../icons/icon-180.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="ŻPA Live">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -39,7 +39,7 @@ tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Geist','syst
 <!-- PWA INSTALL BANNER - Android -->
 <div id="installBanner" class="hidden sticky top-0 z-[90] bg-zinc-900 dark:bg-black text-white text-sm px-4 py-3 flex items-center justify-between gap-3 border-b border-white/10">
   <div class="flex items-center gap-3">
-    <img src="./icons/icon-192.png" class="w-9 h-9 rounded-xl bg-white p-1">
+    <img src="../icons/icon-192.png" class="w-9 h-9 rounded-xl bg-white p-1">
     <div class="leading-tight">
       <div class="font-bold text-[13px]">Zainstaluj ŻPA Żyrardów</div>
       <div class="text-[11px] text-white/60">Działa offline • szybki dostęp z pulpitu • PWA</div>
@@ -396,7 +396,7 @@ async function loadTimetables(){
   loadState();
   try{
     statusEl.innerHTML='<span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>Pobieram...';
-    const res = await fetch('./timetables.json?v='+Date.now(), {cache:'no-store'});
+    const res = await fetch('../timetables.json?v='+Date.now(), {cache:'no-store'});
     if(!res.ok) throw new Error('HTTP '+res.status);
     const json = await res.json();
     if(!json.lines) throw new Error('Invalid JSON structure');
