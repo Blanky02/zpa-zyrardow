@@ -13,10 +13,10 @@ export default defineConfig({
         name: 'ŻPA Żyrardów - Rozkład Live',
         short_name: 'ŻPA Live',
         description: 'Live rozkład jazdy Żyrardowskich Przewozów Autobusowych - offline, PWA, Material UI',
-        theme_color: '#006A60',
+        theme_color: '#F4F7F4',
         background_color: '#FAFDFB',
-        display: 'standalone',
-        display_override: ['standalone', 'minimal-ui'],
+        display: 'fullscreen',
+        display_override: ['fullscreen', 'standalone', 'minimal-ui'],
         orientation: 'portrait-primary',
         scope: './',
         start_url: './',
@@ -119,6 +119,11 @@ export default defineConfig({
     allowedHosts: true,
   },
   base: '/',
+  test: {
+    environment: 'jsdom',
+    setupFiles: './src/test/setup.js',
+    globals: true,
+  },
   build: {
     rollupOptions: {
       output: {

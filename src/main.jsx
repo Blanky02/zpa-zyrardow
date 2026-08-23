@@ -5,7 +5,7 @@ import { CssBaseline } from '@mui/material'
 import { registerSW } from 'virtual:pwa-register'
 
 // vite-plugin-pwa – auto update
-const updateSW = registerSW({
+registerSW({
   onNeedRefresh() {
     // Dispatch event for App.jsx to show banner
     window.dispatchEvent(new Event('pwa-update-available'))

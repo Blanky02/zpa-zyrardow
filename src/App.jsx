@@ -60,6 +60,10 @@ function App() {
 
   useEffect(() => { saveState(state); }, [state]);
   useEffect(() => { localStorage.setItem('zpa_theme', darkMode ? 'dark' : 'light'); }, [darkMode]);
+  useEffect(() => {
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) themeColor.setAttribute('content', darkMode ? '#0F1514' : '#F4F7F4');
+  }, [darkMode]);
 
   useEffect(() => {
     const handleInstallPrompt = (event) => {
@@ -165,7 +169,7 @@ function App() {
 
         <BottomNav view={view} setView={setView} />
 
-        <Container maxWidth="xl" component="main" sx={{ pt: { xs: 2.5, md: 1 }, px: { xs: 1.5, sm: 2.5, lg: 3 } }}>
+        <Container maxWidth="xl" component="main" sx={{ pt: { xs: 'calc(env(safe-area-inset-top, 0px) + 64px)', md: 'calc(env(safe-area-inset-top, 0px) + 68px)' }, px: { xs: 1.5, sm: 2.5, lg: 3 } }}>
           {view === 'route' && (
             <RouteView busData={busData} state={state} setState={setState} now={now} />
           )}

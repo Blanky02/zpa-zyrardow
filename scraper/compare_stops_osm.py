@@ -297,8 +297,8 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--stops", type=Path, default=ROOT / "public/stops_gps.json")
     parser.add_argument("--osm-csv", type=Path, help="Lokalny eksport Overpass CSV zamiast zapytania sieciowego")
-    parser.add_argument("--manual-review", type=Path, default=ROOT / "stop_location_manual_review.json")
-    parser.add_argument("--json", type=Path, default=ROOT / "stop_location_osm_report.json")
+    parser.add_argument("--manual-review", type=Path, default=ROOT / "scraper" / "audits" / "stop_location_manual_review.json")
+    parser.add_argument("--json", type=Path, default=ROOT / "scraper" / "audits" / "stop_location_osm_report.json")
     parser.add_argument("--markdown", type=Path, default=ROOT / "STOP_LOCATION_OSM_AUDIT.md")
     args = parser.parse_args()
 

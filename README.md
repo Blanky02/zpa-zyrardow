@@ -48,7 +48,7 @@ User -> Vite Dev Server (0.0.0.0:5173, allowedHosts: true)
   icons/             – PWA icons
 /scraper/
   scraper.py         – Python scraper PDFów ZPA/PKS
-legacy.html          – Stara wersja v2 (backup)
+archive/legacy.html  – Stara wersja v2 (backup)
 ```
 
 ## Jak uruchomić v3
@@ -62,7 +62,7 @@ npm run preview
 
 Wymagania: Node 18+
 
-Stary `index.html` v2 jest w `legacy.html` – nadal działa jeśli otworzysz bezpośrednio.
+Stary `index.html` v2 jest w `archive/legacy.html` – nadal działa jeśli otworzysz bezpośrednio.
 
 ## Material UI – decyzje
 

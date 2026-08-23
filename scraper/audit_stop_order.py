@@ -149,7 +149,7 @@ def main() -> int:
     timetables = json.loads(args.timetables.read_text(encoding="utf-8"))
     expected = json.loads(EXPECTED_PATH.read_text(encoding="utf-8"))
     report = audit(timetables, expected)
-    (ROOT / "stop_order_pdf_report.json").write_text(
+    (ROOT / "scraper" / "audits" / "stop_order_pdf_report.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     write_markdown(report, ROOT / "STOP_ORDER_PDF_AUDIT.md")

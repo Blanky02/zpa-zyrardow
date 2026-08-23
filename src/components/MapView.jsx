@@ -12,8 +12,6 @@ import {
   MenuItem,
   Paper,
   Stack,
-  ToggleButton,
-  ToggleButtonGroup,
   Typography,
 } from '@mui/material';
 import {
@@ -22,7 +20,10 @@ import {
   FilterAltRounded,
   MapRounded,
   MyLocationRounded,
+  SwapVertRounded,
   TravelExploreRounded,
+  ExpandLessRounded,
+  ExpandMoreRounded,
 } from '@mui/icons-material';
 import {
   MapContainer,
@@ -39,12 +40,62 @@ import 'react-leaflet-cluster/dist/assets/MarkerCluster.Default.css';
 import L from 'leaflet';
 import {
   findOccurrencesForStop,
+  formatDestination,
   getLineHex,
   getPlatformKey,
   getRoutePlatforms,
   normalizeStopName,
 } from '../utils/stops.js';
 import { getScheduleForStop, parseMinutes } from '../utils/time.js';
+
+const OSRM_CACHE_PREFIX = 'osrm_';
+const OSRM_CACHE_MAX_ENTRIES = 60;
+
+function osrmCacheKeys() {
+  const keys = [];
+  for (let i = 0; i < localStorage.length; i += 1) {
+    const key = localStorage.key(i);
+    if (key?.startsWith(OSRM_CACHE_PREFIX)) keys.push(key);
+  }
+  return keys;
+}
+
+function osrmCacheRead(key) {
+  try {
+    const raw = localStorage.getItem(OSRM_CACHE_PREFIX + key);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) return parsed; // stary format: same wspolrzedne
+    return Array.isArray(parsed?.c) ? parsed.c : null;
+  } catch {
+    return null;
+  }
+}
+
+function osrmCacheWrite(key, segment) {
+  const payload = JSON.stringify({ t: Date.now(), c: segment });
+  try {
+    // prosty LRU: przy pelnym cache usuwamy najstarsze wpisy
+    const staleKeys = osrmCacheKeys();
+    if (staleKeys.length >= OSRM_CACHE_MAX_ENTRIES) {
+      const byAge = staleKeys
+        .map(k => {
+          try { return [JSON.parse(localStorage.getItem(k))?.t || 0, k]; }
+          catch { return [0, k]; }
+        })
+        .sort((a, b) => a[0] - b[0]);
+      byAge.slice(0, staleKeys.length - OSRM_CACHE_MAX_ENTRIES + 1)
+        .forEach(([, k]) => localStorage.removeItem(k));
+    }
+    localStorage.setItem(OSRM_CACHE_PREFIX + key, payload);
+  } catch {
+    // przekroczony limit pamieci - wyczysc caly cache tras i sprobuj ponownie
+    try {
+      osrmCacheKeys().forEach(k => localStorage.removeItem(k));
+      localStorage.setItem(OSRM_CACHE_PREFIX + key, payload);
+    } catch {}
+  }
+}
 
 function MapController({ center, zoom, bounds }) {
   const map = useMap();
@@ -115,6 +166,9 @@ export default function MapView({ busData, stopCoords, state, now }) {
   const [routeCoords, setRouteCoords] = useState([]);
   const [filterAnchor, setFilterAnchor] = useState(null);
   const [auditMode, setAuditMode] = useState(false);
+  const [showAllDepartures, setShowAllDepartures] = useState(false);
+
+  useEffect(() => { setShowAllDepartures(false); }, [selectedStop]);
 
   const stopsWithCoords = useMemo(() => {
     const sourcePriority = { static: 0, route: 1, cache: 2, api: 3 };
@@ -194,6 +248,7 @@ export default function MapView({ busData, stopCoords, state, now }) {
     return busData.lines.find(item => item.id === selectedLine) || null;
   }, [busData.lines, selectedLine]);
   const direction = line?.directions[selectedDir] || line?.directions[0] || null;
+  const destination = useMemo(() => (direction ? formatDestination(direction) : ''), [direction]);
   const visibleBounds = useMemo(() => {
     if (userPos) return null;
     if (direction?.stops_full) {
@@ -228,16 +283,13 @@ export default function MapView({ busData, stopCoords, state, now }) {
         const key = `${start[1].toFixed(5)},${start[0].toFixed(5)};${end[1].toFixed(5)},${end[0].toFixed(5)}`;
 
         try {
-          const cached = localStorage.getItem(`osrm_${key}`);
-          let segment = cached ? JSON.parse(cached) : null;
+          let segment = osrmCacheRead(key);
           if (!segment) {
             const response = await fetch(`https://router.project-osrm.org/route/v1/driving/${start[1]},${start[0]};${end[1]},${end[0]}?overview=full&geometries=geojson`);
             if (response.ok) {
               const data = await response.json();
               segment = data.routes?.[0]?.geometry?.coordinates?.map(point => [point[1], point[0]]) || null;
-              if (segment) {
-                try { localStorage.setItem(`osrm_${key}`, JSON.stringify(segment)); } catch {}
-              }
+              if (segment) osrmCacheWrite(key, segment);
             }
           }
 
@@ -259,7 +311,7 @@ export default function MapView({ busData, stopCoords, state, now }) {
     return () => { cancelled = true; };
   }, [direction]);
 
-  const departures = useMemo(() => {
+  const allDepartures = useMemo(() => {
     if (!selectedStop) return [];
     const all = [];
     findOccurrencesForStop(busData, selectedStop).forEach(occurrence => {
@@ -273,9 +325,13 @@ export default function MapView({ busData, stopCoords, state, now }) {
       });
     });
     all.sort((a, b) => a.minutes - b.minutes);
-    const upcoming = all.filter(item => item.minutes >= now.minutes).slice(0, 5);
-    return upcoming.length ? upcoming : all.slice(0, 5);
-  }, [busData, now.minutes, selectedStop, state.dayType]);
+    return all;
+  }, [busData, selectedStop, state.dayType]);
+
+  const departures = useMemo(() => {
+    const upcoming = allDepartures.filter(item => item.minutes >= now.minutes).slice(0, 5);
+    return upcoming.length ? upcoming : allDepartures.slice(0, 5);
+  }, [allDepartures, now.minutes]);
 
   const locateUser = () => {
     navigator.geolocation?.getCurrentPosition(position => {
@@ -284,36 +340,43 @@ export default function MapView({ busData, stopCoords, state, now }) {
   };
 
   return (
-    <Box sx={{ mx: { xs: -1.5, sm: 0 }, mt: { xs: -2.5, sm: 0 } }}>
+    <Box sx={{ position: { xs: 'fixed', sm: 'static' }, inset: { xs: 0, sm: 'auto' }, zIndex: { xs: 1150, sm: 'auto' } }}>
       <Box sx={{ mb: { sm: 2, md: 3 }, display: { xs: 'none', sm: 'block' } }}>
         <Typography variant="headlineSmall" sx={{ fontWeight: 750, letterSpacing: '-0.025em' }}>
           Mapa przystanków
-        </Typography>
-        <Typography variant="bodyMedium" color="text.secondary" sx={{ mt: 0.5 }}>
-          Dotknij przystanku, aby sprawdzić najbliższe odjazdy.
         </Typography>
       </Box>
 
       <Paper
         elevation={0}
         sx={{
-          height: { xs: 'calc(100dvh - 138px)', sm: 'auto' },
+          height: { xs: '100%', sm: 'auto' },
           display: 'flex',
           flexDirection: 'column',
           borderRadius: { xs: 0, sm: '28px' },
           border: { xs: 0, sm: 1 },
           borderColor: 'divider',
           overflow: 'hidden',
+          position: 'relative',
         }}
       >
         <Box
           sx={{
-            p: { xs: 1.5, sm: 2 },
+            p: { xs: 0, sm: 2 },
             display: 'flex',
             alignItems: 'center',
             gap: 1,
             flexWrap: 'wrap',
-            bgcolor: 'background.paper',
+            bgcolor: { xs: 'transparent', sm: 'background.paper' },
+            position: { xs: 'absolute', sm: 'static' },
+            top: { xs: 'calc(env(safe-area-inset-top, 0px) + 12px)', sm: 'auto' },
+            left: { xs: 16, sm: 'auto' },
+            right: { xs: 112, sm: 'auto' },
+            zIndex: { xs: 1001, sm: 'auto' },
+            borderRadius: { xs: 0, sm: 0 },
+            border: { xs: 0, sm: 0 },
+            borderColor: 'divider',
+            boxShadow: 'none',
           }}
         >
           <Box sx={{ width: 38, height: 38, borderRadius: '14px', bgcolor: 'primary.container', color: 'primary.onContainer', display: { xs: 'none', sm: 'grid' }, placeItems: 'center' }}>
@@ -326,10 +389,17 @@ export default function MapView({ busData, stopCoords, state, now }) {
             startIcon={<FilterAltRounded />}
             onClick={(event) => setFilterAnchor(event.currentTarget)}
             sx={{
-              minHeight: 42,
-              maxWidth: { xs: 'calc(100% - 50px)', sm: 260 },
-              bgcolor: auditMode ? 'warning.container' : 'background.container',
+              minHeight: { xs: 40, sm: 42 },
+              height: { xs: 40, sm: 'auto' },
+              flex: { xs: '1 1 0', sm: '0 1 auto' },
+              minWidth: 0,
+              maxWidth: { xs: 'none', sm: 260 },
+              borderRadius: { xs: '15px', sm: '18px' },
+              border: { xs: 1, sm: 0 },
+              borderColor: 'divider',
+              bgcolor: auditMode ? 'warning.container' : { xs: 'background.paper', sm: 'background.container' },
               color: auditMode ? 'warning.onContainer' : 'text.primary',
+              boxShadow: auditMode ? 'none' : { xs: '0 6px 18px rgba(20, 55, 48, .12)', sm: 'none' },
               justifyContent: 'flex-start',
               '&:hover': { bgcolor: 'background.containerHigh' },
             }}
@@ -407,29 +477,50 @@ export default function MapView({ busData, stopCoords, state, now }) {
           </Menu>
 
           {line && line.directions.length > 1 && (
-            <ToggleButtonGroup
-              exclusive
-              size="small"
-              value={selectedDir}
-              onChange={(_, value) => value !== null && setSelectedDir(value)}
+            <Button
+              variant="contained"
+              color="inherit"
+              startIcon={<SwapVertRounded />}
+              onClick={() => setSelectedDir(previous => (previous + 1) % line.directions.length)}
+              aria-label={`Zmień kierunek, obecnie do ${destination}`}
               sx={{
-                maxWidth: { xs: '100%', md: 520 },
-                overflowX: 'auto',
+                minHeight: { xs: 40, sm: 42 },
+                height: { xs: 40, sm: 'auto' },
+                minWidth: 0,
+                maxWidth: { xs: '100%', sm: 300 },
+                borderRadius: { xs: '15px', sm: '18px' },
+                border: { xs: 1, sm: 0 },
+                borderColor: 'divider',
+                bgcolor: { xs: 'background.paper', sm: 'background.container' },
+                color: 'text.primary',
+                boxShadow: { xs: '0 6px 18px rgba(20, 55, 48, .12)', sm: 'none' },
+                justifyContent: 'flex-start',
                 order: { xs: 3, md: 0 },
                 width: { xs: '100%', md: 'auto' },
-                '& .MuiToggleButton-root': { textTransform: 'none', px: 1.5, whiteSpace: 'nowrap', borderRadius: '14px', fontWeight: 650 },
+                mt: { xs: 1, sm: 0 },
+                px: { xs: 1.5, sm: 2 },
+                '&:hover': { bgcolor: 'background.containerHigh' },
               }}
             >
-              {line.directions.map((item, index) => (
-                <ToggleButton key={index} value={index}>{item.short || `Kierunek ${index + 1}`}</ToggleButton>
-              ))}
-            </ToggleButtonGroup>
+              <Typography variant="labelLarge" noWrap>
+                {destination ? `Do ${destination}` : 'Zmień kierunek'}
+              </Typography>
+            </Button>
           )}
 
           <IconButton
             aria-label="Pokaż moją lokalizację"
             onClick={locateUser}
-            sx={{ ml: { sm: 'auto' }, bgcolor: 'background.container' }}
+            sx={{
+              ml: { sm: 'auto' },
+              width: { xs: 40, sm: 'auto' },
+              height: 40,
+              flexShrink: 0,
+              bgcolor: { xs: 'background.paper', sm: 'background.container' },
+              border: { xs: 1, sm: 0 },
+              borderColor: 'divider',
+              boxShadow: { xs: '0 6px 18px rgba(20, 55, 48, .12)', sm: 'none' },
+            }}
           >
             <MyLocationRounded />
           </IconButton>
@@ -454,6 +545,9 @@ export default function MapView({ busData, stopCoords, state, now }) {
               color: 'text.secondary',
             },
             '& .leaflet-control-attribution a': { color: 'primary.main' },
+            '& .leaflet-bottom': {
+              bottom: { xs: 'calc(80px + env(safe-area-inset-bottom, 0px))', sm: 0 },
+            },
             '& .leaflet-tooltip': {
               bgcolor: 'background.paper',
               color: 'text.primary',
@@ -546,7 +640,7 @@ export default function MapView({ busData, stopCoords, state, now }) {
               sx={{
                 position: 'absolute',
                 zIndex: 1000,
-                top: 12,
+                top: { xs: 'calc(env(safe-area-inset-top, 0px) + 112px)', sm: 12 },
                 left: 12,
                 maxWidth: { xs: 'calc(100% - 24px)', sm: 330 },
                 px: 1.5,
@@ -573,7 +667,7 @@ export default function MapView({ busData, stopCoords, state, now }) {
                 zIndex: 1000,
                 left: { xs: 10, sm: 18 },
                 right: { xs: 10, sm: 'auto' },
-                bottom: { xs: 10, sm: 18 },
+                bottom: { xs: 'calc(82px + env(safe-area-inset-bottom, 0px))', sm: 18 },
                 width: { sm: 430 },
                 maxHeight: '46%',
                 overflowY: 'auto',
@@ -602,20 +696,21 @@ export default function MapView({ busData, stopCoords, state, now }) {
 
               {departures.length ? (
                 <Stack sx={{ px: 1.25, pb: 1.25 }}>
-                  {departures.map((departure, index) => {
+                  {(showAllDepartures ? allDepartures : departures).map((departure, index) => {
                     const minutes = Math.max(0, Math.floor(departure.minutes - now.minutes));
+                    const past = departure.minutes < now.minutes;
                     return (
                       <Box
                         key={`${departure.line.id}-${departure.time}-${index}`}
-                        sx={{ display: 'grid', gridTemplateColumns: '34px 52px minmax(0, 1fr) auto', alignItems: 'center', gap: 1, px: 1, py: 0.9, borderRadius: '14px', '&:hover': { bgcolor: 'action.hover' } }}
+                        sx={{ display: 'grid', gridTemplateColumns: '34px 52px minmax(0, 1fr) auto', alignItems: 'center', gap: 1, px: 1, py: 0.9, borderRadius: '14px', opacity: past && showAllDepartures ? 0.42 : 1, '&:hover': { bgcolor: 'action.hover' } }}
                       >
                         <Avatar sx={{ width: 32, height: 32, bgcolor: getLineHex(departure.line.color), fontSize: 11, fontWeight: 800 }}>
                           {departure.line.number}
                         </Avatar>
                         <Typography variant="bodyMedium" sx={{ fontFamily: 'Roboto Mono', fontWeight: 750 }}>{departure.time}</Typography>
-                        <Typography variant="bodySmall" color="text.secondary" noWrap>{departure.direction.short}</Typography>
+                        <Typography variant="bodySmall" color="text.secondary" noWrap>Do {formatDestination(departure.direction)}</Typography>
                         <Typography variant="labelMedium" color="primary.main" sx={{ fontWeight: 750, whiteSpace: 'nowrap' }}>
-                          {minutes < 1 ? 'teraz' : `${minutes} min`}
+                          {past && showAllDepartures ? '' : minutes < 1 ? 'teraz' : `${minutes} min`}
                         </Typography>
                       </Box>
                     );
@@ -625,6 +720,18 @@ export default function MapView({ busData, stopCoords, state, now }) {
                 <Typography variant="bodyMedium" color="text.secondary" sx={{ px: 2.25, pb: 2.25 }}>
                   Brak kursów dla wybranego dnia.
                 </Typography>
+              )}
+
+              {(allDepartures.length > departures.length || showAllDepartures) && departures.length > 0 && (
+                <Button
+                  size="small"
+                  color="inherit"
+                  startIcon={showAllDepartures ? <ExpandLessRounded /> : <ExpandMoreRounded />}
+                  onClick={() => setShowAllDepartures(value => !value)}
+                  sx={{ mx: 1.25, mb: 1.25, minHeight: 36, alignSelf: 'flex-start' }}
+                >
+                  {showAllDepartures ? 'Zwiń listę' : `Zobacz więcej (${allDepartures.length})`}
+                </Button>
               )}
             </Paper>
           )}

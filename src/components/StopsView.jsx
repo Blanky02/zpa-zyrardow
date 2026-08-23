@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Box, Card, CardContent, Typography, TextField, Chip, Stack, Paper, Grid, List, ListItem, ListItemButton, Avatar, InputAdornment } from '@mui/material';
-import { Search, Place, DirectionsBus } from '@mui/icons-material';
+import { Search, Place } from '@mui/icons-material';
 import { getUniqueStops, findOccurrencesForStop } from '../utils/stops.js';
 import { getScheduleForStop, parseMinutes, dayLabel } from '../utils/time.js';
 import { getLineHex } from '../utils/stops.js';

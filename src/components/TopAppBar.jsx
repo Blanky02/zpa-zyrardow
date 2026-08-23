@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import {
-  AppBar,
-  Toolbar,
   Box,
   Typography,
   IconButton,
@@ -11,9 +9,12 @@ import {
   ListItemText,
   Divider,
   Badge,
+  Slide,
+  useMediaQuery,
+  useScrollTrigger,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import {
-  DirectionsBusRounded,
   DarkModeRounded,
   LightModeRounded,
   MoreVertRounded,
@@ -32,6 +33,17 @@ const statusLabels = {
   fallback: 'Dane zapasowe',
 };
 
+const floatingActionSx = {
+  width: 40,
+  height: 40,
+  color: 'text.primary',
+  bgcolor: 'background.paper',
+  border: 1,
+  borderColor: 'divider',
+  boxShadow: '0 6px 18px rgba(20, 55, 48, .12)',
+  '&:hover': { bgcolor: 'background.paper' },
+};
+
 export default function TopAppBar({
   status,
   meta,
@@ -47,54 +59,39 @@ export default function TopAppBar({
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const closeMenu = () => setAnchorEl(null);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const scrolledDown = useScrollTrigger();
+  const hideControls = isMobile && scrolledDown;
 
   const generatedAt = meta?.generatedAt
     ? new Date(meta.generatedAt).toLocaleDateString('pl-PL', { day: 'numeric', month: 'short', year: 'numeric' })
     : null;
 
   return (
-    <AppBar
-      position="sticky"
-      elevation={0}
-      sx={{
-        bgcolor: 'primary.main',
-        color: 'primary.contrastText',
-        border: 0,
-        top: 0,
-        zIndex: 1200,
-      }}
-    >
-      <Toolbar sx={{ minHeight: { xs: 68, md: 76 }, px: { xs: 2, md: 3 }, gap: 1.5 }}>
-        <Box
-          sx={{
-            width: { xs: 40, md: 44 },
-            height: { xs: 40, md: 44 },
-            borderRadius: '15px',
-            bgcolor: 'rgba(255,255,255,.16)',
-            display: 'grid',
-            placeItems: 'center',
-            flexShrink: 0,
-          }}
-        >
-          <DirectionsBusRounded />
-        </Box>
-
-        <Box sx={{ minWidth: 0, flex: 1 }}>
-          <Typography
-            variant="titleMedium"
-            sx={{ fontWeight: 750, lineHeight: 1.15, letterSpacing: '-0.02em' }}
-          >
-            ŻPA Żyrardów
-          </Typography>
-          <Typography variant="bodySmall" sx={{ opacity: 0.76, mt: 0.25 }}>
-            Rozkład jazdy
-          </Typography>
-        </Box>
-
+    <Slide appear={false} direction="down" in={!hideControls}>
+      <Box
+        component="header"
+        sx={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1200,
+          display: 'flex',
+          alignItems: 'flex-start',
+          justifyContent: 'flex-end',
+          gap: 1.5,
+          px: { xs: 2, md: 3 },
+          pt: 'calc(env(safe-area-inset-top, 0px) + 12px)',
+          pointerEvents: 'none',
+        }}
+      >
+      <Box sx={{ display: 'flex', gap: 1, pointerEvents: 'auto' }}>
         <IconButton
           aria-label={darkMode ? 'Włącz jasny motyw' : 'Włącz ciemny motyw'}
           onClick={() => setDarkMode(!darkMode)}
-          sx={{ color: 'inherit', bgcolor: 'rgba(255,255,255,.12)', '&:hover': { bgcolor: 'rgba(255,255,255,.2)' } }}
+          sx={floatingActionSx}
         >
           {darkMode ? <LightModeRounded /> : <DarkModeRounded />}
         </IconButton>
@@ -105,72 +102,73 @@ export default function TopAppBar({
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
           onClick={(event) => setAnchorEl(event.currentTarget)}
-          sx={{ color: 'inherit' }}
+          sx={floatingActionSx}
         >
           <Badge color="warning" variant="dot" invisible={!dataChanged && !appUpdate}>
             <MoreVertRounded />
           </Badge>
         </IconButton>
+      </Box>
 
-        <Menu
-          id="app-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={closeMenu}
-          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-          slotProps={{ paper: { sx: { mt: 1, width: 292, borderRadius: '24px', p: 1 } } }}
-        >
-          <Box sx={{ px: 1.5, py: 1 }}>
-            <Typography variant="labelLarge" sx={{ fontWeight: 700 }}>Informacje o rozkładzie</Typography>
-            <Typography variant="bodySmall" color="text.secondary" sx={{ mt: 0.35 }}>
-              {generatedAt ? `Dane z ${generatedAt}` : 'Dane rozkładowe ŻPA'}
-            </Typography>
-          </Box>
+      <Menu
+        id="app-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={closeMenu}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        slotProps={{ paper: { sx: { mt: 1, width: 292, borderRadius: '24px', p: 1 } } }}
+      >
+        <Box sx={{ px: 1.5, py: 1 }}>
+          <Typography variant="labelLarge" sx={{ fontWeight: 700 }}>Informacje o rozkładzie</Typography>
+          <Typography variant="bodySmall" color="text.secondary" sx={{ mt: 0.35 }}>
+            {generatedAt ? `Dane z ${generatedAt}` : 'Dane rozkładowe ŻPA'}
+          </Typography>
+        </Box>
 
+        <MenuItem disabled sx={{ opacity: '1 !important', borderRadius: '14px' }}>
+          <ListItemIcon>
+            {status === 'offline' || status === 'fallback'
+              ? <CloudOffRounded color="warning" fontSize="small" />
+              : <CheckCircleRounded color="success" fontSize="small" />}
+          </ListItemIcon>
+          <ListItemText
+            primary={statusLabels[status] || 'Status danych'}
+            secondary={meta?.version || undefined}
+            primaryTypographyProps={{ variant: 'bodyMedium', fontWeight: 650 }}
+            secondaryTypographyProps={{ variant: 'bodySmall', noWrap: true }}
+          />
+        </MenuItem>
+
+        {dataChanged && (
           <MenuItem disabled sx={{ opacity: '1 !important', borderRadius: '14px' }}>
-            <ListItemIcon>
-              {status === 'offline' || status === 'fallback'
-                ? <CloudOffRounded color="warning" fontSize="small" />
-                : <CheckCircleRounded color="success" fontSize="small" />}
-            </ListItemIcon>
-            <ListItemText
-              primary={statusLabels[status] || 'Status danych'}
-              secondary={meta?.version || undefined}
-              primaryTypographyProps={{ variant: 'bodyMedium', fontWeight: 650 }}
-              secondaryTypographyProps={{ variant: 'bodySmall', noWrap: true }}
-            />
+            <ListItemIcon><InfoOutlined color="primary" fontSize="small" /></ListItemIcon>
+            <ListItemText primary="Rozkład został zaktualizowany" primaryTypographyProps={{ variant: 'bodyMedium' }} />
           </MenuItem>
+        )}
 
-          {dataChanged && (
-            <MenuItem disabled sx={{ opacity: '1 !important', borderRadius: '14px' }}>
-              <ListItemIcon><InfoOutlined color="primary" fontSize="small" /></ListItemIcon>
-              <ListItemText primary="Rozkład został zaktualizowany" primaryTypographyProps={{ variant: 'bodyMedium' }} />
-            </MenuItem>
-          )}
+        <Divider sx={{ my: 1 }} />
 
-          <Divider sx={{ my: 1 }} />
-
-          {appUpdate && (
-            <MenuItem onClick={() => { closeMenu(); onApplyUpdate(); }} sx={{ borderRadius: '14px' }}>
-              <ListItemIcon><SystemUpdateAltRounded fontSize="small" /></ListItemIcon>
-              <ListItemText primary="Zainstaluj nową wersję" />
-            </MenuItem>
-          )}
-
-          {canInstall && (
-            <MenuItem onClick={() => { closeMenu(); onInstall(); }} sx={{ borderRadius: '14px' }}>
-              <ListItemIcon><DownloadRounded fontSize="small" /></ListItemIcon>
-              <ListItemText primary="Dodaj aplikację do telefonu" />
-            </MenuItem>
-          )}
-
-          <MenuItem onClick={() => { closeMenu(); onRefresh(); }} sx={{ borderRadius: '14px' }}>
-            <ListItemIcon><RefreshRounded fontSize="small" /></ListItemIcon>
-            <ListItemText primary="Odśwież dane" />
+        {appUpdate && (
+          <MenuItem onClick={() => { closeMenu(); onApplyUpdate(); }} sx={{ borderRadius: '14px' }}>
+            <ListItemIcon><SystemUpdateAltRounded fontSize="small" /></ListItemIcon>
+            <ListItemText primary="Zainstaluj nową wersję" />
           </MenuItem>
-        </Menu>
-      </Toolbar>
-    </AppBar>
+        )}
+
+        {canInstall && (
+          <MenuItem onClick={() => { closeMenu(); onInstall(); }} sx={{ borderRadius: '14px' }}>
+            <ListItemIcon><DownloadRounded fontSize="small" /></ListItemIcon>
+            <ListItemText primary="Dodaj aplikację do telefonu" />
+          </MenuItem>
+        )}
+
+        <MenuItem onClick={() => { closeMenu(); onRefresh(); }} sx={{ borderRadius: '14px' }}>
+          <ListItemIcon><RefreshRounded fontSize="small" /></ListItemIcon>
+          <ListItemText primary="Odśwież dane" />
+        </MenuItem>
+      </Menu>
+      </Box>
+    </Slide>
   );
 }

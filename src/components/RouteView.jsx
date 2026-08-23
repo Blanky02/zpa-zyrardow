@@ -23,7 +23,7 @@ import {
   SearchRounded,
   SwapVertRounded,
 } from '@mui/icons-material';
-import { getUniqueStops, findDirectRoutes, getLineHex } from '../utils/stops.js';
+import { getUniqueStops, findDirectRoutes, getLineHex, formatDestination } from '../utils/stops.js';
 import { dayLabel } from '../utils/time.js';
 import { addRouteRecent, getRouteRecents } from '../utils/storage.js';
 
@@ -161,7 +161,7 @@ export default function RouteView({ busData, state, setState, now }) {
     setError('');
   };
 
-  const useRecent = (route) => {
+  const applyRecent = (route) => {
     searchRoutes(route.from, route.to, route.dayType);
   };
 
@@ -170,9 +170,6 @@ export default function RouteView({ busData, state, setState, now }) {
       <Box sx={{ mb: { xs: 2, md: 3 } }}>
         <Typography variant="headlineSmall" sx={{ fontWeight: 750, letterSpacing: '-0.025em' }}>
           Zaplanuj przejazd
-        </Typography>
-        <Typography variant="bodyMedium" color="text.secondary" sx={{ mt: 0.5 }}>
-          Wybierz dwa przystanki, a pokażemy najbliższe bezpośrednie połączenia.
         </Typography>
       </Box>
 
@@ -200,9 +197,6 @@ export default function RouteView({ busData, state, setState, now }) {
             <Box>
               <Typography variant="titleLarge" sx={{ fontWeight: 750, letterSpacing: '-0.025em' }}>
                 Dokąd jedziesz?
-              </Typography>
-              <Typography variant="bodySmall" sx={{ opacity: 0.78, mt: 0.5 }}>
-                Rozkład dla wybranego dnia
               </Typography>
             </Box>
 
@@ -374,7 +368,7 @@ export default function RouteView({ busData, state, setState, now }) {
                             )}
                           </Box>
                           <Typography variant="bodySmall" color="text.secondary" noWrap sx={{ mt: 0.35 }}>
-                            {route.dir.short || route.line.name}
+                            Do {formatDestination(route.dir, route.line.name)}
                           </Typography>
                         </Box>
 
@@ -396,9 +390,8 @@ export default function RouteView({ busData, state, setState, now }) {
                 <Box sx={{ width: 40, height: 40, borderRadius: '14px', bgcolor: 'primary.container', color: 'primary.onContainer', display: 'grid', placeItems: 'center' }}>
                   <HistoryRounded />
                 </Box>
-                <Box>
+                <Box sx={{ alignSelf: 'center' }}>
                   <Typography variant="titleMedium" sx={{ fontWeight: 750 }}>Ostatnie trasy</Typography>
-                  <Typography variant="bodySmall" color="text.secondary">Wybierz trasę, aby sprawdzić ją ponownie</Typography>
                 </Box>
               </Box>
 
@@ -407,12 +400,12 @@ export default function RouteView({ busData, state, setState, now }) {
                   {routeRecents.map((route) => (
                     <ButtonBase
                       key={`${route.from}-${route.to}-${route.dayType}`}
-                      onClick={() => useRecent(route)}
+                      onClick={() => applyRecent(route)}
                       sx={{ width: '100%', textAlign: 'left', borderRadius: '16px', p: 1.5, gap: 1.5, justifyContent: 'flex-start', '&:hover': { bgcolor: 'action.hover' } }}
                     >
                       <Box sx={{ minWidth: 0, flex: 1 }}>
-                        <Typography variant="bodyMedium" sx={{ fontWeight: 700 }} noWrap>{route.from}</Typography>
-                        <Typography variant="bodyMedium" color="text.secondary" noWrap>{route.to}</Typography>
+                        <Typography variant="bodyMedium" sx={{ fontWeight: 700, display: 'block' }} noWrap>{route.from}</Typography>
+                        <Typography variant="bodyMedium" color="text.secondary" sx={{ display: 'block' }} noWrap>{route.to}</Typography>
                       </Box>
                       <Typography variant="labelMedium" color="text.secondary">{dayShort[route.dayType]}</Typography>
                       <ArrowForwardRounded color="action" />
@@ -423,9 +416,6 @@ export default function RouteView({ busData, state, setState, now }) {
                 <Box sx={{ py: { xs: 5, md: 9 }, textAlign: 'center' }}>
                   <AltRouteRounded sx={{ fontSize: 54, color: 'primary.main', opacity: 0.2 }} />
                   <Typography variant="titleMedium" sx={{ fontWeight: 700, mt: 1.5 }}>Tutaj pojawią się Twoje trasy</Typography>
-                  <Typography variant="bodyMedium" color="text.secondary" sx={{ maxWidth: 340, mx: 'auto', mt: 0.75 }}>
-                    Wyszukaj pierwsze połączenie, a zapamiętamy je na tym urządzeniu.
-                  </Typography>
                 </Box>
               )}
             </Box>
