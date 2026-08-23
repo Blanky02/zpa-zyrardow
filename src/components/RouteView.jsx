@@ -23,7 +23,7 @@ import {
   SearchRounded,
   SwapVertRounded,
 } from '@mui/icons-material';
-import { getUniqueStops, findDirectRoutes, getLineHex } from '../utils/stops.js';
+import { getUniqueStops, findDirectRoutes, getLineHex, formatDestination } from '../utils/stops.js';
 import { dayLabel } from '../utils/time.js';
 import { addRouteRecent, getRouteRecents } from '../utils/storage.js';
 
@@ -368,7 +368,7 @@ export default function RouteView({ busData, state, setState, now }) {
                             )}
                           </Box>
                           <Typography variant="bodySmall" color="text.secondary" noWrap sx={{ mt: 0.35 }}>
-                            {route.dir.short || route.line.name}
+                            Do {formatDestination(route.dir, route.line.name)}
                           </Typography>
                         </Box>
 

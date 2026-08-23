@@ -10,6 +10,27 @@ export function normalizeStopName(name = '') {
     .trim();
 }
 
+const KEEP_UPPER_TOKENS = new Set(['OSP', 'PKP', 'PKS', 'D.A.', 'D.A', 'D.W.', 'DW.']);
+
+// Skraca opis kierunku do samego przystanku końcowego, np.
+// "ŻYRARDÓW SPÓŁDZIELCZA → WISKITKI PL. Wolności 5/6 / I" -> "Wiskitki Pl. Wolności 5/6"
+export function formatDestination(dir, fallback = '') {
+  const raw = dir?.short || dir?.label || fallback || '';
+  const destination = (raw.split('→').pop() || raw).trim();
+  return destination
+    .replace(/\s+\/\s?[A-Z0-9]+$/i, '') // przytnij numer stanowiska typu "/ I"
+    .replace(/^ŻYRARDÓW\s+/i, '') // powielany prefiks miejscowości
+    .replace(/\s+/g, ' ')
+    .trim()
+    .split(' ')
+    .map(word => {
+      const upper = word.toLocaleUpperCase('pl');
+      if (KEEP_UPPER_TOKENS.has(upper) || /\d/.test(word) || word.startsWith('/')) return upper;
+      return upper.charAt(0) + word.toLocaleLowerCase('pl').slice(1);
+    })
+    .join(' ');
+}
+
 export function getPlatformKey(platform = {}) {
   if (platform.designator !== undefined && platform.designator !== null && platform.designator !== '') {
     return `designator:${platform.designator}`;

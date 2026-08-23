@@ -38,6 +38,7 @@ import 'react-leaflet-cluster/dist/assets/MarkerCluster.Default.css';
 import L from 'leaflet';
 import {
   findOccurrencesForStop,
+  formatDestination,
   getLineHex,
   getPlatformKey,
   getRoutePlatforms,
@@ -56,25 +57,6 @@ function MapController({ center, zoom, bounds }) {
     window.setTimeout(() => map.invalidateSize(), 150);
   }, [bounds, center, map, zoom]);
   return null;
-}
-
-const KEEP_UPPER_TOKENS = new Set(['OSP', 'PKP', 'PKS', 'D.A.', 'D.A', 'D.W.', 'DW.']);
-
-function formatDestination(dir) {
-  const raw = dir?.short || dir?.label || '';
-  const destination = (raw.split('→').pop() || raw).trim();
-  return destination
-    .replace(/\s+\/\s?[A-Z0-9]+$/i, '') // przytnij numer stanowiska typu "/ I"
-    .replace(/^ŻYRARDÓW\s+/i, '') // powielany prefiks miejscowości
-    .replace(/\s+/g, ' ')
-    .trim()
-    .split(' ')
-    .map(word => {
-      const upper = word.toLocaleUpperCase('pl');
-      if (KEEP_UPPER_TOKENS.has(upper) || /\d/.test(word) || word.startsWith('/')) return upper;
-      return upper.charAt(0) + word.toLocaleLowerCase('pl').slice(1);
-    })
-    .join(' ');
 }
 
 function lineMarker(line, index) {

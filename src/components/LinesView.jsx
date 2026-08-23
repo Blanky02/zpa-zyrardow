@@ -25,7 +25,7 @@ import {
   FavoriteRounded,
   SearchRounded,
 } from '@mui/icons-material';
-import { findOccurrencesForStop, getLineHex } from '../utils/stops.js';
+import { findOccurrencesForStop, formatDestination, getLineHex } from '../utils/stops.js';
 import { getScheduleForStop, parseMinutes } from '../utils/time.js';
 
 const dayShort = {
@@ -259,7 +259,7 @@ export default function LinesView({
             <Box sx={{ minWidth: 0, display: 'flex', alignItems: 'center', gap: 1, ml: 'auto' }}>
               <LineBadge line={currentLine} size={34} />
               <Typography variant="bodySmall" color="text.secondary" noWrap>
-                {currentDir.short} · {selectedStop}
+                Do {formatDestination(currentDir)} · {selectedStop}
               </Typography>
             </Box>
           </Box>
@@ -295,7 +295,7 @@ export default function LinesView({
                         <DirectionsBusRounded fontSize="small" />
                       </Box>
                       <Box sx={{ minWidth: 0, flex: 1 }}>
-                        <Typography variant="bodySmall" sx={{ fontWeight: 750 }} noWrap>{direction.short || direction.label}</Typography>
+                        <Typography variant="bodySmall" sx={{ fontWeight: 750 }} noWrap>Do {formatDestination(direction)}</Typography>
                         <Typography variant="bodySmall" color="text.secondary">{direction.stops.length} przyst.</Typography>
                       </Box>
                     </ButtonBase>
