@@ -48,6 +48,55 @@ import {
 } from '../utils/stops.js';
 import { getScheduleForStop, parseMinutes } from '../utils/time.js';
 
+const OSRM_CACHE_PREFIX = 'osrm_';
+const OSRM_CACHE_MAX_ENTRIES = 60;
+
+function osrmCacheKeys() {
+  const keys = [];
+  for (let i = 0; i < localStorage.length; i += 1) {
+    const key = localStorage.key(i);
+    if (key?.startsWith(OSRM_CACHE_PREFIX)) keys.push(key);
+  }
+  return keys;
+}
+
+function osrmCacheRead(key) {
+  try {
+    const raw = localStorage.getItem(OSRM_CACHE_PREFIX + key);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) return parsed; // stary format: same wspolrzedne
+    return Array.isArray(parsed?.c) ? parsed.c : null;
+  } catch {
+    return null;
+  }
+}
+
+function osrmCacheWrite(key, segment) {
+  const payload = JSON.stringify({ t: Date.now(), c: segment });
+  try {
+    // prosty LRU: przy pelnym cache usuwamy najstarsze wpisy
+    const staleKeys = osrmCacheKeys();
+    if (staleKeys.length >= OSRM_CACHE_MAX_ENTRIES) {
+      const byAge = staleKeys
+        .map(k => {
+          try { return [JSON.parse(localStorage.getItem(k))?.t || 0, k]; }
+          catch { return [0, k]; }
+        })
+        .sort((a, b) => a[0] - b[0]);
+      byAge.slice(0, staleKeys.length - OSRM_CACHE_MAX_ENTRIES + 1)
+        .forEach(([, k]) => localStorage.removeItem(k));
+    }
+    localStorage.setItem(OSRM_CACHE_PREFIX + key, payload);
+  } catch {
+    // przekroczony limit pamieci - wyczysc caly cache tras i sprobuj ponownie
+    try {
+      osrmCacheKeys().forEach(k => localStorage.removeItem(k));
+      localStorage.setItem(OSRM_CACHE_PREFIX + key, payload);
+    } catch {}
+  }
+}
+
 function MapController({ center, zoom, bounds }) {
   const map = useMap();
   useEffect(() => {
@@ -234,16 +283,13 @@ export default function MapView({ busData, stopCoords, state, now }) {
         const key = `${start[1].toFixed(5)},${start[0].toFixed(5)};${end[1].toFixed(5)},${end[0].toFixed(5)}`;
 
         try {
-          const cached = localStorage.getItem(`osrm_${key}`);
-          let segment = cached ? JSON.parse(cached) : null;
+          let segment = osrmCacheRead(key);
           if (!segment) {
             const response = await fetch(`https://router.project-osrm.org/route/v1/driving/${start[1]},${start[0]};${end[1]},${end[0]}?overview=full&geometries=geojson`);
             if (response.ok) {
               const data = await response.json();
               segment = data.routes?.[0]?.geometry?.coordinates?.map(point => [point[1], point[0]]) || null;
-              if (segment) {
-                try { localStorage.setItem(`osrm_${key}`, JSON.stringify(segment)); } catch {}
-              }
+              if (segment) osrmCacheWrite(key, segment);
             }
           }
 
