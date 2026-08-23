@@ -62,6 +62,7 @@ export default function TopAppBar({
         border: 0,
         top: 0,
         zIndex: 1200,
+        pt: 'env(safe-area-inset-top)',
       }}
     >
       <Toolbar sx={{ minHeight: { xs: 68, md: 76 }, px: { xs: 2, md: 3 }, gap: 1.5 }}>
