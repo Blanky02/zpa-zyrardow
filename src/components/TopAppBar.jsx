@@ -9,9 +9,12 @@ import {
   ListItemText,
   Divider,
   Badge,
+  Slide,
+  useMediaQuery,
+  useScrollTrigger,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import {
-  DirectionsBusRounded,
   DarkModeRounded,
   LightModeRounded,
   MoreVertRounded,
@@ -56,46 +59,34 @@ export default function TopAppBar({
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const closeMenu = () => setAnchorEl(null);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const scrolledDown = useScrollTrigger();
+  const hideControls = isMobile && scrolledDown;
 
   const generatedAt = meta?.generatedAt
     ? new Date(meta.generatedAt).toLocaleDateString('pl-PL', { day: 'numeric', month: 'short', year: 'numeric' })
     : null;
 
   return (
-    <Box
-      component="header"
-      sx={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1200,
-        display: 'flex',
-        alignItems: 'flex-start',
-        justifyContent: 'space-between',
-        gap: 1.5,
-        px: { xs: 2, md: 3 },
-        pt: 'calc(env(safe-area-inset-top, 0px) + 12px)',
-        pointerEvents: 'none',
-      }}
-    >
+    <Slide appear={false} direction="down" in={!hideControls}>
       <Box
-        aria-hidden
+        component="header"
         sx={{
-          width: 40,
-          height: 40,
-          borderRadius: '15px',
-          bgcolor: 'primary.main',
-          color: '#fff',
-          display: 'grid',
-          placeItems: 'center',
-          flexShrink: 0,
-          boxShadow: '0 6px 18px rgba(23, 109, 77, .3)',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1200,
+          display: 'flex',
+          alignItems: 'flex-start',
+          justifyContent: 'flex-end',
+          gap: 1.5,
+          px: { xs: 2, md: 3 },
+          pt: 'calc(env(safe-area-inset-top, 0px) + 12px)',
+          pointerEvents: 'none',
         }}
       >
-        <DirectionsBusRounded />
-      </Box>
-
       <Box sx={{ display: 'flex', gap: 1, pointerEvents: 'auto' }}>
         <IconButton
           aria-label={darkMode ? 'Włącz jasny motyw' : 'Włącz ciemny motyw'}
@@ -177,6 +168,7 @@ export default function TopAppBar({
           <ListItemText primary="Odśwież dane" />
         </MenuItem>
       </Menu>
-    </Box>
+      </Box>
+    </Slide>
   );
 }
