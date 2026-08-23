@@ -138,9 +138,9 @@ export default function LinesView({
   };
 
   return (
-    <Box sx={{ maxWidth: 1040, mx: 'auto' }}>
-      <Box sx={{ mb: { xs: 2, md: 3 }, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 2 }}>
-        <Box>
+    <Box sx={{ width: '100%', minWidth: 0, overflowX: 'clip' }}>
+      <Box sx={{ mb: { xs: 2, md: 3 }, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 2, flexWrap: 'wrap' }}>
+        <Box sx={{ minWidth: 0, flex: '1 1 200px' }}>
           <Typography variant="headlineSmall" sx={{ fontWeight: 750, letterSpacing: '-0.025em' }}>
             Linie i odjazdy
           </Typography>
@@ -149,7 +149,7 @@ export default function LinesView({
           </Typography>
         </Box>
 
-        <FormControl size="small">
+        <FormControl size="small" sx={{ flexShrink: 0 }}>
           <Select
             value={state.dayType}
             onChange={(event) => setState(previous => ({ ...previous, dayType: event.target.value }))}
@@ -166,7 +166,7 @@ export default function LinesView({
       <Paper elevation={0} sx={{ borderRadius: '28px', border: 1, borderColor: 'divider', overflow: 'hidden' }}>
         <Box sx={{ px: { xs: 2, sm: 3 }, py: 1.75, borderBottom: 1, borderColor: 'divider' }}>
           <Typography variant="labelLarge" color="text.secondary">Linia</Typography>
-          <Box sx={{ display: 'flex', gap: 0.75, mt: 1, overflowX: 'auto', pb: 0.5 }}>
+          <Box sx={{ display: 'flex', gap: 0.75, mt: 1, overflowX: 'auto', overscrollBehaviorX: 'contain', maxWidth: '100%', pb: 0.5 }}>
             {busData.lines.map(line => {
               const selected = line.id === currentLine.id;
               return (
@@ -191,7 +191,7 @@ export default function LinesView({
           </Box>
 
           {favorites.length > 0 && (
-            <Box sx={{ display: 'flex', gap: 0.75, mt: 1, overflowX: 'auto', pb: 0.25 }}>
+            <Box sx={{ display: 'flex', gap: 0.75, mt: 1, overflowX: 'auto', overscrollBehaviorX: 'contain', maxWidth: '100%', pb: 0.25 }}>
               {favorites.slice(0, 5).map(favorite => (
                 <Button
                   key={favorite.stop}
@@ -209,7 +209,7 @@ export default function LinesView({
         </Box>
 
         <Box sx={{ px: { xs: 1.5, sm: 2.5 }, py: 1.25, bgcolor: 'background.container' }}>
-          <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: { xs: 0.5, sm: 1 } }}>
+          <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: { xs: 0.5, sm: 1 } }}>
             {flow.map((item, index) => {
               const active = item.id === step;
               const completed = index < stepIndex;
@@ -245,7 +245,7 @@ export default function LinesView({
                   >
                     {index + 1}
                   </Box>
-                  <Typography variant="labelMedium" sx={{ fontWeight: active ? 750 : 600, display: { xs: index === stepIndex ? 'block' : 'none', sm: 'block' } }} noWrap>
+                  <Typography variant="labelMedium" sx={{ fontWeight: active ? 750 : 600, minWidth: 0, display: { xs: index === stepIndex ? 'block' : 'none', sm: 'block' } }} noWrap>
                     {item.label}
                   </Typography>
                 </ButtonBase>
@@ -256,7 +256,7 @@ export default function LinesView({
 
         {step === 'departures' && (
           <Box sx={{ px: { xs: 2, sm: 3 }, pt: 2.25, display: 'flex', alignItems: 'center', gap: 1 }}>
-            <Button startIcon={<ArrowBackRounded />} onClick={goBack} color="inherit" sx={{ px: 1.25, minHeight: 38 }}>
+            <Button startIcon={<ArrowBackRounded />} onClick={goBack} color="inherit" sx={{ px: 1.25, minHeight: 38, flexShrink: 0 }}>
               Zmień przystanek
             </Button>
             <Box sx={{ minWidth: 0, display: 'flex', alignItems: 'center', gap: 1, ml: 'auto' }}>
@@ -270,11 +270,11 @@ export default function LinesView({
 
         <Box sx={{ p: { xs: 2, sm: 3 } }}>
           {step === 'stop' && (
-            <Box sx={{ maxWidth: 760, mx: 'auto' }}>
+            <Box sx={{ width: '100%', minWidth: 0 }}>
               <Typography variant="titleLarge" sx={{ fontWeight: 750 }}>Wybierz kierunek i przystanek</Typography>
               <Typography variant="bodyMedium" color="text.secondary" sx={{ mt: 0.5 }}>Linia {currentLine.number} · {currentLine.name}</Typography>
 
-              <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: `repeat(${Math.min(currentLine.directions.length, 2)}, 1fr)` }, gap: 1, mt: 2.5 }}>
+              <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: `repeat(${Math.min(currentLine.directions.length, 2)}, minmax(0, 1fr))` }, gap: 1, mt: 2.5 }}>
                 {currentLine.directions.map((direction, index) => {
                   const selected = index === state.dirIdx;
                   return (
