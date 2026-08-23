@@ -198,9 +198,6 @@ export default function RouteView({ busData, state, setState, now }) {
               <Typography variant="titleLarge" sx={{ fontWeight: 750, letterSpacing: '-0.025em' }}>
                 Dokąd jedziesz?
               </Typography>
-              <Typography variant="bodySmall" sx={{ opacity: 0.78, mt: 0.5 }}>
-                Rozkład dla wybranego dnia
-              </Typography>
             </Box>
 
             <FormControl size="small">
@@ -419,9 +416,6 @@ export default function RouteView({ busData, state, setState, now }) {
                 <Box sx={{ py: { xs: 5, md: 9 }, textAlign: 'center' }}>
                   <AltRouteRounded sx={{ fontSize: 54, color: 'primary.main', opacity: 0.2 }} />
                   <Typography variant="titleMedium" sx={{ fontWeight: 700, mt: 1.5 }}>Tutaj pojawią się Twoje trasy</Typography>
-                  <Typography variant="bodyMedium" color="text.secondary" sx={{ maxWidth: 340, mx: 'auto', mt: 0.75 }}>
-                    Wyszukaj pierwsze połączenie, a zapamiętamy je na tym urządzeniu.
-                  </Typography>
                 </Box>
               )}
             </Box>
