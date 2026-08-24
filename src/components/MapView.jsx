@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import {
   Avatar,
@@ -97,16 +97,26 @@ function osrmCacheWrite(key, segment) {
   }
 }
 
-function MapController({ center, zoom, bounds }) {
+function MapController({ center, zoom, bounds, viewKey }) {
   const map = useMap();
+  const appliedViewKey = useRef(null);
+
   useEffect(() => {
+    // Do not control the map on every React render. MarkerClusterGroup needs to
+    // own the viewport while a user is zooming into a cluster; calling
+    // fitBounds again would immediately merge the markers back into a cluster.
+    if (appliedViewKey.current === viewKey) return undefined;
+    appliedViewKey.current = viewKey;
+
     if (bounds?.length > 1) {
       map.fitBounds(bounds, { padding: [28, 28], maxZoom: zoom });
     } else {
       map.setView(center, zoom);
     }
-    window.setTimeout(() => map.invalidateSize(), 150);
-  }, [bounds, center, map, zoom]);
+
+    const invalidateTimer = window.setTimeout(() => map.invalidateSize(), 150);
+    return () => window.clearTimeout(invalidateTimer);
+  }, [bounds, center, map, viewKey, zoom]);
   return null;
 }
 
@@ -258,6 +268,11 @@ export default function MapView({ busData, stopCoords, state, now }) {
     }
     return stopsWithCoords.map(stop => [stop.lat, stop.lng]);
   }, [direction, stopsWithCoords, userPos]);
+
+  const viewportKey = useMemo(() => {
+    if (userPos) return `user:${userPos[0]}:${userPos[1]}`;
+    return `selection:${selectedLine}:${selectedDir}`;
+  }, [selectedDir, selectedLine, userPos]);
 
   useEffect(() => {
     let cancelled = false;
@@ -562,7 +577,12 @@ export default function MapView({ busData, stopCoords, state, now }) {
             zoomControl={false}
             style={{ height: '100%', width: '100%', background: darkMap ? '#111A18' : '#DCE9E4' }}
           >
-            <MapController center={activeCenter} zoom={userPos ? 15 : 13} bounds={visibleBounds} />
+            <MapController
+              center={activeCenter}
+              zoom={userPos ? 15 : 13}
+              bounds={visibleBounds}
+              viewKey={viewportKey}
+            />
             <ZoomControl position="bottomright" />
             <TileLayer
               key={`tiles-${theme.palette.mode}`}
