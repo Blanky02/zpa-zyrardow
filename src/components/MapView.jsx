@@ -622,7 +622,13 @@ export default function MapView({ busData, stopCoords, state, now }) {
                 key={auditMode ? 'audit-clusters' : 'standard-clusters'}
                 chunkedLoading
                 showCoverageOnHover={false}
-                spiderfyOnMaxZoom
+                // A cluster should zoom to its bounds, not spiderfy into a
+                // temporary radial layout. Once zoom 14 is reached the
+                // individual stop markers are shown normally.
+                spiderfyOnMaxZoom={false}
+                spiderfyOnEveryZoom={false}
+                zoomToBoundsOnClick
+                animate={false}
                 disableClusteringAtZoom={auditMode ? 0 : 14}
                 maxClusterRadius={38}
                 iconCreateFunction={clusterMarkerIcon}
