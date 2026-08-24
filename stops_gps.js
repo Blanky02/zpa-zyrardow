@@ -1,6 +1,6 @@
 // Auto-generated from https://pksgostynin.kiedyprzyjedzie.pl/stops
-// Generated: 2026-08-24T04:48:40.035948+00:00
-// API revision: 137996
+// Generated: 2026-08-24T19:13:23.295431+00:00
+// API revision: 139947
 const STOP_COORDS = {
   "DZIAŁKI - MŁYŃSKA [2678]": {
     "id": "2030190:2103478",
