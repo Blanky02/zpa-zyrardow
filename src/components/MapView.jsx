@@ -628,7 +628,7 @@ export default function MapView({ busData, stopCoords, state, now }) {
                 spiderfyOnMaxZoom={false}
                 spiderfyOnEveryZoom={false}
                 zoomToBoundsOnClick
-                animate={false}
+                animate
                 disableClusteringAtZoom={auditMode ? 0 : 14}
                 maxClusterRadius={38}
                 iconCreateFunction={clusterMarkerIcon}
