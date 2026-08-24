@@ -211,7 +211,14 @@ export default function MapView({ busData, stopCoords, state, now }) {
         }
       });
 
-    return Array.from(merged.values()).map(platform => ({ ...platform, lng: platform.lon }));
+    return Array.from(merged.values()).map(platform => ({
+      ...platform,
+      lng: platform.lon,
+      // Keep the Leaflet position reference stable between clock ticks. A new
+      // array here makes react-leaflet call marker.setLatLng() every second,
+      // which can cancel an active cluster spiderfy animation.
+      position: [platform.lat, platform.lon],
+    }));
   }, [busData, stopCoords]);
 
   const suspiciousGroups = useMemo(() => {
@@ -258,6 +265,14 @@ export default function MapView({ busData, stopCoords, state, now }) {
     return busData.lines.find(item => item.id === selectedLine) || null;
   }, [busData.lines, selectedLine]);
   const direction = line?.directions[selectedDir] || line?.directions[0] || null;
+  const visibleLineStops = useMemo(() => (
+    direction?.stops_full
+      ?.filter(stop => stop.lat && stop.lon)
+      .map(stop => ({
+        stop,
+        position: [Number(stop.lat), Number(stop.lon)],
+      })) || []
+  ), [direction]);
   const destination = useMemo(() => (direction ? formatDestination(direction) : ''), [direction]);
   const visibleBounds = useMemo(() => {
     if (userPos) return null;
@@ -615,7 +630,7 @@ export default function MapView({ busData, stopCoords, state, now }) {
                 {stopsWithCoords.map((stop, index) => (
                   <Marker
                     key={getPlatformKey(stop) || `${stop.lat}-${stop.lng}-${index}`}
-                    position={[stop.lat, stop.lng]}
+                    position={stop.position}
                     icon={auditMode && suspiciousPlatformKeys.has(getPlatformKey(stop)) ? auditStopMarkerIcon : stopMarkerIcon}
                     eventHandlers={{ click: () => setSelectedStop(stop) }}
                   >
@@ -628,10 +643,10 @@ export default function MapView({ busData, stopCoords, state, now }) {
               </MarkerClusterGroup>
             )}
 
-            {line && direction?.stops_full?.filter(stop => stop.lat && stop.lon).map((stop, index) => (
+            {line && visibleLineStops.map(({ stop, position }, index) => (
               <Marker
                 key={`${stop.id || stop.official_name}-${index}`}
-                position={[stop.lat, stop.lon]}
+                position={position}
                 icon={lineMarker(line, index)}
                 eventHandlers={{ click: () => setSelectedStop({
                   id: stop.id || null,
