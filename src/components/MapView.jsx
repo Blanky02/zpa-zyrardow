@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import {
   Avatar,
@@ -97,16 +97,26 @@ function osrmCacheWrite(key, segment) {
   }
 }
 
-function MapController({ center, zoom, bounds }) {
+function MapController({ center, zoom, bounds, viewKey }) {
   const map = useMap();
+  const appliedViewKey = useRef(null);
+
   useEffect(() => {
+    // Do not control the map on every React render. MarkerClusterGroup needs to
+    // own the viewport while a user is zooming into a cluster; calling
+    // fitBounds again would immediately merge the markers back into a cluster.
+    if (appliedViewKey.current === viewKey) return undefined;
+    appliedViewKey.current = viewKey;
+
     if (bounds?.length > 1) {
       map.fitBounds(bounds, { padding: [28, 28], maxZoom: zoom });
     } else {
       map.setView(center, zoom);
     }
-    window.setTimeout(() => map.invalidateSize(), 150);
-  }, [bounds, center, map, zoom]);
+
+    const invalidateTimer = window.setTimeout(() => map.invalidateSize(), 150);
+    return () => window.clearTimeout(invalidateTimer);
+  }, [bounds, center, map, viewKey, zoom]);
   return null;
 }
 
@@ -201,7 +211,14 @@ export default function MapView({ busData, stopCoords, state, now }) {
         }
       });
 
-    return Array.from(merged.values()).map(platform => ({ ...platform, lng: platform.lon }));
+    return Array.from(merged.values()).map(platform => ({
+      ...platform,
+      lng: platform.lon,
+      // Keep the Leaflet position reference stable between clock ticks. A new
+      // array here makes react-leaflet call marker.setLatLng() every second,
+      // which can cancel an active cluster spiderfy animation.
+      position: [platform.lat, platform.lon],
+    }));
   }, [busData, stopCoords]);
 
   const suspiciousGroups = useMemo(() => {
@@ -248,6 +265,14 @@ export default function MapView({ busData, stopCoords, state, now }) {
     return busData.lines.find(item => item.id === selectedLine) || null;
   }, [busData.lines, selectedLine]);
   const direction = line?.directions[selectedDir] || line?.directions[0] || null;
+  const visibleLineStops = useMemo(() => (
+    direction?.stops_full
+      ?.filter(stop => stop.lat && stop.lon)
+      .map(stop => ({
+        stop,
+        position: [Number(stop.lat), Number(stop.lon)],
+      })) || []
+  ), [direction]);
   const destination = useMemo(() => (direction ? formatDestination(direction) : ''), [direction]);
   const visibleBounds = useMemo(() => {
     if (userPos) return null;
@@ -258,6 +283,11 @@ export default function MapView({ busData, stopCoords, state, now }) {
     }
     return stopsWithCoords.map(stop => [stop.lat, stop.lng]);
   }, [direction, stopsWithCoords, userPos]);
+
+  const viewportKey = useMemo(() => {
+    if (userPos) return `user:${userPos[0]}:${userPos[1]}`;
+    return `selection:${selectedLine}:${selectedDir}`;
+  }, [selectedDir, selectedLine, userPos]);
 
   useEffect(() => {
     let cancelled = false;
@@ -562,7 +592,12 @@ export default function MapView({ busData, stopCoords, state, now }) {
             zoomControl={false}
             style={{ height: '100%', width: '100%', background: darkMap ? '#111A18' : '#DCE9E4' }}
           >
-            <MapController center={activeCenter} zoom={userPos ? 15 : 13} bounds={visibleBounds} />
+            <MapController
+              center={activeCenter}
+              zoom={userPos ? 15 : 13}
+              bounds={visibleBounds}
+              viewKey={viewportKey}
+            />
             <ZoomControl position="bottomright" />
             <TileLayer
               key={`tiles-${theme.palette.mode}`}
@@ -587,7 +622,13 @@ export default function MapView({ busData, stopCoords, state, now }) {
                 key={auditMode ? 'audit-clusters' : 'standard-clusters'}
                 chunkedLoading
                 showCoverageOnHover={false}
-                spiderfyOnMaxZoom
+                // A cluster should zoom to its bounds, not spiderfy into a
+                // temporary radial layout. Once zoom 14 is reached the
+                // individual stop markers are shown normally.
+                spiderfyOnMaxZoom={false}
+                spiderfyOnEveryZoom={false}
+                zoomToBoundsOnClick
+                animate
                 disableClusteringAtZoom={auditMode ? 0 : 14}
                 maxClusterRadius={38}
                 iconCreateFunction={clusterMarkerIcon}
@@ -595,7 +636,7 @@ export default function MapView({ busData, stopCoords, state, now }) {
                 {stopsWithCoords.map((stop, index) => (
                   <Marker
                     key={getPlatformKey(stop) || `${stop.lat}-${stop.lng}-${index}`}
-                    position={[stop.lat, stop.lng]}
+                    position={stop.position}
                     icon={auditMode && suspiciousPlatformKeys.has(getPlatformKey(stop)) ? auditStopMarkerIcon : stopMarkerIcon}
                     eventHandlers={{ click: () => setSelectedStop(stop) }}
                   >
@@ -608,10 +649,10 @@ export default function MapView({ busData, stopCoords, state, now }) {
               </MarkerClusterGroup>
             )}
 
-            {line && direction?.stops_full?.filter(stop => stop.lat && stop.lon).map((stop, index) => (
+            {line && visibleLineStops.map(({ stop, position }, index) => (
               <Marker
                 key={`${stop.id || stop.official_name}-${index}`}
-                position={[stop.lat, stop.lon]}
+                position={position}
                 icon={lineMarker(line, index)}
                 eventHandlers={{ click: () => setSelectedStop({
                   id: stop.id || null,

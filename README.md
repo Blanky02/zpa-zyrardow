@@ -60,7 +60,7 @@ npm run build # dist/
 npm run preview
 ```
 
-Wymagania: Node 18+
+Wymagania: Node 20+
 
 Stary `index.html` v2 jest w `archive/legacy.html` – nadal działa jeśli otworzysz bezpośrednio.
 
