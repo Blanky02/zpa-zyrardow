@@ -120,6 +120,8 @@ export default defineConfig({
   },
   base: '/',
   test: {
+    // jsdom 26: jsdom 28+ depends on undici 8, which crashes Node 20
+    // (TypeError: webidl.util.markAsUncloneable is not a function)
     environment: 'jsdom',
     setupFiles: './src/test/setup.js',
     globals: true,
