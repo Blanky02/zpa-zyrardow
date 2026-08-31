@@ -1,9 +1,9 @@
 {
   "meta": {
-    "version": "2026-08-30",
-    "generatedAt": "2026-08-30T09:49:44Z",
+    "version": "2026-08-31",
+    "generatedAt": "2026-08-31T10:40:16Z",
     "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady, http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/",
-    "pdfsFound": 22,
+    "pdfsFound": 25,
     "pdfs": [
       {
         "text": "Linia nr 1 Żyrardów Spółdzielcza PKP (965)(PDF)",
@@ -61,13 +61,23 @@
         "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
       },
       {
-        "text": "Linia 0 Żeromskiego – Zalew (przez PKP)",
+        "text": "Linia 0 Żeromskiego – Zalew (przez PKP) – ważny do 31 sierpnia 2026 r.",
         "href": "http://pksgostynin.pl/wp-content/uploads/2026/07/Linia-0-Żeromskiego.pdf",
         "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
       },
       {
-        "text": "Linia 0 Spółdzielcza – Zalew (przez PKP)",
+        "text": "Linia 0 Żeromskiego – Zalew (przez PKP) – ważny od 1 września 2026 r.",
+        "href": "http://pksgostynin.pl/wp-content/uploads/2026/08/Linia-0-Żeromskiego.pdf",
+        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
+      },
+      {
+        "text": "Linia 0 Spółdzielcza – Zalew (przez PKP) – ważny do 31 sierpnia 2026 r.",
         "href": "http://pksgostynin.pl/wp-content/uploads/2026/07/Linia-0-Spółdzielcza.pdf",
+        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
+      },
+      {
+        "text": "Linia 0 Spółdzielcza – Zalew (przez PKP) – ważny od 1 września 2026 r.",
+        "href": "http://pksgostynin.pl/wp-content/uploads/2026/08/Linia-0-Spółdzielcza.pdf",
         "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
       },
       {
@@ -86,8 +96,13 @@
         "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
       },
       {
-        "text": "Linia 4",
+        "text": "Linia 4 – ważny do 31 sierpnia 2026 r.",
         "href": "http://pksgostynin.pl/wp-content/uploads/2026/07/Linia-4-1.pdf",
+        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
+      },
+      {
+        "text": "Linia 4 – ważny od 1 września 2026 r.",
+        "href": "http://pksgostynin.pl/wp-content/uploads/2026/08/Rozkład-linia-4.pdf",
         "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
       },
       {
