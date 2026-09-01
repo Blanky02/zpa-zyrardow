@@ -1,9 +1,9 @@
 {
   "meta": {
-    "version": "2026-08-31",
-    "generatedAt": "2026-08-31T10:40:16Z",
+    "version": "2026-09-01",
+    "generatedAt": "2026-09-01T09:16:14Z",
     "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady, http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/",
-    "pdfsFound": 25,
+    "pdfsFound": 26,
     "pdfs": [
       {
         "text": "Linia nr 1 Żyrardów Spółdzielcza PKP (965)(PDF)",
@@ -23,6 +23,11 @@
       {
         "text": "Linia nr 4 Wiskitki Pl. Wolności - Spółdzielcza p. Działki (968)(PDF)",
         "href": "https://zpa.powiat-zyrardowski.pl/plik,18,linia-nr-4-wiskitki-pl-wolnosci-spoldzielcza-p-dzialki-968.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Linia nr 4 Wiskitki Pl. Wolności - Spółdzielcza p. Działki (968) od 01.09.2026(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,238,linia-nr-4-wiskitki-pl-wolnosci-spoldzielcza-p-dzialki-968-od-01-09-2026.pdf",
         "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
       },
       {
