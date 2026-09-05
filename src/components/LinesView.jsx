@@ -27,7 +27,7 @@ import {
   SearchRounded,
 } from '@mui/icons-material';
 import { findOccurrencesForStop, formatDestination, getLineHex, getUniqueStops } from '../utils/stops.js';
-import { getScheduleForStop, parseMinutes } from '../utils/time.js';
+import { getScheduleForStop, hasPdfSchedule, parseMinutes } from '../utils/time.js';
 
 const dayShort = {
   weekday: 'Pn–pt',
@@ -403,6 +403,11 @@ export default function LinesView({
               <Box sx={{ mb: 2.5 }}>
                 <Typography variant="titleLarge" sx={{ fontWeight: 750 }}>Odjazdy z przystanku</Typography>
                 <Typography variant="bodyMedium" color="text.secondary" sx={{ mt: 0.5 }}>{selectedStop}</Typography>
+                {hasPdfSchedule(currentDir, state.dayType) && (
+                  <Typography variant="labelSmall" color="text.secondary" sx={{ mt: 0.5, display: 'block' }}>
+                    Godziny z oficjalnego rozkładu (PDF) — dla każdego przystanku
+                  </Typography>
+                )}
               </Box>
 
               <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '320px minmax(0, 1fr)' }, gap: { xs: 2, md: 3 }, alignItems: 'start' }}>

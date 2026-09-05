@@ -29,11 +29,21 @@ jobs:
           pip install -r scraper/requirements.txt
           pip install requests beautifulsoup4 lxml
 
-      - name: Run scraper (PDF list -> timetables.json meta)
+      - name: Run scraper (PDFy -> rzeczywiste godziny per przystanek)
         run: |
+          echo "🧪 Parser PDF self-test"
+          python scraper/test_pdf_timetables.py || echo "Parser tests failed but continuing"
           echo "🚍 Running scraper.py"
           python scraper/scraper.py || echo "Scraper failed but continuing"
           ls -lh timetables.json
+
+      - name: Upload PDF times audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf-times-report
+          path: scraper/audits/pdf_times_report.json
+          if-no-files-found: ignore
 
       - name: Update stops GPS from kiedyprzyjedzie.pl API
         run: |
@@ -48,7 +58,7 @@ jobs:
         run: |
           git config user.name "ZPA Bot"
           git config user.email "zpa-bot@github-actions.local"
-          git add timetables.json stops_gps.json stops_gps.js public/timetables.json public/stops_gps.json || true
+          git add timetables.json stops_gps.json stops_gps.js public/timetables.json public/stops_gps.json scraper/audits/pdf_times_report.json || true
           if git diff --staged --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT
           else

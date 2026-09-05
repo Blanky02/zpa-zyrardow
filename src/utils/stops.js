@@ -1,3 +1,5 @@
+import { parseMinutes } from './time.js';
+
 export function normalizeStopName(name = '') {
   return name
     .toLocaleUpperCase('pl')
@@ -135,6 +137,11 @@ export function findOccurrencesForStop(busData, stopSelection) {
   return results;
 }
 
+const TIME_RE = /^ ?([01]?\d|2[0-4]):[0-5]\d ?$/;
+
+const validTime = (t) => typeof t === 'string' && TIME_RE.test(t.trim());
+const cleanTime = (t) => t.trim().replace(/^(\d):/, '0$1:');
+
 export function findDirectRoutes(busData, fromName, toName, dayType) {
   const fromQ = fromName.toLowerCase();
   const toQ = toName.toLowerCase();
@@ -143,22 +150,46 @@ export function findDirectRoutes(busData, fromName, toName, dayType) {
     line.directions.forEach(dir => {
       const fromIdx = dir.stops.findIndex(s => s.toLowerCase().includes(fromQ) || fromQ.includes(s.toLowerCase().split('/')[0].trim().toLowerCase()));
       const toIdx = dir.stops.findIndex(s => s.toLowerCase().includes(toQ) || toQ.includes(s.toLowerCase().split('/')[0].trim().toLowerCase()));
-      if (fromIdx !== -1 && toIdx !== -1 && fromIdx < toIdx) {
-        const baseTimes = dir.baseTimes[dayType] || dir.baseTimes['weekday'] || [];
-        baseTimes.forEach(t => {
-          const [h, m] = t.split(':').map(Number);
-          const depMins = h * 60 + m + fromIdx * 2;
-          const arrMins = h * 60 + m + toIdx * 2;
-          const depTime = `${String(Math.floor(depMins / 60) % 24).padStart(2, '0')}:${String(depMins % 60).padStart(2, '0')}`;
-          const arrTime = `${String(Math.floor(arrMins / 60) % 24).padStart(2, '0')}:${String(arrMins % 60).padStart(2, '0')}`;
+      if (fromIdx === -1 || toIdx === -1 || fromIdx >= toIdx) return;
+
+      const courses = dir.stopsTimes?.[dayType] || dir.stopsTimes?.weekday || null;
+      if (Array.isArray(courses) && courses.length) {
+        // Rzeczywiste godziny z oficjalnych PDF-ów (per przystanek).
+        courses.forEach(course => {
+          const dep = Array.isArray(course) ? course[fromIdx] : null;
+          const arr = Array.isArray(course) ? course[toIdx] : null;
+          if (!validTime(dep) || !validTime(arr)) return;
+          const depMins = parseMinutes(cleanTime(dep));
+          const arrMins = parseMinutes(cleanTime(arr));
           results.push({
             line, dir, fromIdx, toIdx,
-            depTime, arrTime, depMins,
-            duration: (toIdx - fromIdx) * 2,
-            stopsCount: toIdx - fromIdx
+            depTime: cleanTime(dep),
+            arrTime: cleanTime(arr),
+            depMins,
+            duration: Math.max(0, arrMins - depMins),
+            stopsCount: toIdx - fromIdx,
+            timesSource: 'pdf',
           });
         });
+        return;
       }
+
+      // Fallback dla danych bez rozkładu PDF: przybliżenie +2 min na przystanek.
+      const baseTimes = dir.baseTimes[dayType] || dir.baseTimes['weekday'] || [];
+      baseTimes.forEach(t => {
+        const [h, m] = t.split(':').map(Number);
+        const depMins = h * 60 + m + fromIdx * 2;
+        const arrMins = h * 60 + m + toIdx * 2;
+        const depTime = `${String(Math.floor(depMins / 60) % 24).padStart(2, '0')}:${String(depMins % 60).padStart(2, '0')}`;
+        const arrTime = `${String(Math.floor(arrMins / 60) % 24).padStart(2, '0')}:${String(arrMins % 60).padStart(2, '0')}`;
+        results.push({
+          line, dir, fromIdx, toIdx,
+          depTime, arrTime, depMins,
+          duration: (toIdx - fromIdx) * 2,
+          stopsCount: toIdx - fromIdx,
+          timesSource: 'estimate',
+        });
+      });
     });
   });
   results.sort((a, b) => a.depMins - b.depMins);

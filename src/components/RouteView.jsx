@@ -24,7 +24,7 @@ import {
   SwapVertRounded,
 } from '@mui/icons-material';
 import { getUniqueStops, findDirectRoutes, getLineHex, formatDestination } from '../utils/stops.js';
-import { dayLabel } from '../utils/time.js';
+import { dayLabel, hasPdfSchedule } from '../utils/time.js';
 import { addRouteRecent, getRouteRecents } from '../utils/storage.js';
 
 const dayShort = {
@@ -117,6 +117,10 @@ export default function RouteView({ busData, state, setState, now }) {
   const [routeRecents, setRouteRecents] = useState(() => getRouteRecents());
 
   const stops = useMemo(() => getUniqueStops(busData), [busData]);
+  const pdfTimesAvailable = useMemo(
+    () => Boolean(busData?.lines?.some(line => line?.directions?.some(dir => hasPdfSchedule(dir, state.dayType)))),
+    [busData, state.dayType],
+  );
   const todayType = useMemo(() => {
     const day = now.date.getDay();
     return day === 0 ? 'sunday' : day === 6 ? 'saturday' : 'weekday';
@@ -292,7 +296,9 @@ export default function RouteView({ busData, state, setState, now }) {
             Pokaż połączenia
           </Button>
           <Typography variant="bodySmall" sx={{ opacity: 0.7, textAlign: 'center', mt: 1.25 }}>
-            Połączenia bezpośrednie · około 2 min na przystanek
+            {pdfTimesAvailable
+              ? 'Połączenia bezpośrednie · godziny z oficjalnego rozkładu (PDF)'
+              : 'Połączenia bezpośrednie · około 2 min na przystanek'}
           </Typography>
         </Paper>
 

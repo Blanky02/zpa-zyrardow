@@ -11,6 +11,9 @@ __pycache__/
 venv/
 *.egg-info/
 
+# Scraper cache (pobrane PDF-y)
+scraper/cache/
+
 # Logs
 npm-debug.log*
 yarn-debug.log*

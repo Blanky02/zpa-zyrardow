@@ -8,12 +8,27 @@ Nowoczesna, responsywna aplikacja **Rozkład Jazdy** dla komunikacji miejskiej w
 ✅ **Material Design 3 (Material You)** – TopAppBar, Cards 24-28px, Chips, FAB, Bottom Navigation, Snackbar, dynamic theme (light/dark)
 ✅ **UX dla mieszkańców** – szybki dostęp do ulubionych, ostatnich, next bus countdown, offline-first
 ✅ **Bottom Navigation na mobile** – Linie / Przystanki / Od→Do / Mapa (80px, jak w Android)
-✅ **Zachowane dane** – `timetables.json`, `stops_gps.json`, live GPS z `kiedyprzyjedzie.pl`, OSRM routing
+✅ **Zachowane dane** – `timetables.json`, `stops_gps.json`, godziny **wprost z PDF-ów** (również na przystankach pośrednich), OSRM routing
+
+## Godziny z PDF-ów (nie „kiedy przyjedzie”)
+
+Wszystkie godziny odjazdów **i przyjazdów na każdym przystanku** pochodzą z tabel
+oficjalnych PDF-ów PKS Gostynin / ŻPA (`zpa.powiat-zyrardowski.pl`, `pksgostynin.pl`):
+
+- scraper parsuje tabele PDF (pdfplumber) i zapisuje `direction.stopsTimes`:
+  `{ weekday: [[kurs: HH:MM|null per przystanek], ...], saturday: [...], sunday: [...] }`,
+- oznaczenia dni kursu (D / 6 / 7+ / C) czytane z nagłówków i legendy PDF,
+- przy kilku wersjach rozkładu wybierany jest PDF „ważny od” aktualny na dziś,
+- przybliżenie „+2 min na przystanek” zostało tylko jako fallback dla starych
+  danych bez `stopsTimes` (offline fallback),
+- API `kiedyprzyjedzie.pl` służy wyłącznie do współrzędnych GPS przystanków na mapie –
+  **żadne godziny nie pochodzą z tej usługi**.
 
 ```
 User -> Vite Dev Server (0.0.0.0:5173, allowedHosts: true)
   -> fetch timetables.json (public/) + stops_gps.json
-  -> live fetch kiedyprzyjedzie.pl/stops (merge)
+  -> godziny z timetables.json (tabela PDF per przystanek)
+  -> live fetch kiedyprzyjedzie.pl/stops (tylko współrzędne na mapę)
   -> localStorage cache + hash -> banner "Nowy rozkład!"
   -> MUI Theme (primary #006A60 ŻPA green)
 ```
@@ -41,13 +56,15 @@ User -> Vite Dev Server (0.0.0.0:5173, allowedHosts: true)
     RouteView.jsx    – Od→Do planner, swap, direct routes
     MapView.jsx      – react-leaflet + OSRM routing + CircleMarker
 /public/
-  timetables.json    – Baza rozkładów (generowana przez scraper)
+  timetables.json    – Baza rozkładów (generowana przez scraper z PDF-ów)
   stops_gps.json     – GPS przystanków
   manifest.json      – PWA
   sw.js              – Service Worker v9
   icons/             – PWA icons
 /scraper/
-  scraper.py         – Python scraper PDFów ZPA/PKS
+  scraper.py         – Pobiera PDFy ZPA/PKS i parsuje tabele
+  pdf_timetables.py  – Parser tabel PDF -> godziny per przystanek (stopsTimes)
+  test_pdf_timetables.py – Testy parsera (python3 scraper/test_pdf_timetables.py)
 archive/legacy.html  – Stara wersja v2 (backup)
 ```
 
@@ -103,7 +120,9 @@ const MapView = lazy(() => import('./components/MapView.jsx'));
 ## GitHub Actions cron ✅
 
 - `.github/workflows/scrape.yml` – codziennie `0 4 * * *` UTC (05:00/06:00 PL)
-- Steps: checkout, setup-python 3.11, pip install, `scraper.py`, `update_stops.py`, copy to `public/`, git add + commit + push jeśli hash się zmienił
+- Steps: checkout, setup-python 3.11, pip install, test parsera, `scraper.py`
+  (pobiera PDFy -> `stopsTimes` + raport `scraper/audits/pdf_times_report.json`),
+  `update_stops.py` (współrzędne GPS), copy to `public/`, commit + push jeśli się zmieniło
 - Drugi job `build-check` – `npm ci && npm run build` + upload artifact `dist/`
 - Ręczne uruchomienie: `workflow_dispatch` z GitHub UI
 - Efekt: użytkownik rano widzi banner "Nowy rozkład!" automatycznie
