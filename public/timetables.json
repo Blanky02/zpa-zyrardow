@@ -1,9 +1,9 @@
 {
   "meta": {
-    "version": "2026-09-18",
-    "generatedAt": "2026-09-18T08:53:55Z",
+    "version": "2026-09-19",
+    "generatedAt": "2026-09-19T08:40:17Z",
     "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady, http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/",
-    "pdfsFound": 26,
+    "pdfsFound": 32,
     "pdfs": [
       {
         "text": "Linia nr 1 Żyrardów Spółdzielcza PKP (965)(PDF)",
@@ -66,6 +66,36 @@
         "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
       },
       {
+        "text": "Puszcza Mariańska-Studzieniec (1016) od 21.09.2026 r.(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,239,puszcza-marianska-studzieniec-1016-od-21-09-2026-r.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Puszcza Mariańska p. Zator, Wycześniak (1017) od 21.09.2026 r.(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,240,puszcza-marianska-p-zator-wyczesniak-1017-od-21-09-2026-r.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Puszcza Mariańska - Górki p. Korabiewice (1018) od 21.09.2026 r.(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,241,puszcza-marianska-gorki-p-korabiewice-1018-od-21-09-2026-r.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Puszcza Mariańska - Kamion p. Michałów (1019) od 21.09.2026 r.(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,242,puszcza-marianska-kamion-p-michalow-1019-od-21-09-2026-r.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Kamion - Puszcza Mariańska p. Wygoda (1020) od 21.09.2026 r.(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,243,kamion-puszcza-marianska-p-wygoda-1020-od-21-09-2026-r.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Bartniki- Żyrardów D.A. p. Puszcza Mariańska (1961) od 21.09.2026 r.(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,244,bartniki-zyrardow-d-a-p-puszcza-marianska-1961-od-21-09-2026-r.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
         "text": "Linia 0 Żeromskiego – Zalew (przez PKP) – ważny do 31 sierpnia 2026 r.",
         "href": "http://pksgostynin.pl/wp-content/uploads/2026/07/Linia-0-Żeromskiego.pdf",
         "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
@@ -123,16 +153,6 @@
       {
         "text": "Linia 8",
         "href": "http://pksgostynin.pl/wp-content/uploads/2026/04/Linia-8.pdf",
-        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
-      },
-      {
-        "text": "Linia 9",
-        "href": "http://pksgostynin.pl/wp-content/uploads/2026/04/Linia-9.pdf",
-        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
-      },
-      {
-        "text": "Linia 10",
-        "href": "http://pksgostynin.pl/wp-content/uploads/2026/04/Linia-10.pdf",
         "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
       }
     ],
