@@ -1,9 +1,9 @@
 {
   "meta": {
-    "version": "2026-10-13",
-    "generatedAt": "2026-10-13T11:31:26Z",
+    "version": "2026-10-14",
+    "generatedAt": "2026-10-14T09:22:16Z",
     "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady, http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/",
-    "pdfsFound": 34,
+    "pdfsFound": 35,
     "pdfs": [
       {
         "text": "Linia nr 1 Żyrardów Spółdzielcza PKP (965)(PDF)",
@@ -21,13 +21,8 @@
         "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
       },
       {
-        "text": "Linia nr 4 Wiskitki Pl. Wolności - Spółdzielcza p. Działki (968)(PDF)",
-        "href": "https://zpa.powiat-zyrardowski.pl/plik,18,linia-nr-4-wiskitki-pl-wolnosci-spoldzielcza-p-dzialki-968.pdf",
-        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
-      },
-      {
-        "text": "Linia nr 4 Wiskitki Pl. Wolności - Spółdzielcza p. Działki (968) od 01.09.2026(PDF)",
-        "href": "https://zpa.powiat-zyrardowski.pl/plik,238,linia-nr-4-wiskitki-pl-wolnosci-spoldzielcza-p-dzialki-968-od-01-09-2026.pdf",
+        "text": "Linia nr 4 Wiskitki Pl. Wolności - Spółdzielcza p. Działki (968) od 01.09.2026 r.(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,255,linia-nr-4-wiskitki-pl-wolnosci-spoldzielcza-p-dzialki-968-od-01-09-2026-r.pdf",
         "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
       },
       {
@@ -53,6 +48,16 @@
       {
         "text": "Linia nr 10 Żyrardów Mostowa - Korytów Las p. Ossowskiego, Parkingowa (1005)(PDF)",
         "href": "https://zpa.powiat-zyrardowski.pl/plik,23,linia-nr-10-zyrardow-mostowa-korytow-las-p-ossowskiego-parkingowa-1005.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Radziejowice Szkoła- Słabomierz Wiadukt- Kuklówka Radziejowicka p. Budy Józefowskie, Nowe Budy (934) od 05.10.2026 r.(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,253,radziejowice-szkola-slabomierz-wiadukt-kuklowka-radziejowicka-p-budy-jozefowskie-nowe-budy-934-od-05-10-2026-r.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Radziejowice Kubickiego- Kuklówka Zarzeczna Babie Lato p. Krze, Adamów (936) od 05.10.2026 r.(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,254,radziejowice-kubickiego-kuklowka-zarzeczna-babie-lato-p-krze-adamow-936-od-05-10-2026-r.pdf",
         "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
       },
       {
@@ -148,11 +153,6 @@
       {
         "text": "Linia 4 – ważny od 1 września 2026 r.",
         "href": "http://pksgostynin.pl/wp-content/uploads/2026/08/Rozkład-linia-4.pdf",
-        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
-      },
-      {
-        "text": "Linia 5",
-        "href": "http://pksgostynin.pl/wp-content/uploads/2026/07/Linia-5-04.07-prprawiona.pdf",
         "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
       }
     ],
