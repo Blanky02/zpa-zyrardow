@@ -1,10 +1,115 @@
 {
   "meta": {
-    "version": "2026-11-09",
-    "generatedAt": "2026-11-09T12:38:49Z",
+    "version": "2026-11-10",
+    "generatedAt": "2026-11-10T12:18:18Z",
     "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady, http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/",
-    "pdfsFound": 14,
+    "pdfsFound": 35,
     "pdfs": [
+      {
+        "text": "Linia nr 1 Żyrardów Spółdzielcza PKP (965)(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,236,linia-nr-1-zyrardow-spoldzielcza-pkp-965.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Linia nr  2 Żyrardów Żeromskiego Poznańska Parkingowa Nowe Kozłowice Stare Kozłowice Żyrardów (966)(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,14,linia-nr-2-zyrardow-zeromskiego-poznanska-parkingowa-nowe-kozlowice-stare-kozlowice-zyrardow-966.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Linia nr 3 Działki OSP - Żyrardów - Żeromskiego - Poznańska - Jaktorowska (967)(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,15,linia-nr-3-dzialki-osp-zyrardow-zeromskiego-poznanska-jaktorowska-967.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Linia nr 4 Wiskitki Pl. Wolności - Spółdzielcza p. Działki (968) od 01.09.2026 r.(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,255,linia-nr-4-wiskitki-pl-wolnosci-spoldzielcza-p-dzialki-968-od-01-09-2026-r.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Linia nr 5 Żyrardów Mostowa - Korytów p. Okrzei, PKP (969)(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,235,linia-nr-5-z-yrardo-w-mostowa-koryto-w-p-okrzei-pkp-969.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Linia nr 7 Żyrardów Żeromskiego - Parkingowa - Spółdzielcza (971)(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,20,linia-nr-7-zyrardow-zeromskiego-parkingowa-spoldzielcza-971.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Linia nr 8 Wiskitki Pl. Wolności Żyrardów Żeromskiego - Parkingowa - Spółdzielcza (1006)(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,21,linia-nr-8-wiskitki-pl-wolnosci-zyrardow-zeromskiego-parkingowa-spoldzielcza-1006.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Linia nr 9 Żyrardów Żeromskiego PKP (970)(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,22,linia-nr-9-zyrardow-zeromskiego-pkp-970.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Linia nr 10 Żyrardów Mostowa - Korytów Las p. Ossowskiego, Parkingowa (1005)(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,23,linia-nr-10-zyrardow-mostowa-korytow-las-p-ossowskiego-parkingowa-1005.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Radziejowice Szkoła- Słabomierz Wiadukt- Kuklówka Radziejowicka p. Budy Józefowskie, Nowe Budy (934) od 05.10.2026 r.(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,253,radziejowice-szkola-slabomierz-wiadukt-kuklowka-radziejowicka-p-budy-jozefowskie-nowe-budy-934-od-05-10-2026-r.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Radziejowice Kubickiego- Kuklówka Zarzeczna Babie Lato p. Krze, Adamów (936) od 05.10.2026 r.(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,254,radziejowice-kubickiego-kuklowka-zarzeczna-babie-lato-p-krze-adamow-936-od-05-10-2026-r.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Linia Różanów - Żyrardów (1957)(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,180,linia-rozanow-zyrardow-1957.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Kąty Szkoła - Kuznocin 72 p. Rozlazłów ( 818)(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,206,katy-szkola-kuznocin-72-p-rozlazlow-818.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Puszcza Mariańska-Studzieniec (1016) od 21.09.2026 r.(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,239,puszcza-marianska-studzieniec-1016-od-21-09-2026-r.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Puszcza Mariańska p. Zator, Wycześniak (1017) od 21.09.2026 r.(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,240,puszcza-marianska-p-zator-wyczesniak-1017-od-21-09-2026-r.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Puszcza Mariańska - Górki p. Korabiewice (1018) od 21.09.2026 r.(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,241,puszcza-marianska-gorki-p-korabiewice-1018-od-21-09-2026-r.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Puszcza Mariańska - Kamion p. Michałów (1019) od 21.09.2026 r.(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,242,puszcza-marianska-kamion-p-michalow-1019-od-21-09-2026-r.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Kamion - Puszcza Mariańska p. Wygoda (1020) od 21.09.2026 r.(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,243,kamion-puszcza-marianska-p-wygoda-1020-od-21-09-2026-r.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Bartniki- Żyrardów D.A. p. Puszcza Mariańska (1961) od 21.09.2026 r.(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,244,bartniki-zyrardow-d-a-p-puszcza-marianska-1961-od-21-09-2026-r.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Żabia Wola-Krze - Radziejowice - Mszczonów - Puszcza Mariańska od 01.10.2026 r.(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,251,zabia-wola-krze-radziejowice-mszczonow-puszcza-marianska-od-01-10-2026-r.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
+      {
+        "text": "Mszczonów- Żabia Wola od 01.10.2026 r.(PDF)",
+        "href": "https://zpa.powiat-zyrardowski.pl/plik,252,mszczonow-zabia-wola-od-01-10-2026-r.pdf",
+        "source": "https://zpa.powiat-zyrardowski.pl/75,rozklady"
+      },
       {
         "text": "Linia 0 Żeromskiego – Zalew (przez PKP) – ważny do 31 sierpnia 2026 r.",
         "href": "http://pksgostynin.pl/wp-content/uploads/2026/07/Linia-0-Żeromskiego.pdf",
@@ -48,31 +153,6 @@
       {
         "text": "Linia 4 – ważny od 1 września 2026 r.",
         "href": "http://pksgostynin.pl/wp-content/uploads/2026/08/Rozkład-linia-4.pdf",
-        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
-      },
-      {
-        "text": "Linia 5",
-        "href": "http://pksgostynin.pl/wp-content/uploads/2026/07/Linia-5-04.07-prprawiona.pdf",
-        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
-      },
-      {
-        "text": "Linia 7",
-        "href": "http://pksgostynin.pl/wp-content/uploads/2026/04/Linia-7.pdf",
-        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
-      },
-      {
-        "text": "Linia 8",
-        "href": "http://pksgostynin.pl/wp-content/uploads/2026/04/Linia-8.pdf",
-        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
-      },
-      {
-        "text": "Linia 9",
-        "href": "http://pksgostynin.pl/wp-content/uploads/2026/04/Linia-9.pdf",
-        "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
-      },
-      {
-        "text": "Linia 10",
-        "href": "http://pksgostynin.pl/wp-content/uploads/2026/04/Linia-10.pdf",
         "source": "http://pksgostynin.pl/zyrardowskie-przewozy-autobusowe/"
       }
     ],
